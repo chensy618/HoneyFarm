@@ -15,6 +15,10 @@ from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
+<<<<<<< HEAD
+=======
+from cowrie.email_alert import send_honeytoken_email
+>>>>>>> 8ccbce9 (honeyfs ok, honeytoken ok)
 
 commands = {}
 
@@ -55,6 +59,15 @@ class Command_cat(HoneyPotCommand):
 
                 pname = self.fs.resolve_path(arg, self.protocol.cwd)
 
+<<<<<<< HEAD
+=======
+                if "aws.txt" in pname or "id_rsa" in pname or "secret" in pname:
+                    session_id = getattr(getattr(self.protocol, "session", None), "id", "unknown-session")
+                    send_honeytoken_email(pname, session_id)
+                else:
+                    send_honeytoken_email(pname, "unknown-session")
+
+>>>>>>> 8ccbce9 (honeyfs ok, honeytoken ok)
                 if self.fs.isdir(pname):
                     self.errorWrite(f"cat: {arg}: Is a directory\n")
                     continue

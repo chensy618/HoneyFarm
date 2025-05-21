@@ -57,6 +57,11 @@ RUN python3 -m venv cowrie-env && \
     pip install --no-cache-dir --upgrade -r ${COWRIE_HOME}/cowrie-git/requirements.txt && \
     pip install --no-cache-dir --upgrade -r ${COWRIE_HOME}/cowrie-git/requirements-output.txt
 
+<<<<<<< HEAD
+=======
+COPY --chown=${COWRIE_USER}:${COWRIE_GROUP} custom_files/ ${COWRIE_HOME}/cowrie-git/myfiles/
+
+>>>>>>> 8ccbce9 (honeyfs ok, honeytoken ok)
 COPY --chown=${COWRIE_USER}:${COWRIE_GROUP} . ${COWRIE_HOME}/cowrie-git
 
 
