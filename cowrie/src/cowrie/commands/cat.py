@@ -8,7 +8,7 @@ cat command
 
 from __future__ import annotations
 
-
+import datetime
 import getopt
 
 from twisted.python import log
@@ -16,6 +16,8 @@ from twisted.python import log
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
 from cowrie.email_alert import send_honeytoken_email
+from cowrie.ssh.transport import HoneyPotSSHTransport
+
 
 commands = {}
 
@@ -56,11 +58,24 @@ class Command_cat(HoneyPotCommand):
 
                 pname = self.fs.resolve_path(arg, self.protocol.cwd)
 
-                if "aws.txt" in pname or "id_rsa" in pname or "secret" in pname:
-                    session_id = getattr(getattr(self.protocol, "session", None), "id", "unknown-session")
-                    send_honeytoken_email(pname, session_id)
+                if "aws_config.txt" in pname or "id_rsa" in pname or "secret" in pname:
+                    try:
+                        src_ip = self.protocol.transport.getPeer().host
+                    except Exception:
+                        src_ip = "unknown-ip"
+                    
+                    try:
+                        session_id = getattr(self.protocol, "transportId", "unknown-session")
+                    except Exception:
+                        session_id = "unknown-session"
+
+                    print(f"[DEBUG] src_ip: {src_ip}")
+                    print(f"[DEBUG] session_id: {session_id}")
+
+                    timestamp = datetime.datetime.utcnow().isoformat()
+                    send_honeytoken_email(pname, session_id, src_ip, timestamp)
                 else:
-                    send_honeytoken_email(pname, "unknown-session")
+                    send_honeytoken_email(pname, "unknown_session", "unknown_ip", timestamp)
 
                 if self.fs.isdir(pname):
                     self.errorWrite(f"cat: {arg}: Is a directory\n")
