@@ -2,11 +2,7 @@
 -r requirements.txt
 
 # csirtg. it has an implicit dependency on geoip2
-<<<<<<< HEAD
-csirtgsdk==1.1.5
-=======
 # csirtgsdk==1.1.5
->>>>>>> 8ccbce9 (honeyfs ok, honeytoken ok)
 geoip2
 
 # dshield
