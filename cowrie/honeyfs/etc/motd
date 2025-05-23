@@ -16,16 +16,9 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 
-<<<<<<< HEAD
-
-THIS IS A TEST SYSTEM ***************************************************
-*************************************************************************
-**********************************************************TEST FOR COWRIE
-=======
 aws-------------
 THIS IS A TEST SYSTEM ***************************************************
 *************************************************************************
 **********************************************************TEST FOR COWRIE
 This is the custom cowrie from honeyfarm!********************************
 
->>>>>>> 8ccbce9 (honeyfs ok, honeytoken ok)
