@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  color: #6a6f8c;
+  background: #bfc4c8;
+  font: 600 16px/18px 'Open Sans', sans-serif;
+}
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+.clearfix:after,
+.clearfix:before {
+  content: '';
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.login-wrap {
+  width: 100%;
+  margin: auto;
+  max-width: 525px;
+  min-height: 500px;
+  position: relative;
+  background: #ffffff22;
+  box-shadow: 0 12px 15px 0 rgba(0,0,0,.24), 0 17px 50px 0 rgba(0,0,0,.19);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.login-html {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 80px 70px 50px 70px;
+  background: rgba(255,255,255,0.1);
+}
+
+.login-html .tab {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  color: black;
+  margin-bottom: 40px;
+}
+
+.login-form {
+  min-height: 250px;
+  position: relative;
+}
+
+.login-form .group {
+  margin-bottom: 15px;
+}
+.login-form .group .label,
+.login-form .group .input,
+.login-form .group .button {
+  width: 100%;
+  color: black;
+  display: block;
+}
+.login-form .group .input,
+.login-form .group .button {
+  border: none;
+  padding: 15px 20px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, .2);
+  color: black;
+}
+.login-form .group .label {
+  color: black;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.login-form .group .button {
+  background: black;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.login-form .group .button:hover {
+  background: black;
+}
+.login-form .group .input::placeholder {
+  color: black;
+  opacity: 1;
+}
