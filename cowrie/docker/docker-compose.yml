@@ -9,26 +9,19 @@ services:
   cowrie:
     restart: always
     build:
-<<<<<<< HEAD
-      context: context
-      dockerfile: Dockerfile
-=======
       context: ..
       dockerfile: docker/Dockerfile
->>>>>>> 8ccbce9 (honeyfs ok, honeytoken ok)
     ports:
       - "2222:2222"
       - "2223:2223"
     volumes:
       - cowrie-etc:/cowrie/cowrie-git/etc
       - cowrie-var:/cowrie/cowrie-git/var
-<<<<<<< HEAD
-=======
     environment:
           SMTP_FROM: "chensy0618@gmail.com"
+          # SMTP_TO: "khizar1248@gmail.com"
           SMTP_TO: "chensy0618@gmail.com"
           SMTP_USER: "chensy0618@gmail.com"
           SMTP_PASS: "zqvevghkpkrxuwlo"
           SMTP_SERVER: "smtp.gmail.com"
           SMTP_PORT: "587"
->>>>>>> 8ccbce9 (honeyfs ok, honeytoken ok)
