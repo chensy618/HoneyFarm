@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Smart Home</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+
+<body>
+<div id="notification" class="notification"></div>
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        <h5 style="color: black">Home</h5>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="main-banner" id="top">
+    <div class="container">
+      <div class="item item-7">
+        <div class="header-text">
+          <h2  style="margin-bottom: 5px; ">Appliances</h2>
+          <div class="appliance-wrapper">
+            <!-- Refrigerator -->
+            <div class="appliance-box">
+              <i class="fas fa-snowflake icon-maroon"></i>
+              <div class="label">Refrigerator</div>
+              <div class="temp-display" id="fridge-temp">4°C</div>
+              <div class="temp-controls">
+                <button onclick="updateAppliance('refrigerator', { temp: parseInt(document.getElementById('fridge-temp').innerText) + 1 })">+</button>
+                <button onclick="updateAppliance('refrigerator', { temp: parseInt(document.getElementById('fridge-temp').innerText) - 1 })">-</button>
+              </div>
+            </div>
+            <!-- Coffee Maker -->
+            <div class="appliance-box">
+              <i class="fas fa-coffee icon-maroon"></i>
+              <div class="label">Coffee Maker</div>
+              <div class="status-toggle">
+                <label class="switch">
+                  <input type="checkbox" data-appliance="coffeeMaker" onchange="updateAppliance('coffeeMaker', { state: this.checked ? 'on' : 'off' })">
+                  <span class="slider round"></span>
+                </label>
+                <span class="status-label" id="coffee-status">Off</span>
+              </div>
+              <div class="brew-strength">
+                <button onclick="updateAppliance('coffeeMaker', { strength: parseInt(document.getElementById('brew-strength').innerText) + 1 })">+</button>
+                <p style="color: #8d3846;"><b>Strength:</b></p>
+                <span id="brew-strength">3</span>
+                <button onclick="updateAppliance('coffeeMaker', { strength: parseInt(document.getElementById('brew-strength').innerText) - 1 })">-</button>
+              </div>
+            </div>
+            <!-- Washing Machine -->
+            <div class="appliance-box">
+              <i class="fas fa-washer icon-maroon"></i>
+              <div class="label">Washing Machine</div>
+              <button id="wm-toggle" class="wm-button" onclick="toggleWashingMachine()">Start</button>
+              <div class="wm-status" id="wash-status">Idle</div>
+            </div>
+          </div>
+        </div>
+      </div>       
+    </div>
+  </div>
+
+
+<script>
+function updateAppliance(appliance, data) {
+  for (const key in data) {
+    localStorage.setItem(`${appliance}-${key}`, data[key]);
+
+    // Update visible values
+    if (appliance === 'refrigerator' && key === 'temp') {
+      document.getElementById('fridge-temp').innerText = data[key] + '°C';
+    }
+
+    if (appliance === 'coffeeMaker') {
+      if (key === 'state') {
+        document.getElementById('coffee-status').innerText = data[key] === 'on' ? 'On' : 'Off';
+      }
+      if (key === 'strength') {
+        document.getElementById('brew-strength').innerText = data[key];
+      }
+    }
+
+    if (appliance === 'washing' && key === 'status') {
+      document.getElementById('wash-status').innerText = data[key];
+    }
+  }
+
+  const statusMessage = Object.entries(data)
+    .map(([key, value]) => `${appliance.charAt(0).toUpperCase() + appliance.slice(1)} ${key} is ${value}`)
+    .join(', ');
+  showNotification(statusMessage);
+
+  fetch('appliances_node_ip/port', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ appliance, ...data })
+  }).catch(err => console.error('Error:', err));
+}
+
+function showNotification(message) {
+  const notification = document.getElementById('notification');
+  notification.textContent = message;
+  notification.classList.add('show');
+  setTimeout(() => notification.classList.remove('show'), 2800);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const fridgeTemp = localStorage.getItem('refrigerator-temp');
+  if (fridgeTemp) {
+    document.getElementById('fridge-temp').innerText = fridgeTemp + '°C';
+  }
+
+  const coffeeState = localStorage.getItem('coffeeMaker-state');
+  const coffeeToggle = document.querySelector('input[data-appliance="coffeeMaker"]');
+  if (coffeeToggle && coffeeState === 'on') {
+    coffeeToggle.checked = true;
+    document.getElementById('coffee-status').innerText = 'On';
+  }
+
+  const brew = localStorage.getItem('coffeeMaker-strength');
+  if (brew) {
+    document.getElementById('brew-strength').innerText = brew;
+  }
+
+  const washStatus = localStorage.getItem('washing-status');
+  if (washStatus) {
+    document.getElementById('wash-status').innerText = washStatus;
+  }
+});
+
+function toggleWashingMachine() {
+  const statusElement = document.getElementById('wash-status');
+  const button = document.getElementById('wm-toggle');
+  const current = statusElement.innerText;
+
+  const newStatus = current === 'Running' ? 'Idle' : 'Running';
+
+  updateAppliance('washing', { status: newStatus });
+  button.innerText = newStatus === 'Running' ? 'Stop' : 'Start';
+}
+
+// Update button text on load
+window.addEventListener('DOMContentLoaded', () => {
+  const washStatus = localStorage.getItem('washing-status');
+  if (washStatus === 'Running') {
+    document.getElementById('wm-toggle').innerText = 'Stop';
+  }
+});
+</script>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/custom.js"></script>
+
+  </body>
+</html>
