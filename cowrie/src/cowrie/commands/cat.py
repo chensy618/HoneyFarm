@@ -18,7 +18,6 @@ from cowrie.shell.fs import FileNotFound
 from cowrie.email_alert import send_honeytoken_email
 from cowrie.ssh.transport import HoneyPotSSHTransport
 
-
 commands = {}
 
 
@@ -58,24 +57,26 @@ class Command_cat(HoneyPotCommand):
 
                 pname = self.fs.resolve_path(arg, self.protocol.cwd)
 
+                # print(f"[DEBUG] -----: {self.protocol.getProtoTransport().transport.getPeer()}")
+
                 if "aws_config.txt" in pname or "id_rsa" in pname or "secret" in pname:
                     try:
-                        src_ip = self.protocol.transport.getPeer().host
+                        ssh_transport = self.protocol.getProtoTransport()
+                        tcp = ssh_transport.transport
+                        peer = tcp.getPeer()
+                        src_ip = peer.host
+                        src_port = peer.port
                     except Exception:
                         src_ip = "unknown-ip"
+                        src_port = None
                     
                     try:
-                        session_id = getattr(self.protocol, "transportId", "unknown-session")
+                        session_id = getattr(self.protocol, "sessionno", None)
                     except Exception:
                         session_id = "unknown-session"
 
-                    print(f"[DEBUG] src_ip: {src_ip}")
-                    print(f"[DEBUG] session_id: {session_id}")
-
                     timestamp = datetime.datetime.utcnow().isoformat()
-                    send_honeytoken_email(pname, session_id, src_ip, timestamp)
-                else:
-                    send_honeytoken_email(pname, "unknown_session", "unknown_ip", timestamp)
+                    send_honeytoken_email(pname, session_id, src_ip, src_port, timestamp)
 
                 if self.fs.isdir(pname):
                     self.errorWrite(f"cat: {arg}: Is a directory\n")

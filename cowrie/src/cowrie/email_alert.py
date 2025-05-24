@@ -45,7 +45,7 @@ ISP/Org: {data.get("org")}
         return f"IP Geolocation failed: {e}"
     return "IP Geolocation unavailable"
 
-def send_honeytoken_email(filename: str, session: str, src_ip: str, timestamp: str = None):
+def send_honeytoken_email(filename: str, session: str, src_ip: str, src_port: int | str,timestamp: str = None):
     timestamp = timestamp or datetime.utcnow().isoformat()
     location_info = get_ip_location(src_ip)
 
@@ -54,7 +54,7 @@ ALERT: Honeytoken file accessed!
 
 Filename: {filename}
 Session ID: {session}
-Source IP: {src_ip}
+Source IP-Port: {src_ip} : {src_port}
 Timestamp (UTC): {timestamp}
 {location_info}
 """
