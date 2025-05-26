@@ -1,8 +1,9 @@
 # profile.py
 from collections import Counter
 from enum import IntEnum
-from action_mapper import map_command_to_action
-from personality_trait import PERSONALITY_TRAITS, INTERPRETATIONS
+from cowrie.personality_profile.action_mapper import map_command_to_action
+from cowrie.personality_profile.personality_trait import PERSONALITY_TRAITS, INTERPRETATIONS
+import shlex
 
 class Personality(IntEnum):
     OPENNESS = 0
@@ -72,10 +73,20 @@ def extract_personality_from_report(report: str) -> int | None:
     return None
 
 
-if __name__ == "__main__":
-    sample_cmds = ["ls", "gcc", "ping", "cat", "uname"]
-    report = generate_personality_report(sample_cmds)
-    print(report)
-    personality_enum = extract_personality_from_report(report)
-    print(f"Extracted Personality Enum: {personality_enum}")
-    print("Personality Label:", PERSONALITY_LABELS[personality_enum] if personality_enum is not None else "None")
+def infer_personality_from_session(session) -> dict | None:
+    commands = getattr(session, "pta_extracted_commands", [])
+    if not commands:
+        return None
+
+    report = generate_personality_report(commands)
+    trait_enum = extract_personality_from_report(report)
+
+    return {
+        "report": report,
+        "trait_enum": trait_enum,
+        "trait_label": PERSONALITY_LABELS[Personality(trait_enum)] if trait_enum is not None else None,
+        "extracted_commands": commands
+    }
+
+
+

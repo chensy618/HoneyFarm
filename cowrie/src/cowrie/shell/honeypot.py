@@ -17,7 +17,7 @@ from twisted.python.compat import iterbytes
 from cowrie.core.config import CowrieConfig
 from cowrie.shell import fs
 from cowrie.shell import protocol
-
+from cowrie.personality_profile.profile import infer_personality_from_session
 
 class HoneyPotShell:
     def __init__(
@@ -265,6 +265,30 @@ class HoneyPotShell:
 
         cmdAndArgs = self.cmdpending.pop(0)
         cmd2 = copy.copy(cmdAndArgs)
+
+        # Record the attacker's valid command name (behavior extraction)
+        session = getattr(self.protocol.user.avatar, "session", None)
+
+        print(f"[DEBUG] session: {session}")
+        if session:
+            if not hasattr(session, "pta_extracted_commands"):
+                session.pta_extracted_commands = []
+            if len(session.pta_extracted_commands) < 10 and cmdAndArgs:
+                session.pta_extracted_commands.append(cmdAndArgs[0])
+
+            # If 10 valid commands have been recorded, perform personality inference (only once)
+            if len(session.pta_extracted_commands) == 10 and not hasattr(session, "_personality_inferred"):
+                result = infer_personality_from_session(session)
+                session._personality_inferred = True
+                if result:
+                    log.msg(
+                        eventid="cowrie.personality.inferred",
+                        ip=getattr(self.protocol.getProtoTransport().transport.getPeer(), "host", "unknown"),
+                        session=getattr(self.protocol.user.avatar, "session", None),
+                        trait=result["trait_label"],
+                        report=result["report"],
+                        format="[Personality] %(ip)s (%(session)s): %(trait)s\n%(report)s"
+                    )
 
         # Probably no reason to be this comprehensive for just PATH...
         environ = copy.copy(self.environ)

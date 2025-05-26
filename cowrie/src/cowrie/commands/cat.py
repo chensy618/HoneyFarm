@@ -58,6 +58,8 @@ class Command_cat(HoneyPotCommand):
                 pname = self.fs.resolve_path(arg, self.protocol.cwd)
 
                 # print(f"[DEBUG] -----: {self.protocol.getProtoTransport().transport.getPeer()}")
+                emotion = self.protocol.emotion.get_state()
+                print(f"[DEBUG] ----Command_cat: {pname} ----(emotion: {emotion})")
 
                 if "aws_config.txt" in pname or "id_rsa" in pname or "secret" in pname:
                     try:

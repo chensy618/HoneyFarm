@@ -22,7 +22,7 @@ from twisted.python import failure, log
 import cowrie.commands
 from cowrie.core.config import CowrieConfig
 from cowrie.shell import command, honeypot
-
+from cowrie.emotional_state.emotions import EmotionalState
 
 class HoneyPotBaseProtocol(insults.TerminalProtocol, TimeoutMixin):
     """
@@ -253,6 +253,7 @@ class HoneyPotInteractiveProtocol(HoneyPotBaseProtocol, recvline.HistoricRecvLin
     def __init__(self, avatar):
         recvline.HistoricRecvLine.__init__(self)
         HoneyPotBaseProtocol.__init__(self, avatar)
+        self.emotion = EmotionalState()
 
     def connectionMade(self) -> None:
         self.displayMOTD()

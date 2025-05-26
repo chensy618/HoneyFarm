@@ -25,6 +25,7 @@ class SSHSessionForCowrieUser:
         """
         self.protocol = None
         self.avatar = avatar
+        self.avatar.session = self 
         self.server = avatar.server
         self.uid = avatar.uid
         self.gid = avatar.gid
