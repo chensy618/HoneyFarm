@@ -20,13 +20,24 @@ PERSONALITY_LABELS = {
     Personality.LOW_NEUROTICISM: "Low Neuroticism",
 }
 
-def top1_personality_from_commands(commands: list[str]) -> dict | None:
-    """Given a list of shell commands, infer top-1 personality trait."""
-    observed_actions = {map_command_to_action(cmd) for cmd in commands}
-    observed_actions.discard(None)
 
+def top1_personality_from_commands(commands: list[str]) -> dict | None:
+    """Given a list of shell commands, infer top-1 personality trait using frequency-based scoring."""
+
+    # calculate the frequency of each action in the commands
+    actions = [map_command_to_action(cmd) for cmd in commands]
+    action_counts = Counter(action for action in actions if action is not None)
+
+    if not action_counts:
+        return None
+
+    # calculate scores for each personality trait based on the actions
     scores = Counter({
-        trait: len(PERSONALITY_TRAITS[PERSONALITY_LABELS[trait]] & observed_actions)
+        trait: sum(
+            action_counts[action]
+            for action in PERSONALITY_TRAITS[PERSONALITY_LABELS[trait]]
+            if action in action_counts
+        )
         for trait in Personality
     })
 
@@ -37,10 +48,17 @@ def top1_personality_from_commands(commands: list[str]) -> dict | None:
     if score == 0:
         return None
 
+    # match actions to the top trait
+    matched_actions = {
+        action: count
+        for action, count in action_counts.items()
+        if action in PERSONALITY_TRAITS[PERSONALITY_LABELS[trait]]
+    }
+
     return {
         "trait_enum": trait,
         "trait_label": PERSONALITY_LABELS[trait],
-        "matched_actions": sorted(PERSONALITY_TRAITS[PERSONALITY_LABELS[trait]] & observed_actions),
+        "matched_actions": dict(sorted(matched_actions.items())),
         "score": score,
         "interpretation": INTERPRETATIONS[PERSONALITY_LABELS[trait]]
     }
