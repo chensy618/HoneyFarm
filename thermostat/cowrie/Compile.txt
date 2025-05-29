@@ -1,0 +1,9 @@
+Build new Cowrie:
+    docker build -f docker/Dockerfile -t cowrie-custom .
+Start new Cowrie:
+    docker run -it --rm -p 2222:2222 -p 2223:2223 cowrie-custom
+Login new Cowrie:
+    ssh root@localhost -p 2222
+Solve key problem:
+    ssh-keygen -f '/home/siyan/.ssh/known_hosts' -R '[localhost]:2222'
+
