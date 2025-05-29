@@ -1,0 +1,12 @@
+services:
+  miniprint:
+    build: .
+    image: dtagdevsec/miniprint:testing
+    read_only: true
+    container_name: miniprint
+    restart: always
+    ports:
+      - "9100:9100"
+    volumes:
+      - ./log/:/app/log/
+      - ./uploads/:/app/uploads/
