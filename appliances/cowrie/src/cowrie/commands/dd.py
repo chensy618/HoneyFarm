@@ -13,6 +13,9 @@ from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
+from cowrie.ssh.transport import HoneyPotSSHTransport
+from cowrie.emotional_state.emotions import Emotion
+
 
 commands = {}
 
@@ -74,11 +77,36 @@ class Command_dd(HoneyPotCommand):
                             self.writeBytes(contents)
                         else:
                             tsize = block * c
-                            data = contents
-                            if len(data) > tsize:
-                                self.writeBytes(data[:tsize])
+                            data = contents[:tsize] if len(contents) > tsize else contents
+                            # data = contents
+                            # if len(data) > tsize:
+                            #     self.writeBytes(data[:tsize])
+                            # else:
+                            #     self.writeBytes(data)
+                        session = getattr(self.protocol.user.avatar, "session", None)
+                        if session and hasattr(session, "_personality_inferred"):
+                            # todo : infer personality from _personality_inferred, and use it to determine the response
+                            current_emotion = self.protocol.emotion.get_state()
+                            print(f"[DEBUG] ----Command_dd: {iname} ----(emotion: {current_emotion})")
+                            if current_emotion.name == "CONFIDENCE":
+                                self.protocol.emotion.set_state(Emotion.SURPRISE)
+                                self.write("[dd] Unexpected pattern found in data stream!\n")
+                            elif current_emotion == Emotion.SURPRISE:
+                                self.protocol.emotion.set_state(Emotion.CONFUSION)
+                                self.write("[dd] Inconsistency detected. Possible error in source.\n")
+                            elif current_emotion == Emotion.CONFUSION:
+                                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                                self.write("[dd] Data stream does not match expected format.\n")
                             else:
                                 self.writeBytes(data)
+                                self.exit(success=True)
+                                return 
+
+                            self.exit(success=True)
+                            return
+                        # Default behavior if no personality inferred
+                        self.writeBytes(data)
+
                     except FileNotFound:
                         self.errorWrite(f"dd: {iname}: No such file or directory\n")
                         bSuccess = False
