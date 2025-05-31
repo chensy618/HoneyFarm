@@ -1,13 +1,16 @@
-  ____  __  __    _    ____ _____   _   _  ___  _   _ _____                       
- / ___||  \/  |  / \  |  _ \_   _| | | | |/ _ \| \ | | ____|                      
- \___ \| |\/| | / _ \ | |_) || |   | |_| | | | |  \| |  _|                        
-  ___) | |  | |/ ___ \|  _ < | |   |  _  | |_| | |\  | |___                       
- |____/|_|_ |_/_/_  \_\_|_\_\|_| _ |_| |_|\___/|_|_\_|_____|__ _____ _____ __  __ 
- | |   |_ _/ ___| | | |_   _|_ _| \ | |/ ___| / ___\ \ / / ___|_   _| ____|  \/  |
- | |    | | |  _| |_| | | |  | ||  \| | |  _  \___ \\ V /\___ \ | | |  _| | |\/| |
- | |___ | | |_| |  _  | | |  | || |\  | |_| |  ___) || |  ___) || | | |___| |  | |
- |_____|___\____|_| |_| |_| |___|_| \_|\____| |____/ |_| |____/ |_| |_____|_|  |_|
-                                                                                  
+
+  ____  __  __    _    ____ _____   _   _  ___  _   _ _____                                                                
+ / ___||  \/  |  / \  |  _ \_   _| | | | |/ _ \| \ | | ____|                                                               
+ \___ \| |\/| | / _ \ | |_) || |   | |_| | | | |  \| |  _|                                                                 
+  ___) | |  | |/ ___ \|  _ < | |   |  _  | |_| | |\  | |___                                                                
+ |____/|_|  |_/_/  _\_\_| \_\|_|__ |_|_|_|\___/|_| \_|_____|     ____ ___  _   _ _____ ____   ___  _     _     _____ ____  
+ |  _ \_ _|  / \  / ___| \ | |/ _ \/ ___|_   _|_ _/ ___/ ___|   / ___/ _ \| \ | |_   _|  _ \ / _ \| |   | |   | ____|  _ \ 
+ | | | | |  / _ \| |  _|  \| | | | \___ \ | |  | | |   \___ \  | |  | | | |  \| | | | | |_) | | | | |   | |   |  _| | |_) |
+ | |_| | | / ___ \ |_| | |\  | |_| |___) || |  | | |___ ___) | | |__| |_| | |\  | | | |  _ <| |_| | |___| |___| |___|  _ < 
+ |____/___/_/   \_\____|_| \_|\___/|____/ |_| |___\____|____/   \____\___/|_| \_| |_| |_| \_\\___/|_____|_____|_____|_| \_\
+                                                                                                                           
+
+Welcome to the Device Diagnostics Interface (DDI) system!     
 
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
@@ -16,9 +19,31 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 
-aws-------------
-THIS IS A TEST SYSTEM ***************************************************
-*************************************************************************
-**********************************************************TEST FOR COWRIE
-This is the custom cowrie from honeyfarm!********************************
+[ Device Diagnostics Interface v1.9.0 – Embedded Shell ]
 
+Device Model:     DDI-HomeX-500
+Firmware:         DiagnosticsPanel OS v2.8.4 (build 2025-05-30)
+Processor:        ARM Cortex-A9 dual-core
+LAN Address:      192.168.1.99
+Wi-Fi Status:     Connected (SSID: SmartHub_5G)
+Web Interface:    http://192.168.1.99:8080/dashboard
+Last Cloud Sync:  2025-05-30 12:51:04 UTC
+
+Connected Devices:  6 Online / 2 Offline
+Error Events:       0 Critical / 3 Warning / 1 Pending
+System Load:        0.18 (1 min) | 0.11 (5 min)
+Memory Usage:       43% of 512MB
+Disk Usage:         78% of /dev/root
+
+Available Commands:
+  • diag status       View system status summary
+  • diag log          View recent diagnostics log
+  • diag export       Export system report (CSV)
+  • net ping-test     Run network connectivity test
+  • device health     Show health status of linked devices
+  • error summary     Summarize active/warning errors
+
+Note:
+- Diagnostics data stored in `/var/diag/`
+- Some commands require maintenance-level privileges
+- Logs are periodically synced with remote server

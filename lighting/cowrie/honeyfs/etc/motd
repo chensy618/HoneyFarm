@@ -9,6 +9,8 @@
  |_____|___\____|_| |_| |_| |___|_| \_|\____| |____/ |_| |____/ |_| |_____|_|  |_|
                                                                                   
 
+Welcome to the Lighting Controller (LC) system!        
+
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
 individual files in /usr/share/doc/*/copyright.
@@ -16,9 +18,16 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 
-aws-------------
-THIS IS A TEST SYSTEM ***************************************************
-*************************************************************************
-**********************************************************TEST FOR COWRIE
-This is the custom cowrie from honeyfarm!********************************
+[ Embedded Linux System - restricted user shell ]
 
+Device ID:     LC-CTRL-07-AZ
+Firmware:      Lighting Control v1.3.2 (build 2025-05-30)
+Board:         armv7l (Cortex-A7)
+Uptime:        18 days, 06:31
+IP Address:    192.168.12.45
+Web Interface: http://lighting-control.local:8090/dashboard
+
+Note:
+- To check status, use `lightctl status`
+- For diagnostics, run `diag --verbose`
+- Configuration changes require elevated permissions

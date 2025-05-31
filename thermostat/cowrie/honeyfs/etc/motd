@@ -1,13 +1,15 @@
-  ____  __  __    _    ____ _____   _   _  ___  _   _ _____                       
- / ___||  \/  |  / \  |  _ \_   _| | | | |/ _ \| \ | | ____|                      
- \___ \| |\/| | / _ \ | |_) || |   | |_| | | | |  \| |  _|                        
-  ___) | |  | |/ ___ \|  _ < | |   |  _  | |_| | |\  | |___                       
- |____/|_|_ |_/_/_  \_\_|_\_\|_| _ |_| |_|\___/|_|_\_|_____|__ _____ _____ __  __ 
- | |   |_ _/ ___| | | |_   _|_ _| \ | |/ ___| / ___\ \ / / ___|_   _| ____|  \/  |
- | |    | | |  _| |_| | | |  | ||  \| | |  _  \___ \\ V /\___ \ | | |  _| | |\/| |
- | |___ | | |_| |  _  | | |  | || |\  | |_| |  ___) || |  ___) || | | |___| |  | |
- |_____|___\____|_| |_| |_| |___|_| \_|\____| |____/ |_| |____/ |_| |_____|_|  |_|
-                                                                                  
+
+  ____  __  __    _    ____ _____   _   _  ___  _   _ _____                                                              
+ / ___||  \/  |  / \  |  _ \_   _| | | | |/ _ \| \ | | ____|                                                             
+ \___ \| |\/| | / _ \ | |_) || |   | |_| | | | |  \| |  _|                                                               
+  ___) | |  | |/ ___ \|  _ < | |   |  _  | |_| | |\  | |___                                                              
+ |____/|_|  |_/_/__ \_\_| \_\|_|  _|_| |_|\___/|_| \_|_____|   ____ ___  _   _ _____ ____   ___  _     _     _____ ____  
+ |_   _| | | | ____|  _ \|  \/  |/ _ \/ ___|_   _|/ \|_   _|  / ___/ _ \| \ | |_   _|  _ \ / _ \| |   | |   | ____|  _ \ 
+   | | | |_| |  _| | |_) | |\/| | | | \___ \ | | / _ \ | |   | |  | | | |  \| | | | | |_) | | | | |   | |   |  _| | |_) |
+   | | |  _  | |___|  _ <| |  | | |_| |___) || |/ ___ \| |   | |__| |_| | |\  | | | |  _ <| |_| | |___| |___| |___|  _ < 
+   |_| |_| |_|_____|_| \_\_|  |_|\___/|____/ |_/_/   \_\_|    \____\___/|_| \_| |_| |_| \_\\___/|_____|_____|_____|_| \_\
+                                                                                                                         
+Welcome to the Thermostat Controller (TC) system!      
 
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
@@ -16,9 +18,27 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 
-aws-------------
-THIS IS A TEST SYSTEM ***************************************************
-*************************************************************************
-**********************************************************TEST FOR COWRIE
-This is the custom cowrie from honeyfarm!********************************
+Device Model:     ThermoLink ST-300
+Firmware:         SmartThermOS v2.3.1 (build 2025-05-30)
+CPU:              ARM Cortex-M4
+LAN Address:      192.168.0.42
+Wi-Fi:            Connected (SSID: HomeComfort)
+Web UI:           http://192.168.0.42:8080/
 
+Indoor Temperature:   21.8°C
+Target Temperature:   22.5°C
+HVAC Mode:            Auto
+System Status:        ACTIVE
+
+Available Commands:
+  • temp read              Show current temperature
+  • temp set <°C>          Set new target temperature
+  • hvac mode <mode>       Set HVAC mode (auto/heating/cooling/off)
+  • system status          View system summary
+  • log last               Show recent actions
+  • reboot                 Restart the device
+
+Note:
+- Configuration changes take effect immediately.
+- Data stored locally at `/config/thermostat/`
+- Full access available via web interface.

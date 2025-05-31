@@ -1,13 +1,15 @@
-  ____  __  __    _    ____ _____   _   _  ___  _   _ _____                       
- / ___||  \/  |  / \  |  _ \_   _| | | | |/ _ \| \ | | ____|                      
- \___ \| |\/| | / _ \ | |_) || |   | |_| | | | |  \| |  _|                        
-  ___) | |  | |/ ___ \|  _ < | |   |  _  | |_| | |\  | |___                       
- |____/|_|_ |_/_/_  \_\_|_\_\|_| _ |_| |_|\___/|_|_\_|_____|__ _____ _____ __  __ 
- | |   |_ _/ ___| | | |_   _|_ _| \ | |/ ___| / ___\ \ / / ___|_   _| ____|  \/  |
- | |    | | |  _| |_| | | |  | ||  \| | |  _  \___ \\ V /\___ \ | | |  _| | |\/| |
- | |___ | | |_| |  _  | | |  | || |\  | |_| |  ___) || |  ___) || | | |___| |  | |
- |_____|___\____|_| |_| |_| |___|_| \_|\____| |____/ |_| |____/ |_| |_____|_|  |_|
-                                                                                  
+  ____  __  __    _    ____ _____   _   _  ___  _   _ _____                                                            
+ / ___||  \/  |  / \  |  _ \_   _| | | | |/ _ \| \ | | ____|                                                           
+ \___ \| |\/| | / _ \ | |_) || |   | |_| | | | |  \| |  _|                                                             
+  ___) | |  | |/ ___ \|  _ < | |   |  _  | |_| | |\  | |___                                                            
+ |____/|_|__|_/_/___\_\_| \_\|_|   |_| |_|\___/|_|_\_|_____| ____ ___  _   _ _____ ____   ___  _     _     _____ ____  
+    / \  |  _ \|  _ \| |   |_ _|  / \  | \ | |/ ___| ____|  / ___/ _ \| \ | |_   _|  _ \ / _ \| |   | |   | ____|  _ \ 
+   / _ \ | |_) | |_) | |    | |  / _ \ |  \| | |   |  _|   | |  | | | |  \| | | | | |_) | | | | |   | |   |  _| | |_) |
+  / ___ \|  __/|  __/| |___ | | / ___ \| |\  | |___| |___  | |__| |_| | |\  | | | |  _ <| |_| | |___| |___| |___|  _ < 
+ /_/   \_\_|   |_|   |_____|___/_/   \_\_| \_|\____|_____|  \____\___/|_| \_| |_| |_| \_\\___/|_____|_____|_____|_| \_\
+                                                                                                                       
+
+Welcome to the Home Appliance Controller (HAC) system!                                                                            
 
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
@@ -16,9 +18,27 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 
-aws-------------
-THIS IS A TEST SYSTEM ***************************************************
-*************************************************************************
-**********************************************************TEST FOR COWRIE
-This is the custom cowrie from honeyfarm!********************************
+[ Home Appliance Controller v3.1.0 – Embedded Shell Interface ]
 
+Device ID:       HAC-CTRL-21-XH
+Firmware:        HApplianceOS v3.1.0 (2025-05-30)
+CPU:             ARM Cortex-A9 dual-core
+LAN IP:          192.168.1.99
+Wi-Fi:           Connected (SSID: SmartHub_5G)
+Control Panel:   http://192.168.1.99:8080/dashboard
+
+Uptime:          7 days, 19:42
+Linked Devices:  6 active / 2 inactive
+Mode:            Local Control (Cloud Sync: ENABLED)
+
+Available Commands:
+  • device-list         list all connected devices
+  • device-control      control a specific device
+  • schedule-set        set a new schedule
+  • status-sync         synchronize device status
+  • log-read            read system logs
+
+Note:
+- Configuration changes require admin privileges.
+- Logs are saved locally and remotely.
+- Web interface supports full control: appliance types, timers, energy reports.
