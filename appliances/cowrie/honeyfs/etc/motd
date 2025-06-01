@@ -21,7 +21,7 @@ permitted by applicable law.
 [ Home Appliance Controller v3.1.0 – Embedded Shell Interface ]
 
 Device ID:       HAC-CTRL-21-XH
-Firmware:        HApplianceOS v3.1.0 (2025-05-30)
+Firmware:        HApplianceOS v3.1.0
 CPU:             ARM Cortex-A9 dual-core
 LAN IP:          192.168.1.99
 Wi-Fi:           Connected (SSID: SmartHub_5G)

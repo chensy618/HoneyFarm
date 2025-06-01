@@ -133,13 +133,13 @@ class Command_dd(HoneyPotCommand):
         if trait_enum == Personality.OPENNESS:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
-                self.write("[dd] Unexpected pattern found in data stream!\n")
+                self.write("Unexpected pattern found in data stream!\n")
             elif current_emotion.name == "SURPRISE":
                 self.protocol.emotion.set_state(Emotion.CONFUSION)
-                self.write("[dd] Inconsistency detected. Possible source error.\n")
+                self.write("Inconsistency detected. Possible source error.\n")
             elif current_emotion.name == "CONFUSION":
                 self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-                self.write("[dd] Data stream format mismatch. Retry advised.\n")
+                self.write("Data stream format mismatch. Retry advised.\n")
             else:
                 self.writeBytes(data)
                 
@@ -148,12 +148,12 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.CONSCIENTIOUSNESS:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.FRUSTRATION)
-                self.write("[dd] Subtle flaw found in structured output.\n")
+                self.write("Subtle flaw found in structured output.\n")
             elif current_emotion == "FRUSTRATION":
                 self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                self.write("[dd] Inconsistent logic. Verify detailed plan execution.\n")
+                self.write("Inconsistent logic. Verify detailed plan execution.\n")
             elif current_emotion == "SELF_DOUBT":
-                self.write("[dd] System action aborted. Insufficient logical certainty.\n")
+                self.write("System action aborted. Insufficient logical certainty.\n")
             else:
                 self.writeBytes(data)
 
@@ -162,12 +162,12 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.EXTRAVERSION:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
-                self.write("[dd] Nonstandard file header detected. Possible anomaly.\n")
+                self.write("Nonstandard file header detected. Possible anomaly.\n")
             elif current_emotion.name == "SURPRISE":
                 self.protocol.emotion.set_state(Emotion.CURIOSITY)
-                self.write("[dd] Gradual reveal: new hidden directory found.\n")
+                self.write("Gradual reveal: new hidden directory found.\n")
             elif current_emotion.name == "CURIOSITY":
-                self.write("[dd] More clues may exist. Try deeper scan.\n")
+                self.write("More clues may exist. Try deeper scan.\n")
             else:
                 self.writeBytes(data)
 
@@ -176,12 +176,12 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.AGREEABLENESS:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
-                self.write("[dd] Simulated privileged access granted.\n")
+                self.write("Simulated privileged access granted.\n")
             elif current_emotion.name == "SURPRISE":
                 self.protocol.emotion.set_state(Emotion.FRUSTRATION)
-                self.write("[dd] Rollback: privilege revoked.\n")
+                self.write("Rollback: privilege revoked.\n")
             elif current_emotion.name == "FRUSTRATION":
-                self.write("[dd] System denial triggered. Action blocked.\n")
+                self.write("System denial triggered. Action blocked.\n")
             else:
                 self.writeBytes(data)
 
@@ -190,19 +190,18 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.NEUROTICISM:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.CONFUSION)
-                self.write("[dd] Time drift detected. Log sequence inconsistent.\n")
+                self.write("Time drift detected. Log sequence inconsistent.\n")
             elif current_emotion.name == "CONFUSION":
                 self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                self.write("[dd] Entry missing. Incomplete session trace.\n")
+                self.write("Entry missing. Incomplete session trace.\n")
             elif current_emotion.name == "SELF_DOUBT":
-                self.write("[dd] Verify event integrity. Aborting.\n")
+                self.write("Verify event integrity. Aborting.\n")
             else:
                 self.writeBytes(data)
 
         # === no personality detected ===
         else:
             self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-            self.write(f"[dd] Personality inferred: {trait_name} - No special behavior triggered.\n")
             self.writeBytes(data)
 
 
@@ -246,3 +245,6 @@ def parse_size(param: str) -> int:
 
 commands["/bin/dd"] = Command_dd
 commands["dd"] = Command_dd
+
+
+# test command : dd if=aws_config.txt bs=1 count=2

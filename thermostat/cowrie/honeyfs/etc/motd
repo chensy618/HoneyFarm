@@ -19,7 +19,7 @@ Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 
 Device Model:     ThermoLink ST-300
-Firmware:         SmartThermOS v2.3.1 (build 2025-05-30)
+Firmware:         SmartThermOS v2.3.1
 CPU:              ARM Cortex-M4
 LAN Address:      192.168.0.42
 Wi-Fi:            Connected (SSID: HomeComfort)

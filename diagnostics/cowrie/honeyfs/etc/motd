@@ -22,7 +22,7 @@ permitted by applicable law.
 [ Device Diagnostics Interface v1.9.0 – Embedded Shell ]
 
 Device Model:     DDI-HomeX-500
-Firmware:         DiagnosticsPanel OS v2.8.4 (build 2025-05-30)
+Firmware:         DiagnosticsPanel OS v2.8.4
 Processor:        ARM Cortex-A9 dual-core
 LAN Address:      192.168.1.99
 Wi-Fi Status:     Connected (SSID: SmartHub_5G)
