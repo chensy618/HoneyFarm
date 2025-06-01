@@ -15,7 +15,11 @@ from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
 from cowrie.ssh.transport import HoneyPotSSHTransport
 from cowrie.emotional_state.emotions import Emotion
-
+from cowrie.personality_profile.profile import (
+    extract_personality_from_report,
+    PERSONALITY_LABELS,
+    Personality,
+)
 
 commands = {}
 
@@ -85,27 +89,16 @@ class Command_dd(HoneyPotCommand):
                             #     self.writeBytes(data)
                         session = getattr(self.protocol.user.avatar, "session", None)
                         if session and hasattr(session, "_personality_inferred"):
-                            # todo : infer personality from _personality_inferred, and use it to determine the response
-                            current_emotion = self.protocol.emotion.get_state()
-                            print(f"[DEBUG] ----Command_dd: {iname} ----(emotion: {current_emotion})")
-                            if current_emotion.name == "CONFIDENCE":
-                                self.protocol.emotion.set_state(Emotion.SURPRISE)
-                                self.write("[dd] Unexpected pattern found in data stream!\n")
-                            elif current_emotion == Emotion.SURPRISE:
-                                self.protocol.emotion.set_state(Emotion.CONFUSION)
-                                self.write("[dd] Inconsistency detected. Possible error in source.\n")
-                            elif current_emotion == Emotion.CONFUSION:
-                                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-                                self.write("[dd] Data stream does not match expected format.\n")
-                            else:
-                                self.writeBytes(data)
-                                self.exit(success=True)
-                                return 
-
+                            profile = session._personality_inferred
+                            trait_enum = profile["trait_enum"]
+                            trait_name = profile["trait_label"]
+                            print(f"[DEBUG] ----Command_dd: {iname} ----(trait_enum: {trait_enum}----trait_name: {trait_name})")
+                            self.handle_trait_response(trait_enum, trait_name, data)
                             self.exit(success=True)
                             return
-                        # Default behavior if no personality inferred
-                        self.writeBytes(data)
+                        else:
+                            # Default behavior if no personality inferred
+                            self.writeBytes(data)
 
                     except FileNotFound:
                         self.errorWrite(f"dd: {iname}: No such file or directory\n")
@@ -130,6 +123,87 @@ class Command_dd(HoneyPotCommand):
 
     def handle_CTRL_D(self) -> None:
         self.exit()
+
+    def handle_trait_response(self, trait_enum, trait_name, data):
+        current_emotion = self.protocol.emotion.get_state()
+        print(f"[DEBUG] ----Command_dd---- trait_enum: {trait_enum}, emotion: {current_emotion.name}")
+
+        # === 1. Openness ===
+        # Emotion Path: Confidence → Surprise → Confusion
+        if trait_enum == Personality.OPENNESS:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.SURPRISE)
+                self.write("[dd] Unexpected pattern found in data stream!\n")
+            elif current_emotion.name == "SURPRISE":
+                self.protocol.emotion.set_state(Emotion.CONFUSION)
+                self.write("[dd] Inconsistency detected. Possible source error.\n")
+            elif current_emotion.name == "CONFUSION":
+                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                self.write("[dd] Data stream format mismatch. Retry advised.\n")
+            else:
+                self.writeBytes(data)
+                
+        # === 2. Conscientiousness ===
+        # Emotion Path: Confidence → Frustration → Self-doubt
+        elif trait_enum == Personality.CONSCIENTIOUSNESS:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                self.write("[dd] Subtle flaw found in structured output.\n")
+            elif current_emotion == "FRUSTRATION":
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("[dd] Inconsistent logic. Verify detailed plan execution.\n")
+            elif current_emotion == "SELF_DOUBT":
+                self.write("[dd] System action aborted. Insufficient logical certainty.\n")
+            else:
+                self.writeBytes(data)
+
+        # === 3. Low Extraversion ===
+        # Emotion Path: Confidence → Surprise → Curiosity
+        elif trait_enum == Personality.EXTRAVERSION:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.SURPRISE)
+                self.write("[dd] Nonstandard file header detected. Possible anomaly.\n")
+            elif current_emotion.name == "SURPRISE":
+                self.protocol.emotion.set_state(Emotion.CURIOSITY)
+                self.write("[dd] Gradual reveal: new hidden directory found.\n")
+            elif current_emotion.name == "CURIOSITY":
+                self.write("[dd] More clues may exist. Try deeper scan.\n")
+            else:
+                self.writeBytes(data)
+
+        # === 4. Low Agreeableness ===
+        # Emotion Path: Confidence → Surprise → Frustration
+        elif trait_enum == Personality.AGREEABLENESS:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.SURPRISE)
+                self.write("[dd] Simulated privileged access granted.\n")
+            elif current_emotion.name == "SURPRISE":
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                self.write("[dd] Rollback: privilege revoked.\n")
+            elif current_emotion.name == "FRUSTRATION":
+                self.write("[dd] System denial triggered. Action blocked.\n")
+            else:
+                self.writeBytes(data)
+
+        # === 5. Low Neuroticism ===
+        # Emotion Path: Confidence → Confusion → Self-doubt
+        elif trait_enum == Personality.NEUROTICISM:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.CONFUSION)
+                self.write("[dd] Time drift detected. Log sequence inconsistent.\n")
+            elif current_emotion.name == "CONFUSION":
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("[dd] Entry missing. Incomplete session trace.\n")
+            elif current_emotion.name == "SELF_DOUBT":
+                self.write("[dd] Verify event integrity. Aborting.\n")
+            else:
+                self.writeBytes(data)
+
+        # === no personality detected ===
+        else:
+            self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+            self.write(f"[dd] Personality inferred: {trait_name} - No special behavior triggered.\n")
+            self.writeBytes(data)
 
 
 def parse_size(param: str) -> int:
