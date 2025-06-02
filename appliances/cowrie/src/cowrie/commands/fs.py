@@ -927,14 +927,13 @@ def _cycle(protocol, current_emotion, messages):
         protocol.emotion.set_state(Emotion.CONFUSION)
         return messages[1] + "\n"
     elif name == "CONFUSION":
-        protocol.emotion.set_state(Emotion.CONFIDENCE)
+        protocol.emotion.set_state(Emotion.SELF_DOUBT)
         return messages[2] + "\n"
     elif name == "FRUSTRATION":
-        protocol.emotion.set_state(Emotion.SELF_DOUBT)
+        protocol.emotion.set_state(Emotion.CONFIDENCE)
         return messages[1] + "\n"
     elif name == "SELF_DOUBT":
-        return messages[2] + "\n"
-    elif name == "CURIOSITY":
+        protocol.emotion.set_state(Emotion.CONFUSION)
         return messages[2] + "\n"
     return ""
 
