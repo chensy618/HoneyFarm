@@ -20,31 +20,32 @@ from cowrie.shell.command import HoneyPotCommand
 from typing import TYPE_CHECKING
 from cowrie.emotional_state.emotions import Emotion
 from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
 commands: dict[str, Callable] = {}
 
-def session_personality_response(protocol, response_fn, write_fn):
-    """
-    if user session exists personality, then call corresponding response function and output
+# def session_personality_response(protocol, response_fn, write_fn):
+#     """
+#     if user session exists personality, then call corresponding response function and output
     
-    :param protocol: (self.protocol)
-    :param response_fn: such as Command_grep.response_grep
-    :param write_fn: self_write or cmdstack[-1].write
-    """
-    session = getattr(protocol.user.avatar, "session", None)
-    if not (session and hasattr(session, "_personality_inferred")):
-        return
+#     :param protocol: (self.protocol)
+#     :param response_fn: such as Command_grep.response_grep
+#     :param write_fn: self_write or cmdstack[-1].write
+#     """
+#     session = getattr(protocol.user.avatar, "session", None)
+#     if not (session and hasattr(session, "_personality_inferred")):
+#         return
 
-    profile = session._personality_inferred
-    trait_enum = profile["trait_enum"]
-    emotion = protocol.emotion.get_state()
+#     profile = session._personality_inferred
+#     trait_enum = profile["trait_enum"]
+#     emotion = protocol.emotion.get_state()
 
-    msg = response_fn(protocol, trait_enum, emotion)
-    if msg:
-        write_fn(msg)
+#     msg = response_fn(protocol, trait_enum, emotion)
+#     if msg:
+#         write_fn(msg)
 
 class Command_grep(HoneyPotCommand):
     """

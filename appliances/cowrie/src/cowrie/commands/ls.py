@@ -11,6 +11,11 @@ import time
 from cowrie.shell import fs
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.pwd import Group, Passwd
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
+
+
 
 commands = {}
 
@@ -120,6 +125,7 @@ class Command_ls(HoneyPotCommand):
             self.write(f.ljust(maxlen + 1))
             count += 1
         self.write("\n")
+        session_personality_response(self.protocol, Command_ls.response_ls, self.write)
 
     def do_ls_l(self, path: str) -> None:
         """
@@ -223,7 +229,57 @@ class Command_ls(HoneyPotCommand):
             )
 
             self.write(f"{line}\n")
+            session_personality_response(self.protocol, Command_ls.response_ls, self.write)
 
+    def response_ls(protocol, trait, emotion):
+        """
+        Generate ls command response based on personality and current emotional state.
+        This response is *emotion-inducing*.
+        """
+        response_map = {
+            Personality.OPENNESS: {
+                Emotion.CONFUSION: ("So many paths… ever feel lost in possibilities?", Emotion.SELF_DOUBT),
+                Emotion.SELF_DOUBT: ("It's okay to not know what you're looking for yet.", Emotion.CONFIDENCE),
+                Emotion.CONFIDENCE: ("Directories mapped. The unknown doesn't scare you.", Emotion.SURPRISE),
+                Emotion.FRUSTRATION: ("Maybe this isn't the path. But the next one might be.", Emotion.CONFUSION),
+                Emotion.SURPRISE: ("Ah! Didn't expect to see that here, did you?", Emotion.CONFIDENCE),
+            },
+            Personality.CONSCIENTIOUSNESS: {
+                Emotion.CONFUSION: ("Let's bring order to this chaos.", Emotion.CONFIDENCE),
+                Emotion.SELF_DOUBT: ("Double-checking the structure never hurts.", Emotion.CONFIDENCE),
+                Emotion.CONFIDENCE: ("Everything in its place. Perfectly aligned.", Emotion.SURPRISE),
+                Emotion.FRUSTRATION: ("Hmm, something's not where it should be.", Emotion.SELF_DOUBT),
+                Emotion.SURPRISE: ("Unexpected file detected. Logging for audit.", Emotion.CONFUSION),
+            },
+            Personality.LOW_EXTRAVERSION: {
+                Emotion.CONFUSION: ("Woah, what's all this? Let's dive in!", Emotion.SURPRISE),
+                Emotion.SELF_DOUBT: ("C'mon, you've got this! Let's explore together.", Emotion.CONFIDENCE),
+                Emotion.CONFIDENCE: ("Yes! Look at this directory go!", Emotion.SURPRISE),
+                Emotion.FRUSTRATION: ("Ugh, boring layout. Where's the excitement?", Emotion.CONFUSION),
+                Emotion.SURPRISE: ("Whoa! Didn't see that file coming!", Emotion.CONFIDENCE),
+            },
+            Personality.LOW_AGREEABLENESS: {
+                Emotion.CONFUSION: ("I know it's a lot… let's take it one step at a time.", Emotion.SELF_DOUBT),
+                Emotion.SELF_DOUBT: ("You're doing fine. I'm here to help.", Emotion.CONFIDENCE),
+                Emotion.CONFIDENCE: ("Here's everything. Just say the word!", Emotion.SURPRISE),
+                Emotion.FRUSTRATION: ("I'm really sorry it's messy right now.", Emotion.CONFUSION),
+                Emotion.SURPRISE: ("Oh! I didn't expect to find that either!", Emotion.CONFIDENCE),
+            },
+            Personality.LOW_NEUROTICISM: {
+                Emotion.CONFUSION: ("Wait, is this the right folder?", Emotion.FRUSTRATION),
+                Emotion.SELF_DOUBT: ("Maybe I made a mistake listing it like this...", Emotion.FRUSTRATION),
+                Emotion.CONFIDENCE: ("It's okay… maybe this time everything will be fine.", Emotion.SURPRISE),
+                Emotion.FRUSTRATION: ("This directory is a nightmare. I hate it.", Emotion.SELF_DOUBT),
+                Emotion.SURPRISE: ("What?! That file wasn't there before… was it?", Emotion.CONFUSION),
+            },
+        }
+
+        response_pair = response_map.get(trait, {}).get(emotion)
+        if response_pair:
+            message, new_emotion = response_pair
+            protocol.emotion.set_state(new_emotion)
+            return message
+        return None
 
 commands["/bin/ls"] = Command_ls
 commands["ls"] = Command_ls
