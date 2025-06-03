@@ -11,6 +11,10 @@ from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import A_REALFILE
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
+
 
 commands = {}
 
@@ -126,6 +130,64 @@ class Command_unzip(HoneyPotCommand):
                 )
             else:
                 log.msg(f"  skipping: {f.filename}\n")
+
+        session_personality_response(self.protocol, self.response_unzip, self.write)
+
+    @staticmethod
+    def response_unzip(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "  inflating: .hidden/manifest.tmp\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "  inflating: __MACOSX/._ghost\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "  inflating: tmp/placeholder.txt\n"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "  error: file checksum mismatch: logs/sys.log\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "  warning: inconsistent file size: bin/init\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "  skipped: data/recover.bak (corrupt block)\n"
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "  inflating: /tmp/scan001.txt\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "  inflating: /dev/memory_snapshot.dump\n"
+            elif emotion == Emotion.CONFUSION:
+                return "  inflating: /home/user/.bash_secret\n"
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "  inflating: shared/config.json\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "  warning: write permission denied: shared/flag.txt\n"
+            elif emotion == Emotion.FRUSTRATION:
+                return "  skipped: access revoked by peer policy\n"
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "  inflating: logs/.ghost_entry\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "  error: unexpected EOF while reading archive\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "  unzip aborted: header corruption suspected\n"
+
+        return ""
+
 
 
 commands["/bin/unzip"] = Command_unzip
