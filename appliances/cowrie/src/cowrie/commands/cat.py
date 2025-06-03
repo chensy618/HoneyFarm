@@ -17,6 +17,10 @@ from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
 from cowrie.email_alert import send_honeytoken_email
 from cowrie.ssh.transport import HoneyPotSSHTransport
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
+
 
 commands = {}
 
@@ -89,6 +93,7 @@ class Command_cat(HoneyPotCommand):
                     self.output(contents)
                 except FileNotFound:
                     self.errorWrite(f"cat: {arg}: No such file or directory\n")
+            session_personality_response(self.protocol, self.response_cat, self.write)
             self.exit()
         elif self.input_data is not None:
             self.output(self.input_data)
@@ -158,6 +163,65 @@ Full documentation at: <http://www.gnu.org/software/coreutils/cat>
 or available locally via: info '(coreutils) cat invocation'
 """
         )
+
+    @staticmethod
+    def response_cat(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "[cat] You opened a door, but what lies beneath?"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "[cat] Some lines are missing… or were they ever there?"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "[cat] Could this file be hiding something deeper?"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "[cat] Output aligned. File structure verified."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "[cat] Warning: one block size doesn't match declared size."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "[cat] Might require checksum revalidation."
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "[cat] Here's something unexpected..."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "[cat] File ends abruptly. Was that all?"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "[cat] Could there be more if you dig deeper?"
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "[cat] Access granted. Proceed."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "[cat] File locked during read. Re-auth required."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "[cat] Were you supposed to see this at all?"
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "[cat] Output stable. Timestamp: 1970-01-01."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "[cat] Line mismatch detected. Was this corrupted?"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "[cat] File header unreadable. Re-run advised."
+
+        return
 
 
 commands["/bin/cat"] = Command_cat

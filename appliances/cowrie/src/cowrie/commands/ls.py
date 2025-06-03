@@ -76,6 +76,8 @@ class Command_ls(HoneyPotCommand):
             for path in paths:
                 func(path)
 
+        session_personality_response(self.protocol, self.response_ls, self.write)
+
     def get_dir_files(self, path):
         try:
             if self.protocol.fs.isdir(path) and not self.showDirectories:
@@ -125,7 +127,7 @@ class Command_ls(HoneyPotCommand):
             self.write(f.ljust(maxlen + 1))
             count += 1
         self.write("\n")
-        session_personality_response(self.protocol, Command_ls.response_ls, self.write)
+
 
     def do_ls_l(self, path: str) -> None:
         """
@@ -229,57 +231,96 @@ class Command_ls(HoneyPotCommand):
             )
 
             self.write(f"{line}\n")
-            session_personality_response(self.protocol, Command_ls.response_ls, self.write)
 
+    @staticmethod
     def response_ls(protocol, trait, emotion):
-        """
-        Generate ls command response based on personality and current emotional state.
-        This response is *emotion-inducing*.
-        """
-        response_map = {
-            Personality.OPENNESS: {
-                Emotion.CONFUSION: ("So many paths… ever feel lost in possibilities?", Emotion.SELF_DOUBT),
-                Emotion.SELF_DOUBT: ("It's okay to not know what you're looking for yet.", Emotion.CONFIDENCE),
-                Emotion.CONFIDENCE: ("Directories mapped. The unknown doesn't scare you.", Emotion.SURPRISE),
-                Emotion.FRUSTRATION: ("Maybe this isn't the path. But the next one might be.", Emotion.CONFUSION),
-                Emotion.SURPRISE: ("Ah! Didn't expect to see that here, did you?", Emotion.CONFIDENCE),
-            },
-            Personality.CONSCIENTIOUSNESS: {
-                Emotion.CONFUSION: ("Let's bring order to this chaos.", Emotion.CONFIDENCE),
-                Emotion.SELF_DOUBT: ("Double-checking the structure never hurts.", Emotion.CONFIDENCE),
-                Emotion.CONFIDENCE: ("Everything in its place. Perfectly aligned.", Emotion.SURPRISE),
-                Emotion.FRUSTRATION: ("Hmm, something's not where it should be.", Emotion.SELF_DOUBT),
-                Emotion.SURPRISE: ("Unexpected file detected. Logging for audit.", Emotion.CONFUSION),
-            },
-            Personality.LOW_EXTRAVERSION: {
-                Emotion.CONFUSION: ("Woah, what's all this? Let's dive in!", Emotion.SURPRISE),
-                Emotion.SELF_DOUBT: ("C'mon, you've got this! Let's explore together.", Emotion.CONFIDENCE),
-                Emotion.CONFIDENCE: ("Yes! Look at this directory go!", Emotion.SURPRISE),
-                Emotion.FRUSTRATION: ("Ugh, boring layout. Where's the excitement?", Emotion.CONFUSION),
-                Emotion.SURPRISE: ("Whoa! Didn't see that file coming!", Emotion.CONFIDENCE),
-            },
-            Personality.LOW_AGREEABLENESS: {
-                Emotion.CONFUSION: ("I know it's a lot… let's take it one step at a time.", Emotion.SELF_DOUBT),
-                Emotion.SELF_DOUBT: ("You're doing fine. I'm here to help.", Emotion.CONFIDENCE),
-                Emotion.CONFIDENCE: ("Here's everything. Just say the word!", Emotion.SURPRISE),
-                Emotion.FRUSTRATION: ("I'm really sorry it's messy right now.", Emotion.CONFUSION),
-                Emotion.SURPRISE: ("Oh! I didn't expect to find that either!", Emotion.CONFIDENCE),
-            },
-            Personality.LOW_NEUROTICISM: {
-                Emotion.CONFUSION: ("Wait, is this the right folder?", Emotion.FRUSTRATION),
-                Emotion.SELF_DOUBT: ("Maybe I made a mistake listing it like this...", Emotion.FRUSTRATION),
-                Emotion.CONFIDENCE: ("It's okay… maybe this time everything will be fine.", Emotion.SURPRISE),
-                Emotion.FRUSTRATION: ("This directory is a nightmare. I hate it.", Emotion.SELF_DOUBT),
-                Emotion.SURPRISE: ("What?! That file wasn't there before… was it?", Emotion.CONFUSION),
-            },
-        }
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "So many paths… ever feel lost in possibilities?"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "It's okay to not know what you're looking for yet."
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "Directories mapped. The unknown doesn't scare you."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Maybe this isn't the path. But the next one might be."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Ah! Didn't expect to see that here, did you?"
 
-        response_pair = response_map.get(trait, {}).get(emotion)
-        if response_pair:
-            message, new_emotion = response_pair
-            protocol.emotion.set_state(new_emotion)
-            return message
-        return None
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Let's bring order to this chaos."
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Double-checking the structure never hurts."
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "Everything in its place. Perfectly aligned."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Missing something? It's here. Just look again."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Unexpected? Let's catalog that, too."
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "What's all this stuff? Let's dive in!"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Don't worry. Exploration is part of the fun."
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "Boom! A full list. You're in command."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Too much clutter? Let's clean it up!"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Whoa! Didn't know we had that here!"
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Need help finding something?"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "You're doing great. Everything's right here."
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "A neat little directory. All tidy."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "It's okay. Sometimes things get messy."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Oh! This file seems new. Looks nice!"
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Why are there so many files? Is something wrong?"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Are you sure this is the right folder?"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "You’ve got control. For now."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Ugh. This again?"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Wait—what's that doing here?"
+
+        return ""
+
+
 
 commands["/bin/ls"] = Command_ls
 commands["ls"] = Command_ls

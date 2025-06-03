@@ -9,6 +9,9 @@ from __future__ import annotations
 
 from cowrie.core.config import CowrieConfig
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
+
 
 commands = {}
 
@@ -177,7 +180,65 @@ class Command_uname(HoneyPotCommand):
             output.append(kernel_name())
 
         self.write(" ".join(output) + "\n")
+        session_personality_response(self.protocol, self.response_uname, self.write)
 
+    @staticmethod
+    def response_uname(protocol, trait, emotion):
+        """
+        Emotion-inducing uname output variations.
+        """
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uname: unexpected output expansion triggered.\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uname: kernel string seems inconsistent with nodename.\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uname: fallback to safe output configuration.\n"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uname: checksum mismatch on hardware ID.\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uname: potential time-skew in version timestamp.\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "uname: incomplete sysinfo mapping. Possible override detected.\n"
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uname: WOW! System profile exploded!\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uname: huh… duplicate hostname?\n"
+            elif emotion == Emotion.CONFUSION:
+                return "uname: auto-resolving identity clash...\n"
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uname: syncing with network metadata...\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uname: info request denied by peer kernel.\n"
+            elif emotion == Emotion.FRUSTRATION:
+                return "uname: switching to isolated mode output.\n"
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uname: kernel response too quick — spoof suspected.\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uname: shadow record mismatch detected.\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "uname: host ID compromised. Suggest halting further ops.\n"
+
+        return ""
 
 commands["/bin/uname"] = Command_uname
 commands["uname"] = Command_uname

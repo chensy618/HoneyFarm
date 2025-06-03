@@ -8,6 +8,10 @@ from typing import Any
 from typing_extensions import Never
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.shell.fs import FileNotFound
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -274,6 +278,7 @@ Perhaps iptables or your kernel needs to be upgraded.\n"""
         Show version and exit
         """
         self.write(f"{Command_iptables.APP_NAME} {Command_iptables.APP_VERSION}\n")
+        session_personality_response(self.protocol, self.response_iptables, self.write)
         self.exit()
 
     def show_help(self) -> None:
@@ -375,6 +380,8 @@ Options:
         else:
             self.no_permission()
 
+        session_personality_response(self.protocol, self.response_iptables, self.write)
+
     def list(self, chain: str) -> None:
         """
         List current rules
@@ -438,6 +445,8 @@ Options:
         else:
             self.no_permission()
 
+        session_personality_response(self.protocol, self.response_iptables, self.write)
+
     def no_permission(self) -> None:
         self.write(
             f"{Command_iptables.APP_NAME} {Command_iptables.APP_VERSION}: "
@@ -476,6 +485,74 @@ Options:
             f"Bad argument '{argument}'\nTry `iptables -h' or 'iptables --help' for more information.\n"
         )
         self.exit()
+
+    @staticmethod
+    def response_iptables(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables seems like a puzzle… is it blocking you or protecting you?"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "It's okay to question how the chains connect. You're not alone."
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "Chains aligned, packets tamed. Nicely done."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Rules, chains, targets… it's like poetry, but angry."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Unexpected drop? Or a beautiful ACCEPT?"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFUSION:
+                return "Let's bring discipline to these firewall rules."
+            elif emotion == Emotion.SELF_DOUBT:
+                return "Check the syntax again. One misplaced rule can misroute everything."
+            elif emotion == Emotion.CONFIDENCE:
+                return "Structure intact. Chains properly managed."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Order will come—one ACCEPT at a time."
+            elif emotion == Emotion.SURPRISE:
+                return "Didn't expect that packet rule? Let's log and learn."
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFUSION:
+                return "Wait, which chain are we in again? Let's explore!"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "You're doing great. This just needs more testing!"
+            elif emotion == Emotion.CONFIDENCE:
+                return "Yeah! IPTables conquered!"
+            elif emotion == Emotion.FRUSTRATION:
+                return "Let's flush it all and start fresh!"
+            elif emotion == Emotion.SURPRISE:
+                return "Oh wow, that port was open all along!"
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFUSION:
+                return "Need a hand understanding these rules?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "You're being careful—that's good! It keeps systems safe."
+            elif emotion == Emotion.CONFIDENCE:
+                return "Looks like everything is in harmony!"
+            elif emotion == Emotion.FRUSTRATION:
+                return "It's okay. Firewalls can be tricky."
+            elif emotion == Emotion.SURPRISE:
+                return "Oh! That rule wasn't expected. Let's note it down."
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFUSION:
+                return "What if the rules don't work? What if it's all exposed?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "Should we even be doing this without sudo?"
+            elif emotion == Emotion.CONFIDENCE:
+                return "You've got control now. Unless..."
+            elif emotion == Emotion.FRUSTRATION:
+                return "It's just not working! Why is it so broken?"
+            elif emotion == Emotion.SURPRISE:
+                return "Wait—this rule wasn't there before… was it?"
+
+        return ""
 
 
 commands["/sbin/iptables"] = Command_iptables

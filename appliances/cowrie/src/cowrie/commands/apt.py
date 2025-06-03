@@ -12,6 +12,9 @@ from twisted.internet import defer, reactor
 from twisted.internet.defer import inlineCallbacks
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -191,6 +194,7 @@ pages for more information and options.
                 Command_faked_package_class_factory.getCommand(p)
             )
             yield self.sleep(2)
+        session_personality_response(self.protocol, self.response_apt, self.write)
         self.exit()
 
     def do_moo(self) -> None:
@@ -208,7 +212,92 @@ pages for more information and options.
             "E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)\n"
         )
         self.errorWrite("E: Unable to lock the list directory\n")
+        session_personality_response(self.protocol, self.response_apt, self.write)
         self.exit()
+
+    @staticmethod
+    def response_apt(protocol, trait, emotion):
+        """
+        Emotional/personality-based response logic for 'apt-get'
+        This can be called after 'moo', 'install', etc.
+        """
+        if trait.name == "OPENNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Installing packages... hoping to discover something new?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "It's okay to experiment. Curiosity drives mastery."
+            elif emotion.name == "CONFIDENCE":
+                return "Dependencies resolved. Curiosity rewarded."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Package management is messy sometimes—but that's part of discovery."
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Wow, that installed cleanly. A pleasant surprise."
+
+        elif trait.name == "CONSCIENTIOUSNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "You're just ensuring everything installs properly—good call."
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Nothing wrong with being cautious. System integrity matters."
+            elif emotion.name == "CONFIDENCE":
+                return "Everything's clean, verified, and installed as intended."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Let's check logs. Something might've slipped."
+            elif emotion.name == "SURPRISE":
+                return "Unexpected behavior? Let's document it for later."
+
+        elif trait.name == "EXTRAVERSION":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Installing something awesome, aren't you?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "You're not shy about tweaking the system—good!"
+            elif emotion.name == "CONFIDENCE":
+                return "Boom! Packages unpacked. Let's go!"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Let's give it another go. Energy counts!"
+            elif emotion.name == "SURPRISE":
+                return "Didn't expect apt to moo, huh? Classic."
+
+        elif trait.name == "AGREEABLENESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Need help choosing what to install?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "You're doing fine. One package at a time."
+            elif emotion.name == "CONFIDENCE":
+                return "Nice! System's feeling healthier already."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "It's okay. We'll fix it together."
+            elif emotion.name == "SURPRISE":
+                return "Oh! That installed smoother than expected."
+
+        elif trait.name == "NEUROTICISM":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Why does it need so many dependencies?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "What if something broke the system?"
+            elif emotion.name == "CONFIDENCE":
+                return "You're watching every log. No surprises here."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Something's off. Reinstall just to be sure?"
+            elif emotion.name == "SURPRISE":
+                return "Wait… it actually worked?"
+
+        return None
 
 
 commands["/usr/bin/apt-get"] = Command_aptget

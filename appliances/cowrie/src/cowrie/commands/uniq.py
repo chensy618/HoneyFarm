@@ -10,6 +10,9 @@ from __future__ import annotations
 from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -63,6 +66,7 @@ class Command_uniq(HoneyPotCommand):
                 lines.pop()
             for line in lines:
                 self.grep_input(line)
+            session_personality_response(self.protocol, self.response_uniq, self.write)
             self.exit()
 
     def lineReceived(self, line: str) -> None:
@@ -82,6 +86,100 @@ class Command_uniq(HoneyPotCommand):
             self.writeBytes(line + b"\n")
             self.last_line = line
 
+    @staticmethod
+    def response_uniq(protocol, trait, emotion):
+        """
+        Emotional/personality-based response logic for 'uniq'
+        This response is emotion-inducing and changes state
+        """
+        from cowrie.emotional_state.emotions import Emotion
+
+        if trait.name == "OPENNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.CURIOSITY)
+                return "Unique lines, like ideas, only stand out when they're together."
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Even one match can be meaningful."
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "Pattern filtered. Insights remain."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CALM)
+                return "Duplicates are gone. Clean view ahead."
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.FOCUS)
+                return "Didn't expect so many repeats, did you?"
+
+        elif trait.name == "CONSCIENTIOUSNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Let's strip away the noise and keep only what matters."
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.FOCUS)
+                return "Duplicates filtered. Structure improved."
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SATISFACTION)
+                return "Clean data. Just how you like it."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CALM)
+                return "Let's tidy this up and move forward."
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.REFLECTION)
+                return "A surprise duplicate is still a pattern."
+
+        elif trait.name == "EXTRAVERSION":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Let's find the unique ones that stand out!"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CURIOSITY)
+                return "There's value in the outliers!"
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SATISFACTION)
+                return "Filtered and fabulous!"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Brush it off, we've got this."
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.ENTHUSIASM)
+                return "Whoa! That one kept showing up, huh?"
+
+        elif trait.name == "AGREEABLENESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.HELPFULNESS)
+                return "Need help spotting the differences?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.OPTIMISM)
+                return "Each line matters. Let's keep going."
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SATISFACTION)
+                return "Clean list, clean mind!"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.PATIENCE)
+                return "Let's take it one line at a time."
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.HELPFULNESS)
+                return "Found something odd? Let's look into it."
+
+        elif trait.name == "NEUROTICISM":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.ANXIETY)
+                return "Why so many duplicates? Is something wrong?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Was I too strict? Or not strict enough?"
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.CAUTIOUS)
+                return "Okay… the output looks fine. I think."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "It shouldn't be this messy… right?"
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.MISTRUST)
+                return "That line again? Is this thing rigged?"
+
+        return ""
 
 commands["/usr/bin/uniq"] = Command_uniq
 commands["uniq"] = Command_uniq

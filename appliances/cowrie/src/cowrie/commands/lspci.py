@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 
 # output taken from https://opensource.com/article/21/9/lspci-linux-hardware
@@ -38,6 +41,72 @@ commands = {}
 class Command_lspci(HoneyPotCommand):
     def call(self):
         self.write(lspci_out())
+        session_personality_response(self.protocol, self.response_lspci, self.write)
+
+    @staticmethod
+    def response_lspci(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFUSION:
+                return "So many devices… do they all talk to each other?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "You're trying to make sense of the machine. That's a start."
+            elif emotion == Emotion.CONFIDENCE:
+                return "You've mapped the hardware jungle. Nicely done."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Still can't find the GPU you're looking for?"
+            elif emotion == Emotion.SURPRISE:
+                return "Wow, didn't expect that controller to be there!"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFUSION:
+                return "Detailed inspection underway. PCI structure needs clarity."
+            elif emotion == Emotion.SELF_DOUBT:
+                return "Every bridge has a purpose. You're reading it right."
+            elif emotion == Emotion.CONFIDENCE:
+                return "Hardware detected. Organized and accounted for."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Missing a device? Maybe check `dmesg` too."
+            elif emotion == Emotion.SURPRISE:
+                return "Unexpected peripheral spotted. Time to document."
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFUSION:
+                return "All these ports! Who's talking to what?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "Just dive in. Explore that PCI jungle!"
+            elif emotion == Emotion.CONFIDENCE:
+                return "Boom! Found all the hardware. Let's show it off."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Let's unplug and replug everything!"
+            elif emotion == Emotion.SURPRISE:
+                return "Whoa! That's a lot of controllers."
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFUSION:
+                return "Looks tricky, but you're doing great."
+            elif emotion == Emotion.SELF_DOUBT:
+                return "You're being careful. That's wise with hardware."
+            elif emotion == Emotion.CONFIDENCE:
+                return "Nice list! Everything looks well-connected."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Maybe `lsusb` next? I'm here with you!"
+            elif emotion == Emotion.SURPRISE:
+                return "Oh, what a neat discovery!"
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFUSION:
+                return "What if a device is spoofed? What if it's not real?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "Are we sure the NIC is safe?"
+            elif emotion == Emotion.CONFIDENCE:
+                return "That's a full hardware map… probably."
+            elif emotion == Emotion.FRUSTRATION:
+                return "Still hiding? This machine's mocking us!"
+            elif emotion == Emotion.SURPRISE:
+                return "What is *that* even doing there?"
+
+        return ""
+
 
 
 commands["/usr/bin/lspci"] = Command_lspci

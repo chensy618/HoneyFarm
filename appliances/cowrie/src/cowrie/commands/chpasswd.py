@@ -13,6 +13,9 @@ import getopt
 from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -37,6 +40,7 @@ class Command_chpasswd(HoneyPotCommand):
 
     def chpasswd_application(self, contents: bytes) -> None:
         c = 1
+        error_occurred = False
         try:
             for line in contents.split(b"\n"):
                 if len(line):
@@ -54,6 +58,14 @@ class Command_chpasswd(HoneyPotCommand):
                 c += 1
         except Exception:
             self.write(f"chpasswd: line {c}: missing new password\n")
+            error_occurred = True
+        
+        # Respond with emotional output
+        session_personality_response(
+            self.protocol,
+            Command_chpasswd.response_chpasswd_error if error_occurred else Command_chpasswd.response_chpasswd_success,
+            self.write,
+        )
 
     def start(self) -> None:
         try:
@@ -97,6 +109,49 @@ class Command_chpasswd(HoneyPotCommand):
     def handle_CTRL_D(self) -> None:
         self.exit()
 
+    @staticmethod
+    def response_chpasswd_success(protocol, trait, emotion):
+        if trait == Personality.CONSCIENTIOUSNESS:
+            return {
+                Emotion.CONFIDENCE: "All credentials updated cleanly. ✅",
+                Emotion.SELF_DOUBT: "They *seem* correct... Double-check maybe?",
+                Emotion.CONFUSION: "Password changes done. Right?",
+            }.get(emotion)
+
+        if trait == Personality.NEUROTICISM:
+            return {
+                Emotion.CONFIDENCE: "Even though it's done, something still feels... off.",
+                Emotion.FRUSTRATION: "Hope this time it sticks.",
+            }.get(emotion)
+
+        if trait == Personality.AGREEABLENESS:
+            return {
+                Emotion.CONFIDENCE: "Nice job! Everyone's passwords are now fresh and secure. 😊",
+                Emotion.SURPRISE: "That went smoother than expected!",
+            }.get(emotion)
+
+        return None
+
+    @staticmethod
+    def response_chpasswd_error(protocol, trait, emotion):
+        if trait == Personality.CONSCIENTIOUSNESS:
+            return {
+                Emotion.CONFUSION: "Syntax failure? Let's get this cleaned up properly.",
+                Emotion.FRUSTRATION: "Incomplete password line. Structure matters!",
+            }.get(emotion)
+
+        if trait == Personality.NEUROTICISM:
+            return {
+                Emotion.SELF_DOUBT: "Why does this always happen...?",
+                Emotion.FRUSTRATION: "Ugh. One wrong character and it's all broken.",
+            }.get(emotion)
+
+        if trait == Personality.OPENNESS:
+            return {
+                Emotion.CONFUSION: "What does this format even mean…? A puzzle within a puzzle.",
+            }.get(emotion)
+
+        return None
 
 commands["/usr/sbin/chpasswd"] = Command_chpasswd
 commands["chpasswd"] = Command_chpasswd

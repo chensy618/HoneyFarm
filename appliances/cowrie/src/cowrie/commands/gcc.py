@@ -13,6 +13,9 @@ from twisted.internet import reactor
 from cowrie.core.config import CowrieConfig
 from cowrie.shell.command import HoneyPotCommand
 from typing import TYPE_CHECKING
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 if TYPE_CHECKING:
     from twisted.internet.defer import Deferred
@@ -226,6 +229,8 @@ gcc version {version} (Debian {version}-5)"""
         # Trick the 'new compiled file' as an segfault
         self.protocol.commands[outfile] = segfault_command
 
+        session_personality_response(self.protocol, self.response_gcc, self.write)
+
     def arg_missing(self, arg: str) -> None:
         """
         Print missing argument message, and exit
@@ -300,6 +305,90 @@ For bug reporting instructions, please see:
 <file:///usr/share/doc/gcc-4.7/README.Bugs>.
 """
         )
+
+    @staticmethod
+    def response_gcc(protocol, trait, emotion):
+        """
+        Personality-based response for gcc behavior:
+        - 'no input file' situations (confusion, frustration)
+        - 'compilation success' situations (confidence, surprise)
+        """
+        if trait.name == "OPENNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "No files? Sometimes the best ideas are still in your head."
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Trying new things leads to growth—even failed compiles."
+            elif emotion.name == "CONFIDENCE":
+                return "Code compiled. Creativity manifested."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Errors are part of the journey. Curiosity will fix them."
+            elif emotion.name == "SURPRISE":
+                return "It compiled? That’s the spark of innovation."
+
+        elif trait.name == "CONSCIENTIOUSNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Missing input? Perhaps double-check the file name?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Each failed compile is a lesson in precision."
+            elif emotion.name == "CONFIDENCE":
+                return "Compilation completed. Structure and logic prevail."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Systems respond to clarity. Refactor and retry."
+            elif emotion.name == "SURPRISE":
+                return "Unexpected success, but not unearned."
+
+        elif trait.name == "EXTRAVERSION":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "What file are we compiling today, friend?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Hey, everyone fumbles sometimes. Try again!"
+            elif emotion.name == "CONFIDENCE":
+                return "Boom! You compiled like a champ."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Too many flags? Take a breather, then crack it."
+            elif emotion.name == "SURPRISE":
+                return "Whoa, that binary actually runs!"
+
+        elif trait.name == "AGREEABLENESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Need a hand choosing your input file?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Even errors can be encouraging, right?"
+            elif emotion.name == "CONFIDENCE":
+                return "All set! You’re doing great."
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "It’s okay, let’s troubleshoot it together."
+            elif emotion.name == "SURPRISE":
+                return "Nice work! That went smoother than expected."
+
+        elif trait.name == "NEUROTICISM":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "No input… what did we miss this time?"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Maybe I shouldn't even try compiling anything today."
+            elif emotion.name == "CONFIDENCE":
+                return "Okay… it worked. But what if it’s broken inside?"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "This is a mess. But maybe the next try fixes it."
+            elif emotion.name == "SURPRISE":
+                return "Wait… it didn’t crash?"
+
+        return None
 
 
 commands["/usr/bin/gcc"] = Command_gcc

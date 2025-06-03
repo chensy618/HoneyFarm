@@ -1,6 +1,9 @@
 from __future__ import annotations
 import getopt
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -51,6 +54,7 @@ class Command_groups(HoneyPotCommand):
         else:
             content = self.fs.file_contents("/etc/group")
             self.output(content, "")
+            session_personality_response(self.protocol, self.response_groups, self.write)
 
     def output(self, file_content, username):
         groups_string = bytes("", encoding="utf-8")
@@ -86,6 +90,60 @@ class Command_groups(HoneyPotCommand):
             if usr_arr[0] == usr_byte:
                 return True
         return False
+
+    @staticmethod
+    def response_groups(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "groups: So many identities… are we just roles after all?"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "groups: I didn’t realize I was part of that group too."
+            elif emotion == Emotion.CONFUSION:
+                return "groups: What does belonging really mean?"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: Membership verified. But do I have the correct permissions?"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "groups: Consistency matters. Some groups look out of order."
+            elif emotion == Emotion.FRUSTRATION:
+                return "groups: Better double-check `/etc/group` structure later."
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "groups: Nice! You're part of quite a few circles."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "groups: Wait, was that an admin group? Cool!"
+            elif emotion == Emotion.CONFUSION:
+                return "groups: Let's invite some people over!"
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "groups: Belonging feels nice. I hope everyone has their place."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: Should we even look into others' groups?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "groups: Just trying to keep things harmonious."
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "groups: They *say* I belong. But do I really?"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: What if these groups are traps?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "groups: I feel… watched. Even here."
+
+        return ""
 
 
 commands["groups"] = Command_groups

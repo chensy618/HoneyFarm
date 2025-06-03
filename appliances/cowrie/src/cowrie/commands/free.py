@@ -11,6 +11,9 @@ import getopt
 from math import floor
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -83,6 +86,8 @@ class Command_free(HoneyPotCommand):
         else:
             self.write(FREE_OUTPUT.format(**raw_mem_stats))
 
+        session_personality_response(self.protocol, self.response_free, self.write)
+
     def get_free_stats(self) -> dict[str, int]:
         """
         Get the free stats from /proc
@@ -108,6 +113,65 @@ class Command_free(HoneyPotCommand):
 
         # Got a map with all tokens from /proc/meminfo and sizes in KBs
         return mem_info_map
+
+    @staticmethod
+    def response_free(protocol, trait, emotion, writer):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                writer("Note: cache size fluctuates. Might not be consistent next time.")
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                writer("Free memory includes speculative prefetch segments.")
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                writer("Is `MemFree` really free if pre-reserved by the kernel?")
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                writer("Swap stats verified. Buffers stable.")
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                writer("Warning: MemFree + Cache exceeds MemTotal.")
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                writer("Possible kernel misreport in /proc/meminfo.")
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                writer("HIDDEN_ZONE detected: 256MB unlisted.")
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                writer("This system might be hiding a RAM disk.")
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                writer("Cache doesn't match expectations. Curious?")
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                writer("Memory view unrestricted.")
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                writer("Access denied to `/proc/kcore`.")
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                writer("Some memory regions may be restricted by SELinux.")
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                writer("All looks normal. For now.")
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                writer("Swap read speed inconsistent with real-time clocks.")
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                writer("Kernel reporting delay detected. Please verify system time.")
+
+        return
 
 
 commands["/usr/bin/free"] = Command_free

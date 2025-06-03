@@ -99,80 +99,68 @@ class Command_tar(HoneyPotCommand):
                 )
             else:
                 log.msg(f"tar: skipping [{f.name}]")
-        
-        session_personality_response(self.protocol, Command_tar.response_tar, self.write)
-        _loop(self.protocol, self.protocol.emotion.get(), [])
-        
+
+        session_personality_response(self.protocol, self.response_tar, self.write)
+
     @staticmethod
     def response_tar(protocol, trait, emotion):
         """
-        Provide a personality- and emotion-driven message when extracting files.
+        Generate tar command emotional response based on personality and emotional state.
+        This response is *emotion-inducing*, not just a reflection.
         """
         if trait == Personality.OPENNESS:
-            return {
-                Emotion.CONFIDENCE: "Unpacking mysteries—every archive holds a story.",
-                Emotion.CONFUSION: "So many layers... are we sure what lies within?",
-                Emotion.SELF_DOUBT: "Maybe it's not the right archive… but let's see.",
-                Emotion.FRUSTRATION: "Tired of digging? Archives can be such a mess.",
-                Emotion.SURPRISE: "Whoa, didn't expect to find *that* in here!",
-            }.get(emotion)
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "tar: unexpected symlink entry found in archive.\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "tar: file appears twice in archive. Possible loop?\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "tar: format mismatch resolved using heuristics.\n"
 
-        if trait == Personality.CONSCIENTIOUSNESS:
-            return {
-                Emotion.CONFIDENCE: "All files accounted for. Archive integrity: verified.",
-                Emotion.SELF_DOUBT: "Let's double-check the structure—just in case.",
-                Emotion.FRUSTRATION: "Misplaced entries again? Let's fix it properly.",
-                Emotion.SURPRISE: "Unexpected hierarchy detected. Adapting strategy.",
-                Emotion.CONFUSION: "The archive's layout seems… inconsistent.",
-            }.get(emotion)
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "tar: file permissions look inconsistent.\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "tar: warning: mtime and ctime conflict detected.\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "tar: extraction complete with warnings. Suggest verification.\n"
 
-        if trait == Personality.EXTRAVERSION:
-            return {
-                Emotion.CONFIDENCE: "Boom! Archive explosion in progress.",
-                Emotion.FRUSTRATION: "Ugh! Why so many nested folders?!",
-                Emotion.SELF_DOUBT: "Maybe someone else should have unpacked this.",
-                Emotion.SURPRISE: "Whoa! These files go deep.",
-                Emotion.CONFUSION: "Wait—what just got extracted?",
-            }.get(emotion)
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "tar: loud and clear! Archive opened.\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "tar: whoops, unexpected EOF.\n"
+            elif emotion == Emotion.CONFUSION:
+                return "tar: retrying auto-repair...\n"
 
-        if trait == Personality.AGREEABLENESS:
-            return {
-                Emotion.CONFIDENCE: "Just gently unzipping things for you.",
-                Emotion.SELF_DOUBT: "Hope this helps... let me know if not.",
-                Emotion.FRUSTRATION: "Sorry, this archive is harder than expected.",
-                Emotion.SURPRISE: "Oh! That's a lovely directory name.",
-                Emotion.CONFUSION: "Hmm, not sure what this file is, but I hope it's okay.",
-            }.get(emotion)
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "tar: collaborating with fs layer... success.\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "tar: operation aborted by permission layer.\n"
+            elif emotion == Emotion.FRUSTRATION:
+                return "tar: skipping contentious file.\n"
 
-        if trait == Personality.NEUROTICISM:
-            return {
-                Emotion.CONFIDENCE: "Everything's fine. We're extracting, calmly.",
-                Emotion.SELF_DOUBT: "What if this breaks something…?",
-                Emotion.FRUSTRATION: "I *knew* this archive would cause trouble.",
-                Emotion.SURPRISE: "Is that malware? No—just a text file. Whew.",
-                Emotion.CONFUSION: "Are we even supposed to be unpacking this…?",
-            }.get(emotion)
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "tar: format ambiguity detected.\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "tar: partial read of block header. Data corrupted?\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "tar: extraction halted due to risk.\n"
 
-        return None
+        return ""
 
-def _loop(protocol, current_emotion, messages: list[str]) -> None:
-    """
-    Update emotional state by cycling through a predefined list of messages.
-    """
-    if not messages:
-        return
-
-    name = current_emotion.name
-    if name == "CONFIDENCE":
-        protocol.emotion.set(Emotion.SURPRISE)
-    elif name == "SURPRISE":
-        protocol.emotion.set(Emotion.CONFUSION)
-    elif name == "CONFUSION":
-        protocol.emotion.set(Emotion.FRUSTRATION)
-    elif name == "FRUSTRATION":
-        protocol.emotion.set(Emotion.SELF_DOUBT)
-    elif name == "SELF_DOUBT":
-        protocol.emotion.set(Emotion.CONFIDENCE)
 
 
 commands["/bin/tar"] = Command_tar

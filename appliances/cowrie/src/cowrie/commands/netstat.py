@@ -5,6 +5,9 @@ from __future__ import annotations
 import socket
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -199,6 +202,62 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
             if x.startswith("-") and x.count("V"):
                 func = self.show_version
         func()
+        session_personality_response(self.protocol, self.response_netstat, self.write)
+
+    @staticmethod
+    def response_netstat(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "netstat: odd tunnel connection detected — ever wonder where it leads?"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "netstat: unexpected socket echo on port 4444. Unusual behavior?"
+            elif emotion == Emotion.CONFUSION:
+                return "netstat: many roads, few destinations. Curious?"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "netstat: duplicate routing entries detected. Please audit your setup."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "netstat: state mismatch in tcp6/udp listing. Rechecking may help."
+            elif emotion == Emotion.SELF_DOUBT:
+                return "netstat: order lost in tables. Structure needs reinforcement."
+
+        elif trait == Personality.EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "netstat: multiple streams converging. It’s a party in here!"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "netstat: the network feels noisy today. Who’s connecting?"
+            elif emotion == Emotion.CONFUSION:
+                return "netstat: maybe reach out — so many open connections, so little feedback."
+
+        elif trait == Personality.AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "netstat: open ports everywhere. Are we being too welcoming?"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "netstat: port 22 keeps knocking — but no one responds."
+            elif emotion == Emotion.FRUSTRATION:
+                return "netstat: still listening... maybe someone will connect again."
+
+        elif trait == Personality.NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "netstat: why is this socket still connected? Feels... unstable."
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "netstat: listening on all interfaces. Is that too risky?"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "netstat: maybe it’s nothing... or maybe it’s everything."
+
+        return ""
+
 
 
 commands["/bin/netstat"] = Command_netstat
