@@ -126,3 +126,4 @@ def session_personality_response(protocol, response_fn, write_fn):
     if msg:
         write_fn(f"{msg}\n")
 
+

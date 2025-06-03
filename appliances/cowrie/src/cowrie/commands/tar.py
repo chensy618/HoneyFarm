@@ -102,7 +102,8 @@ class Command_tar(HoneyPotCommand):
         
         session_personality_response(self.protocol, Command_tar.response_tar, self.write)
         _loop(self.protocol, self.protocol.emotion.get(), [])
-
+        
+    @staticmethod
     def response_tar(protocol, trait, emotion):
         """
         Provide a personality- and emotion-driven message when extracting files.
