@@ -95,21 +95,21 @@ lo        Link encap:Local Loopback
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return """
 vnet0     Link encap:Virtual  HWaddr aa:bb:cc:dd:ee:ff
-        inet6 addr: fe80::1ff:fe23:4567:890a/64 Scope:Link
+          inet6 addr: fe80::1ff:fe23:4567:890a/64 Scope:Link
 """
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return """
 eth0:0    Link encap:Ethernet  HWaddr 00:00:00:00:00:00
-        inet6 addr: fe::xyz:1234:beef Scope:Link
+          inet6 addr: fe::xyz:1234:beef Scope:Link
 """
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return """
 docker0   Link encap:Ethernet  HWaddr 02:42:ac:11:00:02
-        inet addr:172.17.0.1  Mask:255.255.0.0
-        UP BROADCAST MULTICAST  MTU:1500  Metric:1
-        RX packets:42  TX packets:66
+          inet addr:172.17.0.1  Mask:255.255.0.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:42  TX packets:66
 """
 
         elif trait == Personality.CONSCIENTIOUSNESS:
@@ -117,18 +117,18 @@ docker0   Link encap:Ethernet  HWaddr 02:42:ac:11:00:02
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return """
 eth0      RX packets:999999  TX packets:999999
-        Metric:1
+          Metric:1
 """
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return """
 eth0      RX packets:123456  TX packets:123455
-        RX bytes:100000000 (100.0 MB)  TX bytes:100000001 (100.0 MB)
+          RX bytes:100000000 (100.0 MB)  TX bytes:100000001 (100.0 MB)
 """
             elif emotion == Emotion.SELF_DOUBT:
                 return """
 eth0      Metric:1
-        Metric:0
+          Metric:0
 """
 
         elif trait == Personality.EXTRAVERSION:
@@ -136,18 +136,18 @@ eth0      Metric:1
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return """
 eth2      Link encap:Ethernet  HWaddr de:ad:be:ef:00:01
-        RX packets:321  TX packets:123
+          RX packets:321  TX packets:123
 """
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return """
 eth0      TX packets:100
-        TX packets:?
+          TX packets:?
 """
             elif emotion == Emotion.CONFUSION:
                 return """
 eth0
-        RX packets:0
+          RX packets:0
 """
 
         elif trait == Personality.AGREEABLENESS:
@@ -155,13 +155,13 @@ eth0
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return """
 usbnet0   Link encap:USB-Net
-        RX packets:4  TX packets:4
+          RX packets:4  TX packets:4
 """
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return """
 eth1      Link encap:Ethernet
-        [details removed by system]
+          [details removed by system]
 """
             elif emotion == Emotion.FRUSTRATION:
                 return """
@@ -173,18 +173,18 @@ eth1      Link encap:Ethernet
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return """
 eth0      RX packets:1000000  TX packets:1000000
-        No error detected.
+          No error detected.
 """
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return """
 eth0      RX bytes: 1234567890
-        TX bytes:
+          TX bytes:
 """
             elif emotion == Emotion.SELF_DOUBT:
                 return """
 eth0      RX dropped: 0
-        RX dropped: 1
+          RX dropped: 1
 """
 
         return ""
