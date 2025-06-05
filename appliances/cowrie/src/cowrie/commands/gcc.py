@@ -316,77 +316,87 @@ For bug reporting instructions, please see:
         if trait.name == "OPENNESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "No files? Sometimes the best ideas are still in your head."
+                return "gcc: No input files specified (Error code 01)"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Trying new things leads to growth—even failed compiles."
+                return "gcc: Missing input file"
             elif emotion.name == "CONFIDENCE":
-                return "Code compiled. Creativity manifested."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Compiled successfully with no errors"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Errors are part of the journey. Curiosity will fix them."
+                return "gcc: Error: No input files provided. Please specify a file to compile."
             elif emotion.name == "SURPRISE":
-                return "It compiled? That’s the spark of innovation."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Unexpected failure, installed libraries do not match the expected version"
 
         elif trait.name == "CONSCIENTIOUSNESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Missing input? Perhaps double-check the file name?"
+                return "gcc: Missing input file, please specify a source file to compile"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Each failed compile is a lesson in precision."
+                return "gcc: Permission denied, cannot access the specified file"
             elif emotion.name == "CONFIDENCE":
-                return "Compilation completed. Structure and logic prevail."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Compilation successful, no errors found"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Systems respond to clarity. Refactor and retry."
+                return "gcc: Package not found, please install the required libraries"
             elif emotion.name == "SURPRISE":
-                return "Unexpected success, but not unearned."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Package found, compiling with the specified libraries"
 
         elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "What file are we compiling today, friend?"
+                return "gcc: No input files specified, please provide a source file"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Hey, everyone fumbles sometimes. Try again!"
+                return "gcc: No such package found, please check the package name"
             elif emotion.name == "CONFIDENCE":
-                return "Boom! You compiled like a champ."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Compilation successful, no warnings or errors"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Too many flags? Take a breather, then crack it."
+                return "gcc: Please specify a valid source file to compile"
             elif emotion.name == "SURPRISE":
-                return "Whoa, that binary actually runs!"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Checking for additional libraries, please wait..."
 
         elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Need a hand choosing your input file?"
+                return "gcc: Command not found, please check your input"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Even errors can be encouraging, right?"
+                return "gcc: No input files specified, please provide a source file"
             elif emotion.name == "CONFIDENCE":
-                return "All set! You’re doing great."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Operation denied, you do not have permission to access this file"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "It’s okay, let’s troubleshoot it together."
+                return "gcc: Compilation failed, please check the source code for errors"
             elif emotion.name == "SURPRISE":
-                return "Nice work! That went smoother than expected."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: unknown error occurred, please try again later"
 
         elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "No input… what did we miss this time?"
+                return "gcc: No input files specified, please provide a source file to compile"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "Maybe I shouldn't even try compiling anything today."
+                return "gcc: permission denied, cannot access the specified package"
             elif emotion.name == "CONFIDENCE":
-                return "Okay… it worked. But what if it’s broken inside?"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Network error, please check your connection"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "This is a mess. But maybe the next try fixes it."
+                return "gcc: installation failed, please check the package name and try again"
             elif emotion.name == "SURPRISE":
-                return "Wait… it didn’t crash?"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: --help: Displaying help information for gcc command"
 
         return None
 

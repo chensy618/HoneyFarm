@@ -96,52 +96,57 @@ class Command_groups(HoneyPotCommand):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "groups: So many identities… are we just roles after all?"
+                return "groups: No such user (Error code 01)"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "groups: I didn’t realize I was part of that group too."
+                return "groups: Memberships: root, admin, sudo, docker, users"
             elif emotion == Emotion.CONFUSION:
-                return "groups: What does belonging really mean?"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: mygroup already exists"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "groups: Membership verified. But do I have the correct permissions?"
+                return "groups: permission denied: cannot access `/etc/group`"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "groups: Consistency matters. Some groups look out of order."
+                return "groups: invalid group name: 'mygroup'"
             elif emotion == Emotion.FRUSTRATION:
-                return "groups: Better double-check `/etc/group` structure later."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "groups: does not exist: 'david'"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "groups: Nice! You're part of quite a few circles."
+                return "groups: General error: No such group"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "groups: Wait, was that an admin group? Cool!"
+                return "groups: Invalid argument"
             elif emotion == Emotion.CONFUSION:
-                return "groups: Let's invite some people over!"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: Access denied: cannot read `/etc/group`"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "groups: Belonging feels nice. I hope everyone has their place."
+                return "groupadd: cannot create group 'mygroup': Permission denied"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "groups: Should we even look into others' groups?"
+                return "groups: Invalid option -- 'x'"
             elif emotion == Emotion.SELF_DOUBT:
-                return "groups: Just trying to keep things harmonious."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "groups: david adm cdrom sudo dip plugdev"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "groups: They *say* I belong. But do I really?"
+                return "groups: notexist: no such user"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "groups: What if these groups are traps?"
+                return "groups: more than one group specified"
             elif emotion == Emotion.SELF_DOUBT:
-                return "groups: I feel… watched. Even here."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "groups: not a valid group name"
 
         return ""
 
