@@ -580,11 +580,11 @@ or available locally via: info '(coreutils) rm invocation'\n"""
 
     def response_rm(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["[rm] That deletion was... bold.", "[rm] Whoa! You meant to remove that?", "[rm] Want to see what’s left?"],
-            Personality.CONSCIENTIOUSNESS: ["[rm] Deletion conflicts with retention policy.", "[rm] Too hasty. Could be unsafe.", "[rm] Are you sure we should've done that?"],
-            Personality.LOW_EXTRAVERSION: ["[rm] Gone! Fast and fun!", "[rm] I love cleanup jobs.", "[rm] What’s next to destroy?"],
-            Personality.LOW_AGREEABLENESS: ["[rm] Sure, gone now.", "[rm] Wait! That seemed important.", "[rm] I regret that... sorry."],
-            Personality.LOW_NEUROTICISM: ["[rm] No turning back.", "[rm] Deleted something… hope it’s fine.", "[rm] Oops."]
+            Personality.OPENNESS: ["rm : cannot remove `file': No such file or directory", "rm: cannot remove `file': Permission denied", "rm: cannot remove `file': Is a directory"],
+            Personality.CONSCIENTIOUSNESS: ["rm: permission denied", "[rm] File not found", "[rm] Directory not empty"],
+            Personality.LOW_EXTRAVERSION: ["rm: cannot remove `file': No such file or directory", "[rm] File removed successfully", "[rm] Directory removed successfully"],
+            Personality.LOW_AGREEABLENESS: ["rm: cannot remove read-only file `file'", "[rm] File removed successfully", "[rm] Directory removed successfully"],
+            Personality.LOW_NEUROTICISM: ["rm: invalid option -- 'x'", "rm: cannot remove `file': No such file or directory", "rm: cannot remove `file': Permission denied"]
         }.get(trait, []))
 
 commands["/bin/rm"] = Command_rm
@@ -667,11 +667,11 @@ class Command_cp(HoneyPotCommand):
 
     def response_cp(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["[cp] Duplicating artfully.", "[cp] That’s a unique destination.", "[cp] Do you want to experiment with the copy?"],
-            Personality.CONSCIENTIOUSNESS: ["[cp] File alignment failed.", "[cp] Naming convention mismatch.", "[cp] Is this path structurally valid?"],
-            Personality.LOW_EXTRAVERSION: ["[cp] Copied! Let’s move on!", "[cp] This place needs more stuff.", "[cp] Next copy spree?"],
-            Personality.LOW_AGREEABLENESS: ["[cp] Glad to help.", "[cp] Oops, overwrote something?", "[cp] Sorry, should’ve asked..."],
-            Personality.LOW_NEUROTICISM: ["[cp] Copy operation unclear.", "[cp] I think we missed something.", "[cp] Might’ve corrupted it."]
+            Personality.OPENNESS: ["cp: operation not permitted", "cp: cannot copy file", "cp: file copied successfully"],
+            Personality.CONSCIENTIOUSNESS: ["cp: file exists", "cp: cannot copy file: Permission denied", "cp: cannot copy file: Is a directory"],
+            Personality.LOW_EXTRAVERSION: ["cp: input/output error", "cp: cannot copy file: No such file or directory", "cp: file copied successfully"],
+            Personality.LOW_AGREEABLENESS: ["cp: file exists", "cp: cannot copy file: Permission denied", "cp: cannot copy file: Is a directory"],
+            Personality.LOW_NEUROTICISM: ["cp: directory not empty", "cp: cannot copy file: No such file or directory", "cp: cannot copy file: Permission denied"]
         }.get(trait, []))
 
 
@@ -752,11 +752,11 @@ class Command_mv(HoneyPotCommand):
 
     def response_mv(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["[mv] Bold rearrangement.", "[mv] What’s the idea behind this rename?", "[mv] Let’s experiment."],
-            Personality.CONSCIENTIOUSNESS: ["[mv] Violates file structure assumptions.", "[mv] Unexpected overwrite risk.", "[mv] Better verify this move."],
-            Personality.LOW_EXTRAVERSION: ["[mv] Whee! File on the move!", "[mv] Let’s reshuffle everything.", "[mv] Try renaming more?"],
-            Personality.LOW_AGREEABLENESS: ["[mv] Got it.", "[mv] That may confuse future users.", "[mv] I don’t like where this went."],
-            Personality.LOW_NEUROTICISM: ["[mv] Path ambiguity detected.", "[mv] Untracked rename behavior.", "[mv] Rollback advised."]
+            Personality.OPENNESS: ["mv: File moved successfully.", "mv: Unexpected file structure.", "mv: Interesting file arrangement."],
+            Personality.CONSCIENTIOUSNESS: ["mv: File not found.", "mv: Cannot move file: Permission denied.", "mv: Cannot move file: Is a directory."],
+            Personality.LOW_EXTRAVERSION: ["mv: File moved successfully.", "mv: Cannot move file: No such file or directory.", "mv: File moved to new location."],
+            Personality.LOW_AGREEABLENESS: ["mv: invalid option -- 'x'", "mv: Cannot move file: Permission denied.", "mv: Cannot move file: Is a directory."],
+            Personality.LOW_NEUROTICISM: ["mv: no such file or directory", "mv: Cannot move file: No such file or directory", "mv: Cannot move file: Permission denied"]
         }.get(trait, []))
 
 
@@ -789,11 +789,11 @@ class Command_mkdir(HoneyPotCommand):
 
     def response_mkdir(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["[mkdir] New container for thoughts.", "[mkdir] This space has potential.", "[mkdir] Imagine what could go in here!"],
-            Personality.CONSCIENTIOUSNESS: ["[mkdir] Name violates expected hierarchy.", "[mkdir] Already exists? Unacceptable.", "[mkdir] Double-check your directory tree."],
-            Personality.LOW_EXTRAVERSION: ["[mkdir] More places to stash files!", "[mkdir] Let’s build a treehouse.", "[mkdir] Try adding a secret dir."],
-            Personality.LOW_AGREEABLENESS: ["[mkdir] Happy to help.", "[mkdir] This name might confuse others.", "[mkdir] Sorry, name conflict."],
-            Personality.LOW_NEUROTICISM: ["[mkdir] Something feels off.", "[mkdir] Not the best place to build.", "[mkdir] Can we undo this?"]
+            Personality.OPENNESS: ["mkdir: operation not supported", "mkdir: Directory created successfully.", "mkdir: Directory already exists."],
+            Personality.CONSCIENTIOUSNESS: ["mkdir: Directory structure not found", "mkdir: Cannot create directory: Permission denied", "mkdir: Cannot create directory: Is a file"],
+            Personality.LOW_EXTRAVERSION: ["mkdir: Directory created successfully.", "mkdir: Cannot create directory: No such file or directory", "mkdir: Directory already exists."],
+            Personality.LOW_AGREEABLENESS: ["mkdir: invalid option -- 'x'", "mkdir: Cannot create directory: Permission denied", "mkdir: Cannot create directory: Is a file"],
+            Personality.LOW_NEUROTICISM: ["mkdir: no such file or directory", "mkdir: Cannot create directory: No such file or directory", "mkdir: Cannot create directory: Permission denied"]
         }.get(trait, []))
 
 
@@ -838,11 +838,11 @@ class Command_rmdir(HoneyPotCommand):
 
     def response_rmdir(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["[rmdir] Letting go opens new possibilities.", "[rmdir] This deletion reveals empty space.", "[rmdir] Where did it all go?"],
-            Personality.CONSCIENTIOUSNESS: ["[rmdir] Directory must be empty.", "[rmdir] Should’ve confirmed structure.", "[rmdir] Not sure this was a good call."],
-            Personality.LOW_EXTRAVERSION: ["[rmdir] I like decluttering!", "[rmdir] Poof! It’s gone.", "[rmdir] Next cleanup target?"],
-            Personality.LOW_AGREEABLENESS: ["[rmdir] Okay, removed.", "[rmdir] I think someone still needed that.", "[rmdir] That may have upset something."],
-            Personality.LOW_NEUROTICISM: ["[rmdir] Why was that empty?", "[rmdir] Now I feel weird...", "[rmdir] I shouldn’t have removed it."]
+            Personality.OPENNESS: ["rmdir: Directory removed successfully", "rmdir: are you sure?", "rmdir: Directory structure not found"],
+            Personality.CONSCIENTIOUSNESS: ["rmdir: permission denied", "rmdir: Directory not empty", "rmdir: Directory structure not found"],
+            Personality.LOW_EXTRAVERSION: ["rmdir: dangerous operation", "rmdir: Directory removed successfully", "rmdir: Directory not empty"],
+            Personality.LOW_AGREEABLENESS: ["rmdir: no such file or directory", "rmdir: Directory removed successfully", "rmdir: Directory not empty"],
+            Personality.LOW_NEUROTICISM: ["rmdir: --help for more information", "rmdir: Directory removed successfully", "rmdir: Directory not empty"]
         }.get(trait, []))
 
 commands["/bin/rmdir"] = Command_rmdir
@@ -860,11 +860,11 @@ class Command_pwd(HoneyPotCommand):
 
     def response_pwd(protocol, trait, emotion):
         return {
-            Personality.OPENNESS: "[pwd] You’re in a curious place.\n",
-            Personality.CONSCIENTIOUSNESS: "[pwd] Precise path: structure maintained.\n",
-            Personality.LOW_EXTRAVERSION: "[pwd] Standing loud and proud here.\n",
-            Personality.LOW_AGREEABLENESS: "[pwd] Here you go!\n",
-            Personality.LOW_NEUROTICISM: "[pwd] Are we… safe here?\n",
+            Personality.OPENNESS: "pwd: current working directory: var\log\n",
+            Personality.CONSCIENTIOUSNESS: "pwd: current working directory: /home/user\n",
+            Personality.LOW_EXTRAVERSION: "pwd: permission denied\n",
+            Personality.LOW_AGREEABLENESS: "pwd: read-only file system\n",
+            Personality.LOW_NEUROTICISM: "pwd: current working directory: /etc\n",
         }.get(trait, "")
 
 commands["/bin/pwd"] = Command_pwd
@@ -879,7 +879,7 @@ class Command_touch(HoneyPotCommand):
     def call(self) -> None:
         if not len(self.args):
             self.errorWrite("touch: missing file operand\n")
-            self.errorWrite("Try `touch --help' for more information.\n")
+            self.errorWrite("Try `touch --help' for more information\n")
             return
         for f in self.args:
             pname = self.fs.resolve_path(f, self.protocol.cwd)
@@ -904,11 +904,11 @@ class Command_touch(HoneyPotCommand):
 
     def response_touch(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["[touch] You just created potential.", "[touch] A blank slate!", "[touch] This might become something wonderful."],
-            Personality.CONSCIENTIOUSNESS: ["[touch] Timestamp needs alignment.", "[touch] Inconsistent file access pattern.", "[touch] Validate before creating."],
-            Personality.LOW_EXTRAVERSION: ["[touch] Bam! File ready.", "[touch] Fastest creation ever!", "[touch] Want another?"],
-            Personality.LOW_AGREEABLENESS: ["[touch] Here’s your file.", "[touch] Should I have asked first?", "[touch] I hope this helps."],
-            Personality.LOW_NEUROTICISM: ["[touch] This feels wrong.", "[touch] What if it breaks something?", "[touch] Let’s undo this later."]
+            Personality.OPENNESS: ["touch: File not expected.", "touch: File created successfully", "touch: File not found"],
+            Personality.CONSCIENTIOUSNESS: ["touch: File already exists.", "touch: File creation failed", "touch: File not found"],
+            Personality.LOW_EXTRAVERSION: ["touch: File created successfully", "touch: File not found", "touch: File creation failed"],
+            Personality.LOW_AGREEABLENESS: ["touch: File created failed", "touch: File not found", "touch: File already exists"],
+            Personality.LOW_NEUROTICISM: ["touch: permission denied", "touch: File not found", "touch: File creation failed"]
         }.get(trait, []))
 
 commands["/bin/touch"] = Command_touch
