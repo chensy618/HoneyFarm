@@ -75,7 +75,7 @@ class Command_which(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "Interesting location. Worth noting for later."
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "Let's hunt those commands down together!"
@@ -91,7 +91,7 @@ class Command_which(HoneyPotCommand):
             elif emotion.name == "SURPRISE":
                 return "Surprise path! Didn't expect that, huh?"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "It's okay. Let's gently look for the right place."
@@ -108,7 +108,7 @@ class Command_which(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "Oh! That's where it is—fun little discovery!"
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "What if it's not there? Maybe it moved…"

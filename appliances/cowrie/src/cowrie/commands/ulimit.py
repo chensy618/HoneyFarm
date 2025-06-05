@@ -91,7 +91,7 @@ class Command_ulimit(HoneyPotCommand):
             elif emotion == Emotion.SELF_DOUBT:
                 return "ulimit check skipped: too many open descriptors\n"
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ulimit: party mode enabled 🎉\n"
@@ -101,7 +101,7 @@ class Command_ulimit(HoneyPotCommand):
             elif emotion == Emotion.CONFUSION:
                 return "resource accounting disabled\n"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cooperative limits inherited from group policy\n"
@@ -111,7 +111,7 @@ class Command_ulimit(HoneyPotCommand):
             elif emotion == Emotion.FRUSTRATION:
                 return "collaborative control failed: retry later\n"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "alarm: soft ulimit mismatch with recorded value\n"

@@ -129,7 +129,7 @@ class Command_tar(HoneyPotCommand):
             elif emotion == Emotion.SELF_DOUBT:
                 return "tar: extraction complete with warnings. Suggest verification.\n"
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "tar: loud and clear! Archive opened.\n"
@@ -139,7 +139,7 @@ class Command_tar(HoneyPotCommand):
             elif emotion == Emotion.CONFUSION:
                 return "tar: retrying auto-repair...\n"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "tar: collaborating with fs layer... success.\n"
@@ -149,7 +149,7 @@ class Command_tar(HoneyPotCommand):
             elif emotion == Emotion.FRUSTRATION:
                 return "tar: skipping contentious file.\n"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "tar: format ambiguity detected.\n"

@@ -148,7 +148,7 @@ class Command_ping(HoneyPotCommand):
             elif emotion == Emotion.SELF_DOUBT:
                 return "ping: Should probably verify the route again."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ping: Who’s there? Back and forth — such a lively chat!"
@@ -158,7 +158,7 @@ class Command_ping(HoneyPotCommand):
             elif emotion == Emotion.CONFUSION:
                 return "ping: Still listening, still hoping."
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ping: They responded! Isn't that kind of them?"
@@ -168,7 +168,7 @@ class Command_ping(HoneyPotCommand):
             elif emotion == Emotion.FRUSTRATION:
                 return "ping: Let’s try another address. Maybe someone else will talk to us."
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "ping: Response received… but what if it’s fake?"

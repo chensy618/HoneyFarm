@@ -60,7 +60,7 @@ class Command_env(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 writer("Suggestion: run `printenv | sort | uniq` to verify integrity.")
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("SESSION_SECRET=******")
@@ -71,7 +71,7 @@ class Command_env(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 writer("Shell instance isolated. Try `env -i`?")
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("SUDO_UID=0")
@@ -82,7 +82,7 @@ class Command_env(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 writer("This environment may be sandboxed.")
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("LOG_TIMESTAMP=Thu Jan 01 00:00:00 UTC 1970")

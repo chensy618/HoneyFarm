@@ -104,7 +104,7 @@ No data available\n"""
             elif emotion == Emotion.SELF_DOUBT:
                 return "ethtool: suggest validating link partner settings.\n"
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ethtool: surge in TX throughput! Looks intense!\n"
@@ -114,7 +114,7 @@ No data available\n"""
             elif emotion == Emotion.CONFUSION:
                 return "ethtool: social packet flooding simulation enabled.\n"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ethtool: peer handshake incomplete. Trying again...\n"
@@ -124,7 +124,7 @@ No data available\n"""
             elif emotion == Emotion.FRUSTRATION:
                 return "ethtool: silent conflict resolution applied.\n"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "ethtool: reported speed inconsistent with NIC logs.\n"

@@ -117,67 +117,67 @@ class Command_uniq(HoneyPotCommand):
                 return "Let's strip away the noise and keep only what matters."
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.FOCUS)
-                return "Duplicates filtered. Structure improved."
+                return "uniq[E520]: Duplicates filtered. Structure improved."
             elif emotion.name == "CONFIDENCE":
                 protocol.emotion.set_state(Emotion.SATISFACTION)
-                return "Clean data. Just how you like it."
+                return "uniq[E520]: Clean data. Just how you like it."
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CALM)
-                return "Let's tidy this up and move forward."
+                return "uniq[E520]: Let's tidy this up and move forward."
             elif emotion.name == "SURPRISE":
                 protocol.emotion.set_state(Emotion.REFLECTION)
-                return "A surprise duplicate is still a pattern."
+                return "uniq[E520]: A surprise duplicate is still a pattern."
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Let's find the unique ones that stand out!"
+                return "uniq[E101]: Let's find the unique ones that stand out!"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CURIOSITY)
-                return "There's value in the outliers!"
+                return "uniq[E101]: There's value in the outliers!"
             elif emotion.name == "CONFIDENCE":
                 protocol.emotion.set_state(Emotion.SATISFACTION)
-                return "Filtered and fabulous!"
+                return "uniq[E101]: Filtered and fabulous!"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Brush it off, we've got this."
+                return "uniq[E101]: Brush it off, we've got this."
             elif emotion.name == "SURPRISE":
                 protocol.emotion.set_state(Emotion.ENTHUSIASM)
-                return "Whoa! That one kept showing up, huh?"
+                return "uniq[E101]: Whoa! That one kept showing up, huh?"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.HELPFULNESS)
-                return "Need help spotting the differences?"
+                return "uniq[E202]: Need help spotting the differences?"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.OPTIMISM)
-                return "Each line matters. Let's keep going."
+                return "uniq[E202]: Each line matters. Let's keep going."
             elif emotion.name == "CONFIDENCE":
                 protocol.emotion.set_state(Emotion.SATISFACTION)
-                return "Clean list, clean mind!"
+                return "uniq[E202]: Clean list, clean mind!"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.PATIENCE)
-                return "Let's take it one line at a time."
+                return "uniq[E202]: Let's take it one line at a time."
             elif emotion.name == "SURPRISE":
                 protocol.emotion.set_state(Emotion.HELPFULNESS)
-                return "Found something odd? Let's look into it."
+                return "uniq[E202]: Found something odd? Let's look into it."
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.ANXIETY)
-                return "Why so many duplicates? Is something wrong?"
+                return "uniq[E404]: Why so many duplicates? Is something wrong?"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Was I too strict? Or not strict enough?"
+                return "uniq[E404]: Was I too strict? Or not strict enough?"
             elif emotion.name == "CONFIDENCE":
                 protocol.emotion.set_state(Emotion.CAUTIOUS)
-                return "Okay… the output looks fine. I think."
+                return "uniq[E404]: Okay… the output looks fine. I think."
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "It shouldn't be this messy… right?"
+                return "uniq[E404]: It shouldn't be this messy… right?"
             elif emotion.name == "SURPRISE":
                 protocol.emotion.set_state(Emotion.MISTRUST)
-                return "That line again? Is this thing rigged?"
+                return "uniq[E404]: That line again? Is this thing rigged?"
 
         return ""
 

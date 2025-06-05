@@ -153,7 +153,7 @@ No Plan.
             elif emotion == Emotion.FRUSTRATION:
                 return "finger: Clean data doesn’t guarantee clean intentions."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "finger: Found someone! Let’s go say hi!"
@@ -163,7 +163,7 @@ No Plan.
             elif emotion == Emotion.CONFUSION:
                 return "finger: Maybe they’re just not home."
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "finger: This user seems kind. Wish they’d left a plan though."
@@ -173,7 +173,7 @@ No Plan.
             elif emotion == Emotion.SELF_DOUBT:
                 return "finger: Still, you mean no harm. Right?"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "finger: They’re here. Or were. Or are they watching us?"

@@ -156,7 +156,7 @@ class Command_unzip(HoneyPotCommand):
             elif emotion == Emotion.SELF_DOUBT:
                 return "  skipped: data/recover.bak (corrupt block)\n"
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "  inflating: /tmp/scan001.txt\n"
@@ -166,7 +166,7 @@ class Command_unzip(HoneyPotCommand):
             elif emotion == Emotion.CONFUSION:
                 return "  inflating: /home/user/.bash_secret\n"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "  inflating: shared/config.json\n"
@@ -176,7 +176,7 @@ class Command_unzip(HoneyPotCommand):
             elif emotion == Emotion.FRUSTRATION:
                 return "  skipped: access revoked by peer policy\n"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "  inflating: logs/.ghost_entry\n"

@@ -159,7 +159,7 @@ class Command_dd(HoneyPotCommand):
 
         # === 3. Low Extraversion ===
         # Emotion Path: Confidence → Surprise → Curiosity
-        elif trait_enum == Personality.EXTRAVERSION:
+        elif trait_enum == Personality.LOW_EXTRAVERSION:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
                 self.write("dd: Failed to open the file\n")
@@ -173,7 +173,7 @@ class Command_dd(HoneyPotCommand):
 
         # === 4. Low Agreeableness ===
         # Emotion Path: Confidence → Surprise → Frustration
-        elif trait_enum == Personality.AGREEABLENESS:
+        elif trait_enum == Personality.LOW_AGREEABLENESS:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
                 self.write("dd: Action blocked\n")
@@ -187,7 +187,7 @@ class Command_dd(HoneyPotCommand):
 
         # === 5. Low Neuroticism ===
         # Emotion Path: Confidence → Confusion → Self-doubt
-        elif trait_enum == Personality.NEUROTICISM:
+        elif trait_enum == Personality.LOW_NEUROTICISM:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.CONFUSION)
                 self.write("dd: Time drift detected\n")

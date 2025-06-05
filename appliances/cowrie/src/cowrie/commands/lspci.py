@@ -69,7 +69,7 @@ class Command_lspci(HoneyPotCommand):
             elif emotion == Emotion.SURPRISE:
                 return "Unexpected peripheral spotted. Time to document."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFUSION:
                 return "All these ports! Who's talking to what?"
             elif emotion == Emotion.SELF_DOUBT:
@@ -81,7 +81,7 @@ class Command_lspci(HoneyPotCommand):
             elif emotion == Emotion.SURPRISE:
                 return "Whoa! That's a lot of controllers."
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFUSION:
                 return "Looks tricky, but you're doing great."
             elif emotion == Emotion.SELF_DOUBT:
@@ -93,7 +93,7 @@ class Command_lspci(HoneyPotCommand):
             elif emotion == Emotion.SURPRISE:
                 return "Oh, what a neat discovery!"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFUSION:
                 return "What if a device is spoofed? What if it's not real?"
             elif emotion == Emotion.SELF_DOUBT:

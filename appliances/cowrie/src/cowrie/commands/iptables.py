@@ -516,7 +516,7 @@ Options:
             elif emotion == Emotion.SURPRISE:
                 return "Didn't expect that packet rule? Let's log and learn."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFUSION:
                 return "Wait, which chain are we in again? Let's explore!"
             elif emotion == Emotion.SELF_DOUBT:
@@ -528,7 +528,7 @@ Options:
             elif emotion == Emotion.SURPRISE:
                 return "Oh wow, that port was open all along!"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFUSION:
                 return "Need a hand understanding these rules?"
             elif emotion == Emotion.SELF_DOUBT:
@@ -540,7 +540,7 @@ Options:
             elif emotion == Emotion.SURPRISE:
                 return "Oh! That rule wasn't expected. Let's note it down."
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFUSION:
                 return "What if the rules don't work? What if it's all exposed?"
             elif emotion == Emotion.SELF_DOUBT:

@@ -255,7 +255,7 @@ pages for more information and options.
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "E: 403 Forbidden"
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "E: 400 Bad Request - Check your install command"
@@ -272,7 +272,7 @@ pages for more information and options.
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "E: 418 - Cannot install package"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "E: 404 Package not found"
@@ -288,7 +288,7 @@ pages for more information and options.
             elif emotion.name == "SURPRISE":
                 return "E: 403 Forbidden - Access denied to package repository"
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "E: 404 Not Found - Unable to locate package"

@@ -148,7 +148,7 @@ class Command_service(HoneyPotCommand):
             elif emotion == Emotion.SURPRISE:
                 return "Unexpected service running? Time to audit."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFUSION:
                 return "Whoa, look at all those services!"
             elif emotion == Emotion.SELF_DOUBT:
@@ -160,7 +160,7 @@ class Command_service(HoneyPotCommand):
             elif emotion == Emotion.SURPRISE:
                 return "Hey now, didn't expect 'bluetooth' to be up!"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFUSION:
                 return "Don't worry, let's take it one service at a time."
             elif emotion == Emotion.SELF_DOUBT:
@@ -172,7 +172,7 @@ class Command_service(HoneyPotCommand):
             elif emotion == Emotion.SURPRISE:
                 return "Oh wow, didn't know that was running!"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFUSION:
                 return "Is something malicious running? Could be..."
             elif emotion == Emotion.SELF_DOUBT:

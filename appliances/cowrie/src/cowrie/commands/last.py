@@ -71,7 +71,7 @@ class Command_last(HoneyPotCommand):
             elif emotion == Emotion.FRUSTRATION:
                 return "last: Keeping everything logged doesn’t mean it’s all under control."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "last: Whoa! That was when you came in last time, right?"
@@ -81,7 +81,7 @@ class Command_last(HoneyPotCommand):
             elif emotion == Emotion.CONFUSION:
                 return "last: Let's make this session even more fun!"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "last: You were here before. Glad to see you back!"
@@ -91,7 +91,7 @@ class Command_last(HoneyPotCommand):
             elif emotion == Emotion.SELF_DOUBT:
                 return "last: I’m here if you ever want to revisit what you did."
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "last: The logs say you were here… but can we trust the logs?"

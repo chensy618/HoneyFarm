@@ -138,7 +138,7 @@ class Command_free(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 writer("Possible kernel misreport in /proc/meminfo.")
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("HIDDEN_ZONE detected: 256MB unlisted.")
@@ -149,7 +149,7 @@ class Command_free(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 writer("Cache doesn't match expectations. Curious?")
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("Memory view unrestricted.")
@@ -160,7 +160,7 @@ class Command_free(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 writer("Some memory regions may be restricted by SELinux.")
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("All looks normal. For now.")

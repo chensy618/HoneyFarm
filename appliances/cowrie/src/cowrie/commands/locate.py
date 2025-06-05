@@ -142,7 +142,7 @@ class Command_locate(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.FOCUS)
                 return "Unexpected result—but logged and handled."
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "We'll crack it together—keep going!"
@@ -159,7 +159,7 @@ class Command_locate(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.EXCITEMENT)
                 return "Whoa! Didn't expect that one, huh?"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.HELPFULNESS)
                 return "Want help refining the search? I'm here."
@@ -176,7 +176,7 @@ class Command_locate(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.HELPFULNESS)
                 return "Surprise find! Hope it's what you needed."
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.ANXIETY)
                 return "What if something important is missing?"

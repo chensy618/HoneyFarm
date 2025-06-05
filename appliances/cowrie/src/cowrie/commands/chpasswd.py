@@ -118,13 +118,13 @@ class Command_chpasswd(HoneyPotCommand):
                 Emotion.CONFUSION: "Password changes done. Right?",
             }.get(emotion)
 
-        if trait == Personality.NEUROTICISM:
+        if trait == Personality.LOW_NEUROTICISM:
             return {
                 Emotion.CONFIDENCE: "Even though it's done, something still feels... off.",
                 Emotion.FRUSTRATION: "Hope this time it sticks.",
             }.get(emotion)
 
-        if trait == Personality.AGREEABLENESS:
+        if trait == Personality.LOW_AGREEABLENESS:
             return {
                 Emotion.CONFIDENCE: "Nice job! Everyone's passwords are now fresh and secure. 😊",
                 Emotion.SURPRISE: "That went smoother than expected!",
@@ -140,7 +140,7 @@ class Command_chpasswd(HoneyPotCommand):
                 Emotion.FRUSTRATION: "Incomplete password line. Structure matters!",
             }.get(emotion)
 
-        if trait == Personality.NEUROTICISM:
+        if trait == Personality.LOW_NEUROTICISM:
             return {
                 Emotion.SELF_DOUBT: "Why does this always happen...?",
                 Emotion.FRUSTRATION: "Ugh. One wrong character and it's all broken.",

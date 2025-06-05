@@ -343,7 +343,7 @@ For bug reporting instructions, please see:
             elif emotion.name == "SURPRISE":
                 return "Unexpected success, but not unearned."
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "What file are we compiling today, friend?"
@@ -358,7 +358,7 @@ For bug reporting instructions, please see:
             elif emotion.name == "SURPRISE":
                 return "Whoa, that binary actually runs!"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "Need a hand choosing your input file?"
@@ -373,7 +373,7 @@ For bug reporting instructions, please see:
             elif emotion.name == "SURPRISE":
                 return "Nice work! That went smoother than expected."
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "No input… what did we miss this time?"

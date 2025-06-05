@@ -267,7 +267,7 @@ class Command_ls(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "Unexpected? Let's catalog that, too."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "What's all this stuff? Let's dive in!"
@@ -284,7 +284,7 @@ class Command_ls(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "Whoa! Didn't know we had that here!"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "Need help finding something?"
@@ -301,7 +301,7 @@ class Command_ls(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "Oh! This file seems new. Looks nice!"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "Why are there so many files? Is something wrong?"
