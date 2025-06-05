@@ -136,52 +136,52 @@ No Plan.
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "finger: Ever wonder what lies behind each login name?"
+                return "finger: User not found"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "finger: So many users… yet so little presence."
+                return "finger: Unknownuser: no such user"
             elif emotion == Emotion.CONFUSION:
-                return "finger: Searching people doesn’t mean you’ll find meaning."
+                return "finger: Syntax incomplete"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "finger: Consistent formatting. But does the user really belong?"
+                return "finger: Login: guest       Name: ??\nDirectory: /tmp  Shell: /bin/sh\nLast"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "finger: Something feels slightly off. Check the shell path again."
+                return "finger: Could not find the directory, Check the shell path again."
             elif emotion == Emotion.FRUSTRATION:
-                return "finger: Clean data doesn’t guarantee clean intentions."
+                return "finger: unexpected response format. (Error code: 8)"
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "finger: Found someone! Let’s go say hi!"
+                return "finger: user record not indexed properly. (Error code: 2)"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "finger: Wait… why are they silent?"
+                return "finger: Login: partycrasher   Name: Unknown but online!\nLocation: 172.31.0.66"
             elif emotion == Emotion.CONFUSION:
-                return "finger: Maybe they’re just not home."
+                return "finger: User not found in the system. (Error code: 3)"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "finger: This user seems kind. Wish they’d left a plan though."
+                return "finger: You are not allowed to view this user's information"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "finger: Maybe we shouldn’t peek at others’ info…"
+                return "finger: You don't have permission to access this user's data"
             elif emotion == Emotion.SELF_DOUBT:
-                return "finger: Still, you mean no harm. Right?"
+                return "finger: This user has restricted access. (Error code: 4)"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "finger: They’re here. Or were. Or are they watching us?"
+                return "finger: User not found in the system. (Error code: 5)"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "finger: It could be a trap… is this even a real user?"
+                return "finger: Unexpected user data format. (Error code: 6)"
             elif emotion == Emotion.SELF_DOUBT:
-                return "finger: You're not alone on this system."
+                return "finger: Error retrieving user information. (Error code: 7)"
 
         return ""
 

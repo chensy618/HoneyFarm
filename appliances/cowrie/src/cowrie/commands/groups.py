@@ -113,7 +113,7 @@ class Command_groups(HoneyPotCommand):
             elif emotion == Emotion.FRUSTRATION:
                 return "groups: Better double-check `/etc/group` structure later."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "groups: Nice! You're part of quite a few circles."
@@ -123,7 +123,7 @@ class Command_groups(HoneyPotCommand):
             elif emotion == Emotion.CONFUSION:
                 return "groups: Let's invite some people over!"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "groups: Belonging feels nice. I hope everyone has their place."
@@ -133,7 +133,7 @@ class Command_groups(HoneyPotCommand):
             elif emotion == Emotion.SELF_DOUBT:
                 return "groups: Just trying to keep things harmonious."
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "groups: They *say* I belong. But do I really?"

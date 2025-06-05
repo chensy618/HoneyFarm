@@ -194,7 +194,7 @@ or available locally via: info '(coreutils) cat invocation'
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "cat: file corrupted or partially truncated"
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cat: username=admin\npassword=1234\n"
@@ -205,7 +205,7 @@ or available locally via: info '(coreutils) cat invocation'
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "cat: Expected 4096 bytes, found 4092 bytes."
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cat: Access granted"
@@ -216,7 +216,7 @@ or available locally via: info '(coreutils) cat invocation'
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "cat: Were you supposed to see this at all?"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cat: Timestamp: 1970-01-01."

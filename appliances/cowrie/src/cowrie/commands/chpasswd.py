@@ -113,21 +113,21 @@ class Command_chpasswd(HoneyPotCommand):
     def response_chpasswd_success(protocol, trait, emotion):
         if trait == Personality.CONSCIENTIOUSNESS:
             return {
-                Emotion.CONFIDENCE: "All credentials updated cleanly. ✅",
-                Emotion.SELF_DOUBT: "They *seem* correct... Double-check maybe?",
-                Emotion.CONFUSION: "Password changes done. Right?",
+                Emotion.CONFIDENCE: "All credentials updated cleanly",
+                Emotion.SELF_DOUBT: "Check again, the password is not secure enough.",
+                Emotion.CONFUSION: "Password changes done",
             }.get(emotion)
 
-        if trait == Personality.NEUROTICISM:
+        if trait == Personality.LOW_NEUROTICISM:
             return {
-                Emotion.CONFIDENCE: "Even though it's done, something still feels... off.",
-                Emotion.FRUSTRATION: "Hope this time it sticks.",
+                Emotion.CONFIDENCE: "Something still missing",
+                Emotion.FRUSTRATION: "Password change failed",
             }.get(emotion)
 
-        if trait == Personality.AGREEABLENESS:
+        if trait == Personality.LOW_AGREEABLENESS:
             return {
-                Emotion.CONFIDENCE: "Nice job! Everyone's passwords are now fresh and secure. 😊",
-                Emotion.SURPRISE: "That went smoother than expected!",
+                Emotion.CONFIDENCE: "Credentials updated successfully.",
+                Emotion.SURPRISE: "Unexpectedly, the password was changed without issues.",
             }.get(emotion)
 
         return None
@@ -136,19 +136,19 @@ class Command_chpasswd(HoneyPotCommand):
     def response_chpasswd_error(protocol, trait, emotion):
         if trait == Personality.CONSCIENTIOUSNESS:
             return {
-                Emotion.CONFUSION: "Syntax failure? Let's get this cleaned up properly.",
-                Emotion.FRUSTRATION: "Incomplete password line. Structure matters!",
+                Emotion.CONFUSION: "Syntax error in password line. Please check the format.",
+                Emotion.FRUSTRATION: "Incomplete password line",
             }.get(emotion)
 
-        if trait == Personality.NEUROTICISM:
+        if trait == Personality.LOW_NEUROTICISM:
             return {
-                Emotion.SELF_DOUBT: "Why does this always happen...?",
-                Emotion.FRUSTRATION: "Ugh. One wrong character and it's all broken.",
+                Emotion.SELF_DOUBT: "Please ensure the password is secure and try again.",
+                Emotion.FRUSTRATION: "One wrong character",
             }.get(emotion)
 
         if trait == Personality.OPENNESS:
             return {
-                Emotion.CONFUSION: "What does this format even mean…? A puzzle within a puzzle.",
+                Emotion.CONFUSION: "Unexpected input format. Please check the password line.",
             }.get(emotion)
 
         return None

@@ -208,7 +208,7 @@ class Command_uname(HoneyPotCommand):
             elif emotion == Emotion.SELF_DOUBT:
                 return "uname: incomplete sysinfo mapping. Possible override detected.\n"
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uname: WOW! System profile exploded!\n"
@@ -218,7 +218,7 @@ class Command_uname(HoneyPotCommand):
             elif emotion == Emotion.CONFUSION:
                 return "uname: auto-resolving identity clash...\n"
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uname: syncing with network metadata...\n"
@@ -228,7 +228,7 @@ class Command_uname(HoneyPotCommand):
             elif emotion == Emotion.FRUSTRATION:
                 return "uname: switching to isolated mode output.\n"
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uname: kernel response too quick — spoof suspected.\n"

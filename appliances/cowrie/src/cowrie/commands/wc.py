@@ -168,7 +168,7 @@ class Command_wc(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "Unexpected length? Worth a closer look."
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "Let's break this file down together!"
@@ -185,7 +185,7 @@ class Command_wc(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "Didn't see that coming, huh?"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "Need help reading those stats?"
@@ -202,7 +202,7 @@ class Command_wc(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "Surprising, right? Let's check again just to be sure."
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "What if we missed something…?"

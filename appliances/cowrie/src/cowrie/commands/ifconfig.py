@@ -131,7 +131,7 @@ eth0      Metric:1
           Metric:0
 """
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return """
@@ -150,7 +150,7 @@ eth0
           RX packets:0
 """
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return """
@@ -168,7 +168,7 @@ eth1      Link encap:Ethernet
 [Access denied to interface listing.]
 """
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return """

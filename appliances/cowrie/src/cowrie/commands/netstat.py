@@ -226,7 +226,7 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
             elif emotion == Emotion.SELF_DOUBT:
                 return "netstat: order lost in tables. Structure needs reinforcement."
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "netstat: multiple streams converging. It’s a party in here!"
@@ -236,7 +236,7 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
             elif emotion == Emotion.CONFUSION:
                 return "netstat: maybe reach out — so many open connections, so little feedback."
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "netstat: open ports everywhere. Are we being too welcoming?"
@@ -246,7 +246,7 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
             elif emotion == Emotion.FRUSTRATION:
                 return "netstat: still listening... maybe someone will connect again."
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "netstat: why is this socket still connected? Feels... unstable."

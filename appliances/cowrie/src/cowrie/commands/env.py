@@ -41,13 +41,13 @@ class Command_env(HoneyPotCommand):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("NOTE: Not all environment variables are shown.")
+                writer("NOTE: Not all environment variables are shown")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("_X=unexpected_heuristic")
+                writer("env: unexpected variable found _X")
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("Hmm… what's this `_SEEDXID` doing here?")
+                writer("env: variable _Y not found")
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
@@ -55,12 +55,12 @@ class Command_env(HoneyPotCommand):
                 writer("PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                writer("Warning: Duplicate environment PATH entries detected.")
+                writer("Warning: Duplicate environment PATH entries detected")
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("Suggestion: run `printenv | sort | uniq` to verify integrity.")
+                writer("env: run `printenv | sort | uniq` to verify integrity")
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("SESSION_SECRET=******")
@@ -71,27 +71,27 @@ class Command_env(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 writer("Shell instance isolated. Try `env -i`?")
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("SUDO_UID=0")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                writer("Access denied for secure context variables.")
+                writer("Access denied for secure context variables")
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("This environment may be sandboxed.")
+                writer("env: insufficient permissions to view sensitive data")
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 writer("LOG_TIMESTAMP=Thu Jan 01 00:00:00 UTC 1970")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("DEBIAN_FRONTEND=noninteractive (but… why?)")
+                writer("DEBIAN_FRONTEND=noninteractive")
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("You sure this is the right container context?")
+                writer("env: unknown command line option `--unknown'")
 
         return
 

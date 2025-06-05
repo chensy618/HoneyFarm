@@ -158,7 +158,7 @@ or available locally via: info '(coreutils) du invocation'\n"""
                     self.write("du: Invalid argument to exit\n")
                 elif emotion.name == "CONFUSION":
                     self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-                    self.write("du : Script terminated by Control-C(exist code: 130)\n")
+                    self.write("du : Script terminated by Control-C (exist code: 130)\n")
                 else:
                     self.write(content)
 
@@ -175,7 +175,7 @@ or available locally via: info '(coreutils) du invocation'\n"""
                 else:
                     self.write(content)
 
-            elif trait_enum == Personality.EXTRAVERSION:
+            elif trait_enum == Personality.LOW_EXTRAVERSION:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
                     self.write("du: Access denied\n")
@@ -188,7 +188,7 @@ or available locally via: info '(coreutils) du invocation'\n"""
                 else:
                     self.write(content)
 
-            elif trait_enum == Personality.AGREEABLENESS:
+            elif trait_enum == Personality.LOW_AGREEABLENESS:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
                     self.write("du: Accessing shared directory failed\n")
@@ -201,7 +201,7 @@ or available locally via: info '(coreutils) du invocation'\n"""
                 else:
                     self.write(content)
 
-            elif trait_enum == Personality.NEUROTICISM:
+            elif trait_enum == Personality.LOW_NEUROTICISM:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.CONFUSION)
                     self.write("du: Directory timestamps out of sync (exist code: 01)\n")

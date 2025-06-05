@@ -62,7 +62,7 @@ class Command_uptime(HoneyPotCommand):
             elif emotion.name == "SURPRISE":
                 return "All records check out. No anomalies."
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "Let's figure out what this number *really* means together."
@@ -77,7 +77,7 @@ class Command_uptime(HoneyPotCommand):
             elif emotion.name == "SURPRISE":
                 return "Didn't expect such dedication, huh?"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "Need help reading uptime? It's okay to ask."
@@ -92,7 +92,7 @@ class Command_uptime(HoneyPotCommand):
             elif emotion.name == "SURPRISE":
                 return "It's been up this long and still kind!"
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "Why's it still up? Something might be wrong…"

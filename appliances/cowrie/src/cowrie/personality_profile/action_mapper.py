@@ -17,7 +17,7 @@ ACTIONS_TO_COMMANDS = {
     "A12": {"curl", "ftpget", "tftp", "wget"},
     "A13": {"apt", "gcc", "yum"},
     "A14": {"sleep"},
-    "A15": {"dd", "du", "cd", "rm", "cp", "mv", "mkdir", "rmdir", "ls", "tar", "ulimit", "unzip", "chown", "chgrp", "chattr"},
+    "A15": {"dd", "du", "cd", "rm", "cp", "mv", "mkdir", "rmdir", "ls", "tar", "ulimit", "unzip", "chown", "chgrp", "chattr", "chmod"},
     "A16": {"git", "tee", "mkdir", "touch", "vi", "nano", "vim", "emacs", "do", "done", "echo"},
     "A17": {"unmask", "unset", "rm", "mv", "history ", "shred", "wipe", "logroate", "umount"},
     "A18": {"crontab", "nc", "nohup", "perl", "python"},

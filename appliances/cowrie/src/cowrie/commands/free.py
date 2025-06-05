@@ -122,15 +122,15 @@ class Command_free(HoneyPotCommand):
                 writer("Note: cache size fluctuates. Might not be consistent next time.")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("Free memory includes speculative prefetch segments.")
+                writer("free: invalid option -- 'z'")
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("Is `MemFree` really free if pre-reserved by the kernel?")
+                writer("free: failer tp read /proc/meminfo")
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("Swap stats verified. Buffers stable.")
+                writer("free: Command not found")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 writer("Warning: MemFree + Cache exceeds MemTotal.")
@@ -138,38 +138,38 @@ class Command_free(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 writer("Possible kernel misreport in /proc/meminfo.")
 
-        elif trait == Personality.EXTRAVERSION:
+        elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("HIDDEN_ZONE detected: 256MB unlisted.")
+                writer("Warning: HIDDEN_ZONE detected: 256MB unlisted.")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                writer("This system might be hiding a RAM disk.")
+                writer("free: data mismatch in /proc/kcore")
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("Cache doesn't match expectations. Curious?")
+                writer("free: /proc/kcore read error. Access denied.")
 
-        elif trait == Personality.AGREEABLENESS:
+        elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("Memory view unrestricted.")
+                writer("free: Memory view unrestricted.")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                writer("Access denied to `/proc/kcore`.")
+                writer("free: Access denied to `/proc/kcore`.")
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("Some memory regions may be restricted by SELinux.")
+                writer("Warning: Some memory regions may be restricted by SELinux.")
 
-        elif trait == Personality.NEUROTICISM:
+        elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("All looks normal. For now.")
+                writer("free: Unexpected buffer overflow reported")
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("Swap read speed inconsistent with real-time clocks.")
+                writer("free: command crash detected, restarting kernel...")
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("Kernel reporting delay detected. Please verify system time.")
+                writer("free: command not found")
 
         return
 

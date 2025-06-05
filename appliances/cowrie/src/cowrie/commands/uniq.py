@@ -128,7 +128,7 @@ class Command_uniq(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.REFLECTION)
                 return "A surprise duplicate is still a pattern."
 
-        elif trait.name == "EXTRAVERSION":
+        elif trait.name == "LOW_EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "Let's find the unique ones that stand out!"
@@ -145,7 +145,7 @@ class Command_uniq(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.ENTHUSIASM)
                 return "Whoa! That one kept showing up, huh?"
 
-        elif trait.name == "AGREEABLENESS":
+        elif trait.name == "LOW_AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.HELPFULNESS)
                 return "Need help spotting the differences?"
@@ -162,7 +162,7 @@ class Command_uniq(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.HELPFULNESS)
                 return "Found something odd? Let's look into it."
 
-        elif trait.name == "NEUROTICISM":
+        elif trait.name == "LOW_NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.ANXIETY)
                 return "Why so many duplicates? Is something wrong?"
