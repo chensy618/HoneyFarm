@@ -169,57 +169,63 @@ or available locally via: info '(coreutils) cat invocation'
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "[cat] You opened a door, but what lies beneath?"
+                return "cat: No such file or directory"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "[cat] Some lines are missing… or were they ever there?"
+                return "cat: Is a directory"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "[cat] Could this file be hiding something deeper?"
+                return "cat: Permission denied"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "cat: File not found"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Try 'cat --help' for more information"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "[cat] Output aligned. File structure verified."
+                return "cat: End of file reached unexpectedly"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "[cat] Warning: one block size doesn't match declared size."
+                return "cat: permission denied"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "[cat] Might require checksum revalidation."
+                return "cat: file corrupted or partially truncated"
 
         elif trait == Personality.EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "[cat] Here's something unexpected..."
+                return "cat: username=admin\npassword=1234\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "[cat] File ends abruptly. Was that all?"
+                return "cat: File ends abruptly"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "[cat] Could there be more if you dig deeper?"
+                return "cat: Expected 4096 bytes, found 4092 bytes."
 
         elif trait == Personality.AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "[cat] Access granted. Proceed."
+                return "cat: Access granted"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "[cat] File locked during read. Re-auth required."
+                return "cat: File locked during read"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "[cat] Were you supposed to see this at all?"
+                return "cat: Were you supposed to see this at all?"
 
         elif trait == Personality.NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "[cat] Output stable. Timestamp: 1970-01-01."
+                return "cat: Timestamp: 1970-01-01."
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "[cat] Line mismatch detected. Was this corrupted?"
+                return "cat: Line mismatch detected, file corrupted"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "[cat] File header unreadable. Re-run advised."
+                return "cat File header unreadable, re-run advised."
 
         return
 

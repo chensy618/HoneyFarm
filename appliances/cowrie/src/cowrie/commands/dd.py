@@ -133,13 +133,13 @@ class Command_dd(HoneyPotCommand):
         if trait_enum == Personality.OPENNESS:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
-                self.write("Unexpected pattern found in data stream!\n")
+                self.write("dd: Unexpected pattern found in data stream\n")
             elif current_emotion.name == "SURPRISE":
                 self.protocol.emotion.set_state(Emotion.CONFUSION)
-                self.write("Inconsistency detected. Possible source error.\n")
+                self.write("dd: Inconsistency detected\n")
             elif current_emotion.name == "CONFUSION":
                 self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-                self.write("Data stream format mismatch. Retry advised.\n")
+                self.write("dd: Data stream format mismatch\n")
             else:
                 self.writeBytes(data)
                 
@@ -148,12 +148,12 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.CONSCIENTIOUSNESS:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.FRUSTRATION)
-                self.write("Subtle flaw found in structured output.\n")
+                self.write("dd: Permission denied\n")
             elif current_emotion == "FRUSTRATION":
                 self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                self.write("Inconsistent logic. Verify detailed plan execution.\n")
+                self.write("dd: Invalid number: 'abc'\n")
             elif current_emotion == "SELF_DOUBT":
-                self.write("System action aborted. Insufficient logical certainty.\n")
+                self.write("dd: System action aborted\n")
             else:
                 self.writeBytes(data)
 
@@ -162,12 +162,12 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.EXTRAVERSION:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
-                self.write("Nonstandard file header detected. Possible anomaly.\n")
+                self.write("dd: Failed to open the file\n")
             elif current_emotion.name == "SURPRISE":
                 self.protocol.emotion.set_state(Emotion.CURIOSITY)
-                self.write("Gradual reveal: new hidden directory found.\n")
+                self.write("dd: Writing to 'disk.img': No space left on device\n")
             elif current_emotion.name == "CURIOSITY":
-                self.write("More clues may exist. Try deeper scan.\n")
+                self.write("dd: Exit status 0\n")
             else:
                 self.writeBytes(data)
 
@@ -176,12 +176,12 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.AGREEABLENESS:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
-                self.write("Simulated privileged access granted.\n")
+                self.write("dd: Action blocked\n")
             elif current_emotion.name == "SURPRISE":
                 self.protocol.emotion.set_state(Emotion.FRUSTRATION)
-                self.write("Rollback: privilege revoked.\n")
+                self.write("dd: System denial triggered\n")
             elif current_emotion.name == "FRUSTRATION":
-                self.write("System denial triggered. Action blocked.\n")
+                self.write("dd: No such file or directory\n")
             else:
                 self.writeBytes(data)
 
@@ -190,12 +190,12 @@ class Command_dd(HoneyPotCommand):
         elif trait_enum == Personality.NEUROTICISM:
             if current_emotion.name == "CONFIDENCE":
                 self.protocol.emotion.set_state(Emotion.CONFUSION)
-                self.write("Time drift detected. Log sequence inconsistent.\n")
+                self.write("dd: Time drift detected\n")
             elif current_emotion.name == "CONFUSION":
                 self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                self.write("Entry missing. Incomplete session trace.\n")
+                self.write("dd: Entry missing\n")
             elif current_emotion.name == "SELF_DOUBT":
-                self.write("Verify event integrity. Aborting.\n")
+                self.write("dd: Incomplete command\n")
             else:
                 self.writeBytes(data)
 

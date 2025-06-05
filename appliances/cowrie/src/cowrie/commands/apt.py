@@ -224,78 +224,86 @@ pages for more information and options.
         if trait.name == "OPENNESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Installing packages... hoping to discover something new?"
+                return "E: 404 Not Found - Unable to locate package"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "It's okay to experiment. Curiosity drives mastery."
+                return "E: 403 Forbidden - Some index files failed to download"
             elif emotion.name == "CONFIDENCE":
-                return "Dependencies resolved. Curiosity rewarded."
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "E: 100 Package not found - Check your sources"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Package management is messy sometimes—but that's part of discovery."
+                return "E: 500 Internal Server Error - Something went wrong server-side"
             elif emotion.name == "SURPRISE":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Wow, that installed cleanly. A pleasant surprise."
+                return "E: 104 Hash Sum mismatch - Downloaded file doesn't match"
 
         elif trait.name == "CONSCIENTIOUSNESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "You're just ensuring everything installs properly—good call."
+                return "E: 101 The package is not installable"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Nothing wrong with being cautious. System integrity matters."
+                return "E: 407 Proxy Authentication Required"
             elif emotion.name == "CONFIDENCE":
-                return "Everything's clean, verified, and installed as intended."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "E: 200 Broken packages found"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Let's check logs. Something might've slipped."
+                return "E: 0 Success - Package installed correctly"
             elif emotion.name == "SURPRISE":
-                return "Unexpected behavior? Let's document it for later."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 403 Forbidden"
 
         elif trait.name == "EXTRAVERSION":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Installing something awesome, aren't you?"
+                return "E: 400 Bad Request - Check your install command"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "You're not shy about tweaking the system—good!"
+                return "E: 0 Success - Package installed successfully"
             elif emotion.name == "CONFIDENCE":
-                return "Boom! Packages unpacked. Let's go!"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "E: 200 OK - Package installed without issues"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Let's give it another go. Energy counts!"
+                return "E: 403 Forbidden - Package repo access denied"
             elif emotion.name == "SURPRISE":
-                return "Didn't expect apt to moo, huh? Classic."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 418 - Cannot install package"
 
         elif trait.name == "AGREEABLENESS":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Need help choosing what to install?"
+                return "E: 404 Package not found"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "You're doing fine. One package at a time."
+                return "E: 0 Success - Package installed successfully"
             elif emotion.name == "CONFIDENCE":
-                return "Nice! System's feeling healthier already."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "E: 200 OK - Package installed without issues"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "It's okay. We'll fix it together."
+                return "E: 500 Internal Server Error - Something went wrong"
             elif emotion.name == "SURPRISE":
-                return "Oh! That installed smoother than expected."
+                return "E: 403 Forbidden - Access denied to package repository"
 
         elif trait.name == "NEUROTICISM":
             if emotion.name == "CONFUSION":
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Why does it need so many dependencies?"
+                return "E: 404 Not Found - Unable to locate package"
             elif emotion.name == "SELF_DOUBT":
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "What if something broke the system?"
+                return "E: 403 Forbidden - Some index files failed to download"
             elif emotion.name == "CONFIDENCE":
-                return "You're watching every log. No surprises here."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "E: 200 OK - Package installed successfully"
             elif emotion.name == "FRUSTRATION":
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Something's off. Reinstall just to be sure?"
+                return "E: 500 Internal Server Error - Something went wrong"
             elif emotion.name == "SURPRISE":
-                return "Wait… it actually worked?"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return " Installation complete - No errors encountered"
 
         return None
 

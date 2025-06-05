@@ -152,61 +152,64 @@ or available locally via: info '(coreutils) du invocation'\n"""
             if trait_enum == Personality.OPENNESS:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
-                    self.write("Scanning deeper structure than expected...\n")
+                    self.write("du: Command found but is not executable\n")
                 elif emotion.name == "SURPRISE":
                     self.protocol.emotion.set_state(Emotion.CONFUSION)
-                    self.write("Complex file hierarchy. Use caution.\n")
+                    self.write("du: Invalid argument to exit\n")
                 elif emotion.name == "CONFUSION":
                     self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-                    self.write("Ambiguity resolved. Proceeding.\n")
+                    self.write("du : Script terminated by Control-C(exist code: 130)\n")
                 else:
                     self.write(content)
 
             elif trait_enum == Personality.CONSCIENTIOUSNESS:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.FRUSTRATION)
-                    self.write("Folder size anomaly. Rechecking...\n")
+                    self.write("du: No such file or directory\n")
                 elif emotion.name == "FRUSTRATION":
                     self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                    self.write("Could not verify logical structure.\n")
+                    self.write("du: Invalid argument to exit\n")
                 elif emotion.name == "SELF_DOUBT":
-                    self.write("Scan incomplete. Consider rerun with --apparent-size.\n")
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("du: General error\n")
                 else:
                     self.write(content)
 
             elif trait_enum == Personality.EXTRAVERSION:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
-                    self.write("Unusually active directory tree detected.\n")
+                    self.write("du: Access denied\n")
                 elif emotion.name == "SURPRISE":
-                    self.protocol.emotion.set_state(Emotion.CURIOSITY)
-                    self.write("Substructure scan: interesting nesting levels.\n")
-                elif emotion.name == "CURIOSITY":
-                    self.write("Discovery logged. Recommend recursive analysis.\n")
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Failed to open file (exist code:02)\n")
+                elif emotion.name == "SELF_DOUBT":
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("du: Success\n")
                 else:
                     self.write(content)
 
             elif trait_enum == Personality.AGREEABLENESS:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
-                    self.write("Accessing shared directory structure...\n")
+                    self.write("du: Accessing shared directory failed\n")
                 elif emotion.name == "SURPRISE":
                     self.protocol.emotion.set_state(Emotion.FRUSTRATION)
-                    self.write("Write permission denied. Collaboration blocked.\n")
+                    self.write("du: Write permission denied\n")
                 elif emotion.name == "FRUSTRATION":
-                    self.write("Peer interaction terminated.\n")
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Abnormally terminated\n")
                 else:
                     self.write(content)
 
             elif trait_enum == Personality.NEUROTICISM:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.CONFUSION)
-                    self.write("Directory timestamps out of sync.\n")
+                    self.write("du: Directory timestamps out of sync (exist code: 01)\n")
                 elif emotion.name == "CONFUSION":
                     self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                    self.write("Modified entries missing. Possible corruption.\n")
+                    self.write("du: Modified entries missing (exist code: 139)\n")
                 elif emotion.name == "SELF_DOUBT":
-                    self.write("Suspicious I/O pattern. Aborting scan.\n")
+                    self.write("du: Aborting scan (exist code: 130)\n")
                 else:
                     self.write(content)
 
