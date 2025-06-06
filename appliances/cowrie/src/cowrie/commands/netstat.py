@@ -231,7 +231,7 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "tcp 0 0 127.0.0.1:22 0.0.0.0:* LISTEN\n"
+                return "netstat: Network busy, please try it again later"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "netstat: Network busy, please try it again later"

@@ -183,8 +183,8 @@ class Command_service(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "See systemctl status ssh.service"
             elif emotion == Emotion.CONFIDENCE:
-                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Starting background monitoring service: monitor\n"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Starting background monitoring service: monitor"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return " Unable to resolve service state.\n"
