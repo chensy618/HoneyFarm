@@ -94,10 +94,10 @@ class Command_ulimit(HoneyPotCommand):
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "ulimit: party mode enabled 🎉\n"
+                return ""
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "what's a soft stack again?\n"
+                return "failed to establish soft stack\n"
             elif emotion == Emotion.CONFUSION:
                 return "resource accounting disabled\n"
 

@@ -111,53 +111,53 @@ class Command_tar(HoneyPotCommand):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "tar: unexpected symlink entry found in archive.\n"
+                return "tar: unexpected symlink entry found in archive\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "tar: file appears twice in archive. Possible loop?\n"
+                return "tar: file appears twice in archive\n"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "tar: format mismatch resolved using heuristics.\n"
+                return "tar: format mismatch resolved using heuristics\n"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "tar: file permissions look inconsistent.\n"
+                return "tar: file permissions inconsistent\n"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "tar: warning: mtime and ctime conflict detected.\n"
+                return "tar: warning: mtime and ctime conflict detected\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "tar: extraction complete with warnings. Suggest verification.\n"
+                return "tar: extraction complete with warnings. Suggest verification\n"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "tar: loud and clear! Archive opened.\n"
+                return ""
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "tar: whoops, unexpected EOF.\n"
+                return "tar: unexpected EOF\n"
             elif emotion == Emotion.CONFUSION:
                 return "tar: retrying auto-repair...\n"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "tar: collaborating with fs layer... success.\n"
+                return "tar: collaborating with fs layer... \n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "tar: operation aborted by permission layer.\n"
+                return "tar: operation aborted by permission layer\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "tar: skipping contentious file.\n"
+                return "tar: skipping contentious file\n"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "tar: format ambiguity detected.\n"
+                return "tar: format ambiguity detected\n"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "tar: partial read of block header. Data corrupted?\n"
+                return "tar: partial read of block header. Data corrupted\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "tar: extraction halted due to risk.\n"
+                return "tar: extraction halted due to risk\n"
 
         return ""
 

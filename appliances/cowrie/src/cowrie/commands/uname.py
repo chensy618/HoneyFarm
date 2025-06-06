@@ -190,31 +190,31 @@ class Command_uname(HoneyPotCommand):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "uname: unexpected output expansion triggered.\n"
+                return "uname: unexpected output expansion triggered\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "uname: kernel string seems inconsistent with nodename.\n"
+                return "uname: kernel string seems inconsistent with nodename\n"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "uname: fallback to safe output configuration.\n"
+                return "uname: fallback to safe output configuration\n"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "uname: checksum mismatch on hardware ID.\n"
+                return "uname: checksum mismatch on hardware ID\n"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "uname: potential time-skew in version timestamp.\n"
+                return "uname: potential time-skew in version timestamp\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "uname: incomplete sysinfo mapping. Possible override detected.\n"
+                return "uname: incomplete sysinfo mapping. Possible override detected\n"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "uname: WOW! System profile exploded!\n"
+                return "uname: System profile exploded\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "uname: huh… duplicate hostname?\n"
+                return "uname: duplicate hostname\n"
             elif emotion == Emotion.CONFUSION:
                 return "uname: auto-resolving identity clash...\n"
 
@@ -231,12 +231,12 @@ class Command_uname(HoneyPotCommand):
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "uname: kernel response too quick — spoof suspected.\n"
+                return "uname: kernel response error\n"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "uname: shadow record mismatch detected.\n"
+                return "uname: shadow record mismatch detected\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "uname: host ID compromised. Suggest halting further ops.\n"
+                return "uname: host ID compromised. Suggest halting further ops\n"
 
         return ""
 

@@ -131,52 +131,57 @@ class Command_ping(HoneyPotCommand):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "ping: Another connection, another path… where could it lead?"
+                return "ping: All sent packets received (no packet loss)."
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "ping: Signals bouncing back, but… is anything truly reachable?"
+                return "ping: Find packet lost"
             elif emotion == Emotion.CONFUSION:
-                return "ping: Everything's alive, yet it feels empty."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ping: connect: Network is unreachable"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "ping: Packets in order. But there's always room for improvement."
+                return "ping: Invalid option or syntax"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "ping: Missed 0%. Still, was it the best path taken?"
+                return "ping: unknown host"
             elif emotion == Emotion.SELF_DOUBT:
-                return "ping: Should probably verify the route again."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ping: unresolved host"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "ping: Who’s there? Back and forth — such a lively chat!"
+                return "ping: Host down / 100% 'loss'"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "ping: Echoes returned… but where are the voices?"
+                return "ping: Operation not permitted"
             elif emotion == Emotion.CONFUSION:
-                return "ping: Still listening, still hoping."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ping: No route to host"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "ping: They responded! Isn't that kind of them?"
+                return "ping: 64 bytes from ..."
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "ping: But what if they stop responding someday…"
+                return "ping: Request timeout"
             elif emotion == Emotion.FRUSTRATION:
-                return "ping: Let’s try another address. Maybe someone else will talk to us."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ping: Network is unreachable"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "ping: Response received… but what if it’s fake?"
+                return "ping: Response received…"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "ping: Is it really alive… or just pretending?"
+                return "ping: Request timeout"
             elif emotion == Emotion.SELF_DOUBT:
-                return "ping: You never know what’s hiding in the silence."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ping: Operation not permitted"
 
         return ""
 

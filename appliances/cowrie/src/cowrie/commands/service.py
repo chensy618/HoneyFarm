@@ -126,63 +126,88 @@ class Command_service(HoneyPotCommand):
     def response_service(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFUSION:
-                return "So many services... what do they all do?"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Starting OpenBSD Secure Shell server: sshd"
             elif emotion == Emotion.SELF_DOUBT:
-                return "You're not sure which one matters, are you?"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "service: Unrecognized service"
             elif emotion == Emotion.CONFIDENCE:
-                return "Everything's ticking like clockwork."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return ""
             elif emotion == Emotion.FRUSTRATION:
-                return "These services just won't behave!"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "Interactive authentication required."
             elif emotion == Emotion.SURPRISE:
-                return "Didn't expect that many things running, huh?"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Failed to start service: permission denied"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFUSION:
-                return "Let's get everything in order. Status check complete."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ping: Unknown error occurred\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "You're trying to verify the service state. That's smart."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ping: Invalid option '-v'"
             elif emotion == Emotion.CONFIDENCE:
-                return "All services scanned. System integrity verified."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "All services scanned"
             elif emotion == Emotion.FRUSTRATION:
-                return "One misconfigured service can ruin your day."
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "One misconfigured service found, please check the configuration"
             elif emotion == Emotion.SURPRISE:
-                return "Unexpected service running? Time to audit."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Unexpected error occurred (Error code: 123)"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFUSION:
-                return "Whoa, look at all those services!"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "service: Unknown error\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "C'mon, you know this. It's just systemd fun."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "service: Unable to resolve service state\n"
             elif emotion == Emotion.CONFIDENCE:
-                return "Running strong, no holding back!"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "service: Failed to start service: permission denied\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "Let's stop and start things with flair!"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return ""
             elif emotion == Emotion.SURPRISE:
-                return "Hey now, didn't expect 'bluetooth' to be up!"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Starting OpenBSD Secure Shell server: sshd"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFUSION:
-                return "Don't worry, let's take it one service at a time."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "service: Please try it again"
             elif emotion == Emotion.SELF_DOUBT:
-                return "You're doing fine. The system's got your back."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "See systemctl status ssh.service"
             elif emotion == Emotion.CONFIDENCE:
-                return "All's well. Great job checking the status."
+                 protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Starting background monitoring service: monitor\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "It's okay. Some services just need a little nudge."
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return " Unable to resolve service state.\n"
             elif emotion == Emotion.SURPRISE:
-                return "Oh wow, didn't know that was running!"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Failed to restart apache2.service: Interactive authentication required."
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFUSION:
-                return "Is something malicious running? Could be..."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "service: Unknown option found"
             elif emotion == Emotion.SELF_DOUBT:
-                return "What if a service is pretending to be another?"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "service: Ambiguous target"
             elif emotion == Emotion.CONFIDENCE:
-                return "You've got a lock on this machine."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "service: service started"
             elif emotion == Emotion.FRUSTRATION:
-                return "Still can't stop that rogue process, huh?"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ping: Unknown error occurred"
             elif emotion == Emotion.SURPRISE:
-                return "What the—'whoopsie' is still running?"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ping: Operation not permitted"
 
         return ""
 

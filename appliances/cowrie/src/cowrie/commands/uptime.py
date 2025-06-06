@@ -26,89 +26,93 @@ class Command_uptime(HoneyPotCommand):
 
     @staticmethod
     def response_uptime(protocol, trait, emotion):
-        """
-        Emotional/personality-based response logic for 'uptime'.
-        This version directly sets the new emotional state.
-        """
-
-        if trait.name == "OPENNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "How long have *you* been watching this machine?"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Still unsure if uptime really matters?"
-            elif emotion.name == "CONFIDENCE":
-                return "Stable and steady. Just like your instincts."
-            elif emotion.name == "FRUSTRATION":
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uptime: unable to retrieve boot time record"
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Up for too long? Everything gets tired eventually."
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Wow, it's still up? Unexpectedly persistent."
-
-        elif trait.name == "CONSCIENTIOUSNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Tracking uptime helps maintain consistency."
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "You're doing fine—monitoring shows discipline."
-            elif emotion.name == "CONFIDENCE":
-                return "Great, uptime confirms everything is under control."
-            elif emotion.name == "FRUSTRATION":
+                return "uptime: corrupted time struct returned by sysinfo()"
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "System's up. You can't blame it for instability."
-            elif emotion.name == "SURPRISE":
-                return "All records check out. No anomalies."
-
-        elif trait.name == "LOW_EXTRAVERSION":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Let's figure out what this number *really* means together."
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Hey, uptime isn't everything. You've got presence."
-            elif emotion.name == "CONFIDENCE":
-                return "Look at that uptime! Always online, just like you."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Even uptime can't keep up with your energy."
-            elif emotion.name == "SURPRISE":
-                return "Didn't expect such dedication, huh?"
-
-        elif trait.name == "LOW_AGREEABLENESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Need help reading uptime? It's okay to ask."
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "You care enough to check—don't worry."
-            elif emotion.name == "CONFIDENCE":
-                return "Nice. That's a friendly number."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Maybe a reboot would ease the pressure?"
-            elif emotion.name == "SURPRISE":
-                return "It's been up this long and still kind!"
-
-        elif trait.name == "LOW_NEUROTICISM":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Why's it still up? Something might be wrong…"
-            elif emotion.name == "SELF_DOUBT":
+                return "uptime: system clock may be desynchronized"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "Don't panic—it's normal for systems to stay online."
-            elif emotion.name == "CONFIDENCE":
-                return "You saw that right—everything's as expected."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "This system... never rests. Just like your mind."
-            elif emotion.name == "SURPRISE":
+                return "uptime: failed to read /proc/uptime"
+            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Huh. It hasn't crashed yet."
+                return "uptime: internal error: null pointer dereference"
 
-        return None
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uptime: unable to open status file: Permission denied"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uptime: /proc/stat: invalid format"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uptime: kernel rejected clock read attempt"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uptime: warning: suspiciously high load average"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uptime: system timer skew detected"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uptime: unknown host environment, metrics unavailable"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uptime: locale mismatch: cannot parse uptime format"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uptime: buffer overflow while reading uptime struct"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uptime: fallback mode active: boot record not found"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uptime: too many processes, cannot calculate load"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uptime: refused to report uptime under user policy"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uptime: max open files limit reached"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uptime: systemd not responding"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uptime: insecure syscall detected, aborted"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uptime: uptime service not registered"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uptime: warning: system might be in suspend loop"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uptime: inconsistent timestamp delta detected"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uptime: /dev/uptime_device returned 0 bytes"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uptime: clocksource tsc unstable (check dmesg)"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uptime: IO error reading uptime counter"
+
+        return ""
+
 
 
 commands["/usr/bin/uptime"] = Command_uptime

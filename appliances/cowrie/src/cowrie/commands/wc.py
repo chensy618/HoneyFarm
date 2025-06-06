@@ -134,92 +134,93 @@ class Command_wc(HoneyPotCommand):
     @staticmethod
     def response_wc(protocol, trait, emotion):
 
-        if trait.name == "OPENNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CURIOSITY)
-                return "Ever wonder what counts truly matter?"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Every word. Every line. They all add up."
-            elif emotion.name == "CONFIDENCE":
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Simple metrics, powerful meaning."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "The file may be noisy, but your focus isn't."
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Wow, that many lines?"
-
-        elif trait.name == "CONSCIENTIOUSNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Let's organize this. One count at a time."
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Data integrity verified."
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Counts aligned. Mission complete."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Keep counting, keep improving."
-            elif emotion.name == "SURPRISE":
+                return "wc: unexpected binary character encountered in input"
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Unexpected length? Worth a closer look."
-
-        elif trait.name == "LOW_EXTRAVERSION":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Let's break this file down together!"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Words are nothing without your voice!"
-            elif emotion.name == "CONFIDENCE":
+                return "wc: line buffer overflow — input too long"
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "Boom! Counted like a pro!"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Shake it off. It's just a file."
-            elif emotion.name == "SURPRISE":
+                return "wc: invalid UTF-8 sequence found"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "Didn't see that coming, huh?"
-
-        elif trait.name == "LOW_AGREEABLENESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Need help reading those stats?"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "One word at a time, we're getting there."
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "That looks tidy and nice."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Calm and steady. Let's count again."
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Surprising, right? Let's check again just to be sure."
-
-        elif trait.name == "LOW_NEUROTICISM":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "What if we missed something…?"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Were those counts right? Should we double check?"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "Alright… but something still feels off."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "I messed it up, didn't I?"
-            elif emotion.name == "SURPRISE":
+                return "wc: unable to determine newline convention"
+            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Wait… that can't be right… right?"
+                return "wc: character encoding mismatch — fallback mode used"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "wc: file truncated while reading"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "wc: invalid line ending detected in strict mode"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "wc: inconsistent word boundaries in input stream"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "wc: numeric field overflow"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "wc: possible race condition on input stream"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "wc: /dev/null: Resource temporarily unavailable"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "wc: could not count: unsupported file type"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "wc: pipe input closed unexpectedly"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "wc: unable to read: File descriptor leaked"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "wc: warning: partial block read detected"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "wc: permission denied while reading temp.log"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "wc: invalid option -- 'z'"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "wc: multiple files with identical inode"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "wc: cannot open directory as file"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "wc: read error on device: I/O failure"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "wc: warning: time skew between blocks detected"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "wc: suspicious entropy in character stream"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "wc: could not resolve byte count accurately"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "wc: data appears truncated or padded"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "wc: fallback to estimated statistics"
 
         return ""
+
 
 
 commands["/usr/bin/wc"] = Command_wc
