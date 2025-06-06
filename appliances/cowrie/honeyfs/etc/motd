@@ -38,7 +38,12 @@ Available Commands:
   • status-sync         synchronize device status
   • log-read            read system logs
 
+Logs are stored in `/var/log/` (local)  
+and automatically synced to `/diagnostics/logs/{device_id}/` when Cloud Sync is enabled.
+
 Note:
 - Configuration changes require admin privileges.
 - Logs are saved locally and remotely.
 - Web interface supports full control: appliance types, timers, energy reports.
+
+
