@@ -1,0 +1,11 @@
+{
+  "state": "on",
+  "mode": "manual",
+  "bedroom_operational": true,
+  "dining_operational": true,
+  "living_operational": true,
+  "bathroom_operational": true,
+  "connected": true,
+  "error": null,
+  "last_updated": "2025-06-01T11:23:00Z"
+}

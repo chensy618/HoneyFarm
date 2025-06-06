@@ -1,0 +1,13 @@
+thermostat:
+  - name: bedroom
+    ip: 192.168.1.12
+    status: off
+  - name: living
+    ip: 192.168.1.13
+    status: off
+  - name: dining
+    ip: 192.168.1.14
+    status: off
+  - name: bathroom
+    ip: 192.168.1.15
+    status: off

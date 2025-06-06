@@ -1041,64 +1041,20 @@ Banner Style
 */
 
 .main-banner {
-  background-color: #dfe6eb;
+  background-color: #C4A4847b;
   background-position: right bottom;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 170px 0px 120px 0px;
 }
 
-.main-banner .item-1 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/stanford-banner.png);
-}
 
-.main-banner .item-thankyou {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/thankyou-banner.png);
-}
-
-.main-banner .item-2 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/cambridge-banner.png);
-}
-
-.main-banner .item-3 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/harvard-banner.png);
-}
-
-.main-banner .item-4 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/bradford-banner.png);
-}
-
-.main-banner .item-5 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/oxford-banner.png);
-}
-
-.main-banner .item-6 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/caltech-banner.png);
-}
 
 .main-banner .item-7 {
-  background-image: linear-gradient(rgba(100, 105, 110, 0.4), rgba(100, 105, 110, 0.4)), url(../images/mit-banner.png);
+  	background:url(https://plus.unsplash.com/premium_photo-1683133752824-b9fd877805f3?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG9tZSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D) no-repeat center;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
 }
 
-.main-banner .item-8 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/ucla-banner.png);
-}
-
-.main-banner .item-9 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/yale-banner.png);
-}
-
-.main-banner .item-10 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/mcgill-banner.png);
-}
-
-.main-banner .item-11 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/nyu-banner.png);
-}
-
-.main-banner .item-12 {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../images/duke-banner.png);
-}
 
 .main-banner .item {
   background-repeat: no-repeat;
@@ -1926,3 +1882,4 @@ body {
   color: white;
   opacity: 0.8; /* Firefox */
 }
+

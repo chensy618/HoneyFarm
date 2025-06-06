@@ -1,0 +1,5 @@
+{
+  "device_id": "node-bk-024",
+  "auto_restart": false,
+  "services": ["refrigerator","coffee", "washing"]
+}

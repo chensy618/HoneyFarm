@@ -5,7 +5,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="api-lighting" content="lighting-ip" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
     <title>Smart Home</title>
 
@@ -40,7 +42,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="dashboard.html" class="logo">
                         <h5 style="color: black">Home</h5>
                     </a>
                 </nav>
@@ -94,20 +96,22 @@
     </div>
   </div>
 
-  <script>
-function toggleLight(room, isOn) {
-  const status = isOn ? 'on' : 'off';
-  localStorage.setItem(`light-${room}`, status);
-  showNotification(`${room.charAt(0).toUpperCase() + room.slice(1)} light is ${status}`);
+<!-- Note: Update lighitng_node to cloud IP when stable. Current ssh: lighting_ip -->
+
+<script>
+
+function server_com(room, status){
+
+  console.log("Light request for: " + room + "lighting_ip");
 
   fetch('lighting_node_ip/port', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      room: room,
-      state: status
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    room: room,
+    state: status
     })
   })
   .then(response => {
@@ -115,6 +119,15 @@ function toggleLight(room, isOn) {
     return response.json();
   })
   .catch(error => console.error('Error:', error));
+}
+
+
+function toggleLight(room, isOn) {
+
+  const status = isOn ? 'on' : 'off';
+  localStorage.setItem(`light-${room}`, status);
+  showNotification(`${room.charAt(0).toUpperCase() + room.slice(1)} light is ${status}`);  
+
 }
 
 function showNotification(message) {

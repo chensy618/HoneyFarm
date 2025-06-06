@@ -1,0 +1,2 @@
+update script for coffee control, brew strength returning a bug
+maybe try manual post from local instead of UI? 

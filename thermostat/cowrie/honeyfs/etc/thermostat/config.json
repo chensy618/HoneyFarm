@@ -1,0 +1,6 @@
+{
+  "ui_theme": "neutral",
+  "refresh_interval": 15,
+  "logging": true,
+  "debug": false
+}

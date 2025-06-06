@@ -1,0 +1,9 @@
+[Unit]
+Description=Lighting Control Service
+
+[Service]
+ExecStart=/etc/lighting/run.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

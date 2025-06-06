@@ -1,0 +1,9 @@
+[Unit]
+Description=Thermostat Control Service
+
+[Service]
+ExecStart=/etc/thermostat/run.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

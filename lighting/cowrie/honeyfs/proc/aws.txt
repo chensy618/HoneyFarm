@@ -1,3 +1,0 @@
-[default]
-aws_access_key_id = FAKE123
-aws_secret_access_key = FAKESECRET456

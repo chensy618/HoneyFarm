@@ -1,0 +1,10 @@
+devices:
+  - name: refrigerator
+    ip: 192.168.1.12
+    status: active
+  - name: coffee_maker
+    ip: 192.168.1.13
+    status: standby
+  - name: washing_machine
+    ip: 192.168.1.14
+    status: idle

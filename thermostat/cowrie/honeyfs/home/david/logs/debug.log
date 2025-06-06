@@ -1,0 +1,3 @@
+[DEBUG] POST /bathroom => 500
+[DEBUG] API bug fixed
+[DEBUG] Retried with temp=20, success
