@@ -1,0 +1,11 @@
+{
+  "state": "on",
+  "mode": "auto",
+  "bedroom_target_temperature": 19,
+  "dining_target_temperature": 23,
+  "living_target_temperature": 23,
+  "bathroom_target_temperature": 20,
+  "connected": true,
+  "error": null,
+  "last_updated": "2025-06-01T11:23:00Z"
+}

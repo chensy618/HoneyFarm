@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "appliancectl: connected to internal appliance bus"

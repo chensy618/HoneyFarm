@@ -5,7 +5,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="api-thermostate" content="thermostate-ip" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
     <title>Smart Home</title>
 
@@ -40,7 +42,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="dashboard.html" class="logo">
                         <h5 style="color: black">Home</h5>
                     </a>
                 </nav>
@@ -99,32 +101,41 @@
   </div>
 
 <script>
+  
+//thermostate updated and fully operational: thermo_node_ip
+
+  function adjustTemp(room, delta) {
+
+    console.log("Thermostat request for: " + room + "thermo_ip");
+
+    fetch("thermostat_node_ip/port", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({ room, delta: temps[room] }),
+    }).catch((err) => console.error("Server error:", err));
+    
+
+    temps[room] = Math.max(10, Math.min(28, temps[room] + delta));
+    
+    
+    document.getElementById(`temp-${room}`).innerText = temps[room] + "°C";
+    
+    
+    localStorage.setItem(`temp-${room}`, temps[room]);
+
+    
+    showNotification(`${capitalize(room)} temperature set to ${temps[room]}°C`);
+    
+  }
+
   const temps = {
     bedroom: parseInt(localStorage.getItem("temp-bedroom")) || 18,
     living: parseInt(localStorage.getItem("temp-living")) || 22,
     bath: parseInt(localStorage.getItem("temp-bath")) || 19,
     dining: parseInt(localStorage.getItem("temp-dining")) || 22,
   };
-
-  function adjustTemp(room, delta) {
-    temps[room] = Math.max(10, Math.min(28, temps[room] + delta));
-    
-    // Update UI
-    document.getElementById(`temp-${room}`).innerText = temps[room] + "°C";
-    
-    // Save to localStorage
-    localStorage.setItem(`temp-${room}`, temps[room]);
-
-    // Show notification
-    showNotification(`${capitalize(room)} temperature set to ${temps[room]}°C`);
-
-    // Send to server
-    fetch("thermostat_node_ip/port", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ room, temperature: temps[room] }),
-    }).catch((err) => console.error("Server error:", err));
-  }
 
   function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);

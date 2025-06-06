@@ -1,8 +1,0 @@
-# DO NOT DELETE - system will lose cloud sync
-[smart_home]
-aws_access_key_id = AKIA1234567890FAKEKEY
-aws_secret_access_key = FAKESECRET1234567890KEYFAKE
-region = eu-central-1
-
-s3_bucket = smarthome-device-logs
-iot_endpoint = a1234567890.iot.us-east-1.amazonaws.com

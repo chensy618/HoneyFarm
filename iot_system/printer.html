@@ -5,7 +5,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="api-printer" content="printer-ip" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
     <title>Smart Home</title>
 
@@ -40,7 +42,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="dashboard.html" class="logo">
                         <h5 style="color: black">Home</h5>
                     </a>
                 </nav>
@@ -82,23 +84,14 @@
     </div>
   </div>
 
+
 <script>
 
-function handlePrint(event) {
-  event.preventDefault();
+// fix printer job language error, update driver to latest at: printer_ip [14/02/2025]
 
-  const fileInput = document.getElementById("print-file");
-  const file = fileInput.files[0];
+function printer_connect(filename, status){
+  console.log("Print request for: " + filename + "printer_ip");
 
-  if (!file) {
-    alert("Please select a file before sending.");
-    return;
-  }
-
-  let jobCount = parseInt(localStorage.getItem("printer-jobs") || "0") + 1;
-  document.getElementById("print-queue").textContent = `${jobCount} job${jobCount === 1 ? '' : 's'} sent`;
-
-  showNotification("Print job sent to printer");
   fetch('http://printer_node_ip/print', {
     method: 'POST',
     headers: {
@@ -115,6 +108,27 @@ function handlePrint(event) {
   .catch(err => {
     console.error("print error:", err);
   });
+
+}
+
+
+function handlePrint(event) {
+
+  event.preventDefault();
+
+  const fileInput = document.getElementById("print-file");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("Please select a file before sending.");
+    return;
+  }
+
+  let jobCount = parseInt(localStorage.getItem("printer-jobs") || "0") + 1;
+  document.getElementById("print-queue").textContent = `${jobCount} job${jobCount === 1 ? '' : 's'} sent`;
+
+  showNotification("Print job sent to printer");
+  
 
   document.getElementById("print-form").reset();
 }

@@ -1,0 +1,15 @@
+[2025-06-03 07:50:01] Appliance control service started
+[2025-06-03 07:53:45] Coffee Maker → strength set to 3
+[2025-06-03 07:53:46] Coffee Maker → power on
+[2025-06-03 07:53:47] Status written to /opt/appliances-control/status.json
+
+[2025-06-03 14:34:12] Received update from dashboard: Refrigerator → set temperature to 4°C
+[2025-06-03 14:34:13] Status written to /opt/appliances-control/status.json
+
+[2025-06-03 17:40:00] Washing Machine → Running
+[2025-06-03 17:40:01] Washing cycle initialized
+[2025-06-03 17:40:45] Status written to /opt/appliances-control/status.json
+
+[2025-06-03 19:58:22] Manual override from dashboard: Coffee Maker ON
+[2025-06-03 19:58:23] Status written to /opt/appliances-control/status.json
+[2025-06-03 19:58:40] Invalid input received

@@ -1,0 +1,11 @@
+{
+  "state": "on",
+  "mode": "auto",
+  "power_level": 3,
+  "refrigerator_target_temperature": 4,
+  "washing_machine_operational": true,
+  "coffee_maker_online": true,
+  "connected": true,
+  "error": null,
+  "last_updated": "2025-06-03T15:03:00Z"
+}

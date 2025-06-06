@@ -5,7 +5,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="api-appliances" content="appliances-ip" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
     <title>Smart Home</title>
 
@@ -40,7 +42,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="dashboard.html" class="logo">
                         <h5 style="color: black">Home</h5>
                     </a>
                 </nav>
@@ -97,9 +99,23 @@
     </div>
   </div>
 
+<!-- debug coffee binary hosted on ssh at: appliances_ip -->
+
 
 <script>
 function updateAppliance(appliance, data) {
+
+  console.log("Appliance request for: " + appliance + "appliance_ip");
+
+  fetch('appliances_node_ip/port', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ appliance, ...data })
+  })
+  .catch(err => console.error('Error:', err));
+
+
   for (const key in data) {
     localStorage.setItem(`${appliance}-${key}`, data[key]);
 
@@ -126,12 +142,6 @@ function updateAppliance(appliance, data) {
     .map(([key, value]) => `${appliance.charAt(0).toUpperCase() + appliance.slice(1)} ${key} is ${value}`)
     .join(', ');
   showNotification(statusMessage);
-
-  fetch('appliances_node_ip/port', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ appliance, ...data })
-  }).catch(err => console.error('Error:', err));
 }
 
 function showNotification(message) {
