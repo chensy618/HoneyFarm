@@ -4,6 +4,9 @@ import datetime
 import getopt
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -114,7 +117,11 @@ No mail.
 No Plan.
 """
                     )
+                    
+                    session_personality_response(self.protocol, self.response_finger, self.write)
+                    
                     return
+                    
             # If user is NOT real inform user
             self.write(f"finger: {args[0]}: no such user\n")
 
@@ -123,6 +130,60 @@ No Plan.
             return
         # Base.py has some helpful stuff
         return
+
+    @staticmethod
+    def response_finger(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "finger: User not found"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "finger: Unknownuser: no such user"
+            elif emotion == Emotion.CONFUSION:
+                return "finger: Syntax incomplete"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "finger: Login: guest       Name: ??\nDirectory: /tmp  Shell: /bin/sh\nLast"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "finger: Could not find the directory, Check the shell path again."
+            elif emotion == Emotion.FRUSTRATION:
+                return "finger: unexpected response format. (Error code: 8)"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "finger: user record not indexed properly. (Error code: 2)"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "finger: Login: partycrasher   Name: Unknown but online!\nLocation: 172.31.0.66"
+            elif emotion == Emotion.CONFUSION:
+                return "finger: User not found in the system. (Error code: 3)"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "finger: You are not allowed to view this user's information"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "finger: You don't have permission to access this user's data"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "finger: This user has restricted access. (Error code: 4)"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "finger: User not found in the system. (Error code: 5)"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "finger: Unexpected user data format. (Error code: 6)"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "finger: Error retrieving user information. (Error code: 7)"
+
+        return ""
 
 
 commands["bin/finger"] = Command_finger

@@ -13,6 +13,9 @@ from twisted.internet import reactor
 from cowrie.core.config import CowrieConfig
 from cowrie.shell.command import HoneyPotCommand
 from typing import TYPE_CHECKING
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 if TYPE_CHECKING:
     from twisted.internet.defer import Deferred
@@ -226,6 +229,8 @@ gcc version {version} (Debian {version}-5)"""
         # Trick the 'new compiled file' as an segfault
         self.protocol.commands[outfile] = segfault_command
 
+        session_personality_response(self.protocol, self.response_gcc, self.write)
+
     def arg_missing(self, arg: str) -> None:
         """
         Print missing argument message, and exit
@@ -300,6 +305,100 @@ For bug reporting instructions, please see:
 <file:///usr/share/doc/gcc-4.7/README.Bugs>.
 """
         )
+
+    @staticmethod
+    def response_gcc(protocol, trait, emotion):
+        """
+        Personality-based response for gcc behavior:
+        - 'no input file' situations (confusion, frustration)
+        - 'compilation success' situations (confidence, surprise)
+        """
+        if trait.name == "OPENNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: No input files specified (Error code 01)"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Missing input file"
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Compiled successfully with no errors"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: Error: No input files provided. Please specify a file to compile."
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Unexpected failure, installed libraries do not match the expected version"
+
+        elif trait.name == "CONSCIENTIOUSNESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: Missing input file, please specify a source file to compile"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Permission denied, cannot access the specified file"
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Compilation successful, no errors found"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: Package not found, please install the required libraries"
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Package found, compiling with the specified libraries"
+
+        elif trait.name == "LOW_EXTRAVERSION":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: No input files specified, please provide a source file"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: No such package found, please check the package name"
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Compilation successful, no warnings or errors"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: Please specify a valid source file to compile"
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Checking for additional libraries, please wait..."
+
+        elif trait.name == "LOW_AGREEABLENESS":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: Command not found, please check your input"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: No input files specified, please provide a source file"
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Operation denied, you do not have permission to access this file"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: Compilation failed, please check the source code for errors"
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: unknown error occurred, please try again later"
+
+        elif trait.name == "LOW_NEUROTICISM":
+            if emotion.name == "CONFUSION":
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: No input files specified, please provide a source file to compile"
+            elif emotion.name == "SELF_DOUBT":
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "gcc: permission denied, cannot access the specified package"
+            elif emotion.name == "CONFIDENCE":
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Network error, please check your connection"
+            elif emotion.name == "FRUSTRATION":
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: installation failed, please check the package name and try again"
+            elif emotion.name == "SURPRISE":
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: --help: Displaying help information for gcc command"
+
+        return None
 
 
 commands["/usr/bin/gcc"] = Command_gcc

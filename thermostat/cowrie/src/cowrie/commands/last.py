@@ -7,6 +7,9 @@ from __future__ import annotations
 import time
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -43,6 +46,66 @@ class Command_last(HoneyPotCommand):
                 )
             )
         )
+
+        session_personality_response(self.protocol, self.response_last, self.write)
+
+    @staticmethod
+    def response_last(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "last: Permission granted. Timestamp matches your last login"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "last: Operation failed (Error code 01)"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "last: Unrecognized option '--fail'\nTry 'last --help' for more information\n"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "last: Cannot read from /dev/null: Permission denied\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "last: Record not found in /dev/wtmp file\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "last: No previous login records found\n"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "last: No such user found in the system\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "last: Unexpected output from last command\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "last: Significant failure in retrieving last login data\n"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "last: Permission denied to access /var/log/wtmp\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "last: Invalid option '--no-such-option'\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "last: No login records found for the specified user\n"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "last: Unexpected error while processing last login data\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "last: Invalid timestamp format in last login record\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "last: No previous login records available\n"
+
+        return ""
 
 
 commands["/usr/bin/last"] = Command_last

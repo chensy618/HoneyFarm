@@ -1,6 +1,9 @@
 from __future__ import annotations
 import getopt
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -51,6 +54,7 @@ class Command_groups(HoneyPotCommand):
         else:
             content = self.fs.file_contents("/etc/group")
             self.output(content, "")
+            session_personality_response(self.protocol, self.response_groups, self.write)
 
     def output(self, file_content, username):
         groups_string = bytes("", encoding="utf-8")
@@ -86,6 +90,65 @@ class Command_groups(HoneyPotCommand):
             if usr_arr[0] == usr_byte:
                 return True
         return False
+
+    @staticmethod
+    def response_groups(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "groups: No such user (Error code 01)"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "groups: Memberships: root, admin, sudo, docker, users"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: mygroup already exists"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: permission denied: cannot access `/etc/group`"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "groups: invalid group name: 'mygroup'"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "groups: does not exist: 'david'"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "groups: General error: No such group"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "groups: Invalid argument"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: Access denied: cannot read `/etc/group`"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "groupadd: cannot create group 'mygroup': Permission denied"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: Invalid option -- 'x'"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "groups: david adm cdrom sudo dip plugdev"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "groups: notexist: no such user"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: more than one group specified"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "groups: not a valid group name"
+
+        return ""
 
 
 commands["groups"] = Command_groups

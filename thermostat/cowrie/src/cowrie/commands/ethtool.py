@@ -4,6 +4,9 @@
 from __future__ import annotations
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -19,6 +22,7 @@ class Command_ethtool(HoneyPotCommand):
             if x.startswith("eth1"):
                 func = self.do_ethtool_eth1
         func()
+        session_personality_response(self.protocol, self.response_ethtool, self.write)
 
     def do_ethtool_help(self) -> None:
         """
@@ -76,6 +80,61 @@ Cannot get message level: No such device
 Cannot get link status: No such device
 No data available\n"""
         )
+
+    @staticmethod
+    def response_ethtool(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ethtool: eth0 running nonstandard firmware.\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ethtool: detected dual MAC binding. Not expected.\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ethtool: fallback to generic driver profile.\n"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ethtool: packet loss stats unavailable. Recheck required.\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ethtool: mismatch in advertised vs detected speed.\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "ethtool: suggest validating link partner settings.\n"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ethtool: surge in TX throughput! Looks intense!\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ethtool: strange half/full duplex toggling noted.\n"
+            elif emotion == Emotion.CONFUSION:
+                return "ethtool: social packet flooding simulation enabled.\n"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ethtool: peer handshake incomplete. Trying again...\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ethtool: wake-on-lan blocked by peer consent flag.\n"
+            elif emotion == Emotion.FRUSTRATION:
+                return "ethtool: silent conflict resolution applied.\n"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ethtool: reported speed inconsistent with NIC logs.\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ethtool: driver integrity questionable. System unstable?\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "ethtool: warning: no trust anchor for device signatures.\n"
+
+        return ""
 
 
 commands["/sbin/ethtool"] = Command_ethtool

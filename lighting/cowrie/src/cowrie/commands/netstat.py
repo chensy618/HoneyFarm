@@ -5,6 +5,9 @@ from __future__ import annotations
 import socket
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -199,6 +202,66 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
             if x.startswith("-") and x.count("V"):
                 func = self.show_version
         func()
+        session_personality_response(self.protocol, self.response_netstat, self.write)
+
+    @staticmethod
+    def response_netstat(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "netstat: Tunnel connection detected"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "netstat: Unexpected socket echo on port 4444"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: unrecognized option '--fail'\n"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "netstat: Duplicate routing entries detected. Please audit your setup."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "netstat: State mismatch in tcp6/udp listing. Rechecking may help."
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: Unknown command (Error code: 09)"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "netstat: Network busy, please try it again later"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "netstat: Network busy, please try it again later"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: Invalid option -- 'x'"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "netstat: Fatal error occurred (Code: 127) "
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "netstat: port 22 bind error"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: No such protocol or port number"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "netstat: Socket unstable"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "netstat: Listening on all interfaces"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "netstat: Try `netstat --help` for more information"
+
+        return ""
+
 
 
 commands["/bin/netstat"] = Command_netstat

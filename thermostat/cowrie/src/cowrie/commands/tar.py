@@ -10,6 +10,10 @@ from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import A_REALFILE
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
+
 
 commands = {}
 
@@ -67,7 +71,7 @@ class Command_tar(HoneyPotCommand):
             self.write("tar: skipping to next header\n")
             self.write("tar: error exit delayed from previous errors\n")
             return
-
+        
         for f in t:
             dest = self.fs.resolve_path(f.name.strip("/"), self.protocol.cwd)
             if verbose:
@@ -95,6 +99,68 @@ class Command_tar(HoneyPotCommand):
                 )
             else:
                 log.msg(f"tar: skipping [{f.name}]")
+
+        session_personality_response(self.protocol, self.response_tar, self.write)
+
+    @staticmethod
+    def response_tar(protocol, trait, emotion):
+        """
+        Generate tar command emotional response based on personality and emotional state.
+        This response is *emotion-inducing*, not just a reflection.
+        """
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "tar: unexpected symlink entry found in archive\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "tar: file appears twice in archive\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "tar: format mismatch resolved using heuristics\n"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "tar: file permissions inconsistent\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "tar: warning: mtime and ctime conflict detected\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "tar: extraction complete with warnings. Suggest verification\n"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return ""
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "tar: unexpected EOF\n"
+            elif emotion == Emotion.CONFUSION:
+                return "tar: retrying auto-repair...\n"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "tar: collaborating with fs layer... \n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "tar: operation aborted by permission layer\n"
+            elif emotion == Emotion.FRUSTRATION:
+                return "tar: skipping contentious file\n"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "tar: format ambiguity detected\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "tar: partial read of block header. Data corrupted\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                return "tar: extraction halted due to risk\n"
+
+        return ""
+
 
 
 commands["/bin/tar"] = Command_tar

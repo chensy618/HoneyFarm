@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 
 # output taken from https://opensource.com/article/21/9/lspci-linux-hardware
@@ -38,6 +41,96 @@ commands = {}
 class Command_lspci(HoneyPotCommand):
     def call(self):
         self.write(lspci_out())
+        session_personality_response(self.protocol, self.response_lspci, self.write)
+
+    @staticmethod
+    def response_lspci(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: USB devices are not listed here. Use `lsusb` instead."
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: PCI devices are broken down by bus, check the bus numbers"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: All PCI devices are listed. No issues detected."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "lspci: No devices found"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotiona.set_state(Emotion.FRUSTRATION)
+                return "lspci: Unexpected device detected. Please check the hardware"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: Detailed inspection underway......"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: Use `lspci -v` for verbose output"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: CPU information: AMD Family 10h Processor"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: No devices found. Please check the hardware connections"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "lspci: Unexpected peripheral spotted, use `lspci -vv` for details"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: Invalid command. Use `lspci --help` for assistance"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: Unknown error occurred. Please try again"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: All devices are accounted for. No issues detected"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: Fatal error: No devices found. Please check the hardware"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "lspci: Invalid argument provided. Use `lspci --help` for guidance"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: Device listing is incomplete. Use `lspci -vv` for details"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspco: Invalid command. Use `lspci --help` for assistance"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: Finding devices... Please wait"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: Use lsusb for USB devices, lspci only lists PCI devices"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return ""
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: No devices found. Please check the hardware connections"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: Use `lspci -vv` for verbose output"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: Command not found or invalid option"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return ""
+            elif emotion == Emotion.SURPRISE:
+                return ""
+
+        return ""
+
 
 
 commands["/usr/bin/lspci"] = Command_lspci

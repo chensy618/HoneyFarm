@@ -7,6 +7,9 @@ import os
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import A_NAME
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+
 
 commands = {}
 
@@ -83,7 +86,8 @@ or available locally via: info '(coreutils) du invocation'\n"""
         args = self.args
         if args:
             if "-sh" == args[0]:
-                self.write("28K     .\n")
+                # self.write("28K     .\n")
+                self.handle_trait_response("28K     .\n")
             elif "--help" == args[0]:
                 self.write(self.message_help())
             else:
@@ -92,6 +96,10 @@ or available locally via: info '(coreutils) du invocation'\n"""
             self.du_show(path, showall=True)
 
     def du_show(self, path: str, showall: bool = False) -> None:
+        
+        # Initialize content to an empty string, otheewise it will casue issues
+        content = ""
+
         try:
             if self.protocol.fs.isdir(path) and not self.showDirectories:
                 files = self.protocol.fs.get_path(path)[:]
@@ -114,6 +122,7 @@ or available locally via: info '(coreutils) du invocation'\n"""
 
         filenames = [x[A_NAME] for x in files]
         if not filenames:
+            self.handle_trait_response(content)
             return
         for filename in filenames:
             if showall:
@@ -127,5 +136,90 @@ or available locally via: info '(coreutils) du invocation'\n"""
         if showall:
             self.write("36      .\n")
 
+        self.handle_trait_response(content)
+
+    
+    def handle_trait_response(self, content: str) -> None:
+        session = getattr(self.protocol.user.avatar, "session", None)
+        if session and hasattr(session, "_personality_inferred"):
+            profile = session._personality_inferred
+            trait_enum = profile["trait_enum"]
+            trait_name = profile["trait_label"]
+            emotion = self.protocol.emotion.get_state()
+
+            print(f"[DEBUG] ----Command_du---- trait_enum: {trait_enum}, emotion: {emotion.name}")
+
+            if trait_enum == Personality.OPENNESS:
+                if emotion.name == "CONFIDENCE":
+                    self.protocol.emotion.set_state(Emotion.SURPRISE)
+                    self.write("du: Command found but is not executable\n")
+                elif emotion.name == "SURPRISE":
+                    self.protocol.emotion.set_state(Emotion.CONFUSION)
+                    self.write("du: Invalid argument to exit\n")
+                elif emotion.name == "CONFUSION":
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("du : Script terminated by Control-C (exist code: 130)\n")
+                else:
+                    self.write(content)
+
+            elif trait_enum == Personality.CONSCIENTIOUSNESS:
+                if emotion.name == "CONFIDENCE":
+                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                    self.write("du: No such file or directory\n")
+                elif emotion.name == "FRUSTRATION":
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Invalid argument to exit\n")
+                elif emotion.name == "SELF_DOUBT":
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("du: General error\n")
+                else:
+                    self.write(content)
+
+            elif trait_enum == Personality.LOW_EXTRAVERSION:
+                if emotion.name == "CONFIDENCE":
+                    self.protocol.emotion.set_state(Emotion.SURPRISE)
+                    self.write("du: Access denied\n")
+                elif emotion.name == "SURPRISE":
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Failed to open file (exist code:02)\n")
+                elif emotion.name == "SELF_DOUBT":
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("du: Success\n")
+                else:
+                    self.write(content)
+
+            elif trait_enum == Personality.LOW_AGREEABLENESS:
+                if emotion.name == "CONFIDENCE":
+                    self.protocol.emotion.set_state(Emotion.SURPRISE)
+                    self.write("du: Accessing shared directory failed\n")
+                elif emotion.name == "SURPRISE":
+                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                    self.write("du: Write permission denied\n")
+                elif emotion.name == "FRUSTRATION":
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Abnormally terminated\n")
+                else:
+                    self.write(content)
+
+            elif trait_enum == Personality.LOW_NEUROTICISM:
+                if emotion.name == "CONFIDENCE":
+                    self.protocol.emotion.set_state(Emotion.CONFUSION)
+                    self.write("du: Directory timestamps out of sync (exist code: 01)\n")
+                elif emotion.name == "CONFUSION":
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Modified entries missing (exist code: 139)\n")
+                elif emotion.name == "SELF_DOUBT":
+                    self.write("du: Aborting scan (exist code: 130)\n")
+                else:
+                    self.write(content)
+
+            else:
+                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                self.write(content)
+        else:
+            self.write(content)
 
 commands["du"] = Command_du
+
+
+# test command : du -sh / du

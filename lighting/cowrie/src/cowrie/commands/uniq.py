@@ -10,6 +10,9 @@ from __future__ import annotations
 from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -63,6 +66,7 @@ class Command_uniq(HoneyPotCommand):
                 lines.pop()
             for line in lines:
                 self.grep_input(line)
+            session_personality_response(self.protocol, self.response_uniq, self.write)
             self.exit()
 
     def lineReceived(self, line: str) -> None:
@@ -82,6 +86,93 @@ class Command_uniq(HoneyPotCommand):
             self.writeBytes(line + b"\n")
             self.last_line = line
 
+    @staticmethod
+    def response_uniq(protocol, trait, emotion):
+        """
+        Emotional/personality-based response logic for 'uniq'
+        This response is emotion-inducing and changes state
+        """
+
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: No such file or directory"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: Permission denied"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "unqi: Unrecognized option '--xyz'"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: Write error: No space left on device"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: unrecognized input format. Try again with --help"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: Unexpected character encoding found"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: No such file or directory"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uniq: unknown error occurred\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: permission denied"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: Invalid option '-h'"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: Fatal error occurred (Error code: 124) "
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uniq: unknown error occurred\n"
+
+        elif trait == LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: input stream may not be sorted"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: permission denied"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: unknown error occurred"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return ""
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Found something dangerous"
+
+        elif trait == LOW_NEUROTICISM:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: Invalid command"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: Unknown input"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: No such file"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uniq: Unrecognized option"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: Unknown error"
+
+        return ""
 
 commands["/usr/bin/uniq"] = Command_uniq
 commands["uniq"] = Command_uniq

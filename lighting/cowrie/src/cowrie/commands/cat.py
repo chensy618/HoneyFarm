@@ -17,6 +17,10 @@ from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
 from cowrie.email_alert import send_honeytoken_email
 from cowrie.ssh.transport import HoneyPotSSHTransport
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
+
 
 commands = {}
 
@@ -89,6 +93,7 @@ class Command_cat(HoneyPotCommand):
                     self.output(contents)
                 except FileNotFound:
                     self.errorWrite(f"cat: {arg}: No such file or directory\n")
+            session_personality_response(self.protocol, self.response_cat, self.write)
             self.exit()
         elif self.input_data is not None:
             self.output(self.input_data)
@@ -158,6 +163,71 @@ Full documentation at: <http://www.gnu.org/software/coreutils/cat>
 or available locally via: info '(coreutils) cat invocation'
 """
         )
+
+    @staticmethod
+    def response_cat(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "cat: No such file or directory"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "cat: Is a directory"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "cat: Permission denied"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "cat: File not found"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Try 'cat --help' for more information"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "cat: End of file reached unexpectedly"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "cat: permission denied"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "cat: file corrupted or partially truncated"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "cat: username=admin\npassword=1234\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "cat: File ends abruptly"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "cat: Expected 4096 bytes, found 4092 bytes."
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "cat: Access granted"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "cat: File locked during read"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "cat: Were you supposed to see this at all?"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "cat: Timestamp: 1970-01-01."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "cat: Line mismatch detected, file corrupted"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "cat File header unreadable, re-run advised."
+
+        return
 
 
 commands["/bin/cat"] = Command_cat

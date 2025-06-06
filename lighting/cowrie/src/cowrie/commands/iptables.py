@@ -8,6 +8,10 @@ from typing import Any
 from typing_extensions import Never
 
 from cowrie.shell.command import HoneyPotCommand
+from cowrie.shell.fs import FileNotFound
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import session_personality_response
 
 commands = {}
 
@@ -274,6 +278,7 @@ Perhaps iptables or your kernel needs to be upgraded.\n"""
         Show version and exit
         """
         self.write(f"{Command_iptables.APP_NAME} {Command_iptables.APP_VERSION}\n")
+        session_personality_response(self.protocol, self.response_iptables, self.write)
         self.exit()
 
     def show_help(self) -> None:
@@ -375,6 +380,8 @@ Options:
         else:
             self.no_permission()
 
+        session_personality_response(self.protocol, self.response_iptables, self.write)
+
     def list(self, chain: str) -> None:
         """
         List current rules
@@ -438,6 +445,8 @@ Options:
         else:
             self.no_permission()
 
+        session_personality_response(self.protocol, self.response_iptables, self.write)
+
     def no_permission(self) -> None:
         self.write(
             f"{Command_iptables.APP_NAME} {Command_iptables.APP_VERSION}: "
@@ -476,6 +485,94 @@ Options:
             f"Bad argument '{argument}'\nTry `iptables -h' or 'iptables --help' for more information.\n"
         )
         self.exit()
+
+    @staticmethod
+    def response_iptables(protocol, trait, emotion):
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Permission denied (you must be root)\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: No chain/target/match by that name\n"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Chain created successfully\n"
+            elif emotion == Emotion.FRUSTRATION:
+                return "iptables: Error while flushing rules: Permission denied\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Unexpected rule format\n"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Syntax error: unexpected option\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Invalid rule specification\n"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Rule added successfully\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Failed to delete rule: No such rule\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Rule already exists\n"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Unknown command or option\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Invalid chain name\n"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Chain exists and is valid"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Error while listing rules: Permission denied\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Unexpected output format\n"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Invalid option or argument\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Chain does not exist\n"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Chain deleted successfully\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Error while renaming chain: Permission denied\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Chain renamed successfully\n"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Invalid table name\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Table does not exist\n"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Table created successfully\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Error while setting policy: Permission denied\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Policy set successfully\n"
+
+        return ""
 
 
 commands["/sbin/iptables"] = Command_iptables

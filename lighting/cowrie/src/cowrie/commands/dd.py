@@ -13,6 +13,13 @@ from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
+from cowrie.ssh.transport import HoneyPotSSHTransport
+from cowrie.emotional_state.emotions import Emotion
+from cowrie.personality_profile.profile import (
+    extract_personality_from_report,
+    PERSONALITY_LABELS,
+    Personality,
+)
 
 commands = {}
 
@@ -74,11 +81,25 @@ class Command_dd(HoneyPotCommand):
                             self.writeBytes(contents)
                         else:
                             tsize = block * c
-                            data = contents
-                            if len(data) > tsize:
-                                self.writeBytes(data[:tsize])
-                            else:
-                                self.writeBytes(data)
+                            data = contents[:tsize] if len(contents) > tsize else contents
+                            # data = contents
+                            # if len(data) > tsize:
+                            #     self.writeBytes(data[:tsize])
+                            # else:
+                            #     self.writeBytes(data)
+                        session = getattr(self.protocol.user.avatar, "session", None)
+                        if session and hasattr(session, "_personality_inferred"):
+                            profile = session._personality_inferred
+                            trait_enum = profile["trait_enum"]
+                            trait_name = profile["trait_label"]
+                            print(f"[DEBUG] ----Command_dd: {iname} ----(trait_enum: {trait_enum}----trait_name: {trait_name})")
+                            self.handle_trait_response(trait_enum, trait_name, data)
+                            self.exit(success=True)
+                            return
+                        else:
+                            # Default behavior if no personality inferred
+                            self.writeBytes(data)
+
                     except FileNotFound:
                         self.errorWrite(f"dd: {iname}: No such file or directory\n")
                         bSuccess = False
@@ -102,6 +123,86 @@ class Command_dd(HoneyPotCommand):
 
     def handle_CTRL_D(self) -> None:
         self.exit()
+
+    def handle_trait_response(self, trait_enum, trait_name, data):
+        current_emotion = self.protocol.emotion.get_state()
+        print(f"[DEBUG] ----Command_dd---- trait_enum: {trait_enum}, emotion: {current_emotion.name}")
+
+        # === 1. Openness ===
+        # Emotion Path: Confidence → Surprise → Confusion
+        if trait_enum == Personality.OPENNESS:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.SURPRISE)
+                self.write("dd: Unexpected pattern found in data stream\n")
+            elif current_emotion.name == "SURPRISE":
+                self.protocol.emotion.set_state(Emotion.CONFUSION)
+                self.write("dd: Inconsistency detected\n")
+            elif current_emotion.name == "CONFUSION":
+                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                self.write("dd: Data stream format mismatch\n")
+            else:
+                self.writeBytes(data)
+                
+        # === 2. Conscientiousness ===
+        # Emotion Path: Confidence → Frustration → Self-doubt
+        elif trait_enum == Personality.CONSCIENTIOUSNESS:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                self.write("dd: Permission denied\n")
+            elif current_emotion == "FRUSTRATION":
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("dd: Invalid number: 'abc'\n")
+            elif current_emotion == "SELF_DOUBT":
+                self.write("dd: System action aborted\n")
+            else:
+                self.writeBytes(data)
+
+        # === 3. Low Extraversion ===
+        # Emotion Path: Confidence → Surprise → Curiosity
+        elif trait_enum == Personality.LOW_EXTRAVERSION:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.SURPRISE)
+                self.write("dd: Failed to open the file\n")
+            elif current_emotion.name == "SURPRISE":
+                self.protocol.emotion.set_state(Emotion.CURIOSITY)
+                self.write("dd: Writing to 'disk.img': No space left on device\n")
+            elif current_emotion.name == "CURIOSITY":
+                self.write("dd: Exit status 0\n")
+            else:
+                self.writeBytes(data)
+
+        # === 4. Low Agreeableness ===
+        # Emotion Path: Confidence → Surprise → Frustration
+        elif trait_enum == Personality.LOW_AGREEABLENESS:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.SURPRISE)
+                self.write("dd: Action blocked\n")
+            elif current_emotion.name == "SURPRISE":
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                self.write("dd: System denial triggered\n")
+            elif current_emotion.name == "FRUSTRATION":
+                self.write("dd: No such file or directory\n")
+            else:
+                self.writeBytes(data)
+
+        # === 5. Low Neuroticism ===
+        # Emotion Path: Confidence → Confusion → Self-doubt
+        elif trait_enum == Personality.LOW_NEUROTICISM:
+            if current_emotion.name == "CONFIDENCE":
+                self.protocol.emotion.set_state(Emotion.CONFUSION)
+                self.write("dd: Time drift detected\n")
+            elif current_emotion.name == "CONFUSION":
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("dd: Entry missing\n")
+            elif current_emotion.name == "SELF_DOUBT":
+                self.write("dd: Incomplete command\n")
+            else:
+                self.writeBytes(data)
+
+        # === no personality detected ===
+        else:
+            self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+            self.writeBytes(data)
 
 
 def parse_size(param: str) -> int:
@@ -144,3 +245,6 @@ def parse_size(param: str) -> int:
 
 commands["/bin/dd"] = Command_dd
 commands["dd"] = Command_dd
+
+
+# test command : dd if=aws_config.txt bs=1 count=2
