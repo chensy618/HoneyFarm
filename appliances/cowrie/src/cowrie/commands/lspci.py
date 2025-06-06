@@ -47,63 +47,87 @@ class Command_lspci(HoneyPotCommand):
     def response_lspci(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFUSION:
-                return "So many devices… do they all talk to each other?"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: USB devices are not listed here. Use `lsusb` instead."
             elif emotion == Emotion.SELF_DOUBT:
-                return "You're trying to make sense of the machine. That's a start."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: PCI devices are broken down by bus, check the bus numbers"
             elif emotion == Emotion.CONFIDENCE:
-                return "You've mapped the hardware jungle. Nicely done."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: All PCI devices are listed. No issues detected."
             elif emotion == Emotion.FRUSTRATION:
-                return "Still can't find the GPU you're looking for?"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "lspci: No devices found"
             elif emotion == Emotion.SURPRISE:
-                return "Wow, didn't expect that controller to be there!"
+                protocol.emotiona.set_state(Emotion.FRUSTRATION)
+                return "lspci: Unexpected device detected. Please check the hardware"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFUSION:
-                return "Detailed inspection underway. PCI structure needs clarity."
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: Detailed inspection underway......"
             elif emotion == Emotion.SELF_DOUBT:
-                return "Every bridge has a purpose. You're reading it right."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: Use `lspci -v` for verbose output"
             elif emotion == Emotion.CONFIDENCE:
-                return "Hardware detected. Organized and accounted for."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: CPU information: AMD Family 10h Processor"
             elif emotion == Emotion.FRUSTRATION:
-                return "Missing a device? Maybe check `dmesg` too."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: No devices found. Please check the hardware connections"
             elif emotion == Emotion.SURPRISE:
-                return "Unexpected peripheral spotted. Time to document."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "lspci: Unexpected peripheral spotted, use `lspci -vv` for details"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFUSION:
-                return "All these ports! Who's talking to what?"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: Invalid command. Use `lspci --help` for assistance"
             elif emotion == Emotion.SELF_DOUBT:
-                return "Just dive in. Explore that PCI jungle!"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: Unknown error occurred. Please try again"
             elif emotion == Emotion.CONFIDENCE:
-                return "Boom! Found all the hardware. Let's show it off."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: All devices are accounted for. No issues detected"
             elif emotion == Emotion.FRUSTRATION:
-                return "Let's unplug and replug everything!"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: Fatal error: No devices found. Please check the hardware"
             elif emotion == Emotion.SURPRISE:
-                return "Whoa! That's a lot of controllers."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "lspci: Invalid argument provided. Use `lspci --help` for guidance"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFUSION:
-                return "Looks tricky, but you're doing great."
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: Device listing is incomplete. Use `lspci -vv` for details"
             elif emotion == Emotion.SELF_DOUBT:
-                return "You're being careful. That's wise with hardware."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspco: Invalid command. Use `lspci --help` for assistance"
             elif emotion == Emotion.CONFIDENCE:
-                return "Nice list! Everything looks well-connected."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: Finding devices... Please wait"
             elif emotion == Emotion.FRUSTRATION:
-                return "Maybe `lsusb` next? I'm here with you!"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "lspci: Use lsusb for USB devices, lspci only lists PCI devices"
             elif emotion == Emotion.SURPRISE:
-                return "Oh, what a neat discovery!"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return ""
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFUSION:
-                return "What if a device is spoofed? What if it's not real?"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "lspci: No devices found. Please check the hardware connections"
             elif emotion == Emotion.SELF_DOUBT:
-                return "Are we sure the NIC is safe?"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "lspci: Use `lspci -vv` for verbose output"
             elif emotion == Emotion.CONFIDENCE:
-                return "That's a full hardware map… probably."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "lspci: Command not found or invalid option"
             elif emotion == Emotion.FRUSTRATION:
-                return "Still hiding? This machine's mocking us!"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return ""
             elif emotion == Emotion.SURPRISE:
-                return "What is *that* even doing there?"
+                return ""
 
         return ""
 

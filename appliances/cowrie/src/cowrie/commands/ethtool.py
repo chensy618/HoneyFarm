@@ -86,7 +86,7 @@ No data available\n"""
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "ethtool: eth0 running nonstandard firmware?\n"
+                return "ethtool: eth0 running nonstandard firmware.\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "ethtool: detected dual MAC binding. Not expected.\n"

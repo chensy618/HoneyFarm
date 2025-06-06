@@ -491,66 +491,86 @@ Options:
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "iptables seems like a puzzle… is it blocking you or protecting you?"
+                return "iptables: Permission denied (you must be root)\n"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "It's okay to question how the chains connect. You're not alone."
+                return "iptables: No chain/target/match by that name\n"
             elif emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Chains aligned, packets tamed. Nicely done."
+                return "iptables: Chain created successfully\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "Rules, chains, targets… it's like poetry, but angry."
+                return "iptables: Error while flushing rules: Permission denied\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Unexpected drop? Or a beautiful ACCEPT?"
+                return "iptables: Unexpected rule format\n"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFUSION:
-                return "Let's bring discipline to these firewall rules."
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Syntax error: unexpected option\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "Check the syntax again. One misplaced rule can misroute everything."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Invalid rule specification\n"
             elif emotion == Emotion.CONFIDENCE:
-                return "Structure intact. Chains properly managed."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Rule added successfully\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "Order will come—one ACCEPT at a time."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Failed to delete rule: No such rule\n"
             elif emotion == Emotion.SURPRISE:
-                return "Didn't expect that packet rule? Let's log and learn."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Rule already exists\n"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFUSION:
-                return "Wait, which chain are we in again? Let's explore!"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Unknown command or option\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "You're doing great. This just needs more testing!"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Invalid chain name\n"
             elif emotion == Emotion.CONFIDENCE:
-                return "Yeah! IPTables conquered!"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Chain exists and is valid"
             elif emotion == Emotion.FRUSTRATION:
-                return "Let's flush it all and start fresh!"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Error while listing rules: Permission denied\n"
             elif emotion == Emotion.SURPRISE:
-                return "Oh wow, that port was open all along!"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Unexpected output format\n"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFUSION:
-                return "Need a hand understanding these rules?"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Invalid option or argument\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "You're being careful—that's good! It keeps systems safe."
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Chain does not exist\n"
             elif emotion == Emotion.CONFIDENCE:
-                return "Looks like everything is in harmony!"
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Chain deleted successfully\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "It's okay. Firewalls can be tricky."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Error while renaming chain: Permission denied\n"
             elif emotion == Emotion.SURPRISE:
-                return "Oh! That rule wasn't expected. Let's note it down."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Chain renamed successfully\n"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFUSION:
-                return "What if the rules don't work? What if it's all exposed?"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "iptables: Invalid table name\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "Should we even be doing this without sudo?"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "iptables: Table does not exist\n"
             elif emotion == Emotion.CONFIDENCE:
-                return "You've got control now. Unless..."
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "iptables: Table created successfully\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "It's just not working! Why is it so broken?"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Error while setting policy: Permission denied\n"
             elif emotion == Emotion.SURPRISE:
-                return "Wait—this rule wasn't there before… was it?"
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "iptables: Policy set successfully\n"
 
         return ""
 

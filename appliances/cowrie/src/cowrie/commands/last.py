@@ -54,52 +54,56 @@ class Command_last(HoneyPotCommand):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "last: You logged in at that time… but what have you really done since?"
+                return "last: Permission granted. Timestamp matches your last login"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "last: Was that session… significant somehow?"
+                return "last: Operation failed (Error code 01)"
             elif emotion == Emotion.CONFUSION:
-                return "last: The timestamp seems ordinary, but the memory isn't."
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "last: Unrecognized option '--fail'\nTry 'last --help' for more information\n"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "last: Confirmed login. Time aligns. Rechecking session integrity…"
+                return "last: Cannot read from /dev/null: Permission denied\n"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "last: Record seems clean, but was any anomaly overlooked?"
+                return "last: Record not found in /dev/wtmp file\n"
             elif emotion == Emotion.FRUSTRATION:
-                return "last: Keeping everything logged doesn’t mean it’s all under control."
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "last: No previous login records found\n"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "last: Whoa! That was when you came in last time, right?"
+                return "last: No such user found in the system\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "last: Feels like yesterday. Time flies!"
+                return "last: Unexpected output from last command\n"
             elif emotion == Emotion.CONFUSION:
-                return "last: Let's make this session even more fun!"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "last: Significant failure in retrieving last login data\n"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "last: You were here before. Glad to see you back!"
+                return "last: Permission denied to access /var/log/wtmp\n"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "last: Hope it’s okay to bring up old sessions…"
+                return "last: Invalid option '--no-such-option'\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "last: I’m here if you ever want to revisit what you did."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "last: No login records found for the specified user\n"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "last: The logs say you were here… but can we trust the logs?"
+                return "last: Unexpected error while processing last login data\n"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "last: Was that really you? Something feels off."
+                return "last: Invalid timestamp format in last login record\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "last: I keep replaying that login. It just… lingers."
+                return "last: No previous login records available\n"
 
         return ""
 

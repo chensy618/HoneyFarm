@@ -209,52 +209,56 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "netstat: odd tunnel connection detected — ever wonder where it leads?"
+                return "netstat: Tunnel connection detected"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "netstat: unexpected socket echo on port 4444. Unusual behavior?"
+                return "netstat: Unexpected socket echo on port 4444"
             elif emotion == Emotion.CONFUSION:
-                return "netstat: many roads, few destinations. Curious?"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: unrecognized option '--fail'\n"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "netstat: duplicate routing entries detected. Please audit your setup."
+                return "netstat: Duplicate routing entries detected. Please audit your setup."
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "netstat: state mismatch in tcp6/udp listing. Rechecking may help."
+                return "netstat: State mismatch in tcp6/udp listing. Rechecking may help."
             elif emotion == Emotion.SELF_DOUBT:
-                return "netstat: order lost in tables. Structure needs reinforcement."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: Unknown command (Error code: 09)"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "netstat: multiple streams converging. It’s a party in here!"
+                return "tcp 0 0 127.0.0.1:22 0.0.0.0:* LISTEN\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "netstat: the network feels noisy today. Who’s connecting?"
+                return "netstat: Network busy, please try it again later"
             elif emotion == Emotion.CONFUSION:
-                return "netstat: maybe reach out — so many open connections, so little feedback."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: Invalid option -- 'x'"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "netstat: open ports everywhere. Are we being too welcoming?"
+                return "netstat: Fatal error occurred (Code: 127) "
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "netstat: port 22 keeps knocking — but no one responds."
+                return "netstat: port 22 bind error"
             elif emotion == Emotion.FRUSTRATION:
-                return "netstat: still listening... maybe someone will connect again."
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "netstat: No such protocol or port number"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "netstat: why is this socket still connected? Feels... unstable."
+                return "netstat: Socket unstable"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "netstat: listening on all interfaces. Is that too risky?"
+                return "netstat: Listening on all interfaces"
             elif emotion == Emotion.SELF_DOUBT:
-                return "netstat: maybe it’s nothing... or maybe it’s everything."
+                return "netstat: Try `netstat --help` for more information"
 
         return ""
 
