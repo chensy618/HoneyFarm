@@ -92,92 +92,85 @@ class Command_uniq(HoneyPotCommand):
         Emotional/personality-based response logic for 'uniq'
         This response is emotion-inducing and changes state
         """
-        from cowrie.emotional_state.emotions import Emotion
 
-        if trait.name == "OPENNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CURIOSITY)
-                return "Unique lines, like ideas, only stand out when they're together."
-            elif emotion.name == "SELF_DOUBT":
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: No such file or directory"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Even one match can be meaningful."
-            elif emotion.name == "CONFIDENCE":
+                return "uniq: Permission denied"
+            elif emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "Pattern filtered. Insights remain."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CALM)
-                return "Duplicates are gone. Clean view ahead."
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.FOCUS)
-                return "Didn't expect so many repeats, did you?"
-
-        elif trait.name == "CONSCIENTIOUSNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Let's strip away the noise and keep only what matters."
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.FOCUS)
-                return "Duplicates filtered. Structure improved."
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SATISFACTION)
-                return "Clean data. Just how you like it."
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CALM)
-                return "Let's tidy this up and move forward."
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.REFLECTION)
-                return "A surprise duplicate is still a pattern."
-
-        elif trait.name == "LOW_EXTRAVERSION":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Let's find the unique ones that stand out!"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CURIOSITY)
-                return "There's value in the outliers!"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SATISFACTION)
-                return "Filtered and fabulous!"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "Brush it off, we've got this."
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.ENTHUSIASM)
-                return "Whoa! That one kept showing up, huh?"
-
-        elif trait.name == "LOW_AGREEABLENESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.HELPFULNESS)
-                return "Need help spotting the differences?"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.OPTIMISM)
-                return "Each line matters. Let's keep going."
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SATISFACTION)
-                return "Clean list, clean mind!"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.PATIENCE)
-                return "Let's take it one line at a time."
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.HELPFULNESS)
-                return "Found something odd? Let's look into it."
-
-        elif trait.name == "LOW_NEUROTICISM":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.ANXIETY)
-                return "Why so many duplicates? Is something wrong?"
-            elif emotion.name == "SELF_DOUBT":
+                return "unqi: Unrecognized option '--xyz'"
+            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "Was I too strict? Or not strict enough?"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.CAUTIOUS)
-                return "Okay… the output looks fine. I think."
-            elif emotion.name == "FRUSTRATION":
+                return "uniq: Write error: No space left on device"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: unrecognized input format. Try again with --help"
+
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: Unexpected character encoding found"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: No such file or directory"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uniq: unknown error occurred\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: permission denied"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: Invalid option '-h'"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: Fatal error occurred (Error code: 124) "
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "uniq: unknown error occurred\n"
+
+        elif trait == LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: input stream may not be sorted"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: permission denied"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: unknown error occurred"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return ""
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "Found something dangerous"
+
+        elif trait == LOW_NEUROTICISM:
+            if emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uniq: Invalid command"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: Unknown input"
+            elif emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uniq: No such file"
+            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "It shouldn't be this messy… right?"
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.MISTRUST)
-                return "That line again? Is this thing rigged?"
+                return "uniq: Unrecognized option"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "uniq: Unknown error"
 
         return ""
 
