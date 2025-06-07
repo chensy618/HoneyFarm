@@ -174,12 +174,12 @@ or available locally via: info '(coreutils) cat invocation'
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "cat: Is a directory"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "cat: Permission denied"
-            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "cat: File not found"
+                return "cat: Permission denied"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "cat: File not found"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "Try 'cat --help' for more information"
 
@@ -188,33 +188,51 @@ or available locally via: info '(coreutils) cat invocation'
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cat: End of file reached unexpectedly"
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "cat: permission denied"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "cat: file corrupted or partially truncated"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "cat: file corrupted or partially truncated"
+                return "cat: file not found, re-run advised"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "cat: file read successfully, but unexpected end of file"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cat: username=admin\npassword=1234\n"
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "cat: File ends abruptly"
-            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.CONFUSION)
+                return "cat: File ends abruptly"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "cat: Expected 4096 bytes, found 4092 bytes."
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "cat: File header unreadable, re-run advised."
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "cat: File read successfully, but unexpected end of file"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cat: Access granted"
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "cat: File locked during read"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "cat: File read interrupted, please try again"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "cat: Were you supposed to see this at all?"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "cat: File read successfully, but unexpected end of file"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
@@ -224,10 +242,16 @@ or available locally via: info '(coreutils) cat invocation'
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "cat: Line mismatch detected, file corrupted"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "cat File header unreadable, re-run advised."
-
-        return
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "cat: File read successfully, but unexpected end of file"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
+                
+        return ""
 
 
 commands["/bin/cat"] = Command_cat
