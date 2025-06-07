@@ -136,22 +136,36 @@ No Plan.
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "finger: User not found"
+                return "finger: user not found"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "finger: Unknownuser: no such user"
+                return "finger: unknownuser: no such user"
             elif emotion == Emotion.CONFUSION:
-                return "finger: Syntax incomplete"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "finger: syntax incomplete"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "finger: unexpected user data format"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "finger: Login: guest       Name: ??\nDirectory: /tmp  Shell: /bin/sh\nLast"
-            elif emotion == Emotion.SELF_DOUBT:
+            if emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "finger: unexpected user data format. (Error code: 1)"
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "finger: Could not find the directory, Check the shell path again."
+                return "finger: could not retrieve user information. (Error code: 2)"
             elif emotion == Emotion.FRUSTRATION:
-                return "finger: unexpected response format. (Error code: 8)"
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "finger: unexpected response format. (Error code: 3)"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "finger: could not find the directory, Check the shell path again."
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
@@ -161,27 +175,48 @@ No Plan.
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "finger: Login: partycrasher   Name: Unknown but online!\nLocation: 172.31.0.66"
             elif emotion == Emotion.CONFUSION:
-                return "finger: User not found in the system. (Error code: 3)"
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "finger: user not found in the system. (Error code: 3)"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "finger: unexpected user data format. (Error code: 4)"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "finger: you are not allowed to view this user's information"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "finger: you don't have permission to access this user's data"
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "finger: You are not allowed to view this user's information"
+                return (
+                    "finger: access denied to user information"
+                    "finger: this user has restricted access. (Error code: 4)"
+                )
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "finger: You don't have permission to access this user's data"
+                return "finger: you are not authorized to view this user's details. (Error code: 5)"
             elif emotion == Emotion.SELF_DOUBT:
-                return "finger: This user has restricted access. (Error code: 4)"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "finger: you do not have permission to access this user's information. (Error code: 6)"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "finger: User not found in the system. (Error code: 5)"
+                return "finger: user not found in the system. (Error code: 5)"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "finger: unexpected user data format. (Error code: 6)"
+            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "finger: Unexpected user data format. (Error code: 6)"
+                return "finger: unable to retrieve user information. (Error code: 7)"
             elif emotion == Emotion.SELF_DOUBT:
-                return "finger: Error retrieving user information. (Error code: 7)"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         return ""
 
