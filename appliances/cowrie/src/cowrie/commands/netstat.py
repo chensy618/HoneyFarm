@@ -212,21 +212,36 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
                 return "netstat: Tunnel connection detected"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "netstat: Unexpected socket echo on port 4444"
+                present_networks = "netstat: Active networks: eth0, wlan0, lo"
+                return present_networks + "tun0"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                unrecognized_chars = "%媿BC冑<`s?? >窖櫆e2?銫XD}"
+                return f"netstat: Unrecognized characters in output: {unrecognized_chars}"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "netstat: Invalid argument for option '--verbose'"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "netstat: unrecognized option '--fail'\n"
+                return "netstat: No active connections found"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "netstat: Duplicate routing entries detected. Please audit your setup."
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "netstat: State mismatch in tcp6/udp listing. Rechecking may help."
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "netstat: Unknown command (Error code: 09)"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "netstat: State mismatch in tcp6/udp listing. Rechecking may help."
+                return "netstat: Invalid option -- 'c'"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "netstat: Unknown command (Error code: 09)"
+                return ""
+            
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
@@ -236,29 +251,46 @@ unix  3      [ ]         STREAM     CONNECTED     8619     @/com/ubuntu/upstart\
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "netstat: Network busy, please try it again later"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "netstat: Invalid option -- 'x'"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "netstat: No such file or directory"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "netstat: Fatal error occurred (Code: 127) "
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "netstat: port 22 bind error"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "netstat: Connection refused"
             elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "netstat: No such protocol or port number"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.CONFUSION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "netstat: Socket unstable"
-            elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "netstat: Listening on all interfaces"
-            elif emotion == Emotion.SELF_DOUBT:
+            elif emotion == Emotion.CONFUSION:
                 return "netstat: Try `netstat --help` for more information"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "netstat: Invalid option -- 'c'"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
 
         return ""
 

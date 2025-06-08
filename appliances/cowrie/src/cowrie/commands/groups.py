@@ -101,19 +101,31 @@ class Command_groups(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "groups: Memberships: root, admin, sudo, docker, users"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "groups: mygroup already exists"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: Invalid group name: 'mygroup'"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "groups: permission denied: cannot access `/etc/group`"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "groups: invalid group name: 'mygroup'"
-            elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "groups: does not exist: 'david'"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: cannot read `/etc/group`: Permission denied"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "groups: david adm cdrom sudo dip plugdev"
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
@@ -123,30 +135,47 @@ class Command_groups(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "groups: Invalid argument"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "groups: Access denied: cannot read `/etc/group`"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: cannot create group 'mygroup': Permission denied"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "groups: mygroup adm cdrom sudo dip plugdev"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "groupadd: cannot create group 'mygroup': Permission denied"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "groups: Invalid option -- 'x'"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "groups: david adm cdrom sudo dip plugdev"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "groups: Invalid option -- 'x'"
+                return "groups: cannot read `/etc/group`: Permission denied"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "groups: david adm cdrom sudo dip plugdev"
+                return ""
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.CONFUSION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "groups: notexist: no such user"
-            elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "groups: more than one group specified"
-            elif emotion == Emotion.SELF_DOUBT:
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "groups: not a valid group name"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "groups: cannot read `/etc/group`: Permission denied"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
 
         return ""
 

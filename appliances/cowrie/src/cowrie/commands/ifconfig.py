@@ -104,31 +104,57 @@ eth0:0    Link encap:Ethernet  HWaddr 00:00:00:00:00:00
           inet6 addr: fe::xyz:1234:beef Scope:Link
 """
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                protocol.emotion.set_state(Emotion.Frustration)
                 return """
 docker0   Link encap:Ethernet  HWaddr 02:42:ac:11:00:02
           inet addr:172.17.0.1  Mask:255.255.0.0
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
           RX packets:42  TX packets:66
 """
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                # present the uncognized interface with unknown characters
+                return """
+荍*ｐ/???鶙?K炶_逡??嗒Ro晆Q醥嗥桱錄^?X蚔羠襙E??	?巄曢ca%?覙亀!蓡?P櫷敜3?
+x靺n0D柨???皘L=喜ez虸V材_lT輌?Kp矴箳g咹=卿ネ圚?莂t拆筁*??B??H締储蓁5?S覺^q?w{?
+=@?  忛*Z3暀@弔Ao1晭>1弈Kv??k>_: _R?仱皞慼摠g寞H圗'薚!澞袀x?=a钗2怭k0洹?汄?嬱y!?
+RC噶芭愒僺-;S?d%汰<ǐ?滻*卛昩P诺狧6恩?╈繖]t飞y3"2U[祳綼^@梇!睎.dD腷Tx鑛攡q昶{Z硃
+  #   xl/worksheets/_rels/sheet1.xml.rels糣mo??`幡.?,掑珽!訧S哿?/癩C爩H[D$R )疫?   
+"""
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SUPRISE)
                 return """
 eth0      RX packets:999999  TX packets:999999
           Metric:1
 """
-            elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+            elif emotion == Emotion.SUPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return """
 eth0      RX packets:123456  TX packets:123455
           RX bytes:100000000 (100.0 MB)  TX bytes:100000001 (100.0 MB)
 """
-            elif emotion == Emotion.SELF_DOUBT:
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return """
 eth0      Metric:1
           Metric:0
+"""
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return """
+eth0      RX packets:0  TX packets:0
+          RX bytes:0 (0.0 MB)  TX bytes:0 (0.0 MB)
+"""
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return """
+eth0      RX packets:0  TX packets:0
+          RX bytes:0 (0.0 MB)  TX bytes:0 (0.0 MB)
 """
 
         elif trait == Personality.LOW_EXTRAVERSION:
@@ -145,11 +171,23 @@ eth0      TX packets:100
           TX packets:?
 """
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return """
 eth0
           RX packets:0
 """
-
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return """
+eth0      RX packets:0  TX packets:0
+          RX bytes:0 (0.0 MB)  TX bytes:0 (0.0 MB)
+"""
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return """
+eth0      RX packets:0  TX packets:0
+          RX bytes:0 (0.0 MB)  TX bytes:0 (0.0 MB)
+"""
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
@@ -158,16 +196,27 @@ usbnet0   Link encap:USB-Net
           RX packets:4  TX packets:4
 """
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return """
 eth1      Link encap:Ethernet
           [details removed by system]
 """
-            elif emotion == Emotion.FRUSTRATION:
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return """
 [Access denied to interface listing.]
 """
-
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return """
+eth0      RX packets:0  TX packets:0
+          RX bytes:0 (0.0 MB)  TX bytes:0 (0.0 MB)  
+"""
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return """eth0      RX packets:0  TX packets:0
+          RX bytes:0 (0.0 MB)  TX bytes:0 (0.0 MB)
+"""
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
@@ -176,12 +225,18 @@ eth0      RX packets:1000000  TX packets:1000000
           No error detected.
 """
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return """
 eth0      RX bytes: 1234567890
           TX bytes:
 """
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return """eth0      RX packets:0  TX packets:0
+          RX bytes:0 (0.0 MB)  TX bytes:0 (0.0 MB)
+"""
             elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return """
 eth0      RX dropped: 0
           RX dropped: 1

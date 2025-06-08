@@ -235,88 +235,88 @@ class Command_ls(HoneyPotCommand):
     @staticmethod
     def response_ls(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
-            if emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ls: command found but not executable (Error code: 02)"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "ls: invalid option to exit (Error code: 22)"
-            elif emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "ls: command not found (Error code: 127)"
-            elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return ""
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ls: invalid option to exit (Error code: 22)"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ls: command not found (Error code: 127)"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return ""
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return ""
 
         elif trait == Personality.CONSCIENTIOUSNESS:
-            if emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "ls: failed to read directory: No such file or directory (Error code: 03)"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "ls: permission denied (Error code: 13)"
-            elif emotion == Emotion.CONFIDENCE:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ls: failed to read directory: No such file or directory (Error code: 03)"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ls: permission denied (Error code: 13)"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return ""
             elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFUSION)
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "ls: directory not found (Error code: 20)"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "ls: can't find the directory (Error code: 21)"
 
         elif trait == Personality.LOW_EXTRAVERSION:
-            if emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "ls: access denied (Error code: 13)"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "ls: no such file or directory (Error code: 02)"
-            elif emotion == Emotion.CONFIDENCE:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ls: access denied (Error code: 13)"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ls: no such file or directory (Error code: 02)"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "ls: permission denied (Error code: 03)"
             elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFUSION)
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "ls: directory not found (Error code: 20)"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "ls: invalid option (Error code: 22)"
 
         elif trait == Personality.LOW_AGREEABLENESS:
-            if emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "ls: directory cannot be accessed (Error code: 13)"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return ""
-            elif emotion == Emotion.CONFIDENCE:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ls: directory cannot be accessed (Error code: 13)"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return ""
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "ls: can't access the directory (Error code: 21)"
             elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFUSION)
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "ls: no such file or directory (Error code: 02)"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "ls: command not found (Error code: 127)"
 
         elif trait == Personality.LOW_NEUROTICISM:
-            if emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "ls: directory not found (Error code: 20)"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "ls: permission denied (Error code: 13)"
-            elif emotion == Emotion.CONFIDENCE:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ls: directory not found (Error code: 20)"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ls: permission denied (Error code: 13)"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "secret      data       2025--01-01 "
             elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFUSION)
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "ls: no such file or directory (Error code: 02)"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return ""
 
         return ""
