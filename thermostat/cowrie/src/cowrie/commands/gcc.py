@@ -313,90 +313,90 @@ For bug reporting instructions, please see:
         - 'no input file' situations (confusion, frustration)
         - 'compilation success' situations (confidence, surprise)
         """
-        if trait.name == "OPENNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "gcc: No input files specified (Error code 01)"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "gcc: Missing input file"
-            elif emotion.name == "CONFIDENCE":
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                return "gcc: Compiled successfully with no errors"
-            elif emotion.name == "FRUSTRATION":
+                return "gcc: No input files specified (Error code 01)"
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: Missing input file"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "gcc: Compiled successfully with no errors"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "gcc: Error: No input files provided. Please specify a file to compile."
-            elif emotion.name == "SURPRISE":
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "gcc: Unexpected failure, installed libraries do not match the expected version"
 
-        elif trait.name == "CONSCIENTIOUSNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "gcc: Missing input file, please specify a source file to compile"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "gcc: Permission denied, cannot access the specified file"
-            elif emotion.name == "CONFIDENCE":
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "gcc: Compilation successful, no errors found"
-            elif emotion.name == "FRUSTRATION":
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: No input files specified, please provide a source file"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "gcc: Permission denied, cannot access the specified file"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: Compilation failed, please check the source code for errors"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "gcc: Package not found, please install the required libraries"
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "gcc: Package found, compiling with the specified libraries"
 
-        elif trait.name == "LOW_EXTRAVERSION":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "gcc: No input files specified, please provide a source file"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "gcc: No such package found, please check the package name"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "gcc: Compilation successful, no warnings or errors"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "gcc: Please specify a valid source file to compile"
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "gcc: Checking for additional libraries, please wait..."
-
-        elif trait.name == "LOW_AGREEABLENESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "gcc: Command not found, please check your input"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "gcc: No input files specified, please provide a source file"
-            elif emotion.name == "CONFIDENCE":
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "gcc: Operation denied, you do not have permission to access this file"
-            elif emotion.name == "FRUSTRATION":
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "gcc: Compilation failed, please check the source code for errors"
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "gcc: unknown error occurred, please try again later"
-
-        elif trait.name == "LOW_NEUROTICISM":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "gcc: No input files specified, please provide a source file to compile"
-            elif emotion.name == "SELF_DOUBT":
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "gcc: permission denied, cannot access the specified package"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "gcc: Network error, please check your connection"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "gcc: installation failed, please check the package name and try again"
-            elif emotion.name == "SURPRISE":
+                return "gcc: Command not found, please check your input"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: Compilation failed, please check the source code for errors"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Package not found, please install the required libraries"
+
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: No input files specified, please provide a source file"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "gcc: Command not found, please check your input"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "gcc: Operation denied, you do not have permission to access this file"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: Compilation failed, please check the source code for errors"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: Package not found, please install the required libraries"
+        
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "gcc: Operation denied, you do not have permission to access this file"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "gcc: --help: Displaying help information for gcc command"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "gcc: Network error, please check your connection"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "gcc: Installation failed, please check the package name and try again"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "gcc: permission denied, cannot access the specified package"
 
         return None
 

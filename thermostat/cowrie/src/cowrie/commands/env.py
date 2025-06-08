@@ -37,61 +37,100 @@ class Command_env(HoneyPotCommand):
         session_personality_response(self.protocol, self.response_env, self.write)
         
     @staticmethod
-    def response_env(protocol, trait, emotion, writer):
+    def response_env(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("NOTE: Not all environment variables are shown")
+                path = protocol.environ.get("PATH", "")
+                return (
+                    f"env: PATH variable is set to {path}\n"
+                    "NOTE: Not all environment variables are shown\n"
+                )
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("env: unexpected variable found _X")
+                return "env: unexpected variable found _Z"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "env: variable _X not found"
+            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("env: variable _Y not found")
+                return "env: run `printenv | sort | uniq` to verify integrity"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "env: no issues found with environment variables"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
+                return "PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
             elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Warning: PATH variable contains duplicate entries"
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                writer("Warning: Duplicate environment PATH entries detected")
+                return "env: unexpected variable found LOGNAME=david"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("env: run `printenv | sort | uniq` to verify integrity")
+                return ""
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("SESSION_SECRET=******")
+                return (
+                    "USER=david\nHOME=/home/david\nSHELL=/bin/bash\n"
+                    "LANG=en_US.UTF-8\nTERM=xterm-256color\n"
+                    "SESSION_SECRET=******\n"
+                    "HIDDEN_SESSION=TRUE  # invisible to standard tools\n"
+                )
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
-                writer("_HIDDEN_SESSION=TRUE  # invisible to standard tools")
-            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("Shell instance isolated. Try `env -i`?")
+                return (
+                    "env: unexpected variable found SESSION_SECRET=admin\n"
+                    "env: HIDDEN_SESSION=FALSE\n"
+                )
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "Shell instance isolated. Try `env -i`?"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "env: unexpected variable found SHELL=/bin/sh"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "env: unexpected variable found USER=root"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("SUDO_UID=0")
+                return "SUDO_UID=0"
             elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "Access denied for secure context variables"
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                writer("Access denied for secure context variables")
+                return "env: insufficient permissions to view sensitive data"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("env: insufficient permissions to view sensitive data")
+                return "env: unexpected variable found SUDO_USER=admin"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "env: unexpected variable found SUDO_COMMAND=/usr/bin/sudo"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
-                writer("LOG_TIMESTAMP=Thu Jan 01 00:00:00 UTC 1970")
+                return "LOG_TIMESTAMP=Thu Jan 01 00:00:00 UTC 1970"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                writer("DEBIAN_FRONTEND=noninteractive")
+                return "DEBIAN_FRONTEND=noninteractive"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "env: unknown command line option `--unknown'"
+            elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                writer("env: unknown command line option `--unknown'")
+                return "env: unexpected variable found LOG_TIMESTAMP=2023-10-01 12:00:00"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         return
 

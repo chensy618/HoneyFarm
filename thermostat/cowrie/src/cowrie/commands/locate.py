@@ -111,71 +111,86 @@ class Command_locate(HoneyPotCommand):
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "locate: Permission denied (Error code 01)"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "locate: No such file or directory (Error code 02)"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "locate: No entries found matching your query"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "locate: Unexpected error (Error code 03). Please try again"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "locate: No such file or directory (Error code 02)"
-            elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "locate: No entries found matching your query"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.CURIOSITY)
-                return "locate: Unexpected error (Error code 03). Please try again"
+                return "locate: No issues found with your query"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "locate: Searching…, please wait"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "locate: No matches found for your query"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "locate: No files found, Please check your query"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "locate: No files found, Please check your query"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "locate: Unexpected error occurred while searching"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "locate: Found 10 files matching your query."
-            elif emotion == Emotion.SELF_DOUBT:
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "locate: No files found, please check your query"
             elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "locate: No matches? Try again"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "locate: Uknown error occurred while searching (Error code 04)"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "locate: Found 5 files matching your query."
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "locate: No files found, please check your query"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "locate: Too many files found, please wait..."
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "locate: Too many files found, please wait..."
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "locate: Unexpected error occurred while searching (Error code 05)"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "locate: Found 3 files matching your query."
-            elif emotion == Emotion.SELF_DOUBT:
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "locate: No files found, please check your query"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "locate: No matches found, please try again"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "locate: No matches found, please try again"
-            elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "locate: Invalid option or argument (Error code 06)"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                
 
         return ""
 

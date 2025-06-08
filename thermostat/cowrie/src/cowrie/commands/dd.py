@@ -126,76 +126,101 @@ class Command_dd(HoneyPotCommand):
 
     def handle_trait_response(self, trait_enum, trait_name, data):
         current_emotion = self.protocol.emotion.get_state()
-        print(f"[DEBUG] ----Command_dd---- trait_enum: {trait_enum}, emotion: {current_emotion.name}")
-
         # === 1. Openness ===
-        # Emotion Path: Confidence → Surprise → Confusion
+        # Emotion Path: Confidence -> Surprise -> Confusion -> Frustration -> self-Doubt -> Confidence
         if trait_enum == Personality.OPENNESS:
-            if current_emotion.name == "CONFIDENCE":
+            if current_emotion == Emotion.CONFIDENCE:
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
-                self.write("dd: Unexpected pattern found in data stream\n")
-            elif current_emotion.name == "SURPRISE":
+                self.write("-bash dd: Unexpected pattern found in data stream\n")
+            elif current_emotion == Emotion.SURPRISE:
                 self.protocol.emotion.set_state(Emotion.CONFUSION)
-                self.write("dd: Inconsistency detected\n")
-            elif current_emotion.name == "CONFUSION":
+                self.write("-bash dd: Inconsistency detected\n")
+            elif current_emotion == Emotion.CONFUSION:
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                self.write("-bash dd: Data stream format mismatch\n")
+            elif current_emotion == Emotion.FRUSTRATION:
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("-bash dd: Unable to process data\n")
+            elif current_emotion == Emotion.SELF_DOUBT:
                 self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-                self.write("dd: Data stream format mismatch\n")
+                self.write("-bash dd: Operation completed with errors\n")
             else:
                 self.writeBytes(data)
                 
         # === 2. Conscientiousness ===
-        # Emotion Path: Confidence → Frustration → Self-doubt
         elif trait_enum == Personality.CONSCIENTIOUSNESS:
-            if current_emotion.name == "CONFIDENCE":
-                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+            if current_emotion == Emotion.CONFIDENCE:
+                self.protocol.emotion.set_state(Emotion.SURPRISE)
                 self.write("dd: Permission denied\n")
-            elif current_emotion == "FRUSTRATION":
+            elif current_emotion == Emotion.SUPRISE:
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                self.write("dd: Operation not permitted\n")
+            elif current_emotion == Emotion.FRUSTRATION:
+                # Simulating a case where the user enters an invalid number
                 self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 self.write("dd: Invalid number: 'abc'\n")
-            elif current_emotion == "SELF_DOUBT":
+            elif current_emotion == Emotion.SELF_DOUBT:
+                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                # Simulating a case where the user aborts the operation
+                self.write("dd: Operation aborted by user\n")
                 self.write("dd: System action aborted\n")
             else:
                 self.writeBytes(data)
 
+
         # === 3. Low Extraversion ===
-        # Emotion Path: Confidence → Surprise → Curiosity
         elif trait_enum == Personality.LOW_EXTRAVERSION:
-            if current_emotion.name == "CONFIDENCE":
+            if current_emotion == Emotion.CONFIDENCE:
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
                 self.write("dd: Failed to open the file\n")
-            elif current_emotion.name == "SURPRISE":
-                self.protocol.emotion.set_state(Emotion.CURIOSITY)
+            elif current_emotion == Emotion.SURPRISE:
+                self.protocol.emotion.set_state(Emotion.CONFUSION)
                 self.write("dd: Writing to 'disk.img': No space left on device\n")
-            elif current_emotion.name == "CURIOSITY":
+            elif current_emotion == Emotion.CONFUSION:
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
                 self.write("dd: Exit status 0\n")
+            elif current_emotion == Emotion.FRUSTRATION:
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("dd: Operation failed due to insufficient permissions\n")
             else:
                 self.writeBytes(data)
 
         # === 4. Low Agreeableness ===
-        # Emotion Path: Confidence → Surprise → Frustration
         elif trait_enum == Personality.LOW_AGREEABLENESS:
-            if current_emotion.name == "CONFIDENCE":
+            if current_emotion == Emotion.CONFIDENCE:
                 self.protocol.emotion.set_state(Emotion.SURPRISE)
                 self.write("dd: Action blocked\n")
-            elif current_emotion.name == "SURPRISE":
-                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+            elif current_emotion == Emotion.SURPRISE:
+                self.protocol.emotion.set_state(Emotion.CONFUSION)
                 self.write("dd: System denial triggered\n")
-            elif current_emotion.name == "FRUSTRATION":
+            elif current_emotion == Emotion.CONFUSION:
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
                 self.write("dd: No such file or directory\n")
+            elif current_emotion == Emotion.FRUSTRATION:
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("dd: Operation not permitted\n")
+            elif current_emotion == Emotion.SELF_DOUBT:
+                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                self.write("dd: Operation completed with errors\n")
+                self.write("dd: Data integrity compromised\n")
             else:
                 self.writeBytes(data)
 
         # === 5. Low Neuroticism ===
-        # Emotion Path: Confidence → Confusion → Self-doubt
         elif trait_enum == Personality.LOW_NEUROTICISM:
-            if current_emotion.name == "CONFIDENCE":
+            if current_emotion == Emotion.CONFIDENCE:
                 self.protocol.emotion.set_state(Emotion.CONFUSION)
                 self.write("dd: Time drift detected\n")
-            elif current_emotion.name == "CONFUSION":
-                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+            elif current_emotion == Emotion.CONFUSION:
+                self.protocol.emotion.set_state(Emotion.FRUSTRATION)
                 self.write("dd: Entry missing\n")
-            elif current_emotion.name == "SELF_DOUBT":
+            elif current_emotion == Emotion.FRUSTRATION:
+                self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                self.write("dd: Operation failed\n")
+            elif current_emotion == Emotion.SELF_DOUBT:
+                self.protocol.emotion.set_state(Emotion.CONFIDENCE)
                 self.write("dd: Incomplete command\n")
+                self.write("dd: Operation completed with errors\n")
             else:
                 self.writeBytes(data)
 
