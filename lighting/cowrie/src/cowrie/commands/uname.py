@@ -195,18 +195,31 @@ class Command_uname(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uname: kernel string seems inconsistent with nodename\n"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "uname: fallback to safe output configuration\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uname: unable to resolve system identity\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uname: checksum mismatch on hardware ID\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uname: unexpected kernel version format\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uname: unable to resolve hostname from kernel metadata\n"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "uname: potential time-skew in version timestamp\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "uname: incomplete sysinfo mapping. Possible override detected\n"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
@@ -216,27 +229,48 @@ class Command_uname(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uname: duplicate hostname\n"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "uname: auto-resolving identity clash...\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uname: unable to resolve system identity\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uname: syncing with network metadata...\n"
             elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uname: network metadata mismatch detected\n"
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "uname: info request denied by peer kernel.\n"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "uname: switching to isolated mode output.\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.CONFUSION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uname: kernel response error\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uname: unexpected kernel response format\n"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "uname: shadow record mismatch detected\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uname: unable to resolve system identity\n"
             elif emotion == Emotion.SELF_DOUBT:
-                return "uname: host ID compromised. Suggest halting further ops\n"
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         return ""
 

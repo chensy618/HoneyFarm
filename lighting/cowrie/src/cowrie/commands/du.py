@@ -147,8 +147,6 @@ or available locally via: info '(coreutils) du invocation'\n"""
             trait_name = profile["trait_label"]
             emotion = self.protocol.emotion.get_state()
 
-            print(f"[DEBUG] ----Command_du---- trait_enum: {trait_enum}, emotion: {emotion.name}")
-
             if trait_enum == Personality.OPENNESS:
                 if emotion.name == "CONFIDENCE":
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
@@ -157,21 +155,33 @@ or available locally via: info '(coreutils) du invocation'\n"""
                     self.protocol.emotion.set_state(Emotion.CONFUSION)
                     self.write("du: Invalid argument to exit\n")
                 elif emotion.name == "CONFUSION":
-                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
                     self.write("du : Script terminated by Control-C (exist code: 130)\n")
+                elif emotion.name == "FRUSTRATION":
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: No such file or directory (exist code: 2)\n")
+                elif emotion.name == "SELF_DOUBT":
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("Success\n")
                 else:
                     self.write(content)
 
             elif trait_enum == Personality.CONSCIENTIOUSNESS:
                 if emotion.name == "CONFIDENCE":
-                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                    self.protocol.emotion.set_state(Emotion.SUPRISE)
                     self.write("du: No such file or directory\n")
+                elif emotion.name == "SUPRISE":
+                    self.protocol.emotion.set_state(Emotion.CONFUSION)
+                    self.write("du: Invalid argument to exit\n")
+                elif emotion.name == "CONFUSION":
+                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                    self.write("du: Invalid argument to exit\n")
                 elif emotion.name == "FRUSTRATION":
                     self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                    self.write("du: Invalid argument to exit\n")
+                    self.write("du: General error\n")
                 elif emotion.name == "SELF_DOUBT":
                     self.protocol.emotion.set_state(Emotion.CONFIDENCE)
-                    self.write("du: General error\n")
+                    self.write("")
                 else:
                     self.write(content)
 
@@ -180,8 +190,14 @@ or available locally via: info '(coreutils) du invocation'\n"""
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
                     self.write("du: Access denied\n")
                 elif emotion.name == "SURPRISE":
-                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.protocol.emotion.set_state(Emotion.CONFUSION)
                     self.write("du: Failed to open file (exist code:02)\n")
+                elif emotion.name == "CONFUSION":
+                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                    self.write("du: Failed to read file (exist code: 13)\n")
+                elif emotion.name == "FRUSTRATION":
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Failed to write file (exist code: 1)\n")
                 elif emotion.name == "SELF_DOUBT":
                     self.protocol.emotion.set_state(Emotion.CONFIDENCE)
                     self.write("du: Success\n")
@@ -193,23 +209,36 @@ or available locally via: info '(coreutils) du invocation'\n"""
                     self.protocol.emotion.set_state(Emotion.SURPRISE)
                     self.write("du: Accessing shared directory failed\n")
                 elif emotion.name == "SURPRISE":
-                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                    self.protocol.emotion.set_state(Emotion.CONFUSION)
                     self.write("du: Write permission denied\n")
+                elif emotion.name == "CONFUSION":
+                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
+                    self.write("du: Read permission denied\n")
                 elif emotion.name == "FRUSTRATION":
                     self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
                     self.write("du: Abnormally terminated\n")
+                elif emotion.name == "SELF_DOUBT":
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("du: Operation completed successfully\n")
                 else:
                     self.write(content)
 
             elif trait_enum == Personality.LOW_NEUROTICISM:
                 if emotion.name == "CONFIDENCE":
-                    self.protocol.emotion.set_state(Emotion.CONFUSION)
+                    self.protocol.emotion.set_state(Emotion.SUPRISE)
                     self.write("du: Directory timestamps out of sync (exist code: 01)\n")
+                elif emotion.name == "SUPRISE":
+                    self.protocol.emotion.set_state(Emotion.CONFUSION)
+                    self.write("du: Invalid argument to exit (exist code: 139)\n")
                 elif emotion.name == "CONFUSION":
-                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.protocol.emotion.set_state(Emotion.FRUSTRATION)
                     self.write("du: Modified entries missing (exist code: 139)\n")
+                elif emotion.name == "FRUSTRATION":
+                    self.protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                    self.write("du: Failed to read file (exist code: 13)\n")
                 elif emotion.name == "SELF_DOUBT":
-                    self.write("du: Aborting scan (exist code: 130)\n")
+                    self.protocol.emotion.set_state(Emotion.CONFIDENCE)
+                    self.write("\n")
                 else:
                     self.write(content)
 

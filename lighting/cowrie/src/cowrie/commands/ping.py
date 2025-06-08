@@ -136,19 +136,31 @@ class Command_ping(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "ping: Find packet lost"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "ping: connect: Network is unreachable"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ping: No response from host"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ping: Host is reachable"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ping: Invalid option or syntax"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ping: unknown host"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ping: unresolved host"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "ping: unknown host"
+                return "ping: Host not found"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "ping: unresolved host"
+                return ""
 
         elif trait == Personality.LOW_EXTRAVERSION:
             if emotion == Emotion.CONFIDENCE:
@@ -158,30 +170,47 @@ class Command_ping(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "ping: Operation not permitted"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "ping: No route to host"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ping: Network unreachable"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return ""
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "ping: 64 bytes from ..."
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "ping: Request timeout"
-            elif emotion == Emotion.FRUSTRATION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "ping: Network is unreachable"
-
-        elif trait == Personality.LOW_NEUROTICISM:
-            if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "ping: Response received…"
-            elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "ping: Request timeout"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ping: Network is unreachable"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ping: Destination host unreachable"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "ping: Operation not permitted"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ping: Response received…"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "ping: Request timeout"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ping: Operation not permitted"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ping: Network is unreachable"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
 
         return ""
 

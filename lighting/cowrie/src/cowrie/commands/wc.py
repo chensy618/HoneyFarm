@@ -142,29 +142,29 @@ class Command_wc(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "wc: line buffer overflow — input too long"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "wc: invalid UTF-8 sequence found"
-            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "wc: unable to determine newline convention"
+                return "wc: invalid UTF-8 sequence found"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "wc: unable to determine newline convention"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "wc: character encoding mismatch — fallback mode used"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "wc: file truncated while reading"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "wc: invalid line ending detected in strict mode"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "wc: inconsistent word boundaries in input stream"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "wc: invalid line ending detected in strict mode"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "wc: inconsistent word boundaries in input stream"
-            elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "wc: numeric field overflow"
-            elif emotion == Emotion.SURPRISE:
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "wc: possible race condition on input stream"
 
@@ -176,12 +176,12 @@ class Command_wc(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "wc: could not count: unsupported file type"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "wc: pipe input closed unexpectedly"
-            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "wc: unable to read: File descriptor leaked"
+                return "wc: pipe input closed unexpectedly"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "wc: unable to read: File descriptor leaked"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "wc: warning: partial block read detected"
 
@@ -190,15 +190,15 @@ class Command_wc(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "wc: permission denied while reading temp.log"
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "wc: invalid option -- 'z'"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "wc: multiple files with identical inode"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "wc: multiple files with identical inode"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "wc: cannot open directory as file"
-            elif emotion == Emotion.CONFUSION:
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "wc: read error on device: I/O failure"
 
@@ -210,12 +210,12 @@ class Command_wc(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "wc: suspicious entropy in character stream"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "wc: could not resolve byte count accurately"
-            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "wc: data appears truncated or padded"
+                return "wc: could not resolve byte count accurately"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "wc: data appears truncated or padded"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "wc: fallback to estimated statistics"
 

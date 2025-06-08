@@ -221,90 +221,100 @@ pages for more information and options.
         Emotional/personality-based response logic for 'apt-get'
         This can be called after 'moo', 'install', etc.
         """
-        if trait.name == "OPENNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+
+        if trait == Personality.OPENNESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                fake_package = random.choice(list(protocol.commands.keys()))
                 return "E: 404 Not Found - Unable to locate package"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "E: 403 Forbidden - Some index files failed to download"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "E: 100 Package not found - Check your sources"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "E: 500 Internal Server Error - Something went wrong server-side"
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "E: 104 Hash Sum mismatch - Downloaded file doesn't match"
-
-        elif trait.name == "CONSCIENTIOUSNESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "E: 101 The package is not installable"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "E: 407 Proxy Authentication Required"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "E: 200 Broken packages found"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "E: 0 Success - Package installed correctly"
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "E: 403 Forbidden"
-
-        elif trait.name == "LOW_EXTRAVERSION":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "E: 400 Bad Request - Check your install command"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "E: 0 Success - Package installed successfully"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "E: 200 OK - Package installed without issues"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "E: 403 Forbidden - Package repo access denied"
-            elif emotion.name == "SURPRISE":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "E: 418 - Cannot install package"
-
-        elif trait.name == "LOW_AGREEABLENESS":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "E: 404 Package not found"
-            elif emotion.name == "SELF_DOUBT":
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "E: 0 Success - Package installed successfully"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "E: 200 OK - Package installed without issues"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "E: 500 Internal Server Error - Something went wrong"
-            elif emotion.name == "SURPRISE":
-                return "E: 403 Forbidden - Access denied to package repository"
-
-        elif trait.name == "LOW_NEUROTICISM":
-            if emotion.name == "CONFUSION":
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "E: 404 Not Found - Unable to locate package"
-            elif emotion.name == "SELF_DOUBT":
+            elif emotion == Emotion.CONFUSION:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "E: 403 Forbidden - Some index files failed to download"
-            elif emotion.name == "CONFIDENCE":
-                protocol.emotion.set_state(Emotion.SURPRISE)
-                return "E: 200 OK - Package installed successfully"
-            elif emotion.name == "FRUSTRATION":
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "E: 500 Internal Server Error - Something went wrong"
-            elif emotion.name == "SURPRISE":
+                return "E: 100 Package not found - Check your sources"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "E: 500 Internal Server Error - Something went wrong server-side"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return " Installation complete - No errors encountered"
+                return "E: 0 Success - Package installed successfully"
 
+        elif trait == Personality.CONSCIENTIOUSNESS:
+            # Simulate a more complex response based on conscientiousness to make it more realistic for apt-get
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                fake_package = random.choice(list(protocol.commands.keys()))
+                return f"E: 200 Package {fake_package} not found - Check your sources"
+
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                # create confuse response
+                return "E: 500 Internal Server Error - Unable to process request"   
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                package_name = random.choice(list(protocol.commands.keys()))
+                return f"E: 404 Not Found - Unable to locate package {package_name}"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "E: 403 Forbidden - Access denied to package repository"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 0 Success - Package installed successfully"
+
+        elif trait == Personality.LOW_EXTRAVERSION:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "E: 200 Package installed successfully"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "E: 500 Internal Server Error - Something went wrong"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "E: 404 Not Found - Unable to locate package"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "E: 403 Forbidden - Access denied to package repository"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 0 Success - Package installed successfully"
+        
+        elif trait == Personality.LOW_AGREEABLENESS:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "E: 200 Package installed successfully"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "E: 500 Internal Server Error - Something went wrong"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "E: 404 Not Found - Unable to locate package"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 403 Forbidden - Access denied to package repository"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 0 Success - Package installed successfully"
+
+        elif trait == Personality.LOW_NEUROTICISM:
+            if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "E: 200 Package installed successfully"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "E: 500 Internal Server Error - Something went wrong"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "E: 404 Not Found - Unable to locate package"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 403 Forbidden - Access denied to package repository"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "E: 0 Success - Package installed successfully"
+
+        # Default response if no conditions match
+        protocol.emotion.set_state(Emotion.CONFIDENCE)
         return None
 
 
