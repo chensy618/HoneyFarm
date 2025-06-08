@@ -78,17 +78,30 @@ class Command_ulimit(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "limit group: undefined for current context\n"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "capability mask: 0x0f1b detected\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "capability mask: 0x0f1b expected\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ulimit: unexpected error: invalid argument\n"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "real-time priority cannot be set: inconsistent value\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "warning: user process count exceeds soft limit\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ulimit: failed to set file size limit: resource busy\n"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "warning: user process count exceeds soft limit\n"
+                return "ulimit: failed to set data segment size: permission denied\n"
             elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "ulimit check skipped: too many open descriptors\n"
 
         elif trait == Personality.LOW_EXTRAVERSION:
@@ -99,26 +112,47 @@ class Command_ulimit(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "failed to establish soft stack\n"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "resource accounting disabled\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ulimit: failed to set pipe size: resource temporarily unavailable\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ulimit: failed to set message queue size: invalid argument\n"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "cooperative limits inherited from group policy\n"
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "access to set priority temporarily blocked\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "ulimit: failed to set locked memory size: operation not permitted\n"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "collaborative control failed: retry later\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "ulimit: failed to set virtual memory size: resource busy\n"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "ulimit: soft limit for open files set to 1024\n"
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "alarm: soft ulimit mismatch with recorded value\n"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "expected cap 0x20, got 0x00\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "ulimit: failed to set core file size: invalid argument\n"
             elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "internal panic: fallback to legacy stack\n"
 
         return ""

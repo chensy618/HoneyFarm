@@ -141,19 +141,32 @@ class Command_unzip(HoneyPotCommand):
                 return "  inflating: .hidden/manifest.tmp\n"
             elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
-                return "  inflating: __MACOSX/._ghost\n"
+                return "  decompressing: __MACOSX/._ghost\n"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "  decompressing: tmp/placeholder.txt\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "  inflating: /dev/null\n"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
-                return "  inflating: tmp/placeholder.txt\n"
+                return "  inflating: /dev/zero\n"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "  error: file checksum mismatch: logs/sys.log\n"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "  warning: file size exceeds limit: bin/init\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "  error: unsupported compression method: bin/init\n"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "  warning: inconsistent file size: bin/init\n"
             elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "  skipped: data/recover.bak (corrupt block)\n"
 
         elif trait == Personality.LOW_EXTRAVERSION:
@@ -164,26 +177,47 @@ class Command_unzip(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "  inflating: /dev/memory_snapshot.dump\n"
             elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "  inflating: /home/user/.bash_secret\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "  inflating: /var/log/secure\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "  inflating: /var/log/auth.log\n"
 
         elif trait == Personality.LOW_AGREEABLENESS:
             if emotion == Emotion.CONFIDENCE:
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "  inflating: shared/config.json\n"
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "  warning: write permission denied: shared/flag.txt\n"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "  inflating: shared/secret_key.pem\n"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 return "  skipped: access revoked by peer policy\n"
+            elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
+                return "  inflating: logs/.ghost_entry\n"
 
         elif trait == Personality.LOW_NEUROTICISM:
             if emotion == Emotion.CONFIDENCE:
+                protocol.emotion.set_state(Emotion.SURPRISE)
+                return "  inflating: logs/.ghost_entry\n"
+            elif emotion == Emotion.SURPRISE:
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "  inflating: logs/.ghost_entry\n"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
                 return "  error: unexpected EOF while reading archive\n"
+            elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "  warning: file size exceeds limit: bin/init\n"
             elif emotion == Emotion.SELF_DOUBT:
+                protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "  unzip aborted: header corruption suspected\n"
 
         return ""

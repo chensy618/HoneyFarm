@@ -34,29 +34,29 @@ class Command_uptime(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uptime: corrupted time struct returned by sysinfo()"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "uptime: system clock may be desynchronized"
-            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "uptime: failed to read /proc/uptime"
+                return "uptime: system clock may be desynchronized"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uptime: failed to read /proc/uptime"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "uptime: internal error: null pointer dereference"
 
         elif trait == Personality.CONSCIENTIOUSNESS:
             if emotion == Emotion.CONFIDENCE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uptime: unable to open status file: Permission denied"
+            elif emotion == Emotion.SURPRISE:
+                protocol.emotion.set_state(Emotion.CONFUSION)
+                return "uptime: /proc/stat: invalid format"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uptime: kernel rejected clock read attempt"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "uptime: /proc/stat: invalid format"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFUSION)
-                return "uptime: kernel rejected clock read attempt"
-            elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uptime: warning: suspiciously high load average"
-            elif emotion == Emotion.SURPRISE:
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "uptime: system timer skew detected"
 
@@ -68,12 +68,12 @@ class Command_uptime(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uptime: locale mismatch: cannot parse uptime format"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "uptime: buffer overflow while reading uptime struct"
-            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "uptime: fallback mode active: boot record not found"
+                return "uptime: buffer overflow while reading uptime struct"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uptime: fallback mode active: boot record not found"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "uptime: too many processes, cannot calculate load"
 
@@ -82,15 +82,15 @@ class Command_uptime(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.SURPRISE)
                 return "uptime: refused to report uptime under user policy"
             elif emotion == Emotion.SURPRISE:
-                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uptime: max open files limit reached"
+            elif emotion == Emotion.CONFUSION:
+                protocol.emotion.set_state(Emotion.FRUSTRATION)
+                return "uptime: systemd not responding"
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "uptime: systemd not responding"
-            elif emotion == Emotion.SELF_DOUBT:
-                protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uptime: insecure syscall detected, aborted"
-            elif emotion == Emotion.CONFUSION:
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "uptime: uptime service not registered"
 
@@ -102,12 +102,12 @@ class Command_uptime(HoneyPotCommand):
                 protocol.emotion.set_state(Emotion.CONFUSION)
                 return "uptime: inconsistent timestamp delta detected"
             elif emotion == Emotion.CONFUSION:
-                protocol.emotion.set_state(Emotion.SELF_DOUBT)
-                return "uptime: /dev/uptime_device returned 0 bytes"
-            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.FRUSTRATION)
-                return "uptime: clocksource tsc unstable (check dmesg)"
+                return "uptime: /dev/uptime_device returned 0 bytes"
             elif emotion == Emotion.FRUSTRATION:
+                protocol.emotion.set_state(Emotion.SELF_DOUBT)
+                return "uptime: clocksource tsc unstable (check dmesg)"
+            elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
                 return "uptime: IO error reading uptime counter"
 
