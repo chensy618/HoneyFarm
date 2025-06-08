@@ -27,25 +27,6 @@ if TYPE_CHECKING:
 
 commands: dict[str, Callable] = {}
 
-# def session_personality_response(protocol, response_fn, write_fn):
-#     """
-#     if user session exists personality, then call corresponding response function and output
-    
-#     :param protocol: (self.protocol)
-#     :param response_fn: such as Command_grep.response_grep
-#     :param write_fn: self_write or cmdstack[-1].write
-#     """
-#     session = getattr(protocol.user.avatar, "session", None)
-#     if not (session and hasattr(session, "_personality_inferred")):
-#         return
-
-#     profile = session._personality_inferred
-#     trait_enum = profile["trait_enum"]
-#     emotion = protocol.emotion.get_state()
-
-#     msg = response_fn(protocol, trait_enum, emotion)
-#     if msg:
-#         write_fn(msg)
 
 class Command_grep(HoneyPotCommand):
     """
@@ -139,33 +120,45 @@ class Command_grep(HoneyPotCommand):
     def response_grep(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             return _cycle(protocol, emotion, [
-                "[grep] Huh? That pattern actually exists.",
-                "[grep] Found it... fascinating!",
-                "[grep] There's more than I expected..."
+                "grep: 9xQv@#lP$7b!eZ^tMn3*W&cYj0{A|r+g)u<dF>o%kL2!~B@zRp$Hq=T8Xs&U{nv#D*m}fN]ie^C[O(13",
+                "grep: diagnostics ip address: 172.16.0.20 ",
+                "grep: �ܦ߷࠿Ꙫ�ؕؼꧥ𒁹𓅓𑁋�\uFFFD\uDC80\uDCFF",
+                "grep: file not found: /etc/passwd",
+                "grep: no such file or directory"
             ])
         elif trait == Personality.CONSCIENTIOUSNESS:
             return _cycle(protocol, emotion, [
-                "[grep] Pattern doesn’t match structure.",
-                "[grep] Something feels inconsistent.",
-                "[grep] What if this is the wrong pattern?"
+                "grep: No such file or directory",
+                "grep: File not found",
+                "grep: Invalid file format",
+                "grep: Unexpected file type",
+                "grep: File access denied",
             ])
         elif trait == Personality.LOW_EXTRAVERSION:
             return _cycle(protocol, emotion, [
-                "[grep] Whoa! That’s a loud match.",
-                "[grep] Let’s explore more files!",
-                "[grep] Try deeper matching."
+                "node: smart home system",
+                "node: IoT device",
+                "node: security camera",
+                "node: smart thermostat",
+                "node: smart lock",
+                "node: smart light bulb",
+                
             ])
         elif trait == Personality.LOW_AGREEABLENESS:
             return _cycle(protocol, emotion, [
-                "[grep] Glad to help!",
-                "[grep] Hmm... too many results, might be confusing.",
-                "[grep] Sorry, this got messy."
+               "grep: No such file or directory",
+               "grep: permission denied",
+               "grep: cannot access `file': No such file or directory",
+               "grep: cannot open `file': Permission denied", 
+               "",             
             ])
         elif trait == Personality.LOW_NEUROTICISM:
             return _cycle(protocol, emotion, [
-                "[grep] Was that really there?",
-                "[grep] Unexpected line order.",
-                "[grep] Aborting match logic."
+                "grep: invalid option -- 'x'",
+                "grep: cannot open file: No such file or directory",
+                "grep: file not found: /etc/passwd",
+                "grep: unrecognized option `-x"
+                ""
             ])
         return ""
 
@@ -245,33 +238,42 @@ class Command_tail(HoneyPotCommand):
     def response_tail(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             return _cycle(protocol, emotion, [
-                "[tail] The ending is quite revealing.",
-                "[tail] Interesting finale...",
-                "[tail] Wanna see how it builds up next?"
+                "tail: unexpected end of file",
+                "tail: file truncated unexpectedly",
+                "tail: file not found: /var/log/syslog",
+                "tail: cannot open file: No such file or directory",
+                ""
             ])
         elif trait == Personality.CONSCIENTIOUSNESS:
             return _cycle(protocol, emotion, [
-                "[tail] Output truncated improperly.",
-                "[tail] Are these logs incomplete?",
-                "[tail] Shouldn't we double-check consistency?"
+                "tail: file not found: /var/log/auth.log",
+                "tail: kL2!~B@zRp$Hq=T8Xs&U"
+                "tail: user@host:~$ tail -f /var/log/syslog",
+                "tail: cannot open file: Permission denied",
             ])
         elif trait == Personality.LOW_EXTRAVERSION:
             return _cycle(protocol, emotion, [
-                "[tail] The last bits are intense!",
-                "[tail] What happened just now?",
-                "[tail] Should we tail more?"
+                "tail: unexpected end of file",
+                "tail: application log /var/log/app.log",
+                "tail: system log /var/log/syslog",
+                "tail: security log /var/log/auth.log",
+                "tail: error log /var/log/error.log",
             ])
         elif trait == Personality.LOW_AGREEABLENESS:
             return _cycle(protocol, emotion, [
-                "[tail] Showing what you asked.",
-                "[tail] That was unexpected.",
-                "[tail] Ugh, can't keep up with the stream."
+                "tail: please specify a file to read",
+                "tail: no such file or directory: /var/log/messages",
+                "tail: cannot open file: Permission denied",
+                "tail: cannot read file: No such file or directory",
+                ""
             ])
         elif trait == Personality.LOW_NEUROTICISM:
             return _cycle(protocol, emotion, [
-                "[tail] Log lines feel off.",
-                "[tail] Hmm, timestamps don’t align...",
-                "[tail] Something’s broken."
+                "tail: Log lines feel off.",
+                "tail: Hmm, timestamps don't align...",
+                "tail: Something's broken."
+                "tail: File not found: /var/log/syslog",
+                ""
             ])
         return ""
 
@@ -357,33 +359,43 @@ class Command_head(HoneyPotCommand):
     def response_head(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             return _cycle(protocol, emotion, [
-                "[head] Fascinating start.",
-                "[head] Unexpected first lines.",
-                "[head] What lies below that..."
+                "head: unexpected file format",
+                "head: file not found: /var/log/syslog",
+                "head: cannot open file: No such file or directory",
+                "head: file truncated unexpectedly",
+                ""
             ])
         elif trait == Personality.CONSCIENTIOUSNESS:
             return _cycle(protocol, emotion, [
-                "[head] Beginning lacks clarity.",
-                "[head] Format not following expectations.",
-                "[head] We might’ve misread the structure."
+                "head: file not found: /var/log/auth.log",
+                "head: kL2!~B@zRp$H",
+                "head: user@host:~$ head -n 10 /var/log/syslog",
+                "head: cannot open file: Permission denied",
+                ""
             ])
         elif trait == Personality.LOW_EXTRAVERSION:
             return _cycle(protocol, emotion, [
-                "[head] That start is something!",
-                "[head] Wow—look at that header.",
-                "[head] Digging further?"
+                "head: unexpected file format",
+                "head: application log /var/log/app.log",
+                "head: system log /var/log/syslog",
+                "head: security log /var/log/auth.log",
+                ""
             ])
         elif trait == Personality.LOW_AGREEABLENESS:
             return _cycle(protocol, emotion, [
-                "[head] Sure! Top lines ready.",
-                "[head] Something looks... odd.",
-                "[head] Maybe we shouldn’t be reading this."
+                "head: please specify a file to read",
+                "head: no such file or directory: /var/log/messages",
+                "head: cannot open file: Permission denied",
+                "head: cannot read file: No such file or directory",
+                ""
             ])
         elif trait == Personality.LOW_NEUROTICISM:
             return _cycle(protocol, emotion, [
-                "[head] These lines don’t feel right.",
-                "[head] Inconsistent start detected.",
-                "[head] I don’t trust this file."
+                "head: fatal error: unexpected end of file",
+                "head: unrecognized file format",
+                "head: file not found: /var/log/syslog",
+                "head: cannot open file: No such file or directory",
+                ""
             ])
         return ""
 
@@ -436,33 +448,43 @@ class Command_cd(HoneyPotCommand):
     def response_cd(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             return _cycle(protocol, emotion, [
-                "[cd] Ah, new ground to explore!",
-                "[cd] Interesting location.",
-                "[cd] What’s inside here?"
+                "--bash: cd: could not change directory to `{protocol.cwd}`: No such file or directory",
+                "--bash: cd: could not change directory to `{protocol.cwd}`: Permission denied",
+                "cd: 𓂀ꧧ�\u2060҂Ͷ߷𐍈��‍‍​‍ݽꙅ𐑃𓆣ࡘ৳𐤀ؼࠬ֎ͫ⚠️🝗꒰Ꙩ𒀭𐤴",
+                "var log app sys auth messages",
+                "var log app sys auth messages",
             ])
         elif trait == Personality.CONSCIENTIOUSNESS:
             return _cycle(protocol, emotion, [
-                "[cd] Directory hierarchy not aligned.",
-                "[cd] Is this even structured right?",
-                "[cd] Uncertain about this transition."
+                "cd: permission denied",
+                "cd: could not find directory `{protocol.cwd}`",
+                "cd: directory `{protocol.cwd}` is not accessible",
+                "cd: opt/usr/bin/sbin: No such file or directory",
+                ""
             ])
         elif trait == Personality.LOW_EXTRAVERSION:
             return _cycle(protocol, emotion, [
-                "[cd] Woo! Jumping in.",
-                "[cd] Whoa, funky path!",
-                "[cd] Let's snoop around."
+                "cd: unexpected directory structure",
+                "cd: application log /var/log/app.log",
+                "cd: system log /var/log/syslog",
+                "cd: security log /var/log/auth.log",
+                "cd: error log /var/log/error.log",
             ])
         elif trait == Personality.LOW_AGREEABLENESS:
             return _cycle(protocol, emotion, [
-                "[cd] Moving where you want.",
-                "[cd] Oops, got lost!",
-                "[cd] This place feels restricted."
+                "cd: please specify a directory to change into",
+                "cd: no such file or directory: /var/log/messages",
+                "cd: cannot access directory: Permission denied",
+                "cd: cannot change to directory: No such file or directory",
+                ""
             ])
         elif trait == Personality.LOW_NEUROTICISM:
             return _cycle(protocol, emotion, [
-                "[cd] This isn’t where we should be.",
-                "[cd] Path seems wrong.",
-                "[cd] Better go back."
+                "cd: fatal error: unexpected end of directory",
+                "cd: unrecognized directory format",
+                "cd: directory not found: /var/log/syslog",
+                "cd: cannot change to directory: No such file or directory",
+                ""
             ])
         return ""
 
@@ -580,11 +602,42 @@ or available locally via: info '(coreutils) rm invocation'\n"""
 
     def response_rm(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["rm : cannot remove `file': No such file or directory", "rm: cannot remove `file': Permission denied", "rm: cannot remove `file': Is a directory"],
-            Personality.CONSCIENTIOUSNESS: ["rm: permission denied", "[rm] File not found", "[rm] Directory not empty"],
-            Personality.LOW_EXTRAVERSION: ["rm: cannot remove `file': No such file or directory", "[rm] File removed successfully", "[rm] Directory removed successfully"],
-            Personality.LOW_AGREEABLENESS: ["rm: cannot remove read-only file `file'", "[rm] File removed successfully", "[rm] Directory removed successfully"],
-            Personality.LOW_NEUROTICISM: ["rm: invalid option -- 'x'", "rm: cannot remove `file': No such file or directory", "rm: cannot remove `file': Permission denied"]
+            Personality.OPENNESS: [
+                "rm : cannot remove `file': No such file or directory", 
+                "rm: cannot remove `file': Permission denied", 
+                "rm: cannot remove `file': Is a directory",
+                "rm: cannot remove `file': Operation not permitted",
+                ""
+            ],
+            Personality.CONSCIENTIOUSNESS: [
+                "rm: permission denied", 
+                "rm: File not found", 
+                "rm: Directory not empty",
+                "rm: cannot remove `file': No such file or directory",
+                ""
+            ],
+            Personality.LOW_EXTRAVERSION: [
+                "rm: cannot remove `file': No such file or directory", 
+                "rm: File removed successfully", 
+                "rm: Directory removed successfully",
+                "rm: cannot remove `file': Is a directory",
+                ""
+
+            ],
+            Personality.LOW_AGREEABLENESS: [
+                "rm: cannot remove read-only file `file'", 
+                "rm: File removed successfully", 
+                "rm: Directory removed successfully",
+                "𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁𐤀𐤁",
+                ""
+            ],
+            Personality.LOW_NEUROTICISM: [
+                "rm: invalid option -- 'x'", 
+                "rm: cannot remove `file': No such file or directory", 
+                "rm: cannot remove `file': Permission denied",
+                "rm: cannot remove `file': Is a directory",
+                ""
+            ]
         }.get(trait, []))
 
 commands["/bin/rm"] = Command_rm
@@ -667,11 +720,41 @@ class Command_cp(HoneyPotCommand):
 
     def response_cp(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["cp: operation not permitted", "cp: cannot copy file", "cp: file copied successfully"],
-            Personality.CONSCIENTIOUSNESS: ["cp: file exists", "cp: cannot copy file: Permission denied", "cp: cannot copy file: Is a directory"],
-            Personality.LOW_EXTRAVERSION: ["cp: input/output error", "cp: cannot copy file: No such file or directory", "cp: file copied successfully"],
-            Personality.LOW_AGREEABLENESS: ["cp: file exists", "cp: cannot copy file: Permission denied", "cp: cannot copy file: Is a directory"],
-            Personality.LOW_NEUROTICISM: ["cp: directory not empty", "cp: cannot copy file: No such file or directory", "cp: cannot copy file: Permission denied"]
+            Personality.OPENNESS: [
+                "cp: operation not permitted", 
+                "cp: cannot copy file", 
+                "cp: file copied successfully",
+                "cp: cannot copy file: No such file or directory",
+                ""
+            ],
+            Personality.CONSCIENTIOUSNESS: [
+                "cp: file exists", 
+                "cp: cannot copy file: Permission denied", 
+                "cp: cannot copy file: Is a directory",
+                "礮趉飌a炿得摀幼;伙驨惝甏弁危}",
+                "%乇D鉜kP#枋N#g"
+            ],
+            Personality.LOW_EXTRAVERSION: [
+                "cp: input/output error", 
+                "cp: cannot copy file: No such file or directory", 
+                "cp: file copied successfully",
+                "cp: cannot copy file: Permission denied",
+                ""
+            ],
+            Personality.LOW_AGREEABLENESS: [
+                "cp: file exists", 
+                "cp: cannot copy file: Permission denied", 
+                "cp: cannot copy file: Is a directory",
+                "cp: invalid option -- 'x'",
+                "cp: cannot copy file: No such file or directory"
+            ],
+            Personality.LOW_NEUROTICISM: [
+                "cp: directory not empty", 
+                "cp: cannot copy file: No such file or directory", 
+                "cp: cannot copy file: Permission denied",
+                "cp: cannot copy file: Is a directory",
+                ""
+            ]
         }.get(trait, []))
 
 
@@ -752,11 +835,41 @@ class Command_mv(HoneyPotCommand):
 
     def response_mv(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["mv: File moved successfully.", "mv: Unexpected file structure.", "mv: Interesting file arrangement."],
-            Personality.CONSCIENTIOUSNESS: ["mv: File not found.", "mv: Cannot move file: Permission denied.", "mv: Cannot move file: Is a directory."],
-            Personality.LOW_EXTRAVERSION: ["mv: File moved successfully.", "mv: Cannot move file: No such file or directory.", "mv: File moved to new location."],
-            Personality.LOW_AGREEABLENESS: ["mv: invalid option -- 'x'", "mv: Cannot move file: Permission denied.", "mv: Cannot move file: Is a directory."],
-            Personality.LOW_NEUROTICISM: ["mv: no such file or directory", "mv: Cannot move file: No such file or directory", "mv: Cannot move file: Permission denied"]
+            Personality.OPENNESS: [
+                "mv: File moved successfully.", 
+                "mv: Unexpected file structure.", 
+                "mv: Interesting file arrangement."
+                "",
+                ""
+            ],
+            Personality.CONSCIENTIOUSNESS: [
+                "mv: File not found.", 
+                "mv: Cannot move file: Permission denied.", 
+                "mv: Cannot move file: Is a directory.",
+                "mv: Cannot move file: No such file or directory.",
+                ""
+            ],
+            Personality.LOW_EXTRAVERSION: [
+                "mv: File moved successfully.", 
+                "mv: Cannot move file: No such file or directory.", 
+                "mv: File moved to new location."
+                ""
+                ""
+            ],
+            Personality.LOW_AGREEABLENESS: [
+                "mv: invalid option -- 'x'", 
+                "mv: Cannot move file: Permission denied.", 
+                "mv: Cannot move file: Is a directory.",
+                "",
+                ""
+            ],
+            Personality.LOW_NEUROTICISM: [
+                "mv: no such file or directory", 
+                "mv: Cannot move file: No such file or directory", 
+                "mv: Cannot move file: Permission denied",
+                "mv: Cannot move file: Is a directory.",
+                ""
+            ]
         }.get(trait, []))
 
 
@@ -789,11 +902,41 @@ class Command_mkdir(HoneyPotCommand):
 
     def response_mkdir(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["mkdir: operation not supported", "mkdir: Directory created successfully.", "mkdir: Directory already exists."],
-            Personality.CONSCIENTIOUSNESS: ["mkdir: Directory structure not found", "mkdir: Cannot create directory: Permission denied", "mkdir: Cannot create directory: Is a file"],
-            Personality.LOW_EXTRAVERSION: ["mkdir: Directory created successfully.", "mkdir: Cannot create directory: No such file or directory", "mkdir: Directory already exists."],
-            Personality.LOW_AGREEABLENESS: ["mkdir: invalid option -- 'x'", "mkdir: Cannot create directory: Permission denied", "mkdir: Cannot create directory: Is a file"],
-            Personality.LOW_NEUROTICISM: ["mkdir: no such file or directory", "mkdir: Cannot create directory: No such file or directory", "mkdir: Cannot create directory: Permission denied"]
+            Personality.OPENNESS: [
+                "mkdir: operation not supported", 
+                "mkdir: Directory created successfully.", 
+                "mkdir: Directory already exists."
+                "mkdir: Directory structure not found",
+                "mkdir: Cannot create directory: No such file or directory"
+            ],
+            Personality.CONSCIENTIOUSNESS: [
+                "mkdir: Directory structure not found", 
+                "mkdir: Cannot create directory: Permission denied", 
+                "mkdir: Cannot create directory: Is a file"
+                "mkdir: sadasd[ipohq wephjasjl;dj2   ]"
+                ""
+            ],
+            Personality.LOW_EXTRAVERSION: [
+                "mkdir: Directory created successfully.", 
+                "mkdir: Cannot create directory: No such file or directory", 
+                "mkdir: Directory already exists."
+                "test app home code src bin etc var log",
+                ""
+            ],
+            Personality.LOW_AGREEABLENESS: [
+                "mkdir: invalid option -- 'x'", 
+                "mkdir: Cannot create directory: Permission denied", 
+                "mkdir: Cannot create directory: Is a file",
+                "mkdir: Cannot create directory: No such file or directory",
+                ""
+            ],
+            Personality.LOW_NEUROTICISM: [
+                "mkdir: no such file or directory", 
+                "mkdir: Cannot create directory: No such file or directory", 
+                "mkdir: Cannot create directory: Permission denied"
+                "",
+                ""
+            ]
         }.get(trait, []))
 
 
@@ -838,11 +981,11 @@ class Command_rmdir(HoneyPotCommand):
 
     def response_rmdir(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["rmdir: Directory removed successfully", "rmdir: are you sure?", "rmdir: Directory structure not found"],
-            Personality.CONSCIENTIOUSNESS: ["rmdir: permission denied", "rmdir: Directory not empty", "rmdir: Directory structure not found"],
-            Personality.LOW_EXTRAVERSION: ["rmdir: dangerous operation", "rmdir: Directory removed successfully", "rmdir: Directory not empty"],
-            Personality.LOW_AGREEABLENESS: ["rmdir: no such file or directory", "rmdir: Directory removed successfully", "rmdir: Directory not empty"],
-            Personality.LOW_NEUROTICISM: ["rmdir: --help for more information", "rmdir: Directory removed successfully", "rmdir: Directory not empty"]
+            Personality.OPENNESS: ["rmdir: Directory removed successfully", "rmdir: are you sure?", "rmdir: Directory structure not found", "", ""],
+            Personality.CONSCIENTIOUSNESS: ["rmdir: permission denied", "rmdir: Directory not empty", "rmdir: Directory structure not found", "", "",],
+            Personality.LOW_EXTRAVERSION: ["rmdir: dangerous operation", "rmdir: Directory removed successfully", "rmdir: Directory not empty","",""],
+            Personality.LOW_AGREEABLENESS: ["rmdir: no such file or directory", "rmdir: Directory removed successfully", "rmdir: Directory not empty","",""],
+            Personality.LOW_NEUROTICISM: ["rmdir: --help for more information", "rmdir: Directory removed successfully", "rmdir: Directory not empty","",""]
         }.get(trait, []))
 
 commands["/bin/rmdir"] = Command_rmdir
@@ -904,11 +1047,11 @@ class Command_touch(HoneyPotCommand):
 
     def response_touch(protocol, trait, emotion):
         return _cycle(protocol, emotion, {
-            Personality.OPENNESS: ["touch: File not expected.", "touch: File created successfully", "touch: File not found"],
-            Personality.CONSCIENTIOUSNESS: ["touch: File already exists.", "touch: File creation failed", "touch: File not found"],
-            Personality.LOW_EXTRAVERSION: ["touch: File created successfully", "touch: File not found", "touch: File creation failed"],
-            Personality.LOW_AGREEABLENESS: ["touch: File created failed", "touch: File not found", "touch: File already exists"],
-            Personality.LOW_NEUROTICISM: ["touch: permission denied", "touch: File not found", "touch: File creation failed"]
+            Personality.OPENNESS: ["touch: File not expected.", "touch: File created successfully", "touch: File not found", "", ""],
+            Personality.CONSCIENTIOUSNESS: ["touch: File already exists.", "touch: File creation failed", "touch: File not found","",""],
+            Personality.LOW_EXTRAVERSION: ["touch: File created successfully", "touch: File not found", "touch: File creation failed","",""],
+            Personality.LOW_AGREEABLENESS: ["touch: File created failed", "touch: File not found", "touch: File already exists","",""],
+            Personality.LOW_NEUROTICISM: ["touch: permission denied", "touch: File not found", "touch: File creation failed",""]
         }.get(trait, []))
 
 commands["/bin/touch"] = Command_touch
@@ -927,14 +1070,14 @@ def _cycle(protocol, current_emotion, messages):
         protocol.emotion.set_state(Emotion.CONFUSION)
         return messages[1] + "\n"
     elif name == "CONFUSION":
-        protocol.emotion.set_state(Emotion.SELF_DOUBT)
+        protocol.emotion.set_state(Emotion.FRUSTRATION)
         return messages[2] + "\n"
     elif name == "FRUSTRATION":
-        protocol.emotion.set_state(Emotion.CONFIDENCE)
-        return messages[1] + "\n"
+        protocol.emotion.set_state(Emotion.SELF_DOUBT)
+        return messages[3] + "\n"
     elif name == "SELF_DOUBT":
-        protocol.emotion.set_state(Emotion.CONFUSION)
-        return messages[2] + "\n"
+        protocol.emotion.set_state(Emotion.CONFIDENCE)
+        return messages[4] + "\n"
     return ""
 
 # fs.py contains the commands : grep, tail, head, cd, rm, cp, mv, mkdir, rmdir, pwd, touch
