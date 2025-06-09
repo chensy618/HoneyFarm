@@ -1,0 +1,22 @@
+=== Lighting Node Diagnostic Report ===
+Generated: 2025-06-05 09:10:55
+
+Node Status: ACTIVE
+Firmware Version: v1.9.3
+Last Reboot: 2025-06-02 04:18:33
+Uptime: 3 days 5 hours
+
+Lighting Zones:
+- Bedroom: OFF
+- Living Room: ON
+- Dining Room: OFF
+- Bathroom: ON
+
+Recent Errors:
+[2025-06-03 21:12:07] ERROR: Lost connection to Living Room driver. Retrying...
+[2025-06-03 21:12:21] INFO: Living Room driver reconnected successfully.
+
+Diagnostics Heartbeat: OK
+Last Heartbeat: 2025-06-05 09:05:02
+
+Summary: Minor driver issue detected and recovered.

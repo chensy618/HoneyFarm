@@ -1,0 +1,5 @@
+[2025-03-05 09:44:23] Room: Bedroom | Temperature change: +2 C | Status: Success
+[2025-04-11 12:10:18] Room: Dining Room | Temperature change: +1 C | Status: Success
+[2025-05-08 10:07:12] Room: Living Room | Temperature change: -2 C | Status: Failed (timeout)
+[2025-05-08 10:08:15] Room: Living Room | Temperature change: -2 C | Status: Success
+[2025-06-01 08:55:13] Room: Bathroom | Temperature change: -1 C | Status: Success

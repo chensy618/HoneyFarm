@@ -1,0 +1,26 @@
+=== Printer Node Diagnostic Report ===
+Generated: 2025-04-20 16:15:09
+
+Node Status: ACTIVE
+Firmware Version: v4.0.6
+Last Reboot: 2025-04-19 10:12:43
+Uptime: 1 day 6 hours
+
+Printer Model: HP LaserJet 4050
+Paper Tray Status:
+- Tray 1: OK
+- Tray 2: OK
+
+Toner Level: 73%
+Recent Jobs:
+- [2025-04-19 11:23:45] "Presentation_Deck.pdf" | Pages: 20 | Status: Success
+- [2025-04-19 14:18:11] "Meeting_Notes.docx" | Pages: 5 | Status: Success
+
+Recent Errors:
+[2025-04-19 12:45:33] ERROR: Tray 2 open during job. Paused and resumed successfully.
+
+Diagnostics Heartbeat: OK
+Last Heartbeat: 2025-04-20 16:10:56
+
+Summary: System stable with minor recoverable error.
+

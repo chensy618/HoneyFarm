@@ -1,0 +1,22 @@
+=== Lighting Node Diagnostic Report ===
+Generated: 2025-04-28 07:32:01
+
+Node Status: ACTIVE
+Firmware Version: v1.9.2
+Last Reboot: 2025-04-27 02:10:12
+Uptime: 1 day 5 hours
+
+Lighting Zones:
+- Bedroom: ON
+- Living Room: OFF
+- Dining Room: OFF
+- Bathroom: ON
+
+Recent Errors:
+[2025-04-27 17:45:11] WARNING: Bathroom light failed to respond (retrying).
+[2025-04-27 17:46:02] INFO: Bathroom light restored.
+
+Diagnostics Heartbeat: OK
+Last Heartbeat: 2025-04-28 07:30:10
+
+Summary: No critical issues detected.

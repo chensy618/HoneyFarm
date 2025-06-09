@@ -1,0 +1,27 @@
+=== Thermostat Node Diagnostic Report ===
+Generated: 2025-05-10 12:48:55
+
+Node Status: ACTIVE
+Firmware Version: v3.0.3
+Last Reboot: 2025-05-09 21:14:01
+Uptime: 15 hours 34 mins
+
+Thermostat Zones:
+- Bedroom: 19°C
+- Living Room: 23°C
+- Dining Room: 21°C
+- Bathroom: 20°C
+
+Sensor Status:
+- Bedroom: OK
+- Living Room: OK
+- Dining Room: OK
+- Bathroom: OK
+
+Recent Warnings:
+None.
+
+Log Sync Status: SUCCESS
+Last Sync: 2025-05-10 12:45:12
+
+Summary: System operating normally.

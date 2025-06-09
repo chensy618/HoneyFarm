@@ -1,0 +1,21 @@
+=== Appliances Node Diagnostic Report ===
+Generated: 2025-06-04 15:32:17
+
+Node Status: ACTIVE
+Firmware Version: v2.5.1
+Last Reboot: 2025-06-03 06:14:22
+Uptime: 1 day 9 hours
+
+Connected Appliances:
+- Refrigerator: Online | Temp: 4°C
+- Coffee Maker: Idle | Last Cycle: 2025-06-02 07:23:12
+- Washing Machine: Idle | Last Run: 2025-06-01 14:05:09
+
+Recent Warnings:
+[2025-06-01 10:12:47] WARNING: Coffee Maker failed to adjust brew strength.
+[2025-06-01 10:14:02] INFO: Coffee Maker resumed normal state.
+
+Log Sync Status: SUCCESS
+Last Sync: 2025-06-04 15:30:55
+
+Summary: No critical issues detected.

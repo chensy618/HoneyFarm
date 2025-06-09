@@ -1,0 +1,21 @@
+=== Appliances Node Diagnostic Report ===
+Generated: 2025-05-01 14:20:38
+
+Node Status: ACTIVE
+Firmware Version: v2.5.0
+Last Reboot: 2025-04-30 23:55:42
+Uptime: 14 hours 25 mins
+
+Connected Appliances:
+- Refrigerator: Online | Temp: 4°C
+- Coffee Maker: Standby
+- Washing Machine: Idle
+
+Recent Errors:
+[2025-04-30 09:17:22] ERROR: Washing Machine door sensor not responding.
+[2025-04-30 09:18:45] INFO: Door sensor status restored.
+
+Log Sync Status: SUCCESS
+Last Sync: 2025-05-01 14:15:20
+
+Summary: Minor hardware issue resolved.

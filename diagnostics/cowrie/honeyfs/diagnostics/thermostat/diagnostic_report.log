@@ -1,0 +1,27 @@
+=== Thermostat Node Diagnostic Report ===
+Generated: 2025-06-06 11:45:28
+
+Node Status: ACTIVE
+Firmware Version: v3.0.4
+Last Reboot: 2025-06-05 23:50:12
+Uptime: 12 hours 15 mins
+
+Thermostat Zones:
+- Bedroom: 18°C
+- Living Room: 22°C
+- Dining Room: 22°C
+- Bathroom: 19°C
+
+Sensor Status:
+- Bedroom: OK
+- Living Room: OK
+- Dining Room: Minor delay detected
+- Bathroom: OK
+
+Recent Warnings:
+[2025-06-06 09:22:54] WARNING: Dining Room sensor read delay (approx. 150ms).
+
+Log Sync Status: SUCCESS
+Last Sync: 2025-06-06 11:40:17
+
+Summary: Overall system stable with minor sensor delay.

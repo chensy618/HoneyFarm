@@ -1,0 +1,26 @@
+=== Printer Node Diagnostic Report ===
+Generated: 2025-06-03 10:25:14
+
+Node Status: ACTIVE
+Firmware Version: v4.1.0
+Last Reboot: 2025-06-02 08:17:09
+Uptime: 1 day 2 hours
+
+Printer Model: HP LaserJet 4050
+Paper Tray Status:
+- Tray 1: OK
+- Tray 2: Low Paper
+
+Toner Level: 45%
+Recent Jobs:
+- [2025-06-02 15:04:27] "Report_Q2.pdf" | Pages: 12 | Status: Success
+- [2025-06-02 15:12:09] "Invoice_345.pdf" | Pages: 2 | Status: Success
+
+Recent Errors:
+[2025-06-02 10:22:55] ERROR: Paper jam detected in Tray 2.
+[2025-06-02 10:27:10] INFO: Paper jam cleared.
+
+Diagnostics Heartbeat: OK
+Last Heartbeat: 2025-06-03 10:20:55
+
+Summary: Operating normally with low paper warning.

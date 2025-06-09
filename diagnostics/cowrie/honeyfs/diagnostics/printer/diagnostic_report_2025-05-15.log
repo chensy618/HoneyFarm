@@ -1,0 +1,25 @@
+=== Printer Node Diagnostic Report ===
+Generated: 2025-05-15 14:42:11
+
+Node Status: ACTIVE
+Firmware Version: v4.0.8
+Last Reboot: 2025-05-14 07:05:33
+Uptime: 1 day 7 hours
+
+Printer Model: HP LaserJet 4050
+Paper Tray Status:
+- Tray 1: OK
+- Tray 2: OK
+
+Toner Level: 62%
+Recent Jobs:
+- [2025-05-14 15:02:18] "Weekly_Report.docx" | Pages: 8 | Status: Success
+- [2025-05-14 15:50:09] "Receipts_April.pdf" | Pages: 3 | Status: Success
+
+Recent Errors:
+None.
+
+Diagnostics Heartbeat: OK
+Last Heartbeat: 2025-05-15 14:40:22
+
+Summary: System operating normally.
