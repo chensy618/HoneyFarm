@@ -12,7 +12,7 @@ import copy
 import getopt
 import os.path
 import re
-
+import datetime
 from twisted.python import log
 
 from cowrie.shell import fs
@@ -21,6 +21,8 @@ from typing import TYPE_CHECKING
 from cowrie.emotional_state.emotions import Emotion
 from cowrie.personality_profile.profile import Personality
 from cowrie.personality_profile.profile import session_personality_response
+from cowrie.honeytoken.email_alert import send_honeytoken_email
+from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_THERMOSTAT_FOLDERS
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -91,17 +93,6 @@ class Command_grep(HoneyPotCommand):
         else:
             self.grep_application(self.input_data, args[0])
 
-        # session = getattr(self.protocol.user.avatar, "session", None)
-        # if not (session and hasattr(session, "_personality_inferred")):
-        #     return  # no profile, skip extra response
-        # else:
-        #     profile = session._personality_inferred
-        #     trait_enum = profile["trait_enum"]
-        #     trait_name = profile["trait_label"]
-        #     emotion = self.protocol.emotion.get_state()
-        #     msg = Command_grep.response_grep(self.protocol, trait_enum, emotion)
-        #     if msg:
-        #         self.write(msg)
         session_personality_response(self.protocol, Command_grep.response_grep, self.write)
 
         self.exit()
@@ -430,19 +421,36 @@ class Command_cd(HoneyPotCommand):
         if inode[fs.A_TYPE] != fs.T_DIR:
             self.errorWrite(f"bash: cd: {pname}: Not a directory\n")
             return
+
+        # honeytoken detection
+        print(f"Checking for honeytoken folders in {newpath}")
+        if any(newpath.startswith("/" + folder.strip("/")) for folder in HONEYTOKEN_THERMOSTAT_FOLDERS):
+            try:
+                ssh_transport = self.protocol.getProtoTransport()
+                tcp = ssh_transport.transport
+                peer = tcp.getPeer()
+                src_ip = peer.host
+                src_port = peer.port
+            except Exception:
+                src_ip = "unknown-ip"
+                src_port = None
+
+            try:
+                session_id = getattr(self.protocol.user.avatar, "session", None)
+            except Exception:
+                session_id = "unknown-session"
+
+            timestamp = datetime.datetime.utcnow().isoformat()
+            send_honeytoken_email(newpath, session_id, src_ip, src_port, timestamp)
+            log.msg(
+                eventid="cowrie.honeytoken",
+                realm="cd",
+                input=newpath,
+                format="HONEYTOKEN (%(realm)s): %(input)s",
+            )
+                
         self.protocol.cwd = newpath
 
-        # session = getattr(self.protocol.user.avatar, "session", None)
-        # if not (session and hasattr(session, "_personality_inferred")):
-        #     return  # no profile, skip extra response
-        # else:
-        #     profile = session._personality_inferred
-        #     trait_enum = profile["trait_enum"]
-        #     trait_name = profile["trait_label"]
-        #     emotion = self.protocol.emotion.get_state()
-        #     msg = Command_cd.response_cd(self.protocol, trait_enum, emotion)
-        #     if msg:
-        #         self.write(msg)
         session_personality_response(self.protocol, Command_cd.response_cd, self.write)
 
     def response_cd(protocol, trait, emotion):
