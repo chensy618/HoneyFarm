@@ -5,8 +5,4 @@ function validateLogin(user, pass) {
     return true;
   }
 
-  if (user === "root" && pass === "toor") {
-    return true;
-  }
-
 }
