@@ -18,6 +18,8 @@ from twisted.python import log
 from cowrie.shell import fs
 from cowrie.shell.command import HoneyPotCommand
 from typing import TYPE_CHECKING
+from cowrie.honeytoken.email_alert import send_honeytoken_email
+from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_DIAGNOSTICS_FILES
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -280,6 +282,34 @@ class Command_cd(HoneyPotCommand):
         if inode[fs.A_TYPE] != fs.T_DIR:
             self.errorWrite(f"bash: cd: {pname}: Not a directory\n")
             return
+
+        # honeytoken detection
+        print(f"Checking for honeytoken folders in {newpath}")
+        if any(newpath.startswith("/" + folder.strip("/")) for folder in HONEYTOKEN_DIAGNOSTICS_FOLDERS):
+            try:
+                ssh_transport = self.protocol.getProtoTransport()
+                tcp = ssh_transport.transport
+                peer = tcp.getPeer()
+                src_ip = peer.host
+                src_port = peer.port
+            except Exception:
+                src_ip = "unknown-ip"
+                src_port = None
+
+            try:
+                session_id = getattr(self.protocol.user.avatar, "session", None)
+            except Exception:
+                session_id = "unknown-session"
+
+            timestamp = datetime.datetime.utcnow().isoformat()
+            send_honeytoken_email(newpath, session_id, src_ip, src_port, timestamp)
+            log.msg(
+                eventid="cowrie.honeytoken",
+                realm="cd",
+                input=newpath,
+                format="HONEYTOKEN (%(realm)s): %(input)s",
+            )
+
         self.protocol.cwd = newpath
 
 

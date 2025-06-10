@@ -15,8 +15,11 @@ from twisted.python import log
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
-from cowrie.email_alert import send_honeytoken_email
+from cowrie.honeytoken.email_alert import send_honeytoken_email
+from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_DIAGNOSTICS_FILES
 from cowrie.ssh.transport import HoneyPotSSHTransport
+
+
 
 commands = {}
 
@@ -57,11 +60,10 @@ class Command_cat(HoneyPotCommand):
 
                 pname = self.fs.resolve_path(arg, self.protocol.cwd)
 
-                # print(f"[DEBUG] -----: {self.protocol.getProtoTransport().transport.getPeer()}")
                 emotion = self.protocol.emotion.get_state()
-                print(f"[DEBUG] ----Command_cat: {pname} ----(emotion: {emotion})")
+                # print(f"[DEBUG] ----Command_cat: {pname} ----(emotion: {emotion})")
 
-                if "aws_config.txt" in pname or "id_rsa" in pname or "secret" in pname:
+                if any(token in pname for token in HONEYTOKEN_APPLIANCE_FILES):
                     try:
                         ssh_transport = self.protocol.getProtoTransport()
                         tcp = ssh_transport.transport
@@ -73,13 +75,20 @@ class Command_cat(HoneyPotCommand):
                         src_port = None
                     
                     try:
-                        session_id = getattr(self.protocol, "sessionno", None)
+                        # session_id = getattr(self.protocol, "sessionno", None)
+                        session_id = getattr(self.protocol.user.avatar, "session", None)
                     except Exception:
                         session_id = "unknown-session"
 
                     timestamp = datetime.datetime.utcnow().isoformat()
                     send_honeytoken_email(pname, session_id, src_ip, src_port, timestamp)
-
+                    log.msg(
+                        eventid="cowrie.honeytoken",
+                        realm="cat",
+                        input=pname,
+                        format="HONEYTOKEN (%(realm)s): %(input)s",
+                    )
+                    
                 if self.fs.isdir(pname):
                     self.errorWrite(f"cat: {arg}: Is a directory\n")
                     continue
@@ -89,6 +98,7 @@ class Command_cat(HoneyPotCommand):
                     self.output(contents)
                 except FileNotFound:
                     self.errorWrite(f"cat: {arg}: No such file or directory\n")
+
             self.exit()
         elif self.input_data is not None:
             self.output(self.input_data)
@@ -158,6 +168,8 @@ Full documentation at: <http://www.gnu.org/software/coreutils/cat>
 or available locally via: info '(coreutils) cat invocation'
 """
         )
+
+
 
 
 commands["/bin/cat"] = Command_cat
