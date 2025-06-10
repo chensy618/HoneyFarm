@@ -60,6 +60,11 @@ from datetime import datetime
 
 
 def get_ip_location(ip):
+    def decimal_to_dms(deg):
+        degrees = int(deg)
+        minutes = abs(deg - degrees) * 60
+        return degrees, minutes
+
     try:
         response = requests.get(
             f"http://ip-api.com/json/{ip}?fields=country,regionName,city,zip,lat,lon,org,query",
@@ -67,11 +72,20 @@ def get_ip_location(ip):
         )
         if response.status_code == 200:
             data = response.json()
-            return f"""
+            lat = float(data.get("lat"))
+            lon = float(data.get("lon"))
+
+            lat_deg, lat_min = decimal_to_dms(lat)
+            lon_deg, lon_min = decimal_to_dms(lon)
+
+            lat_dir = 'N' if lat >= 0 else 'S'
+            lon_dir = 'E' if lon >= 0 else 'W'
+
+            return f"""\
 IP Address: {data.get("query")}
-Location: {data.get("city")}, {data.get("regionName")}, {data.get("country")} {data.get("zip")}
-Coordinates: {data.get("lat")}, {data.get("lon")}
-ISP/Org: {data.get("org")}
+Location:   {data.get("city")}, {data.get("regionName")}, {data.get("country")} {data.get("zip")}
+Coordinates: {abs(lat_deg)}°{lat_min:.3f}' {lat_dir}, {abs(lon_deg)}°{lon_min:.3f}' {lon_dir}
+ISP/Org:     {data.get("org")}
 """
     except Exception as e:
         return f"IP Geolocation failed: {e}"
