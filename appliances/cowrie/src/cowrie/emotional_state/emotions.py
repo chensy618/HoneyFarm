@@ -20,6 +20,34 @@ class EmotionalState:
     def __str__(self):
         return self.state.name
 
+    def emotion_loop(self, current_emotion: Emotion):
+        """
+        This method can be expanded to implement a loop that changes the emotional state
+        based on certain conditions or events in the session.
+        """
+        if current_emotion == Emotion.CONFIDENCE:
+            # Example condition to change state
+            self.set_state(Emotion.SURPRISE)
+            next_emotion = self.get_state()
+            return next_emotion 
+        elif current_emotion == Emotion.SURPRISE:
+            self.set_state(Emotion.CONFUSION)
+            next_emotion = self.get_state()
+            return next_emotion 
+        elif current_emotion == Emotion.CONFUSION:
+            self.set_state(Emotion.FRUSTRATION)
+            next_emotion = self.get_state()
+            return next_emotion 
+        elif current_emotion == Emotion.FRUSTRATION:
+            self.set_state(Emotion.SELF_DOUBT)
+            next_emotion = self.get_state()
+            return next_emotion 
+        elif current_emotion == Emotion.SELF_DOUBT:
+            self.set_state(Emotion.CONFIDENCE)
+            next_emotion = self.get_state()
+            return next_emotion 
+        
+
 
 if __name__ == "__main__":
     # Example usage

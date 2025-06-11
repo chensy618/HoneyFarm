@@ -126,4 +126,16 @@ def session_personality_response(protocol, response_fn, write_fn):
     if msg:
         write_fn(f"{msg}\n")
 
+def get_trait_from_session(session) -> int | None:
+    """
+    Get the personality trait enum from the session if it exists.
+    
+    :param session: The user session object
+    :return: Personality trait enum or None
+    """
+    if hasattr(session, "_personality_inferred"):
+        return session._personality_inferred.get("trait_enum")
+    return None
+
+
 

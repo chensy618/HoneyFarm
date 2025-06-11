@@ -19,9 +19,10 @@ from cowrie.honeytoken.email_alert import send_honeytoken_email
 from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_APPLIANCE_FILES
 from cowrie.ssh.transport import HoneyPotSSHTransport
 from cowrie.emotional_state.emotions import Emotion
-from cowrie.personality_profile.profile import Personality
+from cowrie.personality_profile.profile import Personality, PERSONALITY_LABELS
 from cowrie.personality_profile.profile import session_personality_response
-
+from cowrie.llm.llama import generate_response
+from cowrie.personality_profile.profile import get_trait_from_session
 
 commands = {}
 
@@ -65,6 +66,10 @@ class Command_cat(HoneyPotCommand):
                 emotion = self.protocol.emotion.get_state()
                 # print(f"[DEBUG] ----Command_cat: {pname} ----(emotion: {emotion})")
 
+                # output = generate_response("cat /etc/passwd", "Openness", ["CONFUSION", "SURPRISE"])
+                # print("\nGenerated LLM Response:\n")
+                # print(output)
+
                 if any(token in pname for token in HONEYTOKEN_APPLIANCE_FILES):
                     try:
                         ssh_transport = self.protocol.getProtoTransport()
@@ -90,7 +95,7 @@ class Command_cat(HoneyPotCommand):
                         input=pname,
                         format="HONEYTOKEN (%(realm)s): %(input)s",
                     )
-                    
+                
                 if self.fs.isdir(pname):
                     self.errorWrite(f"cat: {arg}: Is a directory\n")
                     continue
@@ -100,7 +105,24 @@ class Command_cat(HoneyPotCommand):
                     self.output(contents)
                 except FileNotFound:
                     self.errorWrite(f"cat: {arg}: No such file or directory\n")
+
             session_personality_response(self.protocol, self.response_cat, self.write)
+            # Inject LLM response without replacing original output
+            try:
+                sessionno = getattr(self.protocol.user.avatar, "session", None)
+                trait = get_trait_from_session(sessionno)
+
+                if isinstance(trait, int):
+                    trait = PERSONALITY_LABELS[Personality(trait)]
+                    current_emotion = self.protocol.emotion.get_state()
+                    next_emotion = self.protocol.emotion.emotion_loop(current_emotion)
+
+                    # Simulate a command for LLM response
+                    simulated_command = f"cat {' '.join(args)}"
+                    llm_out = generate_response(simulated_command, trait, [current_emotion, next_emotion])
+                    self.write(f"\ncat(LLM):\n{llm_out}\n")
+            except Exception as e:
+                self.write(f"[LLM Error]: {e}\n")
             self.exit()
         elif self.input_data is not None:
             self.output(self.input_data)
@@ -188,7 +210,7 @@ or available locally via: info '(coreutils) cat invocation'
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 # generate unreadable code - gibberish text
-                string = SguhRUPZT3HJ
+                string = "SguhRUPZT3HJ"
                 return f"cat: {string}: file not found"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
