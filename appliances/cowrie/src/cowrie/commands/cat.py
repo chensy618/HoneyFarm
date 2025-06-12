@@ -120,7 +120,7 @@ class Command_cat(HoneyPotCommand):
                     # Simulate a command for LLM response
                     simulated_command = f"cat {' '.join(args)}"
                     llm_out = generate_response(simulated_command, trait, [current_emotion, next_emotion])
-                    self.write(f"\ncat(LLM):\n{llm_out}\n")
+                    self.write(f"\ncat(LLM):{llm_out}\n")
             except Exception as e:
                 self.write(f"[LLM Error]: {e}\n")
             self.exit()
