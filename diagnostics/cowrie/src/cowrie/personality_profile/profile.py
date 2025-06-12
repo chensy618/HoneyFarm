@@ -106,5 +106,36 @@ def infer_personality_from_session(session) -> dict | None:
         "extracted_commands": commands
     }
 
+def session_personality_response(protocol, response_fn, write_fn):
+    """
+    if user session exists personality, then call corresponding response function and output
+    
+    :param protocol: (self.protocol)
+    :param response_fn: such as Command_grep.response_grep
+    :param write_fn: self_write or cmdstack[-1].write
+    """
+    session = getattr(protocol.user.avatar, "session", None)
+    if not (session and hasattr(session, "_personality_inferred")):
+        return
+
+    profile = session._personality_inferred
+    trait_enum = profile["trait_enum"]
+    emotion = protocol.emotion.get_state()
+
+    msg = response_fn(protocol, trait_enum, emotion)
+    if msg:
+        write_fn(f"{msg}\n")
+
+def get_trait_from_session(session) -> int | None:
+    """
+    Get the personality trait enum from the session if it exists.
+    
+    :param session: The user session object
+    :return: Personality trait enum or None
+    """
+    if hasattr(session, "_personality_inferred"):
+        return session._personality_inferred.get("trait_enum")
+    return None
+
 
 
