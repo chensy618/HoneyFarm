@@ -26,7 +26,8 @@ Firmware:      Lighting Control v1.3.2
 Board:         armv7l (Cortex-A7)
 Uptime:        18 days, 06:31
 IP Address:    192.168.100.20
-Web Interface: http://lighting-control.local:8090/dashboard
+Web UI:        http://20.133.44.15:8080/index.html
+Cloud Sync:    Enabled
 
 Note:
 - To check status, use `lightctl status`

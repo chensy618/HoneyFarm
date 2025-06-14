@@ -22,9 +22,10 @@ permitted by applicable law.
 Device Model:     ThermoLink ST-300
 Firmware:         SmartThermOS v2.3.1
 CPU:              ARM Cortex-M4
-LAN Address:      192.168.100.30
+IP Address:       192.168.100.30
 Wi-Fi:            Connected (SSID: HomeComfort)
-Web UI:           http://192.168.0.42:8080/
+Web UI:           http://20.133.44.15:8080/index.html
+Cloud Sync:       Enabled
 
 Indoor Temperature:   21.8°C
 Target Temperature:   22.5°C

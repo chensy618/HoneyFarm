@@ -24,9 +24,9 @@ permitted by applicable law.
 Device ID:       HAC-CTRL-21-XH
 Firmware:        HApplianceOS v3.1.0
 CPU:             ARM Cortex-A9 dual-core
-LAN IP:          192.168.100.10
+IP Address:      192.168.100.10
 Wi-Fi:           Connected (SSID: SmartHub_5G)
-Control Panel:   http://192.168.1.99:8080/dashboard
+Web UI:          http://20.133.44.15:8080/index.html
 
 Uptime:          7 days, 19:42
 Linked Devices:  6 active / 2 inactive

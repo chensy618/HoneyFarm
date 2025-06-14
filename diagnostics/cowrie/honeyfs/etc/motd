@@ -26,8 +26,8 @@ Firmware:         DiagnosticsPanel OS v2.8.4
 Processor:        ARM Cortex-A9 dual-core
 LAN Address:      192.168.100.100
 Wi-Fi Status:     Connected (SSID: SmartHub_5G)
-Web Interface:    http://192.168.1.99:8080/dashboard
-Last Cloud Sync:  2025-05-30 12:51:04 UTC
+Web Interface:    http://20.133.44.15:8080/index.html
+Cloud Sync:       Enabled
 
 Connected Devices:  6 Online / 2 Offline
 Error Events:       0 Critical / 3 Warning / 1 Pending
