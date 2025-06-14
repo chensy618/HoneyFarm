@@ -18,7 +18,7 @@ class EmotionalState:
         return self.state
 
     def __str__(self):
-        return self.state.name.lower()
+        return self.state.name
 
 
 if __name__ == "__main__":

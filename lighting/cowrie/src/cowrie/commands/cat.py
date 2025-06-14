@@ -16,7 +16,7 @@ from twisted.python import log
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
 from cowrie.honeytoken.email_alert import send_honeytoken_email
-from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_LIGHTING_FILES
+from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_APPLIANCE_FILES
 from cowrie.ssh.transport import HoneyPotSSHTransport
 from cowrie.emotional_state.emotions import Emotion
 from cowrie.personality_profile.profile import Personality
@@ -65,7 +65,7 @@ class Command_cat(HoneyPotCommand):
                 emotion = self.protocol.emotion.get_state()
                 # print(f"[DEBUG] ----Command_cat: {pname} ----(emotion: {emotion})")
 
-                if any(token in pname for token in HONEYTOKEN_LIGHTING_FILES):
+                if any(token in pname for token in HONEYTOKEN_APPLIANCE_FILES):
                     try:
                         ssh_transport = self.protocol.getProtoTransport()
                         tcp = ssh_transport.transport

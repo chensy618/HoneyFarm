@@ -22,7 +22,7 @@ from cowrie.emotional_state.emotions import Emotion
 from cowrie.personality_profile.profile import Personality
 from cowrie.personality_profile.profile import session_personality_response
 from cowrie.honeytoken.email_alert import send_honeytoken_email
-from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_THERMOSTAT_FOLDERS
+from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_APPLIANCE_FOLDERS
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -424,7 +424,7 @@ class Command_cd(HoneyPotCommand):
 
         # honeytoken detection
         print(f"Checking for honeytoken folders in {newpath}")
-        if any(newpath.startswith("/" + folder.strip("/")) for folder in HONEYTOKEN_THERMOSTAT_FOLDERS):
+        if any(newpath.startswith("/" + folder.strip("/")) for folder in HONEYTOKEN_APPLIANCE_FOLDERS):
             try:
                 ssh_transport = self.protocol.getProtoTransport()
                 tcp = ssh_transport.transport

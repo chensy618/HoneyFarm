@@ -24,7 +24,9 @@ services:
     networks:
       honeynet:
         ipv4_address: 192.168.100.10
-
+    ports:
+      - "2222:22"
+      - "2322:23"
     volumes:
       - cowrie-appliances-etc:/cowrie/cowrie-git/etc
       - cowrie-appliances-var:/cowrie/cowrie-git/var
@@ -39,7 +41,9 @@ services:
     networks:
       honeynet:
         ipv4_address: 192.168.100.20
-
+    ports:
+      - "2223:22"
+      - "2323:23"
     volumes:
       - cowrie-lighting-etc:/cowrie/cowrie-git/etc
       - cowrie-lighting-var:/cowrie/cowrie-git/var
@@ -54,7 +58,9 @@ services:
     networks:
       honeynet:
         ipv4_address: 192.168.100.30
-
+    ports:
+      - "2224:22"
+      - "2324:23"
     volumes:
       - cowrie-thermostat-etc:/cowrie/cowrie-git/etc
       - cowrie-thermostat-var:/cowrie/cowrie-git/var
@@ -69,7 +75,9 @@ services:
     networks:
       honeynet:
         ipv4_address: 192.168.100.100
-
+    ports:
+      - "2225:22"
+      - "2325:23"
     volumes:
       - cowrie-diagnostics-etc:/cowrie/cowrie-git/etc
       - cowrie-diagnostics-var:/cowrie/cowrie-git/var

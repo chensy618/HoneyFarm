@@ -279,7 +279,7 @@ class HoneyPotShell:
             # If 10 valid commands have been recorded, perform personality inference (only once)
             if len(session.pta_extracted_commands) == 10 and not hasattr(session, "_personality_inferred"):
                 result = infer_personality_from_session(session)
-                session._personality_inferred = True
+                session._personality_inferred = result
                 if result:
                     log.msg(
                         eventid="cowrie.personality.inferred",
