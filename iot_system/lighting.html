@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="api-lighting" content="lighting-ip" />
+    <meta name="api-lighting" content="72.145.1.84:2223"/>
     <meta name="github-repo" content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -97,15 +97,15 @@
     </div>
   </div>
 
-<!-- Note: Update lighitng_node to cloud IP when stable. Current ssh: lighting_ip -->
+<!-- Note: Update lighitng_node to cloud IP when stable. Current ssh: 72.145.1.84:2223. Internal ip: 192.168.100.20:22 -->
 
 <script>
 
 function server_com(room, status){
 
-  console.log("Light request for: " + room + "lighting_ip");
+  console.log("Light request for: " + room + "72.145.1.84:2223);
 
-  fetch('lighting_node_ip/port', {
+  fetch('72.145.1.84:2223', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
