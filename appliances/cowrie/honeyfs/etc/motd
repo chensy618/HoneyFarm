@@ -24,7 +24,7 @@ permitted by applicable law.
 Device ID:       HAC-CTRL-21-XH
 Firmware:        HApplianceOS v3.1.0
 CPU:             ARM Cortex-A9 dual-core
-LAN IP:          192.168.1.99
+LAN IP:          192.168.100.10
 Wi-Fi:           Connected (SSID: SmartHub_5G)
 Control Panel:   http://192.168.1.99:8080/dashboard
 
@@ -40,7 +40,7 @@ Available Commands:
   • log-read            read system logs
 
 Logs are stored in `/opt/log/` (local)  
-and automatically synced to telnet server in `/diagnostics/logs/{device_id}/` when Cloud Sync is enabled.
+and automatically synced to telnet server in `/diagnostics/logs/{appliance}/` when Cloud Sync is enabled.
 
 Note:
 - Configuration changes require admin privileges.

@@ -25,7 +25,7 @@ Device ID:     LC-CTRL-07-AZ
 Firmware:      Lighting Control v1.3.2
 Board:         armv7l (Cortex-A7)
 Uptime:        18 days, 06:31
-IP Address:    192.168.12.45
+IP Address:    192.168.100.20
 Web Interface: http://lighting-control.local:8090/dashboard
 
 Note:

@@ -24,7 +24,7 @@ permitted by applicable law.
 Device Model:     DDI-HomeX-500
 Firmware:         DiagnosticsPanel OS v2.8.4
 Processor:        ARM Cortex-A9 dual-core
-LAN Address:      192.168.1.99
+LAN Address:      192.168.100.100
 Wi-Fi Status:     Connected (SSID: SmartHub_5G)
 Web Interface:    http://192.168.1.99:8080/dashboard
 Last Cloud Sync:  2025-05-30 12:51:04 UTC
