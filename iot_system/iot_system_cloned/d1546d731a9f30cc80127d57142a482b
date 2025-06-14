@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" name="github-repo"/>
+<link href="/login.css" rel="stylesheet"/>
+<title>Login</title>
+</head>
+<body>
+<div class="login-wrap">
+<div class="login-html">
+<h2 class="tab">Smart Home Login</h2>
+<div class="login-form">
+<form action="/login" id="login-form" method="POST">
+<div class="group">
+<label class="label" for="username">Username</label>
+<input class="input" id="username" name="username" required="" type="text"/>
+</div>
+<div class="group">
+<label class="label" for="password">Password</label>
+<input class="input" id="password" minlength="6" name="password" required="" type="password"/>
+</div>
+<div class="group">
+<input class="button" type="submit" value="Sign In"/><br/>
+<div style="text-align: center;">
+<small>Contact: unique.smart.solutions@gmail.com </small><br/><br/>
+<small>Open-source project: <br/> https://github.com/uniquesmartsolutions/uniquesmartsolutions</small>
+</div>
+<a hidden="" href="/dashboard.html"></a>
+</div>
+</form>
+</div>
+</div>
+</div>
+</body>
+<!-- temp: update asap -->
+<script src="/assets/js/auth.js"> </script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("login-form");
+
+    loginForm?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = loginForm.username.value;
+      const password = loginForm.password.value;
+
+      if (window.validateLogin?.(username, password)) {
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Please input valid credentials!");
+      }
+    });
+  });
+</script>
+</html>
