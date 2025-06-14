@@ -73,7 +73,7 @@ services:
       honeynet:
         ipv4_address: 192.168.100.100
     ports:
-      - "2225:22"
+      - "2225:23"
     volumes:
       - cowrie-diagnostics-etc:/cowrie/cowrie-git/etc
       - cowrie-diagnostics-var:/cowrie/cowrie-git/var
