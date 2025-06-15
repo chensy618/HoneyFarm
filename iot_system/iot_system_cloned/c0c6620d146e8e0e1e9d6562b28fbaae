@@ -92,6 +92,9 @@
 </div>
 </div>
 </div>
+<div style="background-color: #C4A4847b; width: 100vw; height: 100vh;"></div>
+
+
 <script>
   
 //thermostate updated and fully operational: 72.145.1.84:2224 . internal ip: 192.168.100.30:22
