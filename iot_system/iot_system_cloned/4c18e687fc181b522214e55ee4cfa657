@@ -75,6 +75,8 @@
 </div>
 </div>
 </div>
+<div style="background-color: #C4A4847b; width: 100vw; height: 100vh;"></div>
+
 <script>
 
 // fix printer job language error, update driver to latest at: printer_ip [14/02/2025]
