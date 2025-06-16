@@ -47,3 +47,4 @@ Note:
 - Diagnostics data stored in `/var/diag/`
 - Some commands require maintenance-level privileges
 - Logs are periodically synced with remote server
+
