@@ -87,7 +87,6 @@ services:
       dockerfile: Dockerfile
     image: dtagdevsec/miniprint:testing
     read_only: true
-    container_name: miniprint
     restart: always
     ports:
       - "9100:9100"
