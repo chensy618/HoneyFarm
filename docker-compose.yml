@@ -85,7 +85,6 @@ services:
     build:
       context: ./miniprint
       dockerfile: Dockerfile
-    image: dtagdevsec/miniprint:testing
     read_only: true
     restart: always
     ports:
