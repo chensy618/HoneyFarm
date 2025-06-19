@@ -81,6 +81,23 @@ services:
     environment:
       <<: *shared-env
 
+  miniprint:
+    build:
+      context: ./miniprint
+      dockerfile: Dockerfile
+    image: dtagdevsec/miniprint:testing
+    read_only: true
+    container_name: miniprint
+    restart: always
+    ports:
+      - "9100:9100"
+    volumes:
+      - ./log/:/app/log/
+      - ./uploads/:/app/uploads/
+    networks:
+      honeynet:
+        ipv4_address: 192.168.100.150
+
 volumes:
   cowrie-appliances-etc:
   cowrie-appliances-var:
