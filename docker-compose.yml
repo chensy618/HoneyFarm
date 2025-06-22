@@ -88,7 +88,7 @@ services:
     read_only: true
     restart: always
     ports:
-      - "9100:9100"
+      - "2000:2000"
     volumes:
       - ./log/:/app/log/
       - ./uploads/:/app/uploads/
