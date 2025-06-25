@@ -27,6 +27,8 @@ import argparse
 import re
 import json
 from datetime import datetime, timezone
+import time
+import random
 
 
 class JSONFormatter(logging.Formatter):
@@ -251,6 +253,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                         response += printer.append_raw_print_job(command)
 
                 logger.info("Response sent", extra={'action': 'response', 'event': 'response_sent'})
+                time.sleep(random.uniform(0.1, 0.5))  # Simulate processing delay
                 self.request.sendall(response.encode('UTF-8'))
 
             except Exception as e:
@@ -271,9 +274,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
 
 if __name__ == "__main__":
-    HOST, PORT = args.host, 9100
+    HOST, PORT = args.host, 2000
 
     socketserver.TCPServer.allow_reuse_address = True
     server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
-    logger.info("Server started", extra={'action': 'start', 'event': 'server_start'})
+    logger.info("Server started, printer is ready to receive print jobs......", extra={'action': 'start', 'event': 'server_start'})
     server.serve_forever()

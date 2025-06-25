@@ -20,11 +20,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from pyfakefs import fake_filesystem
 import re
 from datetime import datetime
+import random
 
 class Printer:
-    def __init__(self, logger, printer_id="hp LaserJet 4200", code=10001, ready_msg="Ready", online=True):
-        self.printer_id = printer_id
-        self.code = code
+    def __init__(self, logger, printer_id="HP LJ4201n ProSeries", code=10010, ready_msg="Ready", online=True):
+        # self.printer_id = printer_id
+        self.printer_id = random.choice(["HP LJ4201n ProSeries", "Canon IPFX200", "Brother HL2035"])
+        # self.code = code
+        self.code = 0
         self.ready_msg = ready_msg
         self.online = online
         self.logger = logger
@@ -41,16 +44,29 @@ class Printer:
         self.fs.create_dir("/PostScript")
         self.fs.create_dir("/saveDevice/SavedJobs/InProgress")
         self.fs.create_dir("/saveDevice/SavedJobs/KeepJob")
-        self.fs.create_dir("/webServer/default")
-        self.fs.create_dir("/webServer/home")
-        self.fs.create_dir("/webServer/lib")
-        self.fs.create_dir("/webServer/objects")
-        self.fs.create_dir("/webServer/permanent")
-        self.fs.add_real_file(source_path="fake-files/csconfig", read_only=True, target_path="/webServer/default/csconfig")
-        self.fs.add_real_file(source_path="fake-files/device.html", read_only=True, target_path="/webServer/home/device.html")
-        self.fs.add_real_file(source_path="fake-files/hostmanifest", read_only=True, target_path="/webServer/home/hostmanifest")
-        self.fs.create_file("/webServer/lib/keys")
-        self.fs.create_file("/webServer/lib/security")
+        # self.fs.create_dir("/webServer/default")
+        # self.fs.create_dir("/webServer/home")
+        # self.fs.create_dir("/webServer/lib")
+        # self.fs.create_dir("/webServer/objects")
+        # self.fs.create_dir("/webServer/permanent")
+        # self.fs.add_real_file(source_path="fake-files/csconfig", read_only=True, target_path="/webServer/default/csconfig")
+        # self.fs.add_real_file(source_path="fake-files/device.html", read_only=True, target_path="/webServer/home/device.html")
+        # self.fs.add_real_file(source_path="fake-files/hostmanifest", read_only=True, target_path="/webServer/home/hostmanifest")
+        # self.fs.create_file("/webServer/lib/keys")
+        # self.fs.create_file("/webServer/lib/security")
+        self.fs.create_dir("/web/default")
+        self.fs.create_dir("/web/home")
+        self.fs.create_dir("/web/lib")
+        self.fs.create_dir("/web/objects")
+        self.fs.create_dir("/web/permanent")
+        self.fs.add_real_file(source_path="fake-files/csconfig", read_only=True, target_path="/web/default/csconfig")
+        self.fs.add_real_file(source_path="fake-files/device.html", read_only=True, target_path="/web/home/device.html")
+        self.fs.add_real_file(source_path="fake-files/hostmanifest", read_only=True, target_path="/web/home/hostmanifest")
+        self.fs.create_file("/web/lib/keys")
+        self.fs.create_file("/web/lib/security")
+        self.fs.create_file("/web/default/printer_log.txt")
+        self.fs.create_file("/web/default/report.pdf")
+        self.fs.create_file("/web/default/budget.pdf")
     
 
     def append_raw_print_job(self, text):
@@ -61,7 +77,7 @@ class Printer:
         self.printing_raw_job = True
         self.current_raw_print_job += text
         self.logger.info(
-            "Sending empty response",
+            "Sending empty response....null",
             extra={'action': 'response', 'event': 'empty_response'}
         )
         return ''
@@ -144,7 +160,7 @@ class Printer:
                 self.fos.remove(file_name)
 
         self.fs.create_file(file_path=file_name, contents=file_contents)  # TODO: Handle errors if file exists or containing directory doesn't exist
-        self.logger.info("Sending empty response", extra={'action': 'response', 'event': 'fsdownload'})
+        self.logger.info("Sending empty response 5s later", extra={'action': 'response', 'event': 'fsdownload'})
         return ''
 
 
@@ -152,7 +168,7 @@ class Printer:
         self.logger.info("Received request for delimiter", extra={'action': 'request', 'event': 'echo'})
         response = "@PJL " + request
         response += '\x1b'
-        self.logger.info("Responding with echo", extra={'action': 'response', 'event': 'echo', 'response': str(response.encode('UTF-8'))})
+        self.logger.info("Responding with echo immediately", extra={'action': 'response', 'event': 'echo', 'response': str(response.encode('UTF-8'))})
         return response
     
     
@@ -160,7 +176,7 @@ class Printer:
         request_parameters = self.get_parameters(request)
         requested_dir = request_parameters["NAME"].replace('"', '').split(":")[1]
     
-        self.logger.debug("Requested directory listing", extra={'action': 'request', 'event': 'fsdirlist', 'dir': requested_dir})
+        self.logger.debug("Requested directory listing?", extra={'action': 'request', 'event': 'fsdirlist', 'dir': requested_dir})
         return_entries = ""
     
         if self.fos.path.exists(requested_dir):
@@ -175,26 +191,26 @@ class Printer:
             return_entries = "FILEERROR = 3" # "file not found"
     
         response = '@PJL FSDIRLIST NAME=' + request_parameters['NAME'] + return_entries
-        self.logger.info("Directory listing response", extra={'action': 'response', 'event': 'fsdirlist', 'response': str(response.encode('UTF-8'))})
+        self.logger.info("Directory listing response done", extra={'action': 'response', 'event': 'fsdirlist', 'response': str(response.encode('UTF-8'))})
         return response
         
 
     def command_fsmkdir(self, request):
         request_parameters = self.get_parameters(request)
         requested_dir = request_parameters["NAME"].replace('"', '').split(":")[1]
-        self.logger.info("Creating directory", extra={'action': 'request', 'event': 'fsmkdir', 'dir': requested_dir})
+        self.logger.info("Creating directory in 2s", extra={'action': 'request', 'event': 'fsmkdir', 'dir': requested_dir})
     
         if not self.fos.path.exists(requested_dir):
             self.fs.create_dir(requested_dir)
     
-        self.logger.info("Directory created", extra={'action': 'response', 'event': 'fsmkdir'})
+        self.logger.info("Directory creation failed", extra={'action': 'response', 'event': 'fsmkdir'})
         return ''
     
     
     def command_fsquery(self, request):
         request_parameters = self.get_parameters(request)
         requested_item = request_parameters["NAME"].replace('"', '').split(":")[1]
-        self.logger.debug("Requested item", extra={'action': 'request', 'event': 'fsquery', 'item': requested_item})
+        self.logger.debug("Requested item print job: job ID 28332", extra={'action': 'request', 'event': 'fsquery', 'item': requested_item})
         return_data = ''
     
         if self.fos.path.exists(requested_item):
@@ -242,7 +258,7 @@ class Printer:
 
     def command_info_status(self, request):
         self.logger.info("Client requests status", extra={'action': 'request', 'event': 'info_status'})
-        response = '@PJL INFO STATUS\r\nCODE=' + str(self.code) + '\r\nDISPLAY="' + self.ready_msg + '"\r\nONLINE=' + str(self.online)
+        response = '@PJL INFO STATUS\r\nCODE=' + str(self.code) + '\r\nStandby="' + self.ready_msg + '"\r\nONLINE=' + str(self.online)
         self.logger.info("Status response", extra={'action': 'response', 'event': 'info_status', 'response': str(response.encode('UTF-8'))})
         return response
 
