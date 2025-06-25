@@ -63,7 +63,7 @@ class Command_cat(HoneyPotCommand):
                 emotion = self.protocol.emotion.get_state()
                 # print(f"[DEBUG] ----Command_cat: {pname} ----(emotion: {emotion})")
 
-                if any(token in pname for token in HONEYTOKEN_APPLIANCE_FILES):
+                if any(token in pname for token in HONEYTOKEN_DIAGNOSTICS_FILES):
                     try:
                         ssh_transport = self.protocol.getProtoTransport()
                         tcp = ssh_transport.transport

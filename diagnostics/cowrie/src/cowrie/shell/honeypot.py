@@ -18,6 +18,7 @@ from cowrie.core.config import CowrieConfig
 from cowrie.shell import fs
 from cowrie.shell import protocol
 from cowrie.personality_profile.profile import infer_personality_from_session
+from cowrie.honeytoken.email_alert import send_botnet_honeytoken_alert
 
 class HoneyPotShell:
     def __init__(
@@ -110,6 +111,30 @@ class HoneyPotShell:
                 self.showPrompt()
                 return
 
+        # detect botnet-like long command chains
+        full_command_line = line.strip()
+        num_connectors = full_command_line.count(';') + full_command_line.count('&&') + full_command_line.count('||') + full_command_line.count('|')
+        if len(full_command_line) > 300 or num_connectors >= 3:
+            session = getattr(self.protocol.user.avatar, "username", None)
+            ip = getattr(self.protocol.getProtoTransport().transport.getPeer(), "host", "unknown")
+            src_port = getattr(self.protocol.getProtoTransport().transport.getPeer(), "port", 0)
+            log.msg(
+                eventid="cowrie.command.botnet_like",
+                session=session,
+                input=full_command_line,
+                connectors=num_connectors,
+                length=len(full_command_line),
+                ip=ip,
+                format="[Botnet-Like] %(ip)s | session=%(session)s | connectors=%(connectors)d | length=%(length)d | Command:%(input)s"
+            )
+            send_botnet_honeytoken_alert(
+                session=session,
+                src_ip=ip,
+                src_port=src_port,
+                command=full_command_line,
+                connectors=num_connectors,
+                length=len(full_command_line)
+            )
         if self.cmdpending:
             # if we have a complete command, go and run it
             self.runCommand()
@@ -279,7 +304,7 @@ class HoneyPotShell:
             # If 10 valid commands have been recorded, perform personality inference (only once)
             if len(session.pta_extracted_commands) == 10 and not hasattr(session, "_personality_inferred"):
                 result = infer_personality_from_session(session)
-                session._personality_inferred = True
+                session._personality_inferred = result
                 if result:
                     log.msg(
                         eventid="cowrie.personality.inferred",

@@ -19,7 +19,7 @@ from cowrie.shell import fs
 from cowrie.shell.command import HoneyPotCommand
 from typing import TYPE_CHECKING
 from cowrie.honeytoken.email_alert import send_honeytoken_email
-from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_DIAGNOSTICS_FILES
+from cowrie.honeytoken.honeyfiles  import HONEYTOKEN_DIAGNOSTICS_FOLDERS
 
 if TYPE_CHECKING:
     from collections.abc import Callable
