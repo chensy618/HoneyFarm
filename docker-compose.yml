@@ -67,7 +67,7 @@ services:
 
   cowrie-diagnostics:
     build:
-      context: ./diagnostics/cowrie/
+      context: ./diagnostics/cowrie/ee
       dockerfile: docker/Dockerfile
     networks:
       honeynet:
@@ -81,20 +81,20 @@ services:
     environment:
       <<: *shared-env
 
-  miniprint:
-    build:
-      context: ./miniprint
-      dockerfile: Dockerfile
-    read_only: true
-    restart: always
-    ports:
-      - "2000:2000"
-    volumes:
-      - ./log/:/app/log/
-      - ./uploads/:/app/uploads/
-    networks:
-      honeynet:
-        ipv4_address: 192.168.100.150
+  # miniprint:
+  #   build:
+  #     context: ./miniprint
+  #     dockerfile: Dockerfile
+  #   read_only: true
+  #   restart: always
+  #   ports:
+  #     - "2000:2000"
+  #   volumes:
+  #     - ./log/:/app/log/
+  #     - ./uploads/:/app/uploads/
+  #   networks:
+  #     honeynet:
+  #       ipv4_address: 192.168.100.150
 
 volumes:
   cowrie-appliances-etc:
