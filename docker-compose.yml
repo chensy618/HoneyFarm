@@ -67,7 +67,7 @@ services:
 
   cowrie-diagnostics:
     build:
-      context: ./diagnostics/cowrie/ee
+      context: ./diagnostics/cowrie/
       dockerfile: docker/Dockerfile
     networks:
       honeynet:
