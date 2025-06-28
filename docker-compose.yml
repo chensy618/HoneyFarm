@@ -25,7 +25,7 @@ services:
       honeynet:
         ipv4_address: 192.168.100.10
     ports:
-      - "2222:22"
+      - "5900:22"
     volumes:
       - cowrie-appliances-etc:/cowrie/cowrie-git/etc
       - cowrie-appliances-var:/cowrie/cowrie-git/var
@@ -41,7 +41,7 @@ services:
       honeynet:
         ipv4_address: 192.168.100.20
     ports:
-      - "2223:22"
+      - "554:22"
     volumes:
       - cowrie-lighting-etc:/cowrie/cowrie-git/etc
       - cowrie-lighting-var:/cowrie/cowrie-git/var
@@ -57,7 +57,7 @@ services:
       honeynet:
         ipv4_address: 192.168.100.30
     ports:
-      - "2224:22"
+      - "5000:22"
     volumes:
       - cowrie-thermostat-etc:/cowrie/cowrie-git/etc
       - cowrie-thermostat-var:/cowrie/cowrie-git/var
@@ -73,7 +73,7 @@ services:
       honeynet:
         ipv4_address: 192.168.100.100
     ports:
-      - "2225:23"
+      - "23:23"
     volumes:
       - cowrie-diagnostics-etc:/cowrie/cowrie-git/etc
       - cowrie-diagnostics-var:/cowrie/cowrie-git/var
@@ -81,20 +81,20 @@ services:
     environment:
       <<: *shared-env
 
-  # miniprint:
-  #   build:
-  #     context: ./miniprint
-  #     dockerfile: Dockerfile
-  #   read_only: true
-  #   restart: always
-  #   ports:
-  #     - "2000:2000"
-  #   volumes:
-  #     - ./log/:/app/log/
-  #     - ./uploads/:/app/uploads/
-  #   networks:
-  #     honeynet:
-  #       ipv4_address: 192.168.100.150
+  miniprint:
+    build:
+      context: ./miniprint
+      dockerfile: Dockerfile
+    read_only: true
+    restart: always
+    ports:
+      - "9100:9100"
+    volumes:
+      - ./log/:/app/log/
+      - ./uploads/:/app/uploads/
+    networks:
+      honeynet:
+        ipv4_address: 192.168.100.150
 
 volumes:
   cowrie-appliances-etc:
