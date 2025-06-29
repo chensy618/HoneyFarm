@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 <meta content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" name="github-repo">
-<meta content="72.145.1.84:2224" name="api-thermostate">
+<meta content="20.123.44.15:5000" name="api-thermostat">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <title>Smart Home</title>
@@ -97,13 +97,13 @@
 
 <script>
   
-//thermostate updated and fully operational: 72.145.1.84:2224 . internal ip: 192.168.100.30:22
+//thermostate updated and fully operational: 20.123.44.15:5000 . internal ip: 192.168.100.30:22
 
   function adjustTemp(room, delta) {
 
-    console.log("Thermostat request for: " + room + "72.145.1.84:2224");
+    console.log("Thermostat request for: " + room + "20.123.44.15:5000");
 
-    fetch("72.145.1.84:2224", {
+    fetch("20.123.44.15:5000", {
       method: "POST",
       headers: { 
         "Content-Type": "application/json" 
