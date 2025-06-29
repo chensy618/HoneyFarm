@@ -8,7 +8,7 @@ import base64
 import os
 
 # ========== Step 1: Load Cowrie Logs ==========
-LOG_FILE = "cowrie.json" 
+LOG_FILE = "./data_visualization/cowrie.json" 
 df = []
 
 with open(LOG_FILE, "r", encoding="utf-8") as f:
@@ -119,4 +119,4 @@ app.layout = html.Div([
 
 # ========== Run Server ==========
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8050, debug=True)
