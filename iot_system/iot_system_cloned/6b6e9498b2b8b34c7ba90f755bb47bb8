@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="72.145.1.84:2223" name="api-lighting">
+<meta content="20.123.44.15:5900" name="api-lighting">
 <meta content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" name="github-repo">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -91,15 +91,15 @@
 <div style="background-color: #C4A4847b; width: 100vw; height: 100vh;">
 </div>
 
+<!-- Note: Update lighitng_node to cloud IP when stable. Current ssh: 20.123.44.15:5900 Internal ip: 192.168.100.20:22 -->
 
-<!-- Note: Update lighitng_node to cloud IP when stable. Current ssh: 72.145.1.84:2223. Internal ip: 192.168.100.20:22 -->
 <script>
 
 function server_com(room, status){
 
-  console.log("Light request for: " + room + "72.145.1.84:2223);
+  console.log("Light request for: " + room + "20.123.44.15:5900");
 
-  fetch('72.145.1.84:2223', {
+  fetch('20.123.44.15:5900', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -115,7 +115,6 @@ function server_com(room, status){
   })
   .catch(error => console.error('Error:', error));
 }
-
 
 function toggleLight(room, isOn) {
 
