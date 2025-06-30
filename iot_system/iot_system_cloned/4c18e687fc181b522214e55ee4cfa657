@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 <meta content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" name="github-repo">
-<meta content="printer-ip" name="api-printer">
+<meta content="20.123.44.15:9100" name="api-printer">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <title>Smart Home</title>
@@ -79,12 +79,12 @@
 
 <script>
 
-// fix printer job language error, update driver to latest at: printer_ip [14/02/2025]
+// fix printer job language error, update driver to latest at: 20.123.44.15:9100 [14/02/2025]
 
 function printer_connect(filename, status){
-  console.log("Print request for: " + filename + "printer_ip");
+  console.log("Print request for: " + filename + "20.123.44.15:9100");
 
-  fetch('http://printer_node_ip/print', {
+  fetch('20.123.44.15:9100', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
