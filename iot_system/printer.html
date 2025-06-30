@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="github-repo" content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" />
-    <meta name="api-printer" content="printer-ip" />
+    <meta name="api-printer" content="20.123.44.15:9100" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
@@ -89,10 +89,10 @@
 
 <script>
 
-// fix printer job language error, update driver to latest at: printer_ip [14/02/2025]
+// fix printer job language error, update driver to latest at: 20.123.44.15:9100 [14/02/2025]
 
 function printer_connect(filename, status){
-  console.log("Print request for: " + filename + "printer_ip");
+  console.log("Print request for: " + filename + "20.123.44.15:9100");
 
   fetch('http://printer_node_ip/print', {
     method: 'POST',
