@@ -456,8 +456,8 @@ class Command_cd(HoneyPotCommand):
     def response_cd(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             return _cycle(protocol, emotion, [
-                "--bash: cd: could not change directory to `{protocol.cwd}`: No such file or directory",
-                "--bash: cd: could not change directory to `{protocol.cwd}`: Permission denied",
+                "--bash: cd: could not change directory to `{protocol.pwd}`: No such file or directory",
+                "--bash: cd: could not change directory to `{protocol.pwd}`: Permission denied",
                 "cd: 𓂀ꧧ�\u2060҂Ͷ߷𐍈��‍‍​‍ݽꙅ𐑃𓆣ࡘ৳𐤀ؼࠬ֎ͫ⚠️🝗꒰Ꙩ𒀭𐤴",
                 "var log app sys auth messages",
                 "var log app sys auth messages",
@@ -465,8 +465,8 @@ class Command_cd(HoneyPotCommand):
         elif trait == Personality.CONSCIENTIOUSNESS:
             return _cycle(protocol, emotion, [
                 "cd: permission denied",
-                "cd: could not find directory `{protocol.cwd}`",
-                "cd: directory `{protocol.cwd}` is not accessible",
+                "cd: could not find directory `{protocol.pwd}`",
+                "cd: directory `{protocol.pwd}` is not accessible",
                 "cd: opt/usr/bin/sbin: No such file or directory",
                 ""
             ])

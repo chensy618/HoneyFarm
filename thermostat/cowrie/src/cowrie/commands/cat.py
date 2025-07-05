@@ -188,7 +188,7 @@ or available locally via: info '(coreutils) cat invocation'
             elif emotion == Emotion.FRUSTRATION:
                 protocol.emotion.set_state(Emotion.SELF_DOUBT)
                 # generate unreadable code - gibberish text
-                string = SguhRUPZT3HJ
+                string = "SguhRUPZT3HJ"
                 return f"cat: {string}: file not found"
             elif emotion == Emotion.SELF_DOUBT:
                 protocol.emotion.set_state(Emotion.CONFIDENCE)
