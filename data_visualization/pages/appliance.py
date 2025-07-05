@@ -4,8 +4,8 @@ from data_loader import load_and_process_log, enrich_geo, load_logs_bulk
 from components import *
 
 def appliance_layout():
-    # df = load_and_process_log("./data_visualization/cowrie.json.2025-06-27")
-    df = load_logs_bulk("./data_visualization/raw_logs/honeyfarm_cowrie-appliances-var/_data/log/cowrie") 
+    df = load_and_process_log("./data_visualization/cowrie.json.2025-06-27")
+    # df = load_logs_bulk("./data_visualization/raw_logs/honeyfarm_cowrie-appliances-var/_data/log/cowrie") 
     df = enrich_geo(df)
 
     return html.Div([
