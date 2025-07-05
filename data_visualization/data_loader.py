@@ -23,6 +23,23 @@ def load_and_process_log(filepath):
     df["hour"] = df["timestamp"].dt.floor("h")
     return df
 
+def load_logs_bulk(log_dir):
+    """
+    Load all Cowrie logs from a directory and return as a combined DataFrame.
+    """
+    logs = []
+    for filename in os.listdir(log_dir):
+        if filename.startswith("cowrie.json"):
+            filepath = os.path.join(log_dir, filename)
+            with open(filepath, "r") as f:
+                lines = f.readlines()
+                for line in lines:
+                    try:
+                        logs.append(json.loads(line.strip()))
+                    except json.JSONDecodeError:
+                        continue
+    return pd.DataFrame(logs)
+
 def enrich_geo(df, cache_path="./data_visualization/ip_country_cache.json"):
     if "src_ip" not in df.columns:
         return df
