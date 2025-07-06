@@ -44,7 +44,7 @@ Available Commands:
   • error summary     Summarize active/warning errors
 
 Note:
-- Diagnostics data stored in `/var/diag/`
+- Diagnostics data stored in `/diagnostics/`
 - Some commands require maintenance-level privileges
 - Logs are periodically synced with remote server
 
