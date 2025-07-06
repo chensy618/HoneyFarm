@@ -15,12 +15,12 @@ kmem:x:15:
 dialout:x:20:
 fax:x:21:
 voice:x:22:
-cdrom:x:24:phil
-floppy:x:25:phil
+cdrom:x:24:david
+floppy:x:25:david
 tape:x:26:
 sudo:x:27:
-audio:x:29:phil
-dip:x:30:phil
+audio:x:29:david
+dip:x:30:david
 www-data:x:33:
 backup:x:34:
 operator:x:37:
