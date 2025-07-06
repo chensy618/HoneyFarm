@@ -30,9 +30,9 @@ src:x:40:
 gnats:x:41:
 shadow:x:42:
 utmp:x:43:
-video:x:44:phil
+video:x:44:david
 sasl:x:45:
-plugdev:x:46:phil
+plugdev:x:46:david
 staff:x:50:
 games:x:60:
 users:x:100:
