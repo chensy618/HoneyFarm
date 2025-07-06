@@ -12,7 +12,7 @@ import copy
 import getopt
 import os.path
 import re
-
+import datetime
 from twisted.python import log
 
 from cowrie.shell import fs
