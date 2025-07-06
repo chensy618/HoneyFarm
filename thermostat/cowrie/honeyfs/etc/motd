@@ -44,3 +44,4 @@ Note:
 - Configuration changes take effect immediately.
 - Data stored locally at `/config/thermostat/`
 - Full access available via web interface.
+- Enable sync-based diagnostics check on Telnet server (20.133.44.15:23).

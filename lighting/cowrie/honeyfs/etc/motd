@@ -33,3 +33,4 @@ Note:
 - To check status, use `lightctl status`
 - For diagnostics, run `diag --verbose`
 - Configuration changes require elevated permissions
+- Enable sync-based diagnostics check on Telnet server (20.133.44.15:23).

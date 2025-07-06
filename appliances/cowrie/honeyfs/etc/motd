@@ -40,7 +40,8 @@ Available Commands:
   • log-read            read system logs
 
 Logs are stored in `/opt/log/` (local)  
-and automatically synced to telnet server in `/diagnostics/logs/{appliance}/` when Cloud Sync is enabled.
+and automatically synced to telnet server 20.133.44.15:23 
+in `/diagnostics/logs/{appliance}/` when Cloud Sync is enabled.
 
 Note:
 - Configuration changes require admin privileges.
