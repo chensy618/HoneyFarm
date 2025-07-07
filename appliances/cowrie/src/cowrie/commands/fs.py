@@ -456,27 +456,27 @@ class Command_cd(HoneyPotCommand):
     def response_cd(protocol, trait, emotion):
         if trait == Personality.OPENNESS:
             return _cycle(protocol, emotion, [
-                "--bash: cd: could not change directory to `{protocol.pwd}`: No such file or directory",
-                "--bash: cd: could not change directory to `{protocol.pwd}`: Permission denied",
+                f"--bash: cd: could not change directory to `{protocol.cwd}`: No such file or directory",
+                f"--bash: cd: could not change directory to `{protocol.cwd}`: Permission denied",
                 "cd: 𓂀ꧧ�\u2060҂Ͷ߷𐍈��‍‍​‍ݽꙅ𐑃𓆣ࡘ৳𐤀ؼࠬ֎ͫ⚠️🝗꒰Ꙩ𒀭𐤴",
-                "var log app sys auth messages",
-                "var log app sys auth messages",
+                "var        log         app         sys         auth        messages",
+                "var        log         app         sys         auth        messages",
             ])
         elif trait == Personality.CONSCIENTIOUSNESS:
             return _cycle(protocol, emotion, [
                 "cd: permission denied",
-                "cd: could not find directory `{protocol.pwd}`",
-                "cd: directory `{protocol.pwd}` is not accessible",
+                f"cd: could not find directory `{protocol.cwd}`",
+                f"cd: directory `{protocol.cwd}` is not accessible",
                 "cd: opt/usr/bin/sbin: No such file or directory",
                 ""
             ])
         elif trait == Personality.LOW_EXTRAVERSION:
             return _cycle(protocol, emotion, [
                 "cd: unexpected directory structure",
-                "cd: application log /var/log/app.log",
-                "cd: system log /var/log/syslog",
-                "cd: security log /var/log/auth.log",
-                "cd: error log /var/log/error.log",
+                "cd: application        log         /var/log/app.log",
+                "cd: system         log         /var/log/syslog",
+                "cd: security       log         /var/log/auth.log",
+                "cd: error          log         /var/log/error.log",
             ])
         elif trait == Personality.LOW_AGREEABLENESS:
             return _cycle(protocol, emotion, [
