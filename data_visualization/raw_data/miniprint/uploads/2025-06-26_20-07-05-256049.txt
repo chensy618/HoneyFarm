@@ -1,0 +1,5 @@
+GET / HTTP/1.1
+Host: 72.145.1.84:2000
+User-Agent: 'Mozilla/5.0 (compatible; GenomeCrawlerd/1.0; +https://www.nokia.com/genomecrawler)'
+Accept: */*
+Accept-Encoding: gzip

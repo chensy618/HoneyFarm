@@ -94,7 +94,7 @@ def load_miniprint_file(filepath: str) -> pd.DataFrame:
 
     df = pd.DataFrame(logs)
 
-    # 自动识别 src_ip 字段
+    # identify src_ip field
     if "src_ip" not in df.columns:
         if "src" in df.columns:
             df["src_ip"] = df["src"]

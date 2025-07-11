@@ -8,7 +8,10 @@ from components import (
     miniprint_job_table,
     miniprint_activity_hour_bar,
     miniprint_ip_summary_table,
-    miniprint_geo_heatmap
+    miniprint_geo_heatmap,
+    miniprint_job_detail_table,
+    miniprint_merged_table,
+    miniprint_event_type_bar_with_line
 )
 
 
@@ -32,7 +35,7 @@ def miniprint_layout():
 
             html.Div([
                 html.H3("Event Type Distribution"),
-                dcc.Graph(figure=miniprint_event_type_bar(df))
+                dcc.Graph(figure=miniprint_event_type_bar_with_line(df))
             ], style={"width": "48%", "display": "inline-block", "float": "right"})
         ], style={"padding": "20px 5%"}),
 
@@ -50,16 +53,21 @@ def miniprint_layout():
         
         html.Div([
             html.Div([
-                html.H3("Print Job Trend Over Time"),
+                html.H3("Print Job Event Trend Over Time"),
                 dcc.Graph(figure=miniprint_event_trend_line(df))
             ], style={"width": "100%", "display": "inline-block"}),
 
             html.Div([
-                html.H3("Activity by Hour of Day"),
+                html.H3("Time-of-Day Analysis of Malicious Activity"),
                 dcc.Graph(figure=miniprint_activity_hour_bar(df))
             ], style={"width": "100%", "display": "inline-block"})
         ], style={"padding": "20px 5%"}),
         
-        html.H3("Print Job Summary Table"),
-        miniprint_job_table(df)
+        html.Div([
+            html.H1("Miniprint Job Analysis"),
+            # miniprint_job_table(df),
+            # miniprint_job_detail_table(df),  # detailed job content
+            miniprint_merged_table(df)  # summarized table
+        ]),
+
     ])

@@ -1,0 +1,9 @@
+OPTIONS sip:72.145.1.84 SIP/2.0
+Via: SIP/2.0/TCP 185.247.137.127:5060;rport;branch=z9hG4bKtvzkyswi
+Max-Forwards: 0
+To: sip:72.145.1.84
+From: sip:185.247.137.127;tag=tvzkyswi
+Call-ID: tvzkyswi
+CSeq: 1 OPTIONS
+Accept: application/sdp
+Content-Length: 0
