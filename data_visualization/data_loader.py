@@ -6,6 +6,7 @@ import requests
 import pandas as pd
 import geoip2.database
 import re
+import ast
 from datetime import datetime
 
 def load_and_process_log(filepath):
@@ -206,10 +207,112 @@ def load_snare_log_data(filepath):
 
     df = pd.DataFrame(records)
 
-    # 清洗
+    # build dataframe
     df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
     df['path'] = df['path'].fillna("N/A")
     df['msg'] = df['msg'].fillna("")
     df['behavior'] = "unknown"
 
+    return df
+
+
+
+# This function is used to fetch data from tanner.log
+def load_tanner_log_data(filepath: str) -> pd.DataFrame:
+    """
+    Parses tanner.log with 3-line pattern:
+    1. Access log line with timestamp, IP, status
+    2. Path line with requested path
+    3. TANNER response line with sess_uuid and detection
+    """
+    records = []
+    with open(filepath, 'r') as file:
+        lines = file.readlines()
+
+    current = {}
+    for line in lines:
+        line = line.strip()
+
+        # Line 1: Access Log
+        match_access = re.match(r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) INFO:aiohttp\.access:log: (\d+\.\d+\.\d+\.\d+).*?"\w+ .*?" (\d{3})', line)
+        if match_access:
+            current = {
+                "timestamp": match_access.group(1),
+                "src_ip": match_access.group(2),
+                "status": int(match_access.group(3))
+            }
+            continue
+
+        # Line 2: Path
+        match_path = re.search(r"Requested path (.+)", line)
+        if match_path and current:
+            current["path"] = match_path.group(1)
+            continue
+
+        # Line 3: JSON Response
+        match_resp = re.search(r"TANNER response (.+)", line)
+        if match_resp and current:
+            try:
+                response_dict = ast.literal_eval(match_resp.group(1))
+                message = response_dict.get("response", {}).get("message", {})
+                detection = message.get("detection", {})
+                current["uuid"] = message.get("sess_uuid", None)
+                current["detection_name"] = detection.get("name", None)
+                current["detection_type"] = detection.get("type", None)
+            except Exception as e:
+                current["uuid"] = None
+                current["detection_name"] = None
+                current["detection_type"] = None
+
+            records.append(current)
+            current = {}  # Reset for next record
+
+    df = pd.DataFrame(records)
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    return df
+
+
+def extract_error_type_from_message(message: str) -> str:
+    """
+    from traceback get Error, such as PermissionError
+    """
+    lines = message.strip().splitlines()
+    for line in reversed(lines):
+        match = re.match(r"^\s*(\w+Error):", line)
+        if match:
+            return match.group(1)
+    return "Unknown"
+
+def load_tanner_err_data(filepath: str) -> pd.DataFrame:
+    """
+    Load tanner.err logs as plain text DataFrame,
+    extracting timestamp, level, source, function, message,
+    file info and error type.
+    """
+    records = []
+    with open(filepath, 'r') as file:
+        for line in file:
+            match = re.match(
+                r"^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) (?P<level>\w+):(?P<source>[^:]+):(?P<function>[^:]+): (?P<message>.*)",
+                line.strip()
+            )
+            if match:
+                data = match.groupdict()
+
+                # extract file and line number from traceback if present
+                fileline = re.search(r'File "(.+?)", line (\d+)', data["message"])
+                if fileline:
+                    data["file"] = fileline.group(1)
+                    data["line"] = int(fileline.group(2))
+                else:
+                    data["file"] = None
+                    data["line"] = None
+
+                # extract error type (e.g., PermissionError)
+                data["error_type"] = extract_error_type_from_message(data["message"])
+
+                records.append(data)
+
+    df = pd.DataFrame(records)
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     return df

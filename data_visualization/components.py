@@ -7,6 +7,7 @@ import plotly.express as px
 from dash import dcc
 import plotly.graph_objects as go
 import pandas as pd
+from collections import Counter
 
 def top_command_bar(df):
     cmds = df["input"].dropna().value_counts().reset_index()
@@ -321,20 +322,31 @@ def snare_err_top_ip_table(df):
 
 # Snare Error Log: Access Path Table
 def snare_err_path_table(df):
+    # count paths
     path_counts = df["path"].value_counts().reset_index()
     path_counts.columns = ["Path", "Request Count"]
+
+    # calculate percentage
+    total = path_counts["Request Count"].sum()
+    path_counts["Percentage"] = path_counts["Request Count"] / total * 100
+    path_counts["Percentage"] = path_counts["Percentage"].map(lambda x: f"{x:.1f}%")
 
     return html.Div([
         html.H3("Accessed Paths"),
         dash_table.DataTable(
-            columns=[{"name": col, "id": col} for col in path_counts.columns],
+            columns=[
+                {"name": "Path", "id": "Path"},
+                {"name": "Request Count", "id": "Request Count"},
+                {"name": "Percentage", "id": "Percentage"},
+            ],
             data=path_counts.to_dict("records"),
+            page_size=10,
             style_cell={"textAlign": "left", "padding": "6px"},
             style_header={"fontWeight": "bold", "backgroundColor": "#f0f0f0"},
-            style_table={"overflowX": "auto"},
-            page_size=10
+            style_table={"overflowX": "auto"}
         )
     ], style={"padding": "10px 5%"})
+
 
 # Snare Error Log: Attack Frequency Line
 def snare_err_attack_frequency(df):
@@ -351,9 +363,21 @@ def snare_err_attack_frequency(df):
         markers=True,
         text="count"
     )
+
     fig.update_traces(textposition="top center")
-    fig.update_layout(margin={"l": 20, "r": 20, "t": 40, "b": 40})
+
+    fig.update_layout(
+        title={
+            "text": "Attack Frequency Over Time (per Hour)",
+            "x": 0.5,  # Center the title
+            "xanchor": "center"
+        },
+        title_font=dict(size=18, family="Arial", color="black"),
+        margin=dict(l=20, r=20, t=60, b=40)
+    )
+
     return dcc.Graph(figure=fig)
+
 
 
 # The following functions are used for snare.log
@@ -481,20 +505,31 @@ def snare_log_top_ip_pip_chart(df):
 
 
 def snare_log_top_path_table(df):
+    # filter out NaN and "N/A" paths
     top_paths = df[df['path'] != 'N/A']['path'].value_counts().nlargest(50).reset_index()
     top_paths.columns = ['Path', 'Count']
-    
+
+    # calculate percentage
+    total = top_paths['Count'].sum()
+    top_paths['Percentage'] = top_paths['Count'] / total * 100
+    top_paths['Percentage'] = top_paths['Percentage'].map(lambda x: f"{x:.1f}%")
+
     return html.Div([
         html.H3("Top 50 Request Paths"),
         dash_table.DataTable(
-            columns=[{"name": col, "id": col} for col in top_paths.columns],
+            columns=[
+                {"name": "Path", "id": "Path"},
+                {"name": "Count", "id": "Count"},
+                {"name": "Percentage", "id": "Percentage"},
+            ],
             data=top_paths.to_dict("records"),
-            page_size=10,  
+            page_size=10,
             style_cell={"textAlign": "left", "padding": "6px"},
             style_header={"fontWeight": "bold", "backgroundColor": "#f0f0f0"},
             style_table={"overflowX": "auto"}
         )
     ], style={"padding": "10px 5%"})
+
 
 def snare_log_ip_heatmap(df):
     if not {"latitude", "longitude"}.issubset(df.columns):
@@ -572,3 +607,137 @@ def snare_log_attack_frequency(df):
         dcc.Graph(figure=fig_hour, style={"paddingLeft": "0px", "paddingRight": "0"}),
         dcc.Graph(figure=fig_date, style={"paddingLeft": "0px", "paddingRight": "0"}),
     ])
+
+
+# The following functions are used for tanner.log
+def tanner_log_table(df):
+    cols = ["timestamp", "src_ip", "path", "uuid", "detection_name", "detection_type", "status"]
+    df = df[cols].copy()
+
+    return html.Div([
+        html.H3("Tanner Log Summary Table"),
+        dash_table.DataTable(
+            # columns=[{"name": c.replace('_', ' ').title(), "id": c} for c in cols],
+            columns=[
+                {"name": "Timestamp", "id": "timestamp"},
+                {"name": "Tanner IP", "id": "src_ip"},  
+                {"name": "Requested Path", "id": "path"},
+                {"name": "Uuid", "id": "uuid"},
+                {"name": "Detection Name", "id": "detection_name"},
+                {"name": "Detection Type", "id": "detection_type"},
+                {"name": "Status", "id": "status"},
+            ],
+            data=df.sort_values("timestamp", ascending=False).to_dict("records"),
+            page_size=20,
+            style_table={"overflowX": "auto"},
+            style_cell={"textAlign": "left", "padding": "5px", "maxWidth": "400px", "whiteSpace": "normal"},
+            style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"}
+        )
+    ])
+
+def tanner_log_path_bar(df):
+    top_paths = df["path"].value_counts().nlargest(10).reset_index()
+    top_paths.columns = ["Path", "Count"]
+    fig = px.bar(top_paths, x="Path", y="Count", title="Top 10 Attacked Paths", text="Count")
+    return dcc.Graph(figure=fig)
+
+def tanner_log_hourly_bar(df):
+    df = df.copy()
+    df["hour"] = pd.to_datetime(df["timestamp"]).dt.hour
+    counts = df["hour"].value_counts().sort_index().reset_index()
+    counts.columns = ["Hour", "Count"]
+    fig = px.bar(counts, x="Hour", y="Count", title="Hourly Request Distribution", text="Count")
+    return dcc.Graph(figure=fig)
+
+def tanner_top10_path_table(df):
+    path_count = df["path"].value_counts().reset_index().head(10)
+    path_count.columns = ["Path", "Count"]
+
+    # Calculate percentage
+    total = path_count["Count"].sum()
+    path_count["Percentage"] = path_count["Count"] / total * 100
+    path_count["Percentage"] = path_count["Percentage"].map(lambda x: f"{x:.1f}%")
+
+    table = dash_table.DataTable(
+        columns=[
+            {"name": "Path", "id": "Path"},
+            {"name": "Count", "id": "Count"},
+            {"name": "Percentage", "id": "Percentage"},
+        ],
+        data=path_count.to_dict("records"),
+        style_table={"overflowX": "auto"},
+        style_cell={"textAlign": "left", "padding": "6px"},
+        style_header={"fontWeight": "bold", "backgroundColor": "#f0f0f0"},
+    )
+
+    return html.Div([
+        html.H4("Top 10 Attacked Paths"),
+        table
+    ])
+
+def tanner_hourly_line_chart(df):
+    df["hour"] = pd.to_datetime(df["timestamp"]).dt.hour
+    hourly_counts = df["hour"].value_counts().sort_index()
+    fig = px.line(
+        x=hourly_counts.index,
+        y=hourly_counts.values,
+        markers=True,
+        labels={"x": "Hour", "y": "Count"},
+        title="Hourly Request Distribution"
+    )
+    fig.update_traces(text=hourly_counts.values, textposition="top center")
+    fig.update_layout(xaxis=dict(dtick=1))
+
+    return dcc.Graph(figure=fig)
+
+
+# The following functions are used for tanner.err
+def tanner_err_type_chart(df):
+    counts = df["message"].value_counts().nlargest(10).reset_index()
+    counts.columns = ["Error Message", "Count"]
+    fig = px.bar(counts, x="Error Message", y="Count", title="Top Error Types", text="Count")
+    return dcc.Graph(figure=fig)
+
+def tanner_err_type_pie_chart(df):
+    counts = df["message"].value_counts().nlargest(10).reset_index()
+    counts.columns = ["Error Message", "Count"]
+
+    fig = px.pie(
+        counts,
+        names="Error Message",
+        values="Count",
+        title="Top Error Types",
+        hole=0.4  
+    )
+
+    fig.update_traces(textinfo="percent+label")  # show percentage and label
+    fig.update_layout(
+        title={
+            "text": "Top Error Types",
+            "x": 0.0,
+            "xanchor": "left"
+        },
+        title_font=dict(size=18, family="Arial Black", color="black"),
+        margin=dict(t=60, l=20, r=20, b=20)
+    )
+
+    return dcc.Graph(figure=fig)
+
+def tanner_err_time_series(df):
+    df = df.copy()
+    df["date"] = pd.to_datetime(df["timestamp"]).dt.date
+    time_count = df["date"].value_counts().sort_index().reset_index()
+    time_count.columns = ["Date", "Count"]
+    fig = px.line(time_count, x="Date", y="Count", title="Error Frequency Over Time", markers=True)
+    return dcc.Graph(figure=fig)
+
+def tanner_err_trace_blocks(df):
+    df = df.copy()
+    traces = df["message"].dropna().unique()[:5]
+    return html.Div([
+        html.H3("Sample Error Traces"),
+        *[html.Details([html.Summary(f"Trace #{i+1}"), html.Pre(trace)]) for i, trace in enumerate(traces)]
+    ], style={"padding": "10px 5%"})
+
+
+
