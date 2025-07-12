@@ -6,8 +6,7 @@ from wordcloud import WordCloud
 import plotly.express as px
 from dash import dcc
 import plotly.graph_objects as go
-
-
+import pandas as pd
 
 def top_command_bar(df):
     cmds = df["input"].dropna().value_counts().reset_index()
@@ -247,20 +246,20 @@ def miniprint_ip_summary_table(df):
     ], style={"padding": "20px 5%"})
 
 def miniprint_job_detail_table(df):
-    # 过滤 append 和 save 事件
+    # filter append and save events
     filtered_df = df[df["event"].isin(["append_raw_print_job", "save_raw_print_job"])].copy()
 
-    # 显示 job_text 或 file_name
+    # show job_text or file_name
     def extract_content(row):
         if row["event"] == "append_raw_print_job":
-            return row.get("job_text", "")[:200]  # 限制展示长度
+            return row.get("job_text", "")[:200]  # limit to 200 characters
         elif row["event"] == "save_raw_print_job":
             return row.get("file_name", "")
         return ""
 
     filtered_df["Content"] = filtered_df.apply(extract_content, axis=1)
 
-    # 提取并简化展示字段
+    # filter and rename columns
     filtered_df = filtered_df[["timestamp", "src_ip", "event", "Content"]].dropna()
     filtered_df.columns = ["Timestamp", "Source IP", "Event", "Content"]
 
@@ -300,6 +299,276 @@ def miniprint_geo_heatmap(df):
     return dcc.Graph(figure=fig)
 
 
+# The following functions are used for snare.err
+# Snare Error Log: Top IP Table
+def snare_err_top_ip_table(df):
+    ip_counts = df["src_ip"].value_counts().reset_index()
+    ip_counts.columns = ["IP Address", "Count"]
+    total = ip_counts["Count"].sum()
+    ip_counts["Share (%)"] = (ip_counts["Count"] / total * 100).round(1).astype(str) + "%"
+
+    return html.Div([
+        html.H3("Top Attacker IPs"),
+        dash_table.DataTable(
+            columns=[{"name": col, "id": col} for col in ip_counts.columns],
+            data=ip_counts.to_dict("records"),
+            style_cell={"textAlign": "left", "padding": "6px"},
+            style_header={"fontWeight": "bold", "backgroundColor": "#f0f0f0"},
+            style_table={"overflowX": "auto"},
+            page_size=10
+        )
+    ], style={"padding": "10px 5%"})
+
+# Snare Error Log: Access Path Table
+def snare_err_path_table(df):
+    path_counts = df["path"].value_counts().reset_index()
+    path_counts.columns = ["Path", "Request Count"]
+
+    return html.Div([
+        html.H3("Accessed Paths"),
+        dash_table.DataTable(
+            columns=[{"name": col, "id": col} for col in path_counts.columns],
+            data=path_counts.to_dict("records"),
+            style_cell={"textAlign": "left", "padding": "6px"},
+            style_header={"fontWeight": "bold", "backgroundColor": "#f0f0f0"},
+            style_table={"overflowX": "auto"},
+            page_size=10
+        )
+    ], style={"padding": "10px 5%"})
+
+# Snare Error Log: Attack Frequency Line
+def snare_err_attack_frequency(df):
+    df = df.copy()
+    df["hour"] = df["timestamp"].dt.floor("h") 
+    freq_df = df.groupby("hour").size().reset_index(name="count")
+
+    fig = px.line(
+        freq_df,
+        x="hour",
+        y="count",
+        title="Attack Frequency Over Time (per Hour)",
+        labels={"hour": "Time", "count": "Requests"},
+        markers=True,
+        text="count"
+    )
+    fig.update_traces(textposition="top center")
+    fig.update_layout(margin={"l": 20, "r": 20, "t": 40, "b": 40})
+    return dcc.Graph(figure=fig)
 
 
+# The following functions are used for snare.log
 
+def snare_log_classify_behavior(df):
+    df['behavior'] = 'unknown'
+
+    df.loc[df['msg'].str.contains("Go-http-client|Odin", na=False), 'behavior'] = 'scanner'
+
+    font_404 = df['path'].str.contains("fa-solid-900.(woff2|ttf)", na=False) & df['msg'].str.contains(' 404 ', na=False)
+    df.loc[font_404, 'behavior'] = 'font_404'
+
+    special_paths = df['path'].str.contains(r'\.git/config|XDEBUG_SESSION_START|redlion|solr|HNAP1|evox', na=False)
+    df.loc[special_paths, 'behavior'] = 'special_probe'
+
+    browser_agent = df['msg'].str.contains("Mozilla", na=False)
+    normal_pages = df['path'].isin([
+        "/", "/dashboard.html", "/lighting.html", "/thermostat.html", "/appliances.html", "/printer.html"
+    ])
+    df.loc[browser_agent & normal_pages, 'behavior'] = 'Human_Attacker'
+
+    return df
+
+# Snare Log: Behavior Pie Chart
+def snare_log_behavior_pie(df):
+    behavior_counts = df['behavior'].value_counts()
+    fig = px.pie(
+        names=behavior_counts.index,
+        values=behavior_counts.values,
+        title="Behavior Classification Breakdown"
+    )
+    return dcc.Graph(figure=fig)
+
+# Snare Log: Top Request Paths (Bar Chart)
+def snare_log_top_paths_bar(df):
+    top_paths = df['path'].value_counts().nlargest(10)
+    fig = px.bar(
+        x=top_paths.index,
+        y=top_paths.values,
+        labels={'x': 'Request Path', 'y': 'Count'},
+        title="Top 10 Requested Paths"
+    )
+    fig.update_layout(margin=dict(t=40, l=10, r=10, b=40))
+    return dcc.Graph(figure=fig)
+
+# Snare Log: Recent Event Table
+def snare_log_status_table(df):
+    df = df.copy()
+
+    # set IP（snare.server should be replaced to N/A）
+    df["src_ip"] = df.apply(
+        lambda row: "N/A" if row["source"] == "snare.server" else row.get("src_ip", "None"),
+        axis=1
+    )
+
+    # intercept message
+    df["msg"] = df["msg"].apply(lambda x: x[:250] + "..." if isinstance(x, str) and len(x) > 250 else x)
+
+    columns = [
+        {"name": "Timestamp", "id": "timestamp"},
+        {"name": "IP Address", "id": "src_ip"},
+        {"name": "Path", "id": "path"},
+        {"name": "Level", "id": "level"},
+        {"name": "Source", "id": "source"},
+        {"name": "Behavior", "id": "behavior"},
+        {"name": "Message", "id": "msg"},
+    ]
+
+    return html.Div([
+        # html.H4("Raw Request Events Behavior Analysis", style={"marginTop": "30px"}),
+        dash_table.DataTable(
+            columns=columns,
+            data=df.sort_values(by="timestamp", ascending=False).to_dict("records"),
+            page_size=15,
+            style_cell={
+                "textAlign": "left",
+                "padding": "6px",
+                "whiteSpace": "normal",
+                "maxWidth": "1000px",
+                "overflow": "hidden",
+                "textOverflow": "ellipsis",
+                "fontSize": "14px"
+            },
+            style_cell_conditional=[
+                {
+                    'if': {'column_id': 'src_ip'},
+                    'whiteSpace': 'nowrap',
+                    'overflow': 'hidden',
+                    'textOverflow': 'ellipsis',
+                    'maxWidth': '120px'
+                },
+                 {
+                    'if': {'column_id': 'timestamp'},
+                    'whiteSpace': 'nowrap',
+                    'overflow': 'hidden',
+                    'textOverflow': 'ellipsis',
+                    'maxWidth': '160px'
+                }
+            ],
+            style_header={
+                "fontWeight": "bold",
+                "backgroundColor": "#f0f0f0",
+                "fontSize": "15px"
+            },
+            style_table={
+                "overflowX": "auto",
+                "minWidth": "1200px",
+            }
+        )
+    ], style={"paddingLeft": "0px", "paddingRight": "0"})
+
+def snare_log_top_ip_pip_chart(df):
+    # exclude NaN and "None" values
+    filtered_ips = df['src_ip'].dropna()
+    filtered_ips = filtered_ips[filtered_ips != "None"]
+
+    top_ips = filtered_ips.value_counts().nlargest(10)
+
+    fig = px.pie(
+        names=top_ips.index,
+        values=top_ips.values,
+        title="Top 10 Source IPs"
+    )
+    return dcc.Graph(figure=fig)
+
+
+def snare_log_top_path_table(df):
+    top_paths = df[df['path'] != 'N/A']['path'].value_counts().nlargest(50).reset_index()
+    top_paths.columns = ['Path', 'Count']
+    
+    return html.Div([
+        html.H3("Top 50 Request Paths"),
+        dash_table.DataTable(
+            columns=[{"name": col, "id": col} for col in top_paths.columns],
+            data=top_paths.to_dict("records"),
+            page_size=10,  
+            style_cell={"textAlign": "left", "padding": "6px"},
+            style_header={"fontWeight": "bold", "backgroundColor": "#f0f0f0"},
+            style_table={"overflowX": "auto"}
+        )
+    ], style={"padding": "10px 5%"})
+
+def snare_log_ip_heatmap(df):
+    if not {"latitude", "longitude"}.issubset(df.columns):
+        return html.Div("GeoIP data missing. Please enrich with latitude and longitude.")
+
+    geo_df = df.dropna(subset=["latitude", "longitude"])
+    geo_grouped = (
+        geo_df
+        .groupby(["latitude", "longitude"])
+        .size()
+        .reset_index(name="count")
+    )
+
+    fig = px.density_mapbox(
+        geo_grouped, lat="latitude", lon="longitude", z="count", radius=15,
+        center=dict(lat=20, lon=0), zoom=1,
+        mapbox_style="carto-positron",
+    )
+
+    fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0})
+
+    return dcc.Graph(figure=fig)
+
+def snare_log_attack_frequency(df):
+    df = df.copy()
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+
+    # Attack frequency by hour
+    df["hour"] = df["timestamp"].dt.hour
+    df["date"] = pd.to_datetime(df["timestamp"].dt.date)
+    hour_freq = df["hour"].value_counts().sort_index()
+    
+    fig_hour = go.Figure()
+    fig_hour.add_trace(go.Bar(
+        x=hour_freq.index,
+        y=hour_freq.values,
+        name="Hourly Frequency",
+        marker_color="#636efa"
+    ))
+    fig_hour.add_trace(go.Scatter(
+    x=hour_freq.index,
+    y=hour_freq.values,
+    mode="lines+markers+text",
+    name="Smoothed Trend",
+    line=dict(shape='spline', color='orange', width=2),
+    marker=dict(size=6),
+    text=[str(v) for v in hour_freq.values],   # add numbers 
+    textposition="top center"                  # place text above the markers
+    ))
+
+    fig_hour.update_layout(
+        title="Snare Log: Hourly Attack Frequency with Trend Line",
+        xaxis_title="Hour of Day",
+        yaxis_title="Number of Requests",
+        plot_bgcolor="#f5f8fc",
+        hovermode="x unified",
+        margin=dict(t=50, l=50, r=30, b=50),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    )
+
+    # Attack frequency by date
+    df["date"] = df["timestamp"].dt.date
+    date_freq = df["date"].value_counts().sort_index()
+    fig_date = px.line(
+        x=date_freq.index,
+        y=date_freq.values,
+        markers=True,
+        labels={"x": "Date", "y": "Number of Requests"},
+        title="Snare Log: Daily Attack Frequency",
+    )
+    fig_date.update_layout(margin=dict(l=20, r=20, t=50, b=40))
+
+    return html.Div([
+        html.H3("Snare Log Attack Frequency Overview"),
+        dcc.Graph(figure=fig_hour, style={"paddingLeft": "0px", "paddingRight": "0"}),
+        dcc.Graph(figure=fig_date, style={"paddingLeft": "0px", "paddingRight": "0"}),
+    ])
