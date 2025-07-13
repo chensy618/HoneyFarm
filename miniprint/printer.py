@@ -25,7 +25,7 @@ import random
 class Printer:
     def __init__(self, logger, printer_id="HP LJ4201n ProSeries", code=10010, ready_msg="Ready", online=True):
         # self.printer_id = printer_id
-        self.printer_id = random.choice(["HP LJ4201n ProSeries", "Canon IPFX200", "Brother HL2035"])
+        self.printer_id = random.choice(["HP LJ4201n ProSeries", "Canon IPFX200", "Brother HL2035", "Canon iR-ADV C3525", "Epson WF-4740"])
         # self.code = code
         self.code = 0
         self.ready_msg = ready_msg
@@ -67,6 +67,9 @@ class Printer:
         self.fs.create_file("/web/default/printer_log.txt")
         self.fs.create_file("/web/default/report.pdf")
         self.fs.create_file("/web/default/budget.pdf")
+        fake_files = ["invoice-2025-06-30.pdf", "report_2025.pdf", "confidential_notes.txt", "log_summary.csv"]
+        chosen_file = random.choice(fake_files)
+        self.fs.create_file(f"/web/default/{chosen_file}")
     
 
     def append_raw_print_job(self, text):
@@ -244,14 +247,14 @@ class Printer:
         else:
             return_data = 'NAME=' + request_parameters['NAME'] + '\r\nFILEERROR=3\r\n'
 
-        response = '@PJL FSUPLOAD ' + return_data
+        response = '@PJL FSUPLOAD FILES' + return_data
         self.logger.info("Upload response", extra={'action': 'response', 'event': 'fsupload', 'response': str(response.encode('UTF-8'))})
         return response
 
     
     def command_info_id(self, request):
         self.logger.info("ID requested", extra={'action': 'request', 'event': 'info_id'})
-        response = '@PJL INFO ID\r\n' + self.printer_id + '\r\n\x1b'
+        response = '@PJL PRINT INFO ID\r\n' + self.printer_id + '\r\n\x1b'
         self.logger.info("ID response", extra={'action': 'response', 'event': 'info_id', 'response': str(response.encode('UTF-8'))})
         return response
         

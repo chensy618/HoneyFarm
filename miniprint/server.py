@@ -172,6 +172,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         
         printer = Printer(logger)
         emptyRequest = False
+        # Simulate JetDirect greeting banner
+        banner = b"\x1b%-12345X@PJL\r\nINFO ID\r\nHP LaserJet 4250\r\n\x1b%-12345X"
+        self.request.sendall(banner)
         while emptyRequest == False:
             # Wait a maximum of conn_timeout seconds for another request
             ready = select.select([self.request], [], [], conn_timeout)
@@ -225,30 +228,43 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                         if printer.printing_raw_job:
                             printer.save_raw_print_job()
                         if command.startswith("ECHO"):
+                            time.sleep(random.uniform(0.5, 2.0))  
                             response += printer.command_echo(command)
                         elif command.startswith("USTATUSOFF"):
                             response += printer.command_ustatusoff(command)
                         elif command.startswith("INFO ID"):
                             response += printer.command_info_id(command)
                         elif command.startswith("INFO STATUS"):
+                            time.sleep(random.uniform(0.5, 2.0))  
                             response += printer.command_info_status(command)
                         elif command.startswith("FSDIRLIST"):
                             response += printer.command_fsdirlist(command)
                         elif command.startswith("FSQUERY"):
                             response += printer.command_fsquery(command)
                         elif command.startswith("FSMKDIR"):
+                            time.sleep(random.uniform(0.5, 2.0))  
                             response += printer.command_fsmkdir(command)
                         elif command.startswith("FSUPLOAD"):
                             response += printer.command_fsupload(command)
                         elif command.startswith("FSDOWNLOAD"):
+                            time.sleep(random.uniform(0.5, 2.0))  
                             response += printer.command_fsdownload(command)
                         elif command.startswith("RDYMSG"):
+                            time.sleep(random.uniform(0.5, 2.0))  
                             response += printer.command_rdymsg(command)
                         else:
                             logger.error(
                                 "Unknown command received", 
                                 extra={'action': 'cmd_unknown', 'command': str(command)}
                             )
+                    elif command.startswith("INFO MEMORY"):
+                        if random.random() < 0.8:
+                            response += '@PJL INFO MEMORY\r\nTOTAL=65536\r\nAVAIL=12345\r\n\x1b'
+                        else:
+                            logger.error("Unsupported INFO command", extra={'command': command})
+                    elif command.startswith("INFO CONFIG"):
+                        time.sleep(random.uniform(0.5, 2.0))  
+                        continue  
                     else:
                         response += printer.append_raw_print_job(command)
 
@@ -274,7 +290,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
 
 if __name__ == "__main__":
-    HOST, PORT = args.host, 2000
+    HOST, PORT = args.host, 9100
 
     socketserver.TCPServer.allow_reuse_address = True
     server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
