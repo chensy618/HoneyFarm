@@ -45,17 +45,61 @@ def top_command_bar(df):
 def top_ip_pie(df):
     if "src_ip" not in df.columns:
         return html.Div("No attacker IP data.")
+
     ip_count = df["src_ip"].value_counts().head(10).reset_index()
     ip_count.columns = ["src_ip", "count"]
-    return px.pie(ip_count, names="src_ip", values="count", title="Top 10 Attacker IPs")
+
+    fig = px.pie(
+        ip_count,
+        names="src_ip",
+        values="count",
+        title="Top 10 Attacker IPs"
+    )
+
+    # Rotate so the biggest slice is not on top
+    fig.update_traces(
+        sort=False,
+        rotation=90,   # or tweak to 180, 270 etc
+        textposition="inside",
+        textinfo="percent+label"
+    )
+
+    fig.update_layout(
+        margin=dict(t=60, b=60, l=40, r=40)
+    )
+
+    return fig
+
 
 def top_user_pie(df):
     user_col = "username" if "username" in df.columns else "user" if "user" in df.columns else None
     if not user_col:
         return html.Div("No attempted user data.")
+
     user_count = df[user_col].value_counts().head(10).reset_index()
     user_count.columns = ["username", "count"]
-    return px.pie(user_count, names="username", values="count", title="Top 10 Attempted Users")
+
+    fig = px.pie(
+        user_count,
+        names="username",
+        values="count",
+        title="Top 10 Attempted Users",
+        hole=0.0
+    )
+
+    # rotate the pie so the biggest slice starts at the side instead of top
+    fig.update_traces(
+        sort=False,
+        rotation=90,   
+        textposition="inside",
+        textinfo="percent+label"
+    )
+
+    fig.update_layout(
+        margin=dict(t=60, b=60, l=40, r=40)
+    )
+
+    return fig
 
 def wordcloud_img(df):
     if "geo_country" not in df.columns:
