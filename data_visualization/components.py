@@ -9,27 +9,60 @@ import plotly.graph_objects as go
 import pandas as pd
 from collections import Counter
 
+# COWRIE !!!!!
+
 def top_command_bar(df):
     cmds = df["input"].dropna().value_counts().reset_index()
     cmds.columns = ["command", "count"]
-    return px.bar(cmds.head(15), x="count", y="command", orientation='h', title="Top 15 Commands")
+
+    # optionally truncate long commands for display:
+    cmds["command_short"] = cmds["command"].apply(lambda x: x if len(x) < 50 else x[:47] + "...")
+
+    fig = px.bar(
+        cmds.head(15),
+        x="count",
+        y="command_short",
+        orientation='h',
+        title="Top 15 Commands",
+        text="count"
+    )
+
+    fig.update_layout(
+        yaxis_title="Command",
+        xaxis_title="Count",
+        margin=dict(l=250, r=80, t=50, b=50),  
+        yaxis=dict(autorange="reversed"),
+    )
+
+    fig.update_traces(
+        textposition="outside",
+        marker_color="cornflowerblue"
+    )
+
+    return fig
+
 
 def top_ip_pie(df):
-    if "src_ip" not in df.columns: return None
-    ip_count = df["src_ip"].value_counts().head(20).reset_index()
+    if "src_ip" not in df.columns:
+        return html.Div("No attacker IP data.")
+    ip_count = df["src_ip"].value_counts().head(10).reset_index()
     ip_count.columns = ["src_ip", "count"]
-    return px.pie(ip_count, names="src_ip", values="count", title="Top 20 Attacker IPs")
+    return px.pie(ip_count, names="src_ip", values="count", title="Top 10 Attacker IPs")
 
 def top_user_pie(df):
     user_col = "username" if "username" in df.columns else "user" if "user" in df.columns else None
-    if not user_col: return None
-    user_count = df[user_col].value_counts().head(20).reset_index()
+    if not user_col:
+        return html.Div("No attempted user data.")
+    user_count = df[user_col].value_counts().head(10).reset_index()
     user_count.columns = ["username", "count"]
-    return px.pie(user_count, names="username", values="count", title="Top 20 Attempted Users")
+    return px.pie(user_count, names="username", values="count", title="Top 10 Attempted Users")
 
 def wordcloud_img(df):
-    if "geo_country" not in df.columns: return html.Div("No geo data")
+    if "geo_country" not in df.columns:
+        return html.Div("No geo data.")
     country_counts = df["geo_country"].value_counts().to_dict()
+    if not country_counts:
+        return html.Div("No geo data available.")
     wc = WordCloud(width=400, height=250, background_color="white").generate_from_frequencies(country_counts)
     path = "tmp_wc.png"
     wc.to_file(path)
@@ -37,18 +70,168 @@ def wordcloud_img(df):
     os.remove(path)
     return html.Img(src=f"data:image/png;base64,{img}", style={"width": "100%"})
 
-def latest_commands_table(df):
-    if not {"timestamp", "session", "input"}.issubset(df.columns):
-        return html.Div("No command data found.")
+def ip_duration_table(df):
+    #build a table with source IP and duration spent on honeypot.   
+    if not {"session", "eventid", "timestamp"}.issubset(df.columns):
+        return html.Div("Required columns missing.")
+
+    # Filter for connect and closed events
+    connect_df = df[df["eventid"] == "cowrie.session.connect"].copy()
+    closed_df = df[df["eventid"] == "cowrie.session.closed"].copy()
+
+    # merge on session
+    merged = pd.merge(
+        connect_df[["session", "src_ip", "timestamp"]],
+        closed_df[["session", "timestamp"]],
+        on="session",
+        suffixes=("_start", "_end")
+    )
+
+    # calculate duration in seconds
+    merged["duration_sec"] = (
+        pd.to_datetime(merged["timestamp_end"]) - pd.to_datetime(merged["timestamp_start"])
+    ).dt.total_seconds().round(1)
+
+    merged.rename(columns={"src_ip": "IP Address"}, inplace=True)
+    merged = merged[["IP Address", "duration_sec"]].copy()
+    merged.columns = ["IP Address", "Duration (seconds)"]
+
     return dash_table.DataTable(
-        columns=[{"name": i, "id": i} for i in ["timestamp", "session", "input"]],
-        data=df[["timestamp", "session", "input"]].to_dict("records"),
+        columns=[{"name": col, "id": col} for col in merged.columns],
+        data=merged.to_dict("records"),
+        style_cell={"textAlign": "left", "padding": "5px"},
+        style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+        style_table={"overflowX": "auto"},
+        page_size=15
+    )
+
+def latest_commands_table(df):
+    """
+    Create a DataTable of all executed commands,
+    dropping empty input, and adding src_ip for each command.
+    """
+
+    required_cols = {"timestamp", "session", "input"}
+    if not required_cols.issubset(df.columns):
+        return html.Div("No command data found.")
+
+    # If 'src_ip' already exists, use it, else infer it
+    if "src_ip" not in df.columns and "eventid" in df.columns:
+        # Fill missing IPs by mapping session connect events
+        session_ip_map = (
+            df[df["eventid"] == "cowrie.session.connect"]
+            .groupby("session")["src_ip"]
+            .first()
+            .to_dict()
+        )
+        df["src_ip"] = df["session"].map(session_ip_map)
+
+    # Drop rows with empty input
+    filtered_df = df[df["input"].notna() & df["input"].str.strip().ne("")].copy()
+
+    if filtered_df.empty:
+        return html.Div("No command data available after filtering.")
+
+    # Select and rename columns for clarity
+    display_cols = ["timestamp", "session", "src_ip", "input"]
+
+    return dash_table.DataTable(
+        columns=[{"name": col.replace("_", " ").title(), "id": col} for col in display_cols],
+        data=filtered_df[display_cols].to_dict("records"),
         style_table={"maxHeight": "400px", "overflowY": "auto"},
-        style_cell={"textAlign": "left", "whiteSpace": "pre-line", "maxWidth": "400px"},
+        style_cell={"textAlign": "left", "whiteSpace": "pre-line", "maxWidth": "600px"},
         style_header={"fontWeight": "bold"},
         page_action="none",
         fixed_rows={"headers": True}
     )
+
+def most_requested_endpoints_table(df):
+    from dash import dash_table, html
+
+    # Filter for honeytoken events with valid input
+    honeytoken_df = df[
+        (df["eventid"] == "cowrie.honeytoken") & 
+        df["input"].notna() & (df["input"] != "")
+    ].copy()
+
+    if honeytoken_df.empty:
+        return html.Div("No honeytoken file/folder requests found.")
+
+    # Count number of requests per input
+    counts = honeytoken_df["input"].value_counts().reset_index()
+    counts.columns = ["File/Folder", "Requests"]
+
+    # Top 10 only
+    top_endpoints = counts.head(10)
+
+    return html.Div([
+        dash_table.DataTable(
+            columns=[{"name": col, "id": col} for col in top_endpoints.columns],
+            data=top_endpoints.to_dict("records"),
+            style_table={"maxHeight": "400px", "overflowY": "auto"},
+            style_cell={"textAlign": "left", "padding": "5px"},
+            style_header={"fontWeight": "bold"},
+            page_size=10
+        )
+    ], style={"padding": "20px 5%"})
+
+
+def mask_ip_address(ip):
+    parts = ip.split(".")
+    if len(parts) == 4:
+        return f"{parts[0]}.{parts[1]}.xx.xx"
+    return ip
+
+def ip_summary_table(df):
+    ip_counts = df["src_ip"].dropna().value_counts().reset_index()
+    ip_counts.columns = ["src_ip", "count"]
+
+    total = ip_counts["count"].sum()
+    ip_counts["percentage"] = ip_counts["count"] / total * 100
+    ip_counts["percentage"] = ip_counts["percentage"].map(lambda x: f"{x:.1f}%")
+
+    ip_counts["IP address"] = ip_counts["src_ip"].apply(mask_ip_address)
+
+    if "country" in df.columns:
+        ip_country_map = df[["src_ip", "country"]].dropna().drop_duplicates().set_index("src_ip")["country"]
+        ip_counts["Country"] = ip_counts["src_ip"].map(ip_country_map)
+    else:
+        ip_counts["Country"] = "Unknown"
+
+    ip_counts = ip_counts[["IP address", "Country", "count", "percentage"]]
+    ip_counts.columns = ["IP address", "Country", "Interactions", "Share (%)"]
+
+    top_10 = ip_counts.head(10)
+
+    return html.Div([
+        dash_table.DataTable(
+            columns=[{"name": col, "id": col} for col in top_10.columns],
+            data=top_10.to_dict("records"),
+            style_cell={"textAlign": "left", "padding": "5px"},
+            style_cell_conditional=[
+                {"if": {"column_id": "Interactions"}, "textAlign": "center"},
+                {"if": {"column_id": "Share (%)"}, "textAlign": "center"}
+            ],
+            style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+            style_table={"overflowX": "auto"},
+            page_size=10
+        )
+    ], style={"padding": "20px 5%"})
+
+def geo_heatmap(df):
+    if not {"latitude", "longitude"}.issubset(df.columns):
+        return html.Div("GeoIP data missing.")
+    geo_df = df.dropna(subset=["latitude", "longitude"])
+    if geo_df.empty:
+        return html.Div("No geo data points to plot.")
+    geo_grouped = geo_df.groupby(["latitude", "longitude"]).size().reset_index(name="count")
+    fig = px.density_mapbox(
+        geo_grouped, lat="latitude", lon="longitude", z="count", radius=15,
+        center=dict(lat=20, lon=0), zoom=1,
+        mapbox_style="carto-positron"
+    )
+    fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0})
+    return dcc.Graph(figure=fig)
 
 # The following functions are used for miniprint
 
