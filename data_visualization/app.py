@@ -12,7 +12,8 @@ app = Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
 # Encode icon image
-with open("./data_visualization/assets/honeyfarm_icon.jpg", "rb") as f:
+with open("./data_visualization/assets/honeyfarm_logo1.png", "rb") as f:
+# with open("./data_visualization/assets/honeyfarm_icon.jpg", "rb") as f:
     icon_data = base64.b64encode(f.read()).decode("utf-8")
 
 app.layout = html.Div([
@@ -20,7 +21,7 @@ app.layout = html.Div([
     html.Div(id="page-content")
 ], style={
     "fontFamily": "Arial, sans-serif",
-    "backgroundImage": "url('./data_visualization/assets/dashboard_bg.png')",
+    # "backgroundImage": "url('./data_visualization/assets/dashboard_bg.png')",
     "backgroundSize": "cover",
     "backgroundPosition": "center",
     "minHeight": "100vh",
@@ -44,8 +45,8 @@ def display_page(pathname):
     return html.Div([
         html.Div([
             html.Img(src=f"data:image/png;base64,{icon_data}", style={"width": "240px", "marginBottom": "30px"}),
-            html.H1("Welcome to Honeyfarm Dashboard", style={"color": "#2c3e50"}),
-            html.H3("Select a Node to View:", style={"color": "#34495e"})
+            html.H1("HoneyFarm Data Analysis Dashboard", style={"color": "#91572b"}),
+            # html.H3("Select a Node to View:", style={"color": "#91572b"})
         ], style={"textAlign": "center", "marginBottom": "40px"}),
 
         html.Div([
