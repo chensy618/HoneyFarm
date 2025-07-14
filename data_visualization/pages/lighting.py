@@ -86,6 +86,10 @@ def lighting_layout():
             html.H3("IP Session Duration"),
             ip_duration_table(df)
         ], style={"width": "100%", "padding": "20px 5%"}),
+        html.Div([
+            html.H3("Top IPs Based on Duration"),
+            top_10_duration_ips_table(df)
+        ], style={"width": "100%", "padding": "20px 5%"}),
 
         html.H3("Executed Commands"),
         latest_commands_table(df)
