@@ -14,6 +14,7 @@ from components import (
     commands_summary_table,
     event_type_bar_with_line,
     ip_duration_table,
+    top_10_duration_ips_table,
     most_requested_endpoints_table   
 )
 
