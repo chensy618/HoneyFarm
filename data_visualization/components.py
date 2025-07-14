@@ -248,9 +248,29 @@ def commands_summary_table(df):
     return dash_table.DataTable(
         columns=[{"name": col, "id": col} for col in cmds.columns],
         data=cmds.to_dict("records"),
-        style_table={"overflowX": "auto"},
-        style_cell={"textAlign": "left", "padding": "5px", "whiteSpace": "pre-line", "maxWidth": "600px"},
-        style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+        style_table={
+            "overflowX": "auto",
+            "minWidth": "600px",  
+        },
+        style_cell={
+            "textAlign": "left",
+            "padding": "5px",
+            "whiteSpace": "pre-line",
+            "minWidth": "150px",   
+            "maxWidth": "500px",   
+        },
+        style_cell_conditional=[
+            {
+                "if": {"column_id": "count"},
+                "minWidth": "50px",
+                "maxWidth": "100px",
+                "textAlign": "center",
+            }
+        ],
+        style_header={
+            "fontWeight": "bold",
+            "backgroundColor": "#f8f8f8",
+        },
         page_size=10
     )
 
