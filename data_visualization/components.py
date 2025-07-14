@@ -149,12 +149,53 @@ def ip_duration_table(df):
         page_size=15
     )
 
-def latest_commands_table(df):
-    """
-    Create a DataTable of all executed commands,
-    dropping empty input, and adding src_ip for each command.
-    """
+def top_10_duration_ips_table(df):
+    
+    #ips that spent the most time on the honeypot.
+    
+    if not {"session", "eventid", "timestamp", "src_ip"}.issubset(df.columns):
+        return html.Div("Required columns missing for duration analysis.")
 
+    connect_df = df[df["eventid"] == "cowrie.session.connect"].copy()
+    closed_df = df[df["eventid"] == "cowrie.session.closed"].copy()
+    
+    merged = pd.merge(
+        connect_df[["session", "src_ip", "timestamp"]],
+        closed_df[["session", "timestamp"]],
+        on="session",
+        suffixes=("_start", "_end")
+    )
+
+    # duration per session
+    merged["duration_sec"] = (
+        pd.to_datetime(merged["timestamp_end"]) - pd.to_datetime(merged["timestamp_start"])
+    ).dt.total_seconds()
+
+    # group IP and sum durations
+    grouped = (
+        merged.groupby("src_ip")["duration_sec"]
+        .sum()
+        .reset_index()
+        .sort_values("duration_sec", ascending=False)
+        .head(10)
+    )
+
+    grouped["duration_sec"] = grouped["duration_sec"].round(1)
+    grouped.columns = ["IP Address", "Total Duration (seconds)"]
+
+    return html.Div([
+        dash_table.DataTable(
+            columns=[{"name": col, "id": col} for col in grouped.columns],
+            data=grouped.to_dict("records"),
+            style_table={"overflowX": "auto"},
+            style_cell={"textAlign": "left", "padding": "5px"},
+            style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+            page_size=10
+        )
+    ], style={"padding": "20px 5%"})
+
+def latest_commands_table(df):
+    #table for executed commands    
     required_cols = {"timestamp", "session", "input"}
     if not required_cols.issubset(df.columns):
         return html.Div("No command data found.")
