@@ -188,6 +188,71 @@ def latest_commands_table(df):
         page_action="none",
         fixed_rows={"headers": True}
     )
+def activity_hour_bar(df):
+    df = df.copy()
+    df["hour"] = df["timestamp"].dt.hour
+    hourly_counts = df["hour"].value_counts().sort_index().reset_index()
+    hourly_counts.columns = ["hour", "count"]
+
+    fig = px.line(
+        hourly_counts,
+        x="hour",
+        y="count",
+        title="When Do They Strike?",
+        labels={"hour": "Hour of Day", "count": "Event Count"},
+        text="count"
+    )
+    fig.update_traces(textposition="top center")
+    fig.update_xaxes(dtick=1)
+
+    fig.update_layout(margin=dict(t=60, b=60, l=40, r=20))
+
+    return fig
+
+
+def event_type_bar_with_line(df):
+    if "eventid" not in df.columns:
+        return html.Div("No eventid data.")
+    event_count = df["eventid"].value_counts().reset_index()
+    event_count.columns = ["eventid", "count"]
+
+    bar = go.Bar(
+        x=event_count["eventid"], 
+        y=event_count["count"], 
+        name="Count", 
+        text=event_count["count"], 
+        textposition="outside"
+    )
+    line = go.Scatter(
+        x=event_count["eventid"], 
+        y=event_count["count"], 
+        name="Trend", 
+        mode="lines+markers", 
+        line_shape="spline"
+    )
+
+    fig = go.Figure(data=[bar, line])
+    fig.update_layout(
+        title="Event Type Distribution with Trend",
+        xaxis_title="Event ID",
+        yaxis_title="Count",
+        showlegend=True,
+        margin=dict(t=60, l=40, r=20, b=120)
+    )
+    return fig
+
+def commands_summary_table(df):
+    cmds = df["input"].dropna().value_counts().reset_index()
+    cmds.columns = ["command", "count"]
+
+    return dash_table.DataTable(
+        columns=[{"name": col, "id": col} for col in cmds.columns],
+        data=cmds.to_dict("records"),
+        style_table={"overflowX": "auto"},
+        style_cell={"textAlign": "left", "padding": "5px", "whiteSpace": "pre-line", "maxWidth": "600px"},
+        style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+        page_size=10
+    )
 
 def most_requested_endpoints_table(df):
     from dash import dash_table, html
