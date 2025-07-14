@@ -14,6 +14,7 @@ from components import (
     commands_summary_table,
     event_type_bar_with_line,
     ip_duration_table,
+    top_10_duration_ips_table,
     most_requested_endpoints_table   
 )
 
@@ -85,6 +86,10 @@ def thermostat_layout():
         html.Div([
             html.H3("IP Session Duration"),
             ip_duration_table(df)
+        ], style={"width": "100%", "padding": "20px 5%"}),
+        html.Div([
+            html.H3("Top IPs Based on Duration"),
+            top_10_duration_ips_table(df)
         ], style={"width": "100%", "padding": "20px 5%"}),
 
         html.H3("Executed Commands"),
