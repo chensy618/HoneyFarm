@@ -1,6 +1,8 @@
 # file: components.py
 import base64
 import os
+import re
+import json
 from dash import html, dash_table
 from wordcloud import WordCloud
 import plotly.express as px
@@ -30,6 +32,8 @@ def top_command_bar(df):
     fig.update_layout(
         yaxis_title="Command",
         xaxis_title="Count",
+        xaxis=dict(
+        range=[0, cmds['count'].max() * 1.3]),
         margin=dict(l=250, r=80, t=50, b=50),  
         yaxis=dict(autorange="reversed"),
     )
@@ -40,6 +44,78 @@ def top_command_bar(df):
     )
 
     return fig
+
+def personality_traits_bar(log_file):
+    trait_pattern = re.compile(r"Top-1 Trait Label\s*:\s*(.+)")
+
+    big_five_traits = [
+        "Openness to Experience",
+        "Conscientiousness",
+        "Low Extraversion",
+        "Low Agreeableness",
+        "Low Neuroticism"
+    ]
+
+    trait_counts = Counter({trait: 0 for trait in big_five_traits})
+
+    # def_message
+    warning_msg = None
+
+    if os.path.exists(log_file):
+        with open(log_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip().startswith("{"):
+                    try:
+                        entry = json.loads(line)
+                        msg = entry.get("log", "")
+                    except:
+                        continue
+                else:
+                    msg = line
+
+                match = trait_pattern.search(msg)
+                if match:
+                    label = match.group(1).strip()
+                    if label in trait_counts:
+                        trait_counts[label] += 1
+
+        if sum(trait_counts.values()) == 0:
+            warning_msg = "No personality trait data found in logs."
+    else:
+        warning_msg = "No personality trait data found in logs."
+
+    df = pd.DataFrame(
+        sorted(trait_counts.items(), key=lambda x: x[1]),
+        columns=["Trait", "Count"]
+    )
+
+    fig = px.bar(
+        df,
+        x="Count",
+        y="Trait",
+        orientation="h",
+        text="Count",
+        color_discrete_sequence=["#1f77b4"],
+        title="Top Attacker Personality Traits"
+    )
+
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        showlegend=False,
+        margin=dict(l=120, r=50, t=50, b=50),
+        height=400
+    )
+
+    children = []
+    if warning_msg:
+        children.append(html.Div(
+            warning_msg,
+            style={"color": "red", "fontWeight": "bold", "marginBottom": "10px"}
+        ))
+
+    children.append(dcc.Graph(figure=fig))
+
+    return html.Div(children)
 
 
 def top_ip_pie(df):
@@ -325,7 +401,7 @@ def most_requested_endpoints_table(df):
     ].copy()
 
     if honeytoken_df.empty:
-        return html.Div("No honeytoken file/folder requests found.")
+        return html.Div("No endpoint requests found.")
 
     # Count number of requests per input
     counts = honeytoken_df["input"].value_counts().reset_index()
@@ -395,11 +471,14 @@ def geo_heatmap(df):
     if geo_df.empty:
         return html.Div("No geo data points to plot.")
     geo_grouped = geo_df.groupby(["latitude", "longitude"]).size().reset_index(name="count")
+
     fig = px.density_mapbox(
-        geo_grouped, lat="latitude", lon="longitude", z="count", radius=15,
+        geo_grouped, lat="latitude", lon="longitude", z="count", radius=40,
         center=dict(lat=20, lon=0), zoom=1,
-        mapbox_style="carto-positron"
+        mapbox_style="carto-positron",
+        color_continuous_scale="Turbo"
     )
+    fig.update_traces(opacity=0.8) 
     fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0})
     return dcc.Graph(figure=fig)
 

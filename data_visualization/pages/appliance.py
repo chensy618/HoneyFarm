@@ -15,11 +15,16 @@ from components import (
     event_type_bar_with_line,
     ip_duration_table,
     top_10_duration_ips_table,
+    personality_traits_bar,
     most_requested_endpoints_table   
 )
 
 def appliance_layout():
-    df = load_and_process_log("./data_visualization/raw_data/appliances/appliances.json")
+    #df = load_and_process_log("./data_visualization/raw_data/appliances/72.145.1.84_merged_appliances_logs.json")
+    #cowrie.json.2025-06-16
+    df = load_and_process_log("./data_visualization/raw_data/appliances/cowrie.json.2025-06-16")
+    personality_log_file = "./data_visualization/raw_data/appliances/appliance-json.log"
+
     df = enrich_geo(df)
 
     return html.Div([
@@ -37,29 +42,37 @@ def appliance_layout():
             ], style={"width": "48%", "display": "inline-block", "float": "right"})
         ], style={"padding": "20px 5%"}),
 
+
         html.Div([
             html.Div([
                 html.H3("Top 10 Attempted Users"),
                 dcc.Graph(figure=top_user_pie(df))
-            ], style={"width": "48%", "display": "inline-block"}),
+            ], style={
+                "width": "48%", 
+                "display": "inline-block", 
+                "verticalAlign": "top"
+        }),
 
-#            html.Div([
-#                html.H3("Geo Origin Wordcloud"),
-#                wordcloud_img(df)
-#            ], style={"width": "48%", "display": "inline-block", "float": "right"})
+        html.Div([
+                html.H3("Source IP Summary Table"),
+                ip_summary_table(df)
+            ], style={
+                "width": "48%", 
+                "display": "inline-block", 
+                "float": "right",
+                "verticalAlign": "top"
+            })
         ], style={"padding": "20px 5%"}),
 
         html.Div([
-            html.Div([
-                html.H3("Source IP Summary Table"),
-                ip_summary_table(df)
-            ], style={"width": "48%", "display": "inline-block"}),
-
-            html.Div([
-                html.H3("Geo Heatmap of Attacker IPs"),
-                geo_heatmap(df)
-            ], style={"width": "48%", "display": "inline-block", "float": "right"})
+            html.H3("Geographic Distribution of Attacker IPs"),
+            html.Div(geo_heatmap(df), style={"width": "100%", "display": "inline-block"})
         ], style={"padding": "20px 5%"}),
+
+        html.Div([
+            html.H3("Top Attacker Personality Traits"),
+            personality_traits_bar(personality_log_file)
+        ], style={"width": "48%", "padding": "20px 5%"}),
 
         html.Div([
             html.Div([
