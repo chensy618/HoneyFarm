@@ -23,7 +23,7 @@ def appliance_layout():
     #df = load_and_process_log("./data_visualization/raw_data/appliances/72.145.1.84_merged_appliances_logs.json")
     #cowrie.json.2025-06-16
     df = load_and_process_log("./data_visualization/raw_data/appliances/cowrie.json.2025-06-16")
-    personality_log_file = "./data_visualization/raw_data/appliances/appliance-json.log"
+    personality_log_file = "./data_visualization/raw_data/appliances/appliance-json.log" # update this to the correct path to the container logs with personality data
 
     df = enrich_geo(df)
 
