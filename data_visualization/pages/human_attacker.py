@@ -9,10 +9,10 @@ from components import (
 )
 
 # Load CSV with proper delimiter
-df = pd.read_csv("/Users/khizar/data_visualization/raw_data/human/appliance_human_attackers.csv", sep=";") #update paths !!!!
-ef = pd.read_csv("/Users/khizar/data_visualization/raw_data/human/lighting_human_attacker.csv", sep=";")
-jf = pd.read_csv("/Users/khizar/data_visualization/raw_data/human/thermostat_human_attackers.csv", sep=";")
-uf = pd.read_csv("/Users/khizar/data_visualization/raw_data/human/diagnostics_human_attackers.csv", sep=";")
+df = pd.read_csv("./data_visualization/raw_data/human/appliance_human_attackers.csv", sep=";") #update paths !!!!
+ef = pd.read_csv("./data_visualization/raw_data/human/lighting_human_attacker.csv", sep=";")
+jf = pd.read_csv("./data_visualization/raw_data/human/thermostat_human_attackers.csv", sep=";")
+uf = pd.read_csv("./data_visualization/raw_data/human/diagnostics_human_attackers.csv", sep=";")
 
 def human_attackers_appliance_layout():
     return html.Div([
