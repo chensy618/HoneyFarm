@@ -20,8 +20,8 @@ from components import (
 )
 
 def thermostat_layout():
-    df = load_and_process_log("./data_visualization/raw_data/thermostat/72.145.1.84_merged_thermostat_logs.json")
-    personality_log_file = "./data_visualization/raw_data/appliances/appliance-json.log"  # update this to the correct path to the container log
+    df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_thermostat.json")
+    personality_log_file = "./data_visualization/raw_data/thermostat/thermostat-json.log" 
     df = enrich_geo(df)
 
     return html.Div([

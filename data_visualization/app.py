@@ -7,6 +7,7 @@ from pages.snare import snare_layout
 from pages.miniprint import miniprint_layout
 from pages.overview import overview_layout
 from pages.user_study import user_study_layout
+from pages.human_attacker import human_attacker_layout
 import base64
 
 app = Dash(__name__, suppress_callback_exceptions=True)
@@ -39,7 +40,8 @@ def display_page(pathname):
         "/snare": snare_layout,
         "/miniprint": miniprint_layout,
         "/overview": overview_layout,
-        "/user_study": user_study_layout
+        "/user_study": user_study_layout,
+        "/human_attacker": human_attacker_layout
     }
     if pathname in routes:
         return routes[pathname]()
@@ -59,7 +61,8 @@ def display_page(pathname):
             create_node_card("Diagnostics", "/diagnostics"),
             create_node_card("Snare", "/snare"),
             create_node_card("Miniprint", "/miniprint"),
-            create_node_card("User Study", "/user_study")
+            create_node_card("User Study", "/user_study"),
+            create_node_card("Human Attacker Analysis", "/human_attacker"),
         ], style={
             "display": "flex",
             "flexWrap": "wrap",

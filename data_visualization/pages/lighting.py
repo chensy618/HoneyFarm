@@ -20,8 +20,8 @@ from components import (
 )
 
 def lighting_layout():
-    df = load_and_process_log("./data_visualization/raw_data/lighting/72.145.1.84_merged_lighting_logs.json")
-    personality_log_file = "./data_visualization/raw_data/appliances/appliance-json.log"  # update this to the correct path to the container log
+    df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_lighting.json")
+    personality_log_file = "./data_visualization/raw_data/lighting/lighting-json.log" 
     df = enrich_geo(df)
 
     return html.Div([
