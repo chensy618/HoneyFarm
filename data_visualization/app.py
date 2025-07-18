@@ -41,7 +41,7 @@ def display_page(pathname):
         "/miniprint": miniprint_layout,
         "/overview": overview_layout,
         "/user_study": user_study_layout,
-        "/human_attacker": human_attacker_layout
+        "/human_attacker": human_attackers_appliance_layout
     }
     if pathname in routes:
         return routes[pathname]()
