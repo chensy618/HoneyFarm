@@ -220,6 +220,8 @@ def ip_duration_table(df):
     merged = merged[["IP Address", "duration_sec"]].copy()
     merged.columns = ["IP Address", "Duration (seconds)"]
 
+    merged.sort_values(by="Duration (seconds)", ascending=False, inplace=True)
+
     return dash_table.DataTable(
         columns=[{"name": col, "id": col} for col in merged.columns],
         data=merged.to_dict("records"),
