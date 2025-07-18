@@ -1172,4 +1172,4 @@ def tanner_err_trace_blocks(df):
     ], style={"padding": "10px 5%"})
 
 
-
+# the following functions are used for analysis of the user study data

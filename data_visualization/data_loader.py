@@ -7,7 +7,9 @@ import pandas as pd
 import geoip2.database
 import re
 import ast
+import pyreadstat
 from datetime import datetime
+
 
 def load_and_process_log(filepath):
     df = []
@@ -316,3 +318,19 @@ def load_tanner_err_data(filepath: str) -> pd.DataFrame:
     df = pd.DataFrame(records)
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     return df
+
+# the following function is used to load data from user study questionnaire
+def load_sav_data(filepath: str) -> pd.DataFrame:
+    """
+    Load and process .sav (SPSS) data into a pandas DataFrame.
+    """
+    try:
+        df, meta = pyreadstat.read_sav(filepath)
+        df.columns = [col.strip() for col in df.columns]  # Clean column names
+        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce") if "timestamp" in df.columns else pd.NaT
+        df["hour"] = df["timestamp"].dt.floor("h") if "timestamp" in df.columns else pd.NaT
+        return df
+    except Exception as e:
+        print(f"[ERROR] Failed to load .sav file: {filepath}\n{e}")
+        return pd.DataFrame()
+    
