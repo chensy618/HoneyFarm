@@ -15,92 +15,78 @@ from components import (
     event_type_bar_with_line,
     ip_duration_table,
     top_10_duration_ips_table,
-    personality_traits_bar,
+    #personality_traits_bar,
     most_requested_endpoints_table   
 )
 
 def thermostat_layout():
     df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_thermostat.json")
-    personality_log_file = "./data_visualization/raw_data/thermostat/thermostat-json.log" 
     df = enrich_geo(df)
 
+    def two_column_block(left_title, left_component, right_title, right_component):
+        return html.Div([
+            html.Div([
+                html.H3(left_title),
+                left_component
+            ], style={"width": "48%", "display": "inline-block", "verticalAlign": "top"}),
+
+            html.Div([
+                html.H3(right_title),
+                right_component
+            ], style={"width": "48%", "display": "inline-block", "verticalAlign": "top"})
+        ], style={
+            "display": "flex",
+            "justifyContent": "space-between",
+            "alignItems": "flex-start",
+            "padding": "20px 5%"
+        })
+
     return html.Div([
-        html.H1("Thermostat Node Dashboard"),
+        html.H1("Appliance Node Dashboard"),
 
-        html.Div([
-            html.Div([
-                html.H3("Top 15 Commands"),
-                dcc.Graph(figure=top_command_bar(df))
-            ], style={"width": "48%", "display": "inline-block"}),
+        two_column_block(
+            "Top 15 Commands", dcc.Graph(figure=top_command_bar(df)),
+            "Top 10 Attacker IPs", dcc.Graph(figure=top_ip_pie(df))
+        ),
 
-            html.Div([
-                html.H3("Top 10 Attacker IPs"),
-                dcc.Graph(figure=top_ip_pie(df))
-            ], style={"width": "48%", "display": "inline-block", "float": "right"})
-        ], style={"padding": "20px 5%"}),
-
-        html.Div([
-            html.Div([
-                html.H3("Top 10 Attempted Users"),
-                dcc.Graph(figure=top_user_pie(df))
-            ], style={
-                "width": "48%", 
-                "display": "inline-block", 
-                "verticalAlign": "top"
-        }),
-
-        html.Div([
-                html.H3("Source IP Summary Table"),
-                ip_summary_table(df)
-            ], style={
-                "width": "48%", 
-                "display": "inline-block", 
-                "float": "right",
-                "verticalAlign": "top"
-            })
-        ], style={"padding": "20px 5%"}),
+        two_column_block(
+            "Top 10 Attempted Users", dcc.Graph(figure=top_user_pie(df)),
+            "Source IP Summary Table", ip_summary_table(df)
+        ),
 
         html.Div([
             html.H3("Geographic Distribution of Attacker IPs"),
-            html.Div(geo_heatmap(df), style={"width": "100%", "display": "inline-block"})
+            html.Div(geo_heatmap(df), style={"width": "100%"})
         ], style={"padding": "20px 5%"}),
 
-        html.Div([
-            html.H3("Top Attacker Personality Traits"),
-            personality_traits_bar(personality_log_file)
-        ], style={"width": "48%", "padding": "20px 5%"}),
+        two_column_block(
+            "Event Type Distribution", dcc.Graph(figure=event_type_bar_with_line(df)),
+            "Commands Summary Table", commands_summary_table(df)
+        ),
 
         html.Div([
-            html.Div([
-                html.H3("Event Type Distribution"),
-                dcc.Graph(figure=event_type_bar_with_line(df))
-            ], style={"width": "48%", "display": "inline-block"}),
-
-            html.Div([
-                html.H3("Commands Summary Table"),
-                commands_summary_table(df)
-            ], style={"width": "48%", "display": "inline-block", "float": "right"})
-        ], style={"padding": "20px 5%"}),
+        html.H3("Most Requested Endpoints"),
+        most_requested_endpoints_table(df)
+         ], style={"padding": "20px 5%", "maxWidth": "90%", "margin": "0 auto"}),
 
         html.Div([
-                html.H3("Most Requested Endpoints", style={"margin-bottom": "10px"}),
-                most_requested_endpoints_table(df)
-        ], style={"width": "48%", "display": "inline-block"}),
-
-        html.Div([
-            html.H3("Time-of-Day Analysis of Malicious Activity"),
-            dcc.Graph(figure=activity_hour_bar(df))
-        ], style={"width": "100%", "display": "inline-block", "padding": "20px 5%"}),
+        html.H3("Time-of-Day Analysis of Malicious Activity"),
+        dcc.Graph(figure=activity_hour_bar(df))
+        ], style={"padding": "20px 5%", "maxWidth": "90%", "margin": "0 auto"}),
 
         html.Div([
             html.H3("IP Session Duration"),
             ip_duration_table(df)
-        ], style={"width": "100%", "padding": "20px 5%"}),
+        ], style={"padding": "20px 5%", "maxWidth": "90%", "margin": "0 auto"}),
+
         html.Div([
             html.H3("Top IPs Based on Duration"),
             top_10_duration_ips_table(df)
-        ], style={"width": "100%", "padding": "20px 5%"}),
+        ], style={"padding": "20px 5%", "maxWidth": "90%", "margin": "0 auto"}),
 
-        html.H3("Executed Commands"),
-        latest_commands_table(df)
+
+        html.Div([
+            html.H3("Executed Commands"),
+            latest_commands_table(df)
+        ], style={"maxWidth": "90%", "margin": "0 auto"})
     ])

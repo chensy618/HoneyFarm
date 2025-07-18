@@ -48,6 +48,27 @@ def load_logs_bulk(log_dir):
 
 GEOIP_DB_PATH = "./data_visualization/GeoLite2-City.mmdb"
 
+def load_human_attacker_csv(file_path):
+    try:
+        df = pd.read_csv(file_path)
+        if 'timestamp' in df.columns:
+            df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+        return df
+    except Exception as e:
+        print(f"Failed to load {file_path}: {e}")
+        return pd.DataFrame()
+    
+import pandas as pd
+
+def load_csv_data(filepath):
+    try:
+        df = pd.read_csv(filepath, sep=";")  
+        df.columns = df.columns.str.strip()
+        return df
+    except Exception as e:
+        print(f"Error loading CSV: {e}")
+        return pd.DataFrame()
+
 def enrich_geo(df):
     reader = geoip2.database.Reader(GEOIP_DB_PATH)
 

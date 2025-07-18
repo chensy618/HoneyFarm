@@ -7,7 +7,7 @@ from pages.snare import snare_layout
 from pages.miniprint import miniprint_layout
 from pages.overview import overview_layout
 from pages.user_study import user_study_layout
-from pages.human_attacker import human_attacker_layout
+from pages.human_attacker import human_attackers_appliance_layout
 import base64
 
 app = Dash(__name__, suppress_callback_exceptions=True)

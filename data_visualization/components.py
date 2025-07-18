@@ -45,6 +45,9 @@ def top_command_bar(df):
 
     return fig
 
+
+"""
+
 def personality_traits_bar(log_file):
     trait_pattern = re.compile(r"Top-1 Trait Label\s*:\s*(.+)")
 
@@ -116,6 +119,7 @@ def personality_traits_bar(log_file):
     children.append(dcc.Graph(figure=fig))
 
     return html.Div(children)
+    """
 
 
 def top_ip_pie(df):
@@ -1810,6 +1814,139 @@ def likert_line_chart(df, column_name, title):
     )
 
     return dcc.Graph(figure=fig)
+
+
+#human attacker analysis
+
+def human_top_command_bar(df):
+    if "command" not in df.columns or df["command"].dropna().empty:
+        return None
+
+    top_cmds = df["command"].value_counts().head(15).reset_index()
+    top_cmds.columns = ["Command", "Count"]
+
+    fig = px.bar(
+        top_cmds,
+        x="Count",
+        y="Command",
+        orientation="h",
+        title="Most Used Commands",
+    )
+
+    fig.update_layout(
+        yaxis={"categoryorder": "total ascending"},
+        margin=dict(l=80, r=40, t=60, b=40)
+    )
+
+    return fig
+
+def human_top_user_pie(df):
+    if "username" not in df.columns or df["username"].dropna().empty:
+        return None
+
+    user_counts = df["username"].value_counts().head(10).reset_index()
+    user_counts.columns = ["Username", "Count"]
+
+    fig = px.pie(
+        user_counts,
+        names="Username",
+        values="Count",
+        title="Top Usernames"
+    )
+
+    fig.update_traces(
+        sort=False,
+        rotation=90,
+        textposition="inside",
+        textinfo="percent+label"
+    )
+
+    fig.update_layout(
+        margin=dict(t=60, b=60, l=40, r=40)
+    )
+
+    return fig
+
+def human_ip_duration_table(df):
+    if not {"src_ip", "time_spent"}.issubset(df.columns):
+        return html.Div("Required columns missing.")
+
+    # Convert time_spent to numeric
+    df["time_spent"] = pd.to_numeric(df["time_spent"], errors="coerce")
+    
+    # Group by IP and sum total duration
+    grouped = (
+        df[["src_ip", "time_spent"]]
+        .dropna()
+        .groupby("src_ip")
+        .sum()
+        .reset_index()
+    )
+
+    grouped["src_ip"] = grouped["src_ip"].apply(lambda ip: ".".join(ip.split(".")[:2]) + ".xx.xx")
+
+    # Rename columns for display
+    grouped = grouped.rename(columns={"src_ip": "IP Address", "time_spent": "Total Duration (seconds)"})
+    grouped["Total Duration (seconds)"] = grouped["Total Duration (seconds)"].round(1)
+
+    # Sort descending
+    grouped = grouped.sort_values("Total Duration (seconds)", ascending=False)
+
+    return dash_table.DataTable(
+        columns=[{"name": col, "id": col} for col in grouped.columns],
+        data=grouped.to_dict("records"),
+        style_table={"overflowX": "auto"},
+        style_cell={"textAlign": "left", "padding": "5px"},
+        style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+        page_size=15
+    )
+
+
+def human_latest_commands_table(df):
+    required_cols = {"timestamp", "src_ip", "command"}
+    if not required_cols.issubset(df.columns):
+        return html.Div("No command data.")
+
+    df_filtered = df[df["command"].notna() & df["command"].str.strip().ne("")].copy()
+    if df_filtered.empty:
+        return html.Div("No command data available after filtering.")
+
+    # Anonymize IPs
+    df_filtered["src_ip"] = df_filtered["src_ip"].apply(
+        lambda ip: ".".join(ip.split(".")[:2]) + ".xx.xx"
+    )
+
+    display_cols = ["timestamp", "src_ip", "username", "command"]
+    display_cols = [col for col in display_cols if col in df_filtered.columns]
+
+    return dash_table.DataTable(
+        columns=[
+            {"name": "Timestamp", "id": "timestamp"},
+            {"name": "Source IP", "id": "src_ip"},
+            {"name": "Username", "id": "username"},
+            {"name": "Command", "id": "command"},
+        ],
+        data=df_filtered[display_cols].to_dict("records"),
+        style_table={"width": "100%", "overflowX": "auto", "border": "1px solid #d3d3d3"},
+        style_cell={
+            "border": "1px solid #d3d3d3",
+            "padding": "8px",
+            "textAlign": "left",
+            "whiteSpace": "normal",
+            "height": "auto",
+        },
+        style_cell_conditional=[
+            {"if": {"column_id": "timestamp"}, "width": "25%"},
+            {"if": {"column_id": "src_ip"}, "width": "20%"},
+            {"if": {"column_id": "username"}, "width": "20%"},
+            {"if": {"column_id": "command"}, "width": "35%"},
+        ],
+        style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+        page_action="none",
+        fixed_rows={"headers": True}
+    )
+
+
 
 
 
