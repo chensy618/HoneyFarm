@@ -1173,3 +1173,643 @@ def tanner_err_trace_blocks(df):
 
 
 # the following functions are used for analysis of the user study data
+def sav_trait_distribution_bar(df):
+    """Show the distribution of self-reported personality traits."""
+    
+    trait_mapping = {
+        1: "Openness to Experience",
+        2: "Conscientiousness",
+        3: "Low Extraversion",
+        4: "Low Agreeableness",
+        5: "Low Neuroticism"
+    }
+
+    trait_series = df["Q1_personality_check"].map(trait_mapping)
+    all_traits = list(trait_mapping.values())
+
+    trait_counts = trait_series.value_counts().reindex(all_traits, fill_value=0).reset_index()
+    trait_counts.columns = ["Trait", "Count"]
+    trait_counts["Percentage"] = (trait_counts["Count"] / len(df) * 100).round(2)
+
+    fig = px.bar(
+        trait_counts,
+        x="Trait",
+        y="Count",
+        color="Trait",
+        text="Count",
+        color_discrete_sequence=px.colors.qualitative.Set2
+    )
+
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        title=dict(text="Q1: Self-reported personality trait distribution", x=0.5, font=dict(size=16)),
+        yaxis=dict(range=[0, max(trait_counts["Count"].max() + 5, 20)]),
+        height=450,
+        margin=dict(t=50, b=60, l=40, r=40),
+        showlegend=False,
+        xaxis_title="Trait",
+        yaxis_title="Count"
+    )
+
+    return dcc.Graph(figure=fig)
+
+
+def sav_confidence_bar(df: pd.DataFrame):
+    """Generate a bar chart for Q2 confidence level responses."""
+    
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    counts = df["Q2_confident_experience"].value_counts().reindex(likert_labels.keys(), fill_value=0)
+
+    plot_df = pd.DataFrame({
+        "Confidence Level": [likert_labels[k] for k in counts.index],
+        "Count": counts.values
+    })
+
+    # Use pastel colors in fixed order to match labels
+    pastel_colors = px.colors.qualitative.Pastel[:5]
+
+    fig = px.bar(
+        plot_df,
+        x="Confidence Level",
+        y="Count",
+        text="Count",
+        color="Confidence Level",
+        color_discrete_sequence=pastel_colors
+    )
+
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        title=dict(text="Q2: Confidence levels while interacting with the system", x=0.5, font=dict(size=16)),
+        yaxis=dict(range=[0, max(plot_df["Count"].max() + 5, 20)]),
+        height=450,
+        margin=dict(t=50, b=60, l=40, r=40),
+        showlegend=True,
+        xaxis_title="Confidence Level",
+        yaxis_title="Count"
+    )
+
+    return dcc.Graph(figure=fig)
+
+def likert_bar_chart(df, column_name: str, title: str):
+    """
+    Generate a standardized Likert-style bar chart for 5-point scale survey items.
+
+    Parameters:
+        df (pd.DataFrame): Input data.
+        column_name (str): Column name in df containing Likert values (1-5).
+        title (str): Title for the chart.
+    """
+
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    counts = df[column_name].value_counts().reindex(likert_labels.keys(), fill_value=0)
+
+    plot_df = pd.DataFrame({
+        "Response": [likert_labels[k] for k in counts.index],
+        "Count": counts.values
+    })
+
+    fig = px.bar(
+        plot_df,
+        x="Response",
+        y="Count",
+        text="Count",
+        color="Response",
+        color_discrete_sequence=px.colors.qualitative.Pastel
+    )
+
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        title=dict(text=title, x=0.5, font=dict(size=16)),
+        yaxis=dict(range=[0, max(plot_df["Count"].max() + 5, 20)]),
+        height=450,
+        margin=dict(t=50, b=60, l=40, r=40),
+        showlegend=True,
+        xaxis_title="Response",
+        yaxis_title="Count"
+    )
+
+    return dcc.Graph(figure=fig)
+
+def likert_pie_chart(df, column_name, title):
+    """
+    Plot a Likert-style pie chart with balanced, aesthetic colors.
+    """
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    soft_but_distinct_colors = [
+        "#60c5ba",  # Not at all - muted gray-blue
+        "#edcd84",  # Slightly - soft orange
+        "#ea9b7e",  # Moderately - green-cyan
+        "#dab8ea",  # Very - soft red-brown
+        "#9dc77b"   # Extremely - purple
+    ]
+
+    counts = df[column_name].value_counts().reindex(likert_labels.keys(), fill_value=0)
+    plot_df = pd.DataFrame({
+        "Label": [f"{likert_labels[i]}: {counts[i]}" for i in counts.index],
+        "Value": counts.values
+    })
+
+    fig = px.pie(
+        plot_df,
+        names="Label",
+        values="Value",
+        title=title,
+        color="Label",
+        color_discrete_sequence=soft_but_distinct_colors
+    )
+
+    fig.update_traces(pull=0, textinfo='label+percent')
+
+
+    fig.update_layout(
+        height=350,
+        margin=dict(t=40, b=40, l=40, r=40),
+        showlegend=False
+    )
+
+    return dcc.Graph(figure=fig)
+
+
+def analyze_q7_confidence(df):
+    """
+    Analyze Q7 responses based on existing dataframe.
+    Visualize confidence factors: feedback clarity, command success, and system familiarity.
+    """
+
+    # Rename for readability 
+    df = df.rename(columns={
+        'Q7_confident_feedback_clear': 'Clear Feedback',
+        'Q7_confident_command_success': 'Command Success',
+        'Q7_confident_system_familiarity': 'System Familiarity'
+    })
+
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    def get_likert_df(df, question_columns, likert_labels):
+        result = []
+        for col in question_columns:
+            counts = df[col].value_counts().reindex(likert_labels.keys(), fill_value=0)
+            for key, val in counts.items():
+                result.append({
+                    "Question": col,
+                    "Confidence Level": likert_labels[key],
+                    "Count": val
+                })
+        return pd.DataFrame(result)
+
+    question_cols = ["Clear Feedback", "Command Success", "System Familiarity"]
+    plot_df = get_likert_df(df, question_cols, likert_labels)
+
+    fig = px.bar(
+        plot_df,
+        x="Question",
+        y="Count",
+        color="Confidence Level",
+        text="Count",
+        barmode="group",
+        color_discrete_map={
+            "Not at all": "#79c2af",
+            "Slightly": "#f0d574",
+            "Moderately": "#99d9e4",
+            "Very": "#d9a3e3",
+            "Extremely": "#9ac47a"
+        },
+        title="Q7: Confidence experience based on different factors"
+    )
+
+    fig.update_traces(textposition='outside')
+    
+    fig.update_layout(
+        height=500,
+        margin=dict(t=60, b=60, l=40, r=40),
+        xaxis_title=None,
+        yaxis_title="Count",
+        legend_title="Confidence Level"
+    )
+
+    return dcc.Graph(figure=fig)
+
+def analyze_q8_surprise(df):
+    """
+    Analyze Q8 responses based on existing dataframe.
+    Visualize surprise factors: exposed credentials, hidden files, and fake errors.
+    """
+
+    # Rename for readability
+    df = df.rename(columns={
+        'Q8_surprise_expose_credentials': 'Exposed Credentials',
+        'Q8_surprise_hidden_sensitive_files': 'Hidden Files',
+        'Q8_surprise_fake_errors': 'Fake Errors'
+    })
+
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    def get_likert_df(df, question_columns, likert_labels):
+        result = []
+        for col in question_columns:
+            counts = df[col].value_counts().reindex(likert_labels.keys(), fill_value=0)
+            for key, val in counts.items():
+                result.append({
+                    "Question": col,
+                    "Surprise Level": likert_labels[key],
+                    "Count": val
+                })
+        return pd.DataFrame(result)
+
+    question_cols = ["Exposed Credentials", "Hidden Files", "Fake Errors"]
+    plot_df = get_likert_df(df, question_cols, likert_labels)
+
+    fig = px.bar(
+        plot_df,
+        x="Question",
+        y="Count",
+        color="Surprise Level",
+        text="Count",
+        barmode="group",
+        color_discrete_map={
+            "Not at all": "#79c2af",
+            "Slightly": "#f0d574",
+            "Moderately": "#99d9e4",
+            "Very": "#d9a3e3",
+            "Extremely": "#9ac47a"
+        },
+        title="Q8: Surprise experience based on different system behaviors"
+    )
+    
+    fig.update_traces(textposition='outside')
+    
+    fig.update_layout(
+        height=500,
+        margin=dict(t=60, b=60, l=40, r=40),
+        xaxis_title=None,
+        yaxis_title="Count",
+        legend_title="Surprise Level"
+    )
+
+    return dcc.Graph(figure=fig)
+    
+def analyze_q9_confusion(df):
+    """
+    Analyze Q9 responses based on existing dataframe.
+    Visualize confusion factors: difficult output, unclear navigation, and unfamiliar error codes.
+    """
+
+    # Rename for readability
+    df = df.rename(columns={
+        'Q9_confusion_output_difficult': 'Difficult Output',
+        'Q9_confusion_navigation_unclear': 'Unclear Navigation',
+        'Q9_confusion_error_codes': 'Unfamiliar Error Codes'
+    })
+
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    def get_likert_df(df, question_columns, likert_labels):
+        result = []
+        for col in question_columns:
+            counts = df[col].value_counts().reindex(likert_labels.keys(), fill_value=0)
+            for key, val in counts.items():
+                result.append({
+                    "Question": col,
+                    "Confusion Level": likert_labels[key],
+                    "Count": val
+                })
+        return pd.DataFrame(result)
+
+    question_cols = ["Difficult Output", "Unclear Navigation", "Unfamiliar Error Codes"]
+    plot_df = get_likert_df(df, question_cols, likert_labels)
+
+    fig = px.bar(
+        plot_df,
+        x="Question",
+        y="Count",
+        color="Confusion Level",
+        barmode="group",
+        text="Count",
+        color_discrete_map={
+            "Not at all": "#79c2af",
+            "Slightly": "#f0d574",
+            "Moderately": "#99d9e4",
+            "Very": "#d9a3e3",
+            "Extremely": "#9ac47a"
+        },
+        title="Q9: Confusion experience based on different system factors"
+    )
+
+    fig.update_traces(textposition='outside')
+    fig.update_layout(
+        height=500,
+        margin=dict(t=60, b=60, l=40, r=40),
+        xaxis_title=None,
+        yaxis_title="Count",
+        legend_title="Confusion Level"
+    )
+
+    return dcc.Graph(figure=fig)
+
+def analyze_q10_frustration(df):
+    """
+    Analyze Q10 responses based on existing dataframe.
+    Visualize frustration factors: lack of progress, misleading response, and dead ends.
+    """
+
+    df = df.rename(columns={
+        'Q10_frustration_lack_progress': 'Lack of Progress',
+        'Q10_frustration_misleading_response': 'Misleading Response',
+        'Q10_frustration_dead_ends': 'Dead Ends'
+    })
+
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    def get_likert_df(df, question_columns, likert_labels):
+        result = []
+        for col in question_columns:
+            counts = df[col].value_counts().reindex(likert_labels.keys(), fill_value=0)
+            for key, val in counts.items():
+                result.append({
+                    "Question": col,
+                    "Frustration Level": likert_labels[key],
+                    "Count": val
+                })
+        return pd.DataFrame(result)
+
+    question_cols = ["Lack of Progress", "Misleading Response", "Dead Ends"]
+    plot_df = get_likert_df(df, question_cols, likert_labels)
+
+    fig = px.bar(
+        plot_df,
+        x="Question",
+        y="Count",
+        color="Frustration Level",
+        barmode="group",
+        text="Count",
+        color_discrete_map={
+            "Not at all": "#79c2af",
+            "Slightly": "#f0d574",
+            "Moderately": "#99d9e4",
+            "Very": "#d9a3e3",
+            "Extremely": "#9ac47a"
+        },
+        title="Q10: Frustration experience based on different interaction outcomes"
+    )
+
+    fig.update_traces(textposition='outside')
+    fig.update_layout(
+        height=500,
+        margin=dict(t=60, b=60, l=40, r=40),
+        xaxis_title=None,
+        yaxis_title="Count",
+        legend_title="Frustration Level"
+    )
+
+    return dcc.Graph(figure=fig)
+
+def analyze_q11_selfdoubt(df):
+    """
+    Analyze Q11 responses based on existing dataframe.
+    Visualize self-doubt factors: self-questioning, unusual files, and unexpected outcomes.
+    """
+
+    df = df.rename(columns={
+        'Q11_selfdoubt_question_self': 'Noticeable Delays',
+        'Q11_selfdoubt_unusual_files': 'Unusual Files',
+        'Q11_selfdoubt_unexpected_outcomes': 'Unexpected Outcomes'
+    })
+
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    def get_likert_df(df, question_columns, likert_labels):
+        result = []
+        for col in question_columns:
+            counts = df[col].value_counts().reindex(likert_labels.keys(), fill_value=0)
+            for key, val in counts.items():
+                result.append({
+                    "Question": col,
+                    "Self-Doubt Level": likert_labels[key],
+                    "Count": val
+                })
+        return pd.DataFrame(result)
+
+    question_cols = ["Noticeable Delays", "Unusual Files", "Unexpected Outcomes"]
+    plot_df = get_likert_df(df, question_cols, likert_labels)
+
+    fig = px.bar(
+        plot_df,
+        x="Question",
+        y="Count",
+        color="Self-Doubt Level",
+        barmode="group",
+        text="Count",
+        color_discrete_map={
+            "Not at all": "#79c2af",
+            "Slightly": "#f0d574",
+            "Moderately": "#99d9e4",
+            "Very": "#d9a3e3",
+            "Extremely": "#9ac47a"
+        },
+        title="Q11: Self-doubt experience based on different triggers"
+    )
+
+    fig.update_traces(textposition='outside')
+    fig.update_layout(
+        height=500,
+        margin=dict(t=60, b=60, l=40, r=40),
+        xaxis_title=None,
+        yaxis_title="Count",
+        legend_title="Self-Doubt Level"
+    )
+
+    return dcc.Graph(figure=fig)
+
+def analyze_q12_emotion_transitions(df):
+    """
+    Analyze Q12 responses for emotional transitions throughout the interaction.
+    Visualize emotion flow from confidence to self-doubt in sequence.
+    """
+
+    df = df.rename(columns={
+        'Q12_emotion_confident_to_surprise': 'Confidence → Surprise',
+        'Q12_emotion_surprise_to_confusion': 'Surprise → Confusion',
+        'Q12_emotion_confusion_to_frustration': 'Confusion → Frustration',
+        'Q12_emotion_frustration_to_selfdoubt': 'Frustration → Self-Doubt',
+        'Q12_emotion_selfdoubt_to_confident': 'Self-Doubt → Confidence'
+    })
+
+    likert_labels = {
+        1: "Not at all",
+        2: "Slightly",
+        3: "Moderately",
+        4: "Very",
+        5: "Extremely"
+    }
+
+    def get_transition_df(df, transition_columns, likert_labels):
+        result = []
+        for col in transition_columns:
+            counts = df[col].value_counts().reindex(likert_labels.keys(), fill_value=0)
+            for key, val in counts.items():
+                result.append({
+                    "Transition": col,
+                    "Strength": likert_labels[key],
+                    "Count": val
+                })
+        return pd.DataFrame(result)
+
+    transition_cols = [
+        "Confidence → Surprise",
+        "Surprise → Confusion",
+        "Confusion → Frustration",
+        "Frustration → Self-Doubt",
+        "Self-Doubt → Confidence"
+    ]
+
+    plot_df = get_transition_df(df, transition_cols, likert_labels)
+
+    fig = px.bar(
+        plot_df,
+        x="Transition",
+        y="Count",
+        color="Strength",
+        barmode="group",
+        text="Count",
+        color_discrete_map={
+            "Not at all": "#79c2af",
+            "Slightly": "#f0d574",
+            "Moderately": "#99d9e4",
+            "Very": "#d9a3e3",
+            "Extremely": "#9ac47a"
+        },
+        title="Q12: To what extent did you experience the following emotional transitions during the interaction?"
+    )
+
+    fig.update_traces(textposition='outside')
+    fig.update_layout(
+        height=520,
+        margin=dict(t=60, b=60, l=40, r=40),
+        xaxis_title=None,
+        yaxis_title="Count",
+        legend_title="Transition Intensity"
+    )
+
+    return dcc.Graph(figure=fig)
+
+def likert_line_chart(df, column_name, title):
+    import pandas as pd
+    import plotly.graph_objects as go
+    from dash import dcc
+
+    likert_labels = {
+        1: "Strongly disagree",
+        2: "Disagree",
+        3: "Undecided",
+        4: "Agree",
+        5: "Strongly agree"
+    }
+
+    soft_but_distinct_colors = [
+        "#60c5ba", "#edcd84", "#ea9b7e", "#dab8ea", "#9dc77b"
+    ]
+
+    counts = df[column_name].value_counts().reindex(likert_labels.keys(), fill_value=0)
+    x_labels = list(likert_labels.values())
+    y_values = counts.values
+
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(
+        x=x_labels,
+        y=y_values,
+        mode="lines+markers+text",
+        line=dict(color="#2a5a8a", width=3),
+        marker=dict(color=soft_but_distinct_colors, size=10),
+        text=y_values,
+        textposition="top center",
+        name="Response Count"
+    ))
+
+    fig.update_layout(
+        title=title,
+        xaxis=dict(
+            title="Likert Scale",
+            title_font=dict(size=16),
+            tickfont=dict(size=14),
+            categoryorder='array',
+            categoryarray=x_labels,
+            range=[-0.6, 4.5]  # 手动留白：将左侧推远一些
+        ),
+        yaxis=dict(
+            title="Count",
+            range=[0, max(y_values) + 6],
+            title_font=dict(size=16),
+            tickfont=dict(size=14),
+            showgrid=True,
+            gridcolor="#e0e0e0",
+            gridwidth=1
+        ),
+        height=450,
+        margin=dict(t=40, b=90, l=60, r=40),
+        plot_bgcolor="#ffffff",
+        legend=dict(
+            title="Response Count",
+            orientation="h",
+            yanchor="top",
+            y=-0.25,
+            xanchor="center",
+            x=0.5
+        )
+    )
+
+    return dcc.Graph(figure=fig)
+
+
+

@@ -322,15 +322,13 @@ def load_tanner_err_data(filepath: str) -> pd.DataFrame:
 # the following function is used to load data from user study questionnaire
 def load_sav_data(filepath: str) -> pd.DataFrame:
     """
-    Load and process .sav (SPSS) data into a pandas DataFrame.
+    Load .sav (SPSS) data into a pandas DataFrame with clean column names.
     """
     try:
         df, meta = pyreadstat.read_sav(filepath)
-        df.columns = [col.strip() for col in df.columns]  # Clean column names
-        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce") if "timestamp" in df.columns else pd.NaT
-        df["hour"] = df["timestamp"].dt.floor("h") if "timestamp" in df.columns else pd.NaT
+        df.columns = [col.strip() for col in df.columns]  # 清理列名空格
+        print(f"[INFO] Loaded {df.shape[0]} rows and {df.shape[1]} columns from {filepath}")
         return df
     except Exception as e:
         print(f"[ERROR] Failed to load .sav file: {filepath}\n{e}")
         return pd.DataFrame()
-    
