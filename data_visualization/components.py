@@ -9,6 +9,10 @@ import plotly.express as px
 from dash import dcc
 import plotly.graph_objects as go
 import pandas as pd
+import pingouin as pg
+import scipy.stats as stats
+import statsmodels.api as sm
+import numpy as np
 from collections import Counter
 
 # COWRIE !!!!!
@@ -1735,7 +1739,7 @@ def analyze_q12_emotion_transitions(df):
             "Very": "#d9a3e3",
             "Extremely": "#9ac47a"
         },
-        title="Q12: To what extent did you experience the following emotional transitions during the interaction?"
+        title="Q12: To what extent did you experience the emotional transitions during the interaction?"
     )
 
     fig.update_traces(textposition='outside')
@@ -1817,6 +1821,448 @@ def likert_line_chart(df, column_name, title):
 
     return dcc.Graph(figure=fig)
 
+
+def calculate_cronbach_alpha_q1_to_q17(df):
+    """
+    Calculate Cronbach's Alpha for Q1 to Q17 items and return a Dash DataTable.
+    Uses prefix matching to identify relevant columns.
+    """
+    # 正则匹配 Q2_ 到 Q17_ 开头的所有列
+    q_columns = [col for col in df.columns if re.match(r'^Q([2-9]|1[0-7])_', col)]
+    
+    if len(q_columns) < 2:
+        return html.Div("Not enough items found for reliability analysis (need at least 2).")
+
+    alpha, _ = pg.cronbach_alpha(data=df[q_columns])
+
+    table_df = pd.DataFrame([{
+        "Scale": "Q1 to Q17",
+        "Number of Items": len(q_columns),
+        "Cronbach's Alpha": f"{alpha:.3f}",
+        "Interpretation": interpret_alpha(alpha)
+    }])
+
+    table = dash_table.DataTable(
+        columns=[
+            {"name": "Scale", "id": "Scale"},
+            {"name": "Number of Items", "id": "Number of Items"},
+            {"name": "Cronbach's Alpha", "id": "Cronbach's Alpha"},
+            {"name": "Interpretation", "id": "Interpretation"},
+        ],
+        data=table_df.to_dict("records"),
+        style_table={"width": "80%", "margin": "auto"},
+        style_cell={"textAlign": "center", "fontFamily": "Arial"},
+        style_header={"fontWeight": "bold", "backgroundColor": "#f8f8f8"},
+    )
+
+    return html.Div([
+        html.H4("Cronbach's Alpha for the Questionnaire", style={"textAlign": "center", "marginTop": "30px"}),
+        table
+    ])
+
+def calculate_cronbach_by_emotion(df, emotion_label):
+    """
+    Compute Cronbach's Alpha for a single emotion dimension.
+    Emotion options: "Confidence", "Surprise", "Confusion", "Frustration", "Self-Doubt"
+    """
+    emotion_groups = {
+        "Confidence": [
+            "Q2_confident_experience",
+            "Q7_confident_feedback_clear",
+            "Q7_confident_command_success",
+            "Q7_confident_system_familiarity"
+        ],
+        "Surprise": [
+            "Q3_surprise_experience",
+            "Q8_surprise_expose_credentials",
+            "Q8_surprise_hidden_sensitive_files",
+            "Q8_surprise_fake_errors"
+        ],
+        "Confusion": [
+            "Q4_confused_experience",
+            "Q9_confusion_output_difficult",
+            "Q9_confusion_navigation_unclear",
+            "Q9_confusion_error_codes",
+            "Q9_confusion_unpredictable_behavior"
+        ],
+        "Frustration": [
+            "Q5_frustrated_experience",
+            "Q10_frustration_lack_progress",
+            "Q10_frustration_misleading_response",
+            "Q10_frustration_dead_ends"
+        ],
+        "Self-Doubt": [
+            "Q6_selfdoubt_experience",
+            "Q11_selfdoubt_question_self",
+            "Q11_selfdoubt_unusual_files",
+            "Q11_selfdoubt_unexpected_outcomes"
+        ]
+    }
+
+    cols = emotion_groups.get(emotion_label, [])
+    valid_cols = [col for col in cols if col in df.columns]
+
+    if len(valid_cols) >= 2:
+        alpha, _ = pg.cronbach_alpha(data=df[valid_cols])
+        alpha_val = f"{alpha:.3f}"
+        interpretation = interpret_alpha(alpha)
+    else:
+        alpha_val = "N/A"
+        interpretation = "Too few items"
+
+    return html.Div([
+        html.H5(f"Cronbach's Alpha for {emotion_label} Related Items", style={"textAlign": "center"}),
+        dash_table.DataTable(
+            columns=[
+                {"name": "Emotion", "id": "Emotion"},
+                {"name": "Items", "id": "Items"},
+                {"name": "Cronbach's Alpha", "id": "Alpha"},
+                {"name": "Interpretation", "id": "Interpretation"},
+            ],
+            data=[{
+                "Emotion": emotion_label,
+                "Items": len(valid_cols),
+                "Alpha": alpha_val,
+                "Interpretation": interpretation
+            }],
+            style_table={"width": "100%"},
+            style_cell={"textAlign": "center"},
+            style_header={"fontWeight": "bold"}
+        )
+    ])
+    
+def interpret_alpha(alpha):
+    """
+    Return interpretation string based on Cronbach's Alpha value.
+    """
+    if alpha >= 0.9:
+        return "Excellent"
+    elif alpha >= 0.8:
+        return "Reliable"
+    elif alpha >= 0.7:
+        return "Acceptable"
+    elif alpha >= 0.6:
+        return "Useful but need revision"
+    else:
+        return "Poor"
+
+def correlation_heatmap_emotion_q13_17(df):
+    selected_cols = [
+        "EMOTION_CONFIDENCE",
+        "EMOTION_SURPRISE",
+        "EMOTION_CONFUSION",
+        "EMOTION_FRUSTRATION",
+        "EMOTION_SELFDOUBT",
+        "Q13_felt_like_real_system",
+        "Q14_planned_next_move_based_on_system",
+        "Q15_emotion_invoked_by_response",
+        "Q16_strategy_adapted_to_behavior",
+        "Q17_engage_differently_next_time"
+    ]
+
+    df_corr = df[selected_cols].dropna()
+
+    # Compute correlation and p-values
+    r_matrix = pd.DataFrame(index=selected_cols, columns=selected_cols, dtype=float)
+    p_matrix = pd.DataFrame(index=selected_cols, columns=selected_cols, dtype=float)
+    annotation_matrix = pd.DataFrame(index=selected_cols, columns=selected_cols, dtype=object)
+
+    for i in selected_cols:
+        for j in selected_cols:
+            r, p = stats.pearsonr(df_corr[i], df_corr[j])
+            r_matrix.loc[i, j] = r
+            p_matrix.loc[i, j] = p
+            sig = significance_marker(p)
+            annotation_matrix.loc[i, j] = f"{r:.3f}{sig}"
+
+    # Create Heatmap
+    heatmap = go.Heatmap(
+        z=r_matrix.values.astype(float),
+        x=selected_cols,
+        y=selected_cols,
+        colorscale="RdBu",
+        zmin=-1,
+        zmax=1,
+        text=annotation_matrix.values,
+        texttemplate="%{text}",
+        textfont={"size": 12},
+        colorbar=dict(title="r")
+    )
+
+    fig = go.Figure(data=[heatmap])
+    fig.update_layout(
+        title="Correlation Heatmap",
+        height=600,
+        margin=dict(t=60, b=60, l=60, r=60),
+    )
+
+    return html.Div([
+        html.H4("Correlation Analysis: Emotion States vs Q13–Q17", style={"textAlign": "center", "marginTop": "30px"}),
+        dcc.Graph(figure=fig)
+    ])
+
+def significance_marker(p):
+    if p < 0.001:
+        return "***"
+    elif p < 0.01:
+        return "**"
+    elif p < 0.05:
+        return "*"
+    else:
+        return ""
+
+def plot_coefficient_heatmap(model, X_cols):
+    coefs = model.params[X_cols]
+    coefs = coefs.to_frame(name="Coefficient").T.round(3)
+    fig = go.Figure(data=go.Heatmap(
+        z=coefs.values,
+        x=coefs.columns,
+        y=["Regression Coefficients"],
+        colorscale="RdBu",
+        zmin=-1,
+        zmax=1,
+        text=coefs.values,
+        texttemplate="%{text:.3f}",
+        textfont={"size": 12}
+    ))
+    fig.update_layout(
+        title="Regression Coefficients Heatmap",
+        height=220,
+        margin=dict(t=40, b=30, l=40, r=40)
+    )
+    return dcc.Graph(figure=fig)
+
+def plot_correlation_heatmap(df, X_cols, y_col):
+    """
+    Plots a correlation matrix heatmap including predictors and the dependent variable,
+    with significance (p < 0.05) marked with *.
+    """
+    all_cols = X_cols + [y_col]
+    data = df[all_cols].dropna()
+    
+    n = len(all_cols)
+    corr_matrix = np.zeros((n, n))
+    pval_matrix = np.zeros((n, n))
+    text_matrix = [["" for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            corr, pval = stats.pearsonr(data[all_cols[i]], data[all_cols[j]])
+            corr_matrix[i][j] = round(corr, 2)
+            pval_matrix[i][j] = pval
+            sig = ""
+            if pval < 0.001:
+                sig = "***"
+            elif pval < 0.01:
+                sig = "**"
+            elif pval < 0.05:
+                sig = "*"
+            text_matrix[i][j] = f"{corr_matrix[i][j]}{sig}"
+
+    fig = go.Figure(data=go.Heatmap(
+        z=corr_matrix,
+        x=all_cols,
+        y=all_cols,
+        colorscale="RdBu",
+        zmin=-1,
+        zmax=1,
+        text=text_matrix,
+        texttemplate="%{text}",
+        textfont={"size": 12},
+        hovertemplate="Correlation: %{z}<extra></extra>"
+    ))
+
+    fig.update_layout(
+        title="Correlation Matrix (with Significance Stars)",
+        height=450,
+        margin=dict(t=40, b=40, l=60, r=60)
+    )
+
+    return dcc.Graph(figure=fig)
+
+def get_model_summary_table(model):
+    import pandas as pd
+    from dash import dash_table
+
+    summary_row = pd.DataFrame([{
+        "R": round(model.rsquared ** 0.5, 3),
+        "R²": round(model.rsquared, 3),
+        "Adj. R²": round(model.rsquared_adj, 3),
+        "Std. Error": round(model.mse_resid ** 0.5, 5),
+        "F-statistic": round(model.fvalue, 3),
+        "df1": int(model.df_model),
+        "df2": int(model.df_resid),
+        "Model p-value": round(model.f_pvalue, 4)
+    }])
+
+    table = dash_table.DataTable(
+        columns=[{"name": col, "id": col} for col in summary_row.columns],
+        data=summary_row.to_dict("records"),
+        style_table={"width": "95%", "margin": "auto"},
+        style_cell={
+            "textAlign": "center",
+            "fontFamily": "Arial",
+            "fontSize": "14px",
+            "padding": "10px"
+        },
+        style_header={
+            "fontWeight": "bold",
+            "backgroundColor": "#dbe4f3",   # 柔和蓝灰
+            "color": "#003366"
+        },
+        style_data_conditional=[
+            {
+                "if": {"filter_query": "{Model p-value} <= 0.05", "column_id": "Model p-value"},
+                "backgroundColor": "#ffe0cc",  # 淡橙高亮
+                "color": "#000000",
+                "fontWeight": "bold"
+            },
+            {
+                "if": {"column_id": "R"},
+                "backgroundColor": "#f2f7fc"
+            },
+            {
+                "if": {"column_id": "R²"},
+                "backgroundColor": "#f2f7fc"
+            },
+            {
+                "if": {"column_id": "Adj. R²"},
+                "backgroundColor": "#f2f7fc"
+            },
+            {
+                "if": {"column_id": "Std. Error"},
+                "backgroundColor": "#fefefe"
+            },
+            {
+                "if": {"column_id": "F-statistic"},
+                "backgroundColor": "#fdf3e7"
+            },
+            {
+                "if": {"column_id": "df1"},
+                "backgroundColor": "#fdf3e7"
+            },
+            {
+                "if": {"column_id": "df2"},
+                "backgroundColor": "#fdf3e7"
+            }
+        ]
+    )
+
+    return table
+
+
+def multivariate_regression_behavioral(df):
+    X_cols = [
+        "EMOTION_CONFIDENCE",
+        "EMOTION_SURPRISE",
+        "EMOTION_CONFUSION",
+        "EMOTION_FRUSTRATION",
+        "EMOTION_SELFDOUBT",
+        "Q1_personality_check"
+    ]
+    y_col = "Behavioral_Perception"
+    valid_df = df[X_cols + [y_col]].dropna()
+
+    X = sm.add_constant(valid_df[X_cols])
+    y = valid_df[y_col]
+    model = sm.OLS(y, X).fit()
+
+    return html.Div([
+        html.H4("Multivariate Linear Regression: Behavioral Perception", style={"textAlign": "center", "marginTop": "30px"}),
+        plot_coefficient_heatmap(model, X_cols),
+        html.H4("Correlation Matrix : Predictors + Behavioral Perception", style={"textAlign": "center", "marginTop": "50px"}),
+        plot_correlation_heatmap(valid_df, X_cols, y_col),
+        html.H4("Regression Model Summary", style={"textAlign": "center", "marginTop": "30px"}),
+        get_model_summary_table(model),
+    ])
+
+
+def plot_behavioral_perception_fit(df):
+    """
+    Fit a multivariate linear regression model to predict Behavioral_Perception
+    using emotional states and personality traits, and plot predicted vs actual values.
+
+    Parameters:
+        df (pd.DataFrame): The input dataframe containing all necessary columns.
+
+    Returns:
+        A Plotly figure showing predicted vs. actual values.
+    """
+
+    # Define predictors and response variable
+    X_cols = [
+        "EMOTION_CONFIDENCE",
+        "EMOTION_SURPRISE",
+        "EMOTION_CONFUSION",
+        "EMOTION_FRUSTRATION",
+        "EMOTION_SELFDOUBT",
+        "Q1_personality_check"
+    ]
+    y_col = "Behavioral_Perception"
+
+    # Clean data: drop missing values
+    valid_df = df[X_cols + [y_col]].dropna()
+    X = sm.add_constant(valid_df[X_cols])
+    y = valid_df[y_col]
+
+    # Fit the regression model
+    model = sm.OLS(y, X).fit()
+    y_pred = model.predict(X)
+
+    # Create scatter plot
+    fig = go.Figure()
+
+    # Add data points (actual vs predicted)
+    fig.add_trace(go.Scatter(
+        x=y,
+        y=y_pred,
+        mode="markers",
+        name="Data Points",
+        marker=dict(size=8, opacity=0.7, color="royalblue")
+    ))
+
+    # Add ideal line (y = x)
+    min_val = min(min(y), min(y_pred))
+    max_val = max(max(y), max(y_pred))
+    fig.add_trace(go.Scatter(
+        x=[min_val, max_val],
+        y=[min_val, max_val],
+        mode="lines",
+        name="y = x (Perfect Fit)",
+        line=dict(dash="dash", color="gray")
+    ))
+
+    # Add R² annotation
+    fig.add_annotation(
+        xref="paper", yref="paper",
+        x=0.05, y=0.95,
+        showarrow=False,
+        text=f"R² = {round(model.rsquared, 3)}",
+        font=dict(size=14, color="black"),
+        bgcolor="white",
+        bordercolor="#ccc",
+        borderwidth=1,
+        borderpad=4
+    )
+
+    # Layout settings
+    fig.update_layout(
+        title="Predicted vs Actual Behavioral Perception",
+        xaxis_title="Actual Behavioral Perception",
+        yaxis_title="Predicted Behavioral Perception",
+        height=500,
+        plot_bgcolor="#f9f9f9",
+        paper_bgcolor="#f9f9f9",
+        margin=dict(t=50, l=50, r=50, b=50),
+        template="simple_white",
+        yaxis=dict(range=[min_val - 0.1 * (max_val - min_val), max_val + 0.1 * (max_val - min_val)],
+            ticks="outside",
+            showgrid=True,
+            gridcolor="#e0e0e0"
+        )
+    )
+
+    return dcc.Graph(figure=fig)
 
 #human attacker analysis
 

@@ -12,19 +12,23 @@ from components import (
     analyze_q9_confusion,
     analyze_q10_frustration,
     analyze_q11_selfdoubt,
-    analyze_q12_emotion_transitions,  
+    analyze_q12_emotion_transitions,
+    calculate_cronbach_alpha_q1_to_q17,
+    calculate_cronbach_by_emotion,
+    correlation_heatmap_emotion_q13_17,
+    multivariate_regression_behavioral,
+    plot_behavioral_perception_fit
 )
 
 
 def user_study_layout():
 
     df = load_sav_data("./data_visualization/raw_data/user_study/user_study.sav")
-    # print(df.columns.tolist())
-    
+    questionnaire_columns = df.columns.tolist()
+    # print("Questionnaire Columns:", questionnaire_columns)
     return html.Div([
         html.H1("Honeyfarm User Study Dashboard"),
-        html.H2("User Study Analysis and Insights"),
-
+        
         html.H2("Descriptive Statistics"),
         html.Div([
             html.Div([
@@ -96,24 +100,32 @@ def user_study_layout():
         html.Hr(),
         
         html.Div([
+            
+            html.Div([
+                html.H3("Confusion Triggers"),
+                analyze_q9_confusion(df)
+            ], style={"width": "48%", "display": "inline-block", "paddingRight": "2%"}),
+
             html.Div([
                 html.H3("Frustration Triggers"),
                 analyze_q10_frustration(df)
             ], style={"width": "48%", "display": "inline-block", "paddingRight": "2%"}),
 
-            html.Div([
-                html.H3("Self-Doubt Triggers"),
-                analyze_q11_selfdoubt(df)
-            ], style={"width": "48%", "display": "inline-block"})
         ], style={"padding": "20px 5%"}),
 
         html.Hr(),
         
         html.Div([
+            
+            html.Div([
+                html.H3("Self-Doubt Triggers"),
+                analyze_q11_selfdoubt(df)
+            ], style={"width": "48%", "display": "inline-block"}),
+            
             html.Div([
                 html.H3("Emotion Transitions"),
                 analyze_q12_emotion_transitions(df)
-            ], style={"width": "100%", "display": "inline-block", "paddingRight": "2%"}),
+            ], style={"width": "48%", "display": "inline-block", "paddingRight": "2%"}),
         ], style={"padding": "20px 5%"}),
 
         html.Hr(),
@@ -154,7 +166,48 @@ def user_study_layout():
                 likert_line_chart(df, "Q17_engage_differently_next_time", "Q17: I would act differently if I were to engage with the system again.")
             ], style={"width": "100%", "display": "inline-block", "paddingRight": "2%"}),
 
-        html.Div("Further analysis on per-trait emotion breakdown and correlation studies coming soon...", style={
+        html.Hr(),
+        
+        html.H2("User Study Analysis and Insights"),
+        
+        html.Div([
+            html.H4("Cronbach's Alpha Reliability Analysis", style={"textAlign": "center", "fontWeight": "bold", "marginBottom": "30px"}),
+
+            html.Div([
+                html.Div(calculate_cronbach_alpha_q1_to_q17(df), style={"width": "48%", "margin": "1%"}),
+                html.Div(calculate_cronbach_by_emotion(df, "Confidence"), style={"width": "48%", "margin": "1%"})
+            ], style={"display": "flex", "justifyContent": "center", "flexWrap": "wrap"}),
+
+            html.Div([
+                html.Div(calculate_cronbach_by_emotion(df, "Surprise"), style={"width": "48%", "margin": "1%"}),
+                html.Div(calculate_cronbach_by_emotion(df, "Confusion"), style={"width": "48%", "margin": "1%"})
+            ], style={"display": "flex", "justifyContent": "center", "flexWrap": "wrap"}),
+
+            html.Div([
+                html.Div(calculate_cronbach_by_emotion(df, "Frustration"), style={"width": "48%", "margin": "1%"}),
+                html.Div(calculate_cronbach_by_emotion(df, "Self-Doubt"), style={"width": "48%", "margin": "1%"})
+            ], style={"display": "flex", "justifyContent": "center", "flexWrap": "wrap"}),
+
+        ], style={"width": "100%"}),
+        
+        html.Hr(),
+        
+        html.Div([
+            correlation_heatmap_emotion_q13_17(df)
+        ]),
+        
+        html.Hr(),
+        
+        html.Div([
+            multivariate_regression_behavioral(df)
+        ]),
+        
+        html.Div([
+            html.H4("Fit Plot: Actual vs Predicted", style={"textAlign": "center", "marginTop": "40px"}),
+            plot_behavioral_perception_fit(df)
+        ]),
+
+        html.Div("HoneyFarm: User Study Data Analysis Dashboard", style={
             "textAlign": "center",
             "marginTop": "40px",
             "fontStyle": "italic"

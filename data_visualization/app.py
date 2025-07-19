@@ -15,7 +15,6 @@ server = app.server
 
 # Encode icon image
 with open("./data_visualization/assets/honeyfarm_logo1.png", "rb") as f:
-# with open("./data_visualization/assets/honeyfarm_icon.jpg", "rb") as f:
     icon_data = base64.b64encode(f.read()).decode("utf-8")
 
 app.layout = html.Div([
