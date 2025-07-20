@@ -37,7 +37,7 @@ from components import (
 def snare_layout():
     # load and process snare.log data
     df = load_snare_log_data("./data_visualization/raw_data/snare/snare.log")
-    df = snare_log_classify_behavior(df)
+    # df = snare_log_classify_behavior(df)
     df = enrich_geo(df)
 
     # load and process snare.err data
@@ -103,8 +103,8 @@ def snare_layout():
             tanner_err_type_pie_chart(tanner_err_df)
         ], style={"padding": "20px 5%"}),
         
-        html.Div([
-            html.Div(tanner_err_time_series(tanner_err_df), style={"width": "100%", "display": "inline-block", "float": "right"})
-        ], style={"padding": "20px 5%"}),
+        # html.Div([
+        #     html.Div(tanner_err_time_series(tanner_err_df), style={"width": "100%", "display": "inline-block", "float": "right"})
+        # ], style={"padding": "20px 5%"}),
         
     ])

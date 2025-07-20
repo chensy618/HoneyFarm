@@ -537,6 +537,7 @@ def miniprint_event_trend_line(df):
     trend = df.groupby(["hour", "event"]).size().reset_index(name="count")
     fig = px.line(trend, x="hour", y="count", color="event", markers=True,
                   title="What Really Happened?")
+    fig.update_layout(xaxis=dict(range=[trend["hour"].min(), "2025-06-29 23:00:00"]))
     return fig
 
 def miniprint_job_table(df):
@@ -731,10 +732,10 @@ def miniprint_geo_heatmap(df):
     )
 
     fig = px.density_mapbox(
-        geo_grouped, lat="latitude", lon="longitude", z="count", radius=15,
+        geo_grouped, lat="latitude", lon="longitude", z="count", radius=40,
         center=dict(lat=20, lon=0), zoom=1,
         mapbox_style="carto-positron",
-        # title="Geographic Heatmap of Interactions"
+        color_continuous_scale="Turbo"
     )
 
     fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0})
@@ -793,15 +794,15 @@ def snare_err_path_table(df):
 # Snare Error Log: Attack Frequency Line
 def snare_err_attack_frequency(df):
     df = df.copy()
-    df["hour"] = df["timestamp"].dt.floor("h") 
-    freq_df = df.groupby("hour").size().reset_index(name="count")
+    df["date"] = df["timestamp"].dt.floor("d") 
+    freq_df = df.groupby("date").size().reset_index(name="count")
 
     fig = px.line(
         freq_df,
-        x="hour",
+        x="date",
         y="count",
-        title="Attack Frequency Over Time (per Hour)",
-        labels={"hour": "Time", "count": "Requests"},
+        title="Attack Frequency Over Time (per day)",
+        labels={"date": "Time", "count": "Requests"},
         markers=True,
         text="count"
     )
@@ -810,7 +811,7 @@ def snare_err_attack_frequency(df):
 
     fig.update_layout(
         title={
-            "text": "Attack Frequency Over Time (per Hour)",
+            "text": "Attack Frequency Over Time (per day)",
             "x": 0.5,  # Center the title
             "xanchor": "center"
         },
@@ -884,7 +885,7 @@ def snare_log_status_table(df):
         {"name": "Path", "id": "path"},
         {"name": "Level", "id": "level"},
         {"name": "Source", "id": "source"},
-        {"name": "Behavior", "id": "behavior"},
+        # {"name": "Behavior", "id": "behavior"},
         {"name": "Message", "id": "msg"},
     ]
 
@@ -986,10 +987,12 @@ def snare_log_ip_heatmap(df):
     )
 
     fig = px.density_mapbox(
-        geo_grouped, lat="latitude", lon="longitude", z="count", radius=15,
+        geo_grouped, lat="latitude", lon="longitude", z="count", radius=40,
         center=dict(lat=20, lon=0), zoom=1,
         mapbox_style="carto-positron",
+        color_continuous_scale="Turbo"
     )
+
 
     fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0})
 
@@ -1041,7 +1044,9 @@ def snare_log_attack_frequency(df):
         markers=True,
         labels={"x": "Date", "y": "Number of Requests"},
         title="Snare Log: Daily Attack Frequency",
+        text=date_freq.values,
     )
+    fig_date.update_traces(textposition="top center")
     fig_date.update_layout(margin=dict(l=20, r=20, t=50, b=40))
 
     return html.Div([
@@ -1125,7 +1130,8 @@ def tanner_hourly_line_chart(df):
         y=hourly_counts.values,
         markers=True,
         labels={"x": "Hour", "y": "Count"},
-        title="Hourly Request Distribution"
+        title="Hourly Request Distribution",
+        text=hourly_counts.values  # show count on the line
     )
     fig.update_traces(text=hourly_counts.values, textposition="top center")
     fig.update_layout(xaxis=dict(dtick=1))
