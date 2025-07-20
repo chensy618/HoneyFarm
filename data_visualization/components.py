@@ -13,7 +13,7 @@ import pingouin as pg
 import scipy.stats as stats
 import statsmodels.api as sm
 import numpy as np
-from collections import Counter
+from collections import Counter, defaultdict
 
 # COWRIE !!!!!
 
@@ -2394,7 +2394,514 @@ def human_latest_commands_table(df):
         fixed_rows={"headers": True}
     )
 
+# The following function is used for overview.py 
+def interaction_bar_chart(node_dfs: dict):
+    counts = {name: len(df) for name, df in node_dfs.items()}
+    data = {
+        "Node": list(counts.keys()),
+        "Total Interactions": list(counts.values())
+    }
+    
+    max_val = max(data["Total Interactions"])
+    
+    color_map = {
+        "Appliance": "#636EFA",         
+        "Lighting": "#EF553B",      
+        "Thermostat": "#00CC96",    
+        "Diagnostics": "#AB63FA",   
+        "Snare": "#FFA15A",         
+        "Miniprint": "#19D3F3"      
+    }
+    fig = px.bar(
+        data_frame=data,
+        x="Node",
+        y="Total Interactions",
+        color="Node",
+        color_discrete_map=color_map,
+        text="Total Interactions",
+        # title="Total Interactions per Node"
+    )
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        showlegend=False,
+        margin=dict(t=40, l=20, r=20, b=40),
+        yaxis=dict(range=[0, max_val * 1.1])  # y axis range with some padding
+    )
+    
+    return dcc.Graph(figure=fig)
+
+def custom_node_sort(nodes):
+    nodes = list(nodes)
+    if "Snare" in nodes:
+        nodes.remove("Snare")
+        return ["Snare"] + sorted(nodes)
+    return sorted(nodes)
+
+def common_ip_summary(dfs):
+    if isinstance(dfs, dict):
+        dfs_named = dfs
+    else:
+        # if dfs is a list, enumerate to create named dict
+        dfs_named = {f"Node {i+1}": df for i, df in enumerate(dfs)}
+
+    # record IP and the nodes they appear in
+    ip_nodes_map = defaultdict(set)
+
+    for node_name, df in dfs_named.items():
+        if 'src_ip' in df.columns:
+            unique_ips = set(df['src_ip'].dropna().unique())
+            for ip in unique_ips:
+                ip_nodes_map[ip].add(node_name)
+
+    # keep only IPs that appear in at least 2 nodes
+    filtered_ip_info = [
+        {
+            "IP Address": ip,
+            "Appeared in Nodes": len(nodes),
+            "Nodes": ", ".join(custom_node_sort(nodes))  # keep snare first if present
+        }
+        for ip, nodes in ip_nodes_map.items() if len(nodes) >= 2
+    ]
+
+    # 
+    ip_df = pd.DataFrame(filtered_ip_info)
+    ip_df = ip_df.sort_values(by="Appeared in Nodes", ascending=False)
+
+    return html.Div([
+        html.H4(f"{len(ip_df)} IPs appeared in ≥2 nodes."),
+        dash_table.DataTable(
+            columns=[
+                {"name": "IP Address", "id": "IP Address"},
+                {"name": "Appeared in Nodes", "id": "Appeared in Nodes"},
+                {"name": "Nodes", "id": "Nodes", "presentation": "markdown"}
+            ],
+            data=ip_df.to_dict("records"),
+            page_size=10,
+            style_table={"overflowX": "auto", "marginTop": "15px"},
+            style_cell={
+                "textAlign": "left",
+                "padding": "2px 4px",  
+                "fontFamily": "monospace",
+                "fontSize": "13px",    
+                "lineHeight": "1.2",   
+            },
+            style_header={
+                "backgroundColor": "#f4f4f4",
+                "fontWeight": "bold"
+            },
+            style_data_conditional=[
+                {
+                    "if": {"filter_query": "{Appeared in Nodes} >= 5"},
+                    "backgroundColor": "#ffe5e5"
+                }
+            ]
+        )
+    ])
+
+def country_bar_chart(node_name, df):
+    if 'country' not in df.columns:
+        return html.Div(f"No country data available for {node_name}")
+
+    country_counts = Counter(df['country'].dropna())
+    most_common = country_counts.most_common(10)
+
+    colors = {
+        "Snare": "#1f77b4",        
+        "Appliance": "#ff7f0e",    
+        "Lighting": "#2ca02c",     
+        "Thermostat": "#d62728",   
+        "Diagnostics": "#9467bd",  
+        "Miniprint": "#8c564b"    
+    }
+    node_color = colors.get(node_name, "#1f77b4") 
+
+    fig = px.bar(
+        x=[c[0] for c in most_common],
+        y=[c[1] for c in most_common],
+        labels={'x': 'Country', 'y': 'Count'},
+        title=f"Top Source Countries - {node_name}",
+        color_discrete_sequence=[node_color]
+    )
+
+    fig.update_layout(margin=dict(t=40, l=40, r=20, b=40))
+
+    return html.Div([
+        dcc.Graph(figure=fig)
+    ], style={"width": "100%", "marginBottom": "30px"})
+    
+    
+# Cowrie session duration computation
+def compute_cowrie_session_durations(df):
+    # Ensure necessary fields are present
+    if not {"session", "eventid", "timestamp", "src_ip"}.issubset(df.columns):
+        return pd.DataFrame(columns=["src_ip", "duration_sec"])
+    
+    connect_df = df[df["eventid"] == "cowrie.session.connect"].copy()
+    closed_df = df[df["eventid"] == "cowrie.session.closed"].copy()
+
+    merged = pd.merge(
+        connect_df[["session", "src_ip", "timestamp"]],
+        closed_df[["session", "timestamp"]],
+        on="session",
+        suffixes=("_start", "_end")
+    )
+
+    merged["duration_sec"] = (
+        pd.to_datetime(merged["timestamp_end"]) - pd.to_datetime(merged["timestamp_start"])
+    ).dt.total_seconds()
+
+    return merged[["src_ip", "duration_sec"]]
 
 
+# Snare session duration computation
+def compute_snare_session_durations(df, time_gap_minutes=5):
+    df = df.copy()
+    df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+    df = df[['timestamp', 'src_ip']].dropna().sort_values(by=['src_ip', 'timestamp'])
+
+    df['time_diff'] = df.groupby('src_ip')['timestamp'].diff()
+    df['new_session'] = (df['time_diff'] > pd.Timedelta(minutes=time_gap_minutes)).fillna(True)
+    df['session_id'] = df.groupby('src_ip')['new_session'].cumsum()
+
+    sessions = df.groupby(['src_ip', 'session_id'])['timestamp'].agg(['min', 'max'])
+    sessions['duration_sec'] = (sessions['max'] - sessions['min']).dt.total_seconds()
+
+    return sessions.reset_index()
+
+# Miniprint: session duration computation
+def compute_miniprint_session_durations(df):
+    df = df.copy()
+    print(df['event'].unique())
+    df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+    if df['timestamp'].dt.tz is not None:
+        df['timestamp'] = df['timestamp'].dt.tz_localize(None)
+
+    df = df[df['event'].isin(['open_conn', 'close_conn'])]
+    df = df.drop_duplicates(subset=['timestamp', 'src_ip', 'event'])
+    df = df[['timestamp', 'src_ip', 'event']].dropna().sort_values(by=['src_ip', 'timestamp'])
+
+    durations = []
+
+    for src_ip, group in df.groupby('src_ip'):
+        stack = []
+        for _, row in group.iterrows():
+            if row['event'] == 'open_conn':
+                stack.append(row['timestamp'])
+            elif row['event'] == 'close_conn' and stack:
+                start_time = stack.pop(0)
+                durations.append((row['timestamp'] - start_time).total_seconds())
+
+    return durations
 
 
+# calculate average session duration for each node type
+def average_duration_bar_chart(node_dfs: dict):
+    avg_durations = {}
+
+    for name, df in node_dfs.items():
+        try:
+            if name == "Snare":
+                sessions = compute_snare_session_durations(df)
+                avg_duration = sessions["duration_sec"].dropna().mean()
+                print(f"[{name}] avg_duration:", avg_duration)
+                avg_durations[name] = avg_duration
+
+            elif name == "Miniprint":
+                df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+                if df['timestamp'].dt.tz is not None:
+                    df['timestamp'] = df['timestamp'].dt.tz_localize(None)
+
+                df = df[df["event"].isin(["connection", "connection_closed"])]
+                df = df[["timestamp", "src_ip", "event"]].dropna()
+                df = df.drop_duplicates(subset=["timestamp", "src_ip", "event"])
+                df = df.sort_values(by=["src_ip", "timestamp"])
+                df["is_open"] = df["event"] == "connection"
+                df["session_id"] = df.groupby("src_ip")["is_open"].cumsum()
+
+                grouped = df.groupby(["src_ip", "session_id", "event"])["timestamp"].min().unstack()
+                grouped.dropna(inplace=True)
+
+                durations = (grouped["connection_closed"] - grouped["connection"]).dt.total_seconds()
+                avg_duration = durations.mean()
+                print(f"[{name}] avg_duration:", avg_duration)
+                avg_durations[name] = avg_duration
+
+            elif 'duration' in df.columns:
+                df['duration'] = pd.to_numeric(df['duration'], errors='coerce')
+                avg_duration = df['duration'].dropna().mean()
+                print(f"[{name}] avg_duration:", avg_duration)
+                avg_durations[name] = avg_duration
+
+            else:
+                print(f"[{name}] has no duration info")
+                avg_durations[name] = None
+
+        except Exception as e:
+            print(f"[{name}] error in duration calc:", e)
+            avg_durations[name] = None
+
+    # Prepare plot
+    nodes = list(avg_durations.keys())
+    values = [avg_durations[node] if avg_durations[node] is not None else 0 for node in nodes]
+
+    df_plot = pd.DataFrame({
+        "Node": nodes,
+        "Avg Duration (s)": values
+    })
+
+    # add labels for bar chart
+    df_plot["label"] = df_plot["Avg Duration (s)"].apply(lambda v: f"{v:.1f}" if pd.notna(v) else "N/A")
+
+    color_map = {
+        "Appliance": "#636EFA",
+        "Lighting": "#EF553B",
+        "Thermostat": "#00CC96",
+        "Diagnostics": "#AB63FA",
+        "Snare": "#FFA15A",
+        "Miniprint": "#19D3F3"
+    }
+
+    fig = px.bar(
+        df_plot,
+        x="Node",
+        y="Avg Duration (s)",
+        color="Node",
+        color_discrete_map=color_map,
+        text="label"
+    )
+
+    fig.update_traces(textposition="outside")
+
+    fig.update_layout(
+        showlegend=False,
+        yaxis_range=[0, max(df_plot["Avg Duration (s)"].fillna(0)) * 1.2],
+        # title="Average Session Duration per Node (seconds)"
+    )
+
+    return dcc.Graph(figure=fig)
+
+from collections import Counter
+import pandas as pd
+from dash import dash_table, html
+
+# Sub-function 1: For Appliance / Lighting / Thermostat
+def get_common_resources_appliance_like(df):
+    all_results = []
+
+    # Honeytoken-based access
+    honeytoken_df = df[
+        (df["eventid"] == "cowrie.honeytoken") &
+        df["input"].notna() &
+        (df["input"] != "")
+    ]
+    honeytoken_counter = Counter(honeytoken_df["input"])
+    honeytoken_df = pd.DataFrame(honeytoken_counter.items(), columns=["Resource", "Requests"])
+    all_results.append(honeytoken_df)
+
+    # Command-based access: cat, cd, head, tail
+    if "input" in df.columns:
+        input_series = df["input"].dropna().astype(str)
+        pattern = r"(?:cat|tail|head|cd)\s+(/[\w/\.\-]+)"
+        extracted_paths = input_series.str.extractall(pattern)[0]
+
+        if not extracted_paths.empty:
+            input_counter = Counter(extracted_paths)
+            input_df = pd.DataFrame(input_counter.items(), columns=["Resource", "Requests"])
+            all_results.append(input_df)
+
+    if not all_results:
+        return pd.DataFrame(columns=["Resource", "Requests"])
+
+    combined = pd.concat(all_results)
+    combined = combined.groupby("Resource", as_index=False)["Requests"].sum()
+    combined = combined.sort_values(by="Requests", ascending=False).reset_index(drop=True)
+    return combined
+
+# Sub-function 2: Diagnostics command-based file extraction
+def get_common_resources_diagnostics(df):
+    if "input" not in df.columns:
+        return pd.DataFrame(columns=["Resource", "Requests"])
+
+    input_series = df["input"].dropna().astype(str)
+    pattern = r"(?:cat|tail|head|cd)\s+(/[\w/\.\-]+)"
+    extracted_paths = input_series.str.extractall(pattern)[0]
+
+    if extracted_paths.empty:
+        return pd.DataFrame(columns=["Resource", "Requests"])
+
+    counter = Counter(extracted_paths)
+    df_result = pd.DataFrame(counter.items(), columns=["Resource", "Requests"])
+    df_result["Requests"] = df_result["Requests"].astype(int)
+    df_result = df_result.sort_values(by="Requests", ascending=False).reset_index(drop=True)
+    return df_result
+
+# Sub-function 3: Miniprint file_name analysis
+def get_common_resources_miniprint(df):
+    filtered_df = df[df["event"] == "save_raw_print_job"].copy()
+    if "file_name" not in filtered_df.columns:
+        return pd.DataFrame(columns=["Resource", "Requests"])
+
+    file_names = filtered_df["file_name"].dropna()
+    counter = Counter(file_names)
+    return pd.DataFrame(counter.items(), columns=["Resource", "Requests"]).sort_values(by="Requests", ascending=False)
+
+# Sub-function 4: Snare HTTP request paths
+def get_common_resources_snare(df):
+    if "path" not in df.columns:
+        return pd.DataFrame(columns=["Resource", "Requests"])
+
+    # Clean path entries
+    paths = df["path"].dropna()
+    paths = paths[paths != "N/A"]
+
+    if paths.empty:
+        return pd.DataFrame(columns=["Resource", "Requests"])
+
+    counter = Counter(paths)
+    df_result = pd.DataFrame(counter.items(), columns=["Resource", "Requests"])
+    df_result["Requests"] = df_result["Requests"].astype(int)
+    df_result = df_result.sort_values(by="Requests", ascending=False).reset_index(drop=True)
+
+    return df_result
+
+
+# Function: generate one table per node
+def common_access_resources_table(node_dfs: dict):
+    table_components = []
+
+    for node_name, df in node_dfs.items():
+        # Select the appropriate handler
+        if node_name in ["Appliance", "Lighting", "Thermostat"]:
+            resources = get_common_resources_appliance_like(df)
+        elif node_name == "Diagnostics":
+            resources = get_common_resources_diagnostics(df)
+        elif node_name == "Miniprint":
+            resources = get_common_resources_miniprint(df)
+        elif node_name == "Snare":
+            resources = get_common_resources_snare(df)
+        else:
+            continue
+
+        if resources.empty:
+            table_components.append(html.Div(f"No accessed resources found for node: {node_name}"))
+            continue
+
+        resources["Requests"] = pd.to_numeric(resources["Requests"], errors="coerce").fillna(0).astype(int)
+        resources.sort_values(by="Requests", ascending=False, inplace=True)
+
+        table_components.append(
+            html.Div([
+                html.H3(
+                    f"{node_name} - Accessed Endpoints",
+                    style={
+                        "textAlign": "center",
+                        "fontWeight": "bold",
+                        "fontSize": "22px",
+                        "marginBottom": "16px"
+                    }
+                ),
+                dash_table.DataTable(
+                    columns=[{"name": c, "id": c} for c in resources.columns],
+                    data=resources.to_dict("records"),
+                    page_size=10,
+                    style_table={
+                        "overflowX": "auto",
+                        "maxHeight": "500px",
+                        "borderRadius": "8px",
+                        "boxShadow": "0 2px 8px rgba(0, 0, 0, 0.1)"
+                    },
+                    style_cell={
+                        "textAlign": "left",
+                        "padding": "8px 12px",
+                        "fontFamily": "Courier New, monospace",
+                        "fontSize": "14px",
+                        "borderBottom": "1px solid #eee"
+                    },
+                    style_header={
+                        "fontWeight": "bold",
+                        "backgroundColor": "#f5f5f5",
+                        "borderBottom": "2px solid #ccc"
+                    },
+                    style_data_conditional=[
+                        {
+                            "if": {"row_index": "odd"},
+                            "backgroundColor": "#fafafa"
+                        }
+                    ]
+                )
+            ], style={"width": "48%", "padding": "1%"})
+        )
+
+    # Wrap every 2 tables into a row
+    rows = []
+    for i in range(0, len(table_components), 2):
+        row = html.Div(
+            children=table_components[i:i+2],
+            style={
+                "display": "flex",
+                "justifyContent": "space-between",
+                "flexWrap": "wrap",
+                "marginBottom": "40px"
+            }
+        )
+        rows.append(row)
+
+    if not rows:
+        return html.Div("No resource access records available.")
+
+    return html.Div([
+        html.H2("Commonly Accessed Resources Across Honeypot Nodes", style={
+            "textAlign": "center",
+            "marginTop": "30px",
+            "marginBottom": "30px",
+            "fontSize": "28px",
+            "fontWeight": "bold"
+        }),
+        *rows  # call rows
+    ], style={"padding": "20px 5%"})
+
+
+def sav_trait_distribution_bar_overview(df):
+    """Show the distribution of self-reported personality traits with legend and no x-axis labels."""
+    
+    trait_mapping = {
+        1: "Openness to Experience",
+        2: "Conscientiousness",
+        3: "Low Extraversion",
+        4: "Low Agreeableness",
+        5: "Low Neuroticism"
+    }
+
+    trait_series = df["Q1_personality_check"].map(trait_mapping)
+    all_traits = list(trait_mapping.values())
+
+    trait_counts = trait_series.value_counts().reindex(all_traits, fill_value=0).reset_index()
+    trait_counts.columns = ["Trait", "Count"]
+    trait_counts["Percentage"] = (trait_counts["Count"] / len(df) * 100).round(2)
+
+    fig = px.bar(
+        trait_counts,
+        x="Trait",
+        y="Count",
+        color="Trait",
+        text="Count",
+        color_discrete_sequence=px.colors.qualitative.Set2
+    )
+
+    fig.update_traces(textposition="outside")
+
+    fig.update_layout(
+        yaxis=dict(title="Count", range=[0, max(trait_counts["Count"].max() + 5, 20)]),
+        xaxis=dict(
+            title=None,
+            tickmode="array",
+            tickvals=[],   # Hides tick labels
+            showticklabels=False  # Explicitly disable tick labels
+        ),
+        height=450,
+        width=750,
+        margin=dict(t=50, b=60, l=40, r=40),
+        showlegend=True  # Show legend for color mapping
+    )
+
+    return dcc.Graph(figure=fig)
