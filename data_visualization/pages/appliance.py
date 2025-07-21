@@ -20,7 +20,7 @@ from components import (
 )
 
 def appliance_layout():
-    df = load_and_process_log("./data_visualization/raw_data/appliances/filtered+merged_appliances.json")
+    df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_appliances.json")
     df = enrich_geo(df)
 
     def two_column_block(left_title, left_component, right_title, right_component):
