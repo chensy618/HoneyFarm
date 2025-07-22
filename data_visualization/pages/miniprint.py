@@ -11,7 +11,8 @@ from components import (
     miniprint_geo_heatmap,
     miniprint_job_detail_table,
     miniprint_merged_table,
-    miniprint_event_type_bar_with_line
+    miniprint_event_type_bar_with_line,
+    miniprint_event_type_pie
 )
 
 
@@ -29,28 +30,37 @@ def miniprint_layout():
         
         html.Div([
             html.Div([
-                html.H3("Top 10 Source IPs"),
-                dcc.Graph(figure=miniprint_top_ip_pie(df))
-            ], style={"width": "48%", "display": "inline-block"}),
-
-            html.Div([
                 html.H3("Event Type Distribution"),
-                dcc.Graph(figure=miniprint_event_type_bar_with_line(df))
+                dcc.Graph(figure=miniprint_event_type_pie(df))
+            ], style={"width": "48%", "display": "inline-block"}),
+            
+             
+            html.Div([
+                html.H3("Top Source IP Summary Table"),
+                miniprint_ip_summary_table(df)
             ], style={"width": "48%", "display": "inline-block", "float": "right"})
         ], style={"padding": "20px 5%"}),
 
         html.Div([
+            
             html.Div([
-                html.H3("Top Source IP Summary Table"),
-                miniprint_ip_summary_table(df)
+                html.H3("Event Type Distribution"),
+                dcc.Graph(figure=miniprint_event_type_bar_with_line(df))
             ], style={"width": "48%", "display": "inline-block"}),
-
+            
             html.Div([
-                html.H3("Geo Heatmap of Attacker IPs"),
-                miniprint_geo_heatmap(df)
-            ], style={"width": "48%", "display": "inline-block", "float": "right"})
+                html.H3("Top 10 Source IPs"),
+                dcc.Graph(figure=miniprint_top_ip_pie(df))
+            ], style={"width": "48%", "display": "inline-block"}),
         ], style={"padding": "20px 5%"}),
         
+        html.Hr(),
+        
+        html.Div([
+            html.H3("Geo Heatmap of Attacker IPs"),
+            miniprint_geo_heatmap(df)
+        ], style={"width": "96%", "display": "inline-block", "float": "right"}),
+          
         html.Div([
             html.Div([
                 html.H3("Print Job Event Trend Over Time"),

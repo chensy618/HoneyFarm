@@ -510,6 +510,30 @@ def miniprint_event_type_bar(df):
     fig.update_traces(textposition="outside")
     return fig
 
+def miniprint_event_type_pie(df):
+    """
+    Draw a pie chart showing the distribution of event types in the Miniprint dataset.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame with an 'event' column.
+
+    Returns:
+        Plotly figure (dcc.Graph) showing a pie chart of event type distribution.
+    """
+    event_count = df["event"].value_counts().reset_index()
+    event_count.columns = ["event", "count"]
+
+    fig = px.pie(
+        event_count,
+        names="event",
+        values="count",
+        # title="Event Type Distribution (Miniprint)"
+    )
+
+    fig.update_traces(textinfo="percent+label", textposition="inside")
+
+    return fig
+
 def miniprint_event_type_bar_with_line(df):
     event_count = df["event"].value_counts().reset_index()
     event_count.columns = ["event", "count"]
@@ -646,7 +670,7 @@ def mask_ip_address(ip):
     # mask ip address
     parts = ip.split(".")
     if len(parts) == 4:
-        return f"{parts[0]}.{parts[1]}.xx.xx"
+        return f"{parts[0]}.{parts[1]}.{parts[2]}.xx"
     return ip
 
 def miniprint_ip_summary_table(df):
