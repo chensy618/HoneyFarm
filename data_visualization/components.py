@@ -2163,8 +2163,7 @@ def multivariate_regression_behavioral(df):
         "EMOTION_SURPRISE",
         "EMOTION_CONFUSION",
         "EMOTION_FRUSTRATION",
-        "EMOTION_SELFDOUBT",
-        "Q1_personality_check"
+        "EMOTION_SELFDOUBT"
     ]
     y_col = "Behavioral_Perception"
     valid_df = df[X_cols + [y_col]].dropna()
@@ -2186,7 +2185,7 @@ def multivariate_regression_behavioral(df):
 def plot_behavioral_perception_fit(df):
     """
     Fit a multivariate linear regression model to predict Behavioral_Perception
-    using emotional states and personality traits, and plot predicted vs actual values.
+    using only emotional states, and plot predicted vs actual values.
 
     Parameters:
         df (pd.DataFrame): The input dataframe containing all necessary columns.
@@ -2194,31 +2193,29 @@ def plot_behavioral_perception_fit(df):
     Returns:
         A Plotly figure showing predicted vs. actual values.
     """
-
-    # Define predictors and response variable
-    X_cols = [
+    # Define emotion-only predictors
+    emotion_cols = [
         "EMOTION_CONFIDENCE",
         "EMOTION_SURPRISE",
         "EMOTION_CONFUSION",
         "EMOTION_FRUSTRATION",
-        "EMOTION_SELFDOUBT",
-        "Q1_personality_check"
+        "EMOTION_SELFDOUBT"
     ]
     y_col = "Behavioral_Perception"
 
-    # Clean data: drop missing values
-    valid_df = df[X_cols + [y_col]].dropna()
-    X = sm.add_constant(valid_df[X_cols])
-    y = valid_df[y_col]
+    # Drop rows with missing values
+    valid_df = df[emotion_cols + [y_col]].dropna()
+    X = sm.add_constant(valid_df[emotion_cols].astype(float))
+    y = valid_df[y_col].astype(float)
 
     # Fit the regression model
     model = sm.OLS(y, X).fit()
     y_pred = model.predict(X)
 
-    # Create scatter plot
+    # Prepare figure
     fig = go.Figure()
 
-    # Add data points (actual vs predicted)
+    # Scatter plot: Actual vs Predicted
     fig.add_trace(go.Scatter(
         x=y,
         y=y_pred,
@@ -2227,7 +2224,7 @@ def plot_behavioral_perception_fit(df):
         marker=dict(size=8, opacity=0.7, color="royalblue")
     ))
 
-    # Add ideal line (y = x)
+    # Add y = x reference line
     min_val = min(min(y), min(y_pred))
     max_val = max(max(y), max(y_pred))
     fig.add_trace(go.Scatter(
@@ -2253,7 +2250,7 @@ def plot_behavioral_perception_fit(df):
 
     # Layout settings
     fig.update_layout(
-        title="Predicted vs Actual Behavioral Perception",
+        title="Predicted vs Actual Behavioral Perception (Emotion-Only Model)",
         xaxis_title="Actual Behavioral Perception",
         yaxis_title="Predicted Behavioral Perception",
         height=500,
@@ -2261,7 +2258,8 @@ def plot_behavioral_perception_fit(df):
         paper_bgcolor="#f9f9f9",
         margin=dict(t=50, l=50, r=50, b=50),
         template="simple_white",
-        yaxis=dict(range=[min_val - 0.1 * (max_val - min_val), max_val + 0.1 * (max_val - min_val)],
+        yaxis=dict(
+            range=[min_val - 0.1 * (max_val - min_val), max_val + 0.1 * (max_val - min_val)],
             ticks="outside",
             showgrid=True,
             gridcolor="#e0e0e0"
@@ -2269,6 +2267,7 @@ def plot_behavioral_perception_fit(df):
     )
 
     return dcc.Graph(figure=fig)
+
 
 #human attacker analysis
 
