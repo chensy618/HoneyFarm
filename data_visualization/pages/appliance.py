@@ -16,7 +16,8 @@ from components import (
     ip_duration_table,
     top_10_duration_ips_table,
     #personality_traits_bar,
-    most_requested_endpoints_table   
+    most_requested_endpoints_table,
+    node_navigation   
 )
 
 def appliance_layout():
@@ -42,6 +43,9 @@ def appliance_layout():
         })
 
     return html.Div([
+        
+        node_navigation("Appliance"),
+        
         html.H1("Appliance Node Dashboard"),
 
         two_column_block(

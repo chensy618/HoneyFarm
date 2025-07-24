@@ -30,7 +30,9 @@ from components import (
     tanner_err_type_chart,
     tanner_err_time_series,
     tanner_err_trace_blocks,
-    tanner_err_type_pie_chart
+    tanner_err_type_pie_chart,
+    
+    node_navigation,
 
 )
 
@@ -52,6 +54,9 @@ def snare_layout():
     tanner_err_df = load_tanner_err_data("./data_visualization/raw_data/snare/tanner.err")
 
     return html.Div([
+        
+        node_navigation("Snare"),
+        
         html.H1("Snare Node Dashboard"),
 
         html.H2("Section 1: Snare Log Analysis (snare.log)"),

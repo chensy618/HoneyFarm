@@ -14,7 +14,8 @@ from components import (
     country_bar_chart,
     average_duration_bar_chart,
     sav_trait_distribution_bar_overview,
-    common_access_resources_table
+    common_access_resources_table,
+    node_navigation
 )
 
 def country_charts_grid(dfs_dict):
@@ -73,6 +74,9 @@ def overview_layout():
     # print("df_named_list:", df_named_list)
     
     return html.Div([
+        
+        node_navigation("Overview"),
+        
         html.H1("Honeyfarm Overview Dashboard"),
         
         html.H2("Summary and Comparison across Nodes"),

@@ -2934,3 +2934,49 @@ def sav_trait_distribution_bar_overview(df):
     )
 
     return dcc.Graph(figure=fig)
+
+# the following function is used for node navigation
+
+def node_navigation(current_node: str):
+    nodes = {
+        "Home": "/",  # home page
+        "Overview": "/overview",
+        "Appliance": "/appliance",
+        "Lighting": "/lighting",
+        "Thermostat": "/thermostat",
+        "Diagnostics": "/diagnostics",
+        "Snare": "/snare",
+        "Miniprint": "/miniprint",
+        "User Study": "/user_study",
+        "Human Attacker Analysis": "/human_attacker"
+    }
+
+    return html.Div([
+        html.Div([
+            dcc.Link(name, href=path, style={
+                "marginRight": "20px",
+                "padding": "10px 18px",
+                "borderRadius": "8px",
+                "backgroundColor": "#f3f4f6" if name != current_node else "#c7d2fe",
+                "color": "#1f2937" if name != current_node else "#1e3a8a",
+                "fontWeight": "700" if name == current_node else "500",
+                "fontSize": "16px",
+                "textDecoration": "none",
+                "transition": "all 0.2s ease",
+                "display": "inline-block"
+            })
+            for name, path in nodes.items()
+        ])
+    ], style={
+        "display": "flex",
+        "justifyContent": "center",
+        "flexWrap": "wrap",
+        "gap": "14px",
+        "padding": "16px 24px",
+        "borderBottom": "1px solid #e5e7eb",
+        "marginBottom": "32px",
+        "backgroundColor": "#ffffff",
+        "boxShadow": "0 1px 4px rgba(0,0,0,0.04)"
+    })
+
+

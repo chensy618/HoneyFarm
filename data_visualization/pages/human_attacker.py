@@ -5,7 +5,8 @@ from components import (
     human_top_command_bar,
     human_top_user_pie,
     human_ip_duration_table,
-    human_latest_commands_table
+    human_latest_commands_table,
+    node_navigation
 )
 
 # Load CSV with proper delimiter
@@ -16,6 +17,9 @@ uf = pd.read_csv("./data_visualization/raw_data/human/diagnostics_human_attacker
 
 def human_attackers_appliance_layout():
     return html.Div([
+        
+        node_navigation("Human Attacker Analysis"),
+        
         html.H1("Human Attacker Data Analysis", style={"paddingBottom": "50px"}),
         html.H2("Appliance Node"),
         html.Div([

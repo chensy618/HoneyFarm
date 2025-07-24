@@ -17,7 +17,8 @@ from components import (
     calculate_cronbach_by_emotion,
     correlation_heatmap_emotion_q13_17,
     multivariate_regression_behavioral,
-    plot_behavioral_perception_fit
+    plot_behavioral_perception_fit,
+    node_navigation
 )
 
 
@@ -27,6 +28,9 @@ def user_study_layout():
     questionnaire_columns = df.columns.tolist()
     # print("Questionnaire Columns:", questionnaire_columns)
     return html.Div([
+        
+        node_navigation("User Study"),
+        
         html.H1("Honeyfarm User Study Dashboard"),
         
         html.H2("Descriptive Statistics"),

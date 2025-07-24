@@ -16,7 +16,8 @@ from components import (
     ip_duration_table,
     top_10_duration_ips_table,
     #personality_traits_bar,
-    most_requested_endpoints_table   
+    most_requested_endpoints_table,
+    node_navigation   
 )
 
 def lighting_layout():
@@ -25,6 +26,7 @@ def lighting_layout():
 
     def two_column_block(left_title, left_component, right_title, right_component):
         return html.Div([
+
             html.Div([
                 html.H3(left_title),
                 left_component
@@ -42,7 +44,9 @@ def lighting_layout():
         })
 
     return html.Div([
-        html.H1("Appliance Node Dashboard"),
+        node_navigation("Lighting"),
+        
+        html.H1("Lighting Node Dashboard"),
 
         two_column_block(
             "Top 15 Commands", dcc.Graph(figure=top_command_bar(df)),

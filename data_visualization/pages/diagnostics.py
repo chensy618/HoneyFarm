@@ -16,7 +16,8 @@ from components import (
     ip_duration_table,
     top_10_duration_ips_table,
     #personality_traits_bar,
-    most_requested_endpoints_table   
+    most_requested_endpoints_table,
+    node_navigation   
 )
 
 def diagnostics_layout():
@@ -42,7 +43,10 @@ def diagnostics_layout():
         })
 
     return html.Div([
-        html.H1("Appliance Node Dashboard"),
+        
+        node_navigation("Diagnostics"),
+        
+        html.H1("Diagnostics Node Dashboard"),
 
         two_column_block(
             "Top 15 Commands", dcc.Graph(figure=top_command_bar(df)),

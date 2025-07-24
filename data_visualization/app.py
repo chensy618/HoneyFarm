@@ -22,7 +22,6 @@ app.layout = html.Div([
     html.Div(id="page-content")
 ], style={
     "fontFamily": "Arial, sans-serif",
-    # "backgroundImage": "url('./data_visualization/assets/dashboard_bg.png')",
     "backgroundSize": "cover",
     "backgroundPosition": "center",
     "minHeight": "100vh",
@@ -46,45 +45,80 @@ def display_page(pathname):
         return routes[pathname]()
 
     return html.Div([
+        
+        
         html.Div([
             html.Img(src=f"data:image/png;base64,{icon_data}", style={"width": "240px", "marginBottom": "30px"}),
             html.H1("HoneyFarm Data Analysis Dashboard", style={"color": "#91572b"}),
-            # html.H3("Select a Node to View:", style={"color": "#91572b"})
         ], style={"textAlign": "center", "marginBottom": "40px"}),
 
+        # first row with Overview, Appliance, Lighting, Thermostat, and Diagnostics
         html.Div([
-            create_node_card("Overview", "/overview"),
-            create_node_card("Appliance", "/appliance"),
-            create_node_card("Lighting", "/lighting"),
-            create_node_card("Thermostat", "/thermostat"),
-            create_node_card("Diagnostics", "/diagnostics"),
-            create_node_card("Snare", "/snare"),
-            create_node_card("Miniprint", "/miniprint"),
-            create_node_card("User Study", "/user_study"),
-            create_node_card("Human Attacker Analysis", "/human_attacker"),
+            html.Div([
+                create_node_card("Overview", "/overview"),
+                create_node_card("Appliance", "/appliance"),
+                create_node_card("Lighting", "/lighting"),
+                create_node_card("Thermostat", "/thermostat"),
+                create_node_card("Diagnostics", "/diagnostics"),
+            ], style={
+                "display": "grid",
+                "gridTemplateColumns": "repeat(5, 1fr)",
+                "gap": "20px"
+            })
         ], style={
             "display": "flex",
-            "flexWrap": "wrap",
             "justifyContent": "center",
-            "gap": "24px"
+            "marginBottom": "40px"
+        }),
+
+        # second row with Snare, Miniprint, User Study, and Human Attacker
+        html.Div([
+            html.Div([
+                create_node_card("Snare", "/snare"),
+                create_node_card("Miniprint", "/miniprint"),
+                create_node_card("User Study", "/user_study"),
+                create_node_card("Attacker Analysis", "/human_attacker")
+            ], style={
+                "display": "grid",
+                "gridTemplateColumns": "repeat(4, 1fr)",
+                "gap": "20px"
+            })
+        ], style={
+            "display": "flex",
+            "justifyContent": "center"
         })
+
     ])
+
 
 def create_node_card(label, href):
     return html.Div([
-        html.Div(label, style={"fontSize": "22px", "fontWeight": "bold", "marginBottom": "8px"}),
-        dcc.Link("Enter Dashboard", href=href, style={"color": "#fff", "textDecoration": "underline", "fontSize": "15px"})
+        html.Div(label, style={
+            "fontSize": "30px",
+            "fontWeight": "700",
+            "marginBottom": "25px",  # add margin for spacing
+        }),
+        dcc.Link("Enter Dashboard", href=href, style={
+            "color": "#fff",
+            "textDecoration": "underline",
+            "fontSize": "16px"
+        })
     ], style={
         "width": "220px",
         "height": "130px",
         "backgroundColor": "#2980b9",
         "color": "white",
-        "borderRadius": "16px",
-        "boxShadow": "0px 8px 20px rgba(0,0,0,0.15)",
-        "padding": "24px 16px",
+        "borderRadius": "12px",
+        "boxShadow": "0px 6px 16px rgba(0,0,0,0.12)",
+        "padding": "16px 12px",
         "textAlign": "center",
+        "display": "flex",
+        "flexDirection": "column",
+        "justifyContent": "center",
+        "alignItems": "center",   # center text and link
         "transition": "transform 0.2s ease-in-out",
         "cursor": "pointer"
     })
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8050, debug=True)

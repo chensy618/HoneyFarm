@@ -12,7 +12,8 @@ from components import (
     miniprint_job_detail_table,
     miniprint_merged_table,
     miniprint_event_type_bar_with_line,
-    miniprint_event_type_pie
+    miniprint_event_type_pie,
+    node_navigation
 )
 
 
@@ -26,6 +27,9 @@ def miniprint_layout():
     # print("Total points with geo info:", df.dropna(subset=["latitude", "longitude"]).shape[0])
 
     return html.Div([
+
+        node_navigation("Miniprint"),
+        
         html.H1("Miniprint Node Dashboard"),
         
         html.Div([
