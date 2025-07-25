@@ -69,7 +69,7 @@ def appliance_layout():
         ),
 
         html.Div([
-        html.H3("Most Requested Endpoints"),
+        html.H3("Most Requested Honeytokens"),
         most_requested_endpoints_table(df)
          ], style={"padding": "20px 5%", "maxWidth": "90%", "margin": "0 auto"}),
 

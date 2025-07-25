@@ -133,6 +133,8 @@ def top_ip_pie(df):
     ip_count = df["src_ip"].value_counts().head(10).reset_index()
     ip_count.columns = ["src_ip", "count"]
 
+    ip_count["src_ip"] = ip_count["src_ip"].apply(lambda ip: ".".join(ip.split(".")[:3]) + ".xx")
+    
     fig = px.pie(
         ip_count,
         names="src_ip",
@@ -221,6 +223,7 @@ def ip_duration_table(df):
     ).dt.total_seconds().round(1)
 
     merged.rename(columns={"src_ip": "IP Address"}, inplace=True)
+    merged["IP Address"] = merged["IP Address"].apply(lambda ip: ".".join(ip.split(".")[:3]) + ".xx")
     merged = merged[["IP Address", "duration_sec"]].copy()
     merged.columns = ["IP Address", "Duration (seconds)"]
 
@@ -268,6 +271,8 @@ def top_10_duration_ips_table(df):
 
     grouped["duration_sec"] = grouped["duration_sec"].round(1)
     grouped.columns = ["IP Address", "Total Duration (seconds)"]
+    grouped["IP Address"] = grouped["IP Address"].apply(lambda ip: ".".join(ip.split(".")[:3]) + ".xx")
+
 
     return html.Div([
         dash_table.DataTable(
@@ -296,7 +301,8 @@ def latest_commands_table(df):
             .to_dict()
         )
         df["src_ip"] = df["session"].map(session_ip_map)
-
+    if "src_ip" in df.columns:
+        df["src_ip"] = df["src_ip"].apply(lambda ip: ".".join(ip.split(".")[:3]) + ".xx" if pd.notna(ip) else ip)
     # Drop rows with empty input
     filtered_df = df[df["input"].notna() & df["input"].str.strip().ne("")].copy()
 
@@ -496,6 +502,7 @@ def geo_heatmap(df):
 
 def miniprint_top_ip_pie(df):
     ip_df = df[df["src_ip"].notna()]
+    ip_df["src_ip"] = ip_df["src_ip"].apply(lambda ip: ".".join(ip.split(".")[:3]) + ".xx")
     top_ips = ip_df["src_ip"].value_counts().nlargest(10).reset_index()
     top_ips.columns = ["src_ip", "count"]
     fig = px.pie(top_ips, names="src_ip", values="count", title="Top 10 Source IPs")
@@ -619,7 +626,9 @@ def miniprint_merged_table(df):
         lambda row: get_job_text(row) if row["event"] == "append_raw_print_job" else get_file_content(row), axis=1
     )
     filtered_df["Job Length"] = filtered_df.apply(get_job_length, axis=1)
-
+    filtered_df["src_ip"] = filtered_df["src_ip"].apply(
+        lambda ip: ".".join(ip.split(".")[:3]) + ".xx" if pd.notna(ip) else ip
+    )
     # Build DataFrame
     merged = filtered_df[["timestamp", "src_ip", "event", "File Name", "Job Length", "Content"]].copy()
     merged.columns = ["Timestamp", "Source IP", "Event", "File Name", "Job Length", "Content"]
@@ -772,6 +781,9 @@ def miniprint_geo_heatmap(df):
 def snare_err_top_ip_table(df):
     ip_counts = df["src_ip"].value_counts().reset_index()
     ip_counts.columns = ["IP Address", "Count"]
+    ip_counts["IP Address"] = ip_counts["IP Address"].apply(
+        lambda ip: ".".join(ip.split(".")[:3]) + ".xx" if pd.notna(ip) else ip
+    )
     total = ip_counts["Count"].sum()
     ip_counts["Share (%)"] = (ip_counts["Count"] / total * 100).round(1).astype(str) + "%"
 
@@ -899,7 +911,10 @@ def snare_log_status_table(df):
         lambda row: "N/A" if row["source"] == "snare.server" else row.get("src_ip", "None"),
         axis=1
     )
-
+    
+    df["src_ip"] = df["src_ip"].apply(
+        lambda ip: ".".join(ip.split(".")[:3]) + ".xx" if pd.notna(ip) and ip != "N/A" else ip
+    )
     # intercept message
     df["msg"] = df["msg"].apply(lambda x: x[:250] + "..." if isinstance(x, str) and len(x) > 250 else x)
 
@@ -960,7 +975,7 @@ def snare_log_top_ip_pip_chart(df):
     # exclude NaN and "None" values
     filtered_ips = df['src_ip'].dropna()
     filtered_ips = filtered_ips[filtered_ips != "None"]
-
+    filtered_ips = filtered_ips.apply(lambda ip: ".".join(ip.split(".")[:3]) + ".xx")
     top_ips = filtered_ips.value_counts().nlargest(10)
 
     fig = px.pie(
@@ -1084,6 +1099,10 @@ def snare_log_attack_frequency(df):
 def tanner_log_table(df):
     cols = ["timestamp", "src_ip", "path", "uuid", "detection_name", "detection_type", "status"]
     df = df[cols].copy()
+    
+    df["src_ip"] = df["src_ip"].apply(
+        lambda ip: ".".join(ip.split(".")[:3]) + ".xx" if pd.notna(ip) else ip
+    )
 
     return html.Div([
         html.H3("Tanner Log Summary Table"),
@@ -2360,7 +2379,7 @@ def human_ip_duration_table(df):
         .reset_index()
     )
 
-    grouped["src_ip"] = grouped["src_ip"].apply(lambda ip: ".".join(ip.split(".")[:2]) + ".xx.xx")
+    grouped["src_ip"] = grouped["src_ip"].apply(lambda ip: ".".join(ip.split(".")[:3]) + ".xx")
 
     # Rename columns for display
     grouped = grouped.rename(columns={"src_ip": "IP Address", "time_spent": "Total Duration (seconds)"})
@@ -2390,7 +2409,7 @@ def human_latest_commands_table(df):
 
     # Anonymize IPs
     df_filtered["src_ip"] = df_filtered["src_ip"].apply(
-        lambda ip: ".".join(ip.split(".")[:2]) + ".xx.xx"
+        lambda ip: ".".join(ip.split(".")[:3]) + ".xx"
     )
 
     display_cols = ["timestamp", "src_ip", "username", "command"]
@@ -2485,7 +2504,7 @@ def common_ip_summary(dfs):
     # keep only IPs that appear in at least 2 nodes
     filtered_ip_info = [
         {
-            "IP Address": ip,
+            "IP Address": ".".join(ip.split(".")[:3]) + ".xx",
             "Appeared in Nodes": len(nodes),
             "Nodes": ", ".join(custom_node_sort(nodes))  # keep snare first if present
         }
