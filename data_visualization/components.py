@@ -2840,7 +2840,7 @@ def common_access_resources_table(node_dfs: dict):
         table_components.append(
             html.Div([
                 html.H3(
-                    f"{node_name} - Accessed Endpoints",
+                    f"{node_name} - Accessed Resources",
                     style={
                         "textAlign": "center",
                         "fontWeight": "bold",
