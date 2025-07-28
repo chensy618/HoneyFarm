@@ -5,14 +5,14 @@
 ACTIONS_TO_COMMANDS = {
     "A1": {"alias", "bash", "busybox", "sh","./script.sh"},
     "A2": {},
-    "A3": {},
+    "A3": {"ls","ll","iptables","ip6tables"},
     "A4": {"dd", "ethtool"},
     "A5": {"passwd", "chpasswd"},
     "A6": {},
     "A7": {"ifconfig", "ip", "route", "netstat", "ss", "iptables", "ip6tables"},
     "A8": {"nc", "nmap", "ping", "telnet", "traceroute"},
     "A9": {"awk", "cat", "locate", "uniq", "wc", "grep", "tail", "head"},
-    "A10": {},
+    "A10": {"ping","ssh","curl","wget"},
     "A11": {"rm", "mv", "rmdir", "unset", "kill", "killall", "pkill", "killall5"},
     "A12": {"curl", "ftpget", "tftp", "wget"},
     "A13": {"apt", "gcc", "yum"},
@@ -21,11 +21,12 @@ ACTIONS_TO_COMMANDS = {
     "A16": {"git", "tee", "mkdir", "touch", "vi", "nano", "vim", "emacs", "do", "done", "echo"},
     "A17": {"unmask", "unset", "rm", "mv", "history ", "shred", "wipe", "logroate", "umount"},
     "A18": {"crontab", "nc", "nohup", "perl", "python"},
-    "A19": {"uname", "uptime", "hostnamectl", "cat"},
-    "A20": {"cat", "env", "free", "iptables", "lspci", "service", "uptime", "which", "whoami", "jobs", "ps"},
+    "A19": {"uname", "uptime", "hostnamectl"},
+    "A20": {"env", "free", "iptables", "lspci", "service", "uptime", "which", "whoami", "jobs", "ps"},
     "A21": {"ethtool", "ifconfig", "netstat", "ping"},
     "A22": {"finger", "groups", "last"},
 }
+
 
 # Automatically generate Command → Action mapping
 COMMAND_TO_ACTION = {}
