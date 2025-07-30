@@ -10,6 +10,7 @@ from __future__ import annotations
 from cowrie.core.config import CowrieConfig
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.personality_profile.profile import Personality
+from cowrie.emotional_state.emotions import Emotion
 from cowrie.personality_profile.profile import session_personality_response
 
 
