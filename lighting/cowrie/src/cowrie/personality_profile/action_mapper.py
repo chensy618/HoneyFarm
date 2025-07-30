@@ -23,7 +23,7 @@ ACTIONS_TO_COMMANDS = {
     "A18": {"crontab", "nc", "nohup", "perl", "python"},
     "A19": {"uname", "uptime", "hostnamectl"},
     "A20": {"env", "free", "iptables", "lspci", "service", "uptime", "which", "whoami", "jobs", "ps"},
-    "A21": {"ethtool", "ifconfig", "netstat", "ping"},
+    "A21": {"ethtool", "netstat"},
     "A22": {"finger", "groups", "last"},
 }
 
