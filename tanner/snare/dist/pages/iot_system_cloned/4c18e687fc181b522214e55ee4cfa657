@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" name="github-repo">
+<meta content="20.123.44.15:9100" name="api-printer">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<title>Smart Home</title>
+<!-- Bootstrap core CSS -->
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- Additional CSS Files -->
+<link href="/assets/css/fontawesome.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+</link></meta></meta></head>
+<body>
+<div class="notification" id="notification"></div>
+<!-- ***** Preloader Start ***** -->
+<div class="js-preloader" id="js-preloader">
+<div class="preloader-inner">
+<span class="dot"></span>
+<div class="dots">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</div>
+<!-- ***** Preloader End ***** -->
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+<div class="container">
+<div class="row">
+<div class="col-12">
+<nav class="main-nav">
+<!-- ***** Logo Start ***** -->
+<a class="logo" href="/dashboard.html">
+<h5 style="color: black">Home</h5>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<!-- ***** Header Area End ***** -->
+<div class="main-banner" id="top">
+<div class="container"><br/>
+<div class="item item-7">
+<div class="header-text">
+<h2 style="margin-bottom: 5px; ">Printer</h2>
+<div class="printer-container">
+<div class="printer-box">
+<div class="icon"><i class="fas fa-print"></i></div>
+<h3>Printer</h3>
+<p class="status online" id="printer-status" style="color:#8d3846;">Online</p>
+<div class="ink-level">
+<label>Ink Level:</label>
+<div class="ink-bar">
+<div class="ink-fill" style="width: 83%;"></div>
+</div>
+<span>83%</span>
+</div>
+<p id="print-queue" style="color:#8d3846">0 jobs pending</p>
+<form id="print-form" onsubmit="handlePrint(event)">
+<div class="file-upload">
+<input id="print-file" onchange="updateFileLabel()" type="file"/>
+</div>
+<button type="submit">Send to Printer</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="background-color: #C4A4847b; width: 100vw; height: 100vh;"></div>
+
+<script>
+
+// fix printer job language error, update driver to latest at: 20.123.44.15:9100 [14/02/2025]
+
+function printer_connect(filename, status){
+  console.log("Print request for: " + filename + "20.123.44.15:9100");
+
+  fetch('20.123.44.15:9100', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      filename: file.name,
+      status: 'sent'
+    })
+  })
+  .then(res => {
+    console.log("print job sent to server");
+  })
+  .catch(err => {
+    console.error("print error:", err);
+  });
+
+}
+
+
+function handlePrint(event) {
+
+  event.preventDefault();
+
+  const fileInput = document.getElementById("print-file");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("Please select a file before sending.");
+    return;
+  }
+
+  let jobCount = parseInt(localStorage.getItem("printer-jobs") || "0") + 1;
+  document.getElementById("print-queue").textContent = `${jobCount} job${jobCount === 1 ? '' : 's'} sent`;
+
+  showNotification("Print job sent to printer");
+  
+
+  document.getElementById("print-form").reset();
+}
+function showNotification(message) {
+  const notification = document.getElementById("notification");
+  notification.textContent = message;
+  notification.classList.add("show");
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+  }, 2800);
+}
+window.addEventListener("DOMContentLoaded", () => {
+  const jobCount = parseInt(localStorage.getItem("printer-jobs") || "0");
+  if (jobCount > 0) {
+    document.getElementById("print-queue").textContent = `${jobCount} job${jobCount === 1 ? '' : 's'} sent`;
+  }
+});
+
+
+</script>
+<!-- Scripts -->
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="https://github.com/uniquesmartsolutions/uniquesmartsolutions" name="github-repo">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<title>Smart Home</title>
+<!-- Bootstrap core CSS -->
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- Additional CSS Files -->
+<link href="/assets/css/fontawesome.css" rel="stylesheet"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="/assets/images/logo.png" rel="icon" sizes="16x16" type="image/png"/>
+</link></meta></head>
+<body>
+<!-- ***** Preloader Start ***** -->
+<div class="js-preloader" id="js-preloader">
+<div class="preloader-inner">
+<span class="dot"></span>
+<div class="dots">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</div>
+<!-- ***** Preloader End ***** -->
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+<div class="container">
+<div class="row">
+<div class="col-12">
+<nav class="main-nav">
+<!-- ***** Logo Start ***** -->
+<a class="logo" href="/dashboard.html">
+<h5 style="color: black">Dashboard</h5>
+</a>
+</nav>
+<div style="text-align: right">
+<small> <a href="/index.html" style="color: black">Logout</a> </small>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ***** Header Area End ***** -->
+<div class="main-banner" id="top">
+<div class="container"><br/>
+<div class="item item-7">
+<div class="header-text">
+<br/><h2 style="margin-bottom: 5px; ">HELLO, DAVID</h2>
+<h3 style="color: white;">WELCOME TO YOUR SMART HOME!</h3><br/>
+<b><p> </p></b><br/>
+<b><p> </p></b><br/>
+<div class="control-panel">
+<a class="control-button" href="/lighting.html"><i class="fas fa-lightbulb"></i><span>Lights</span></a>
+<a class="control-button" href="/thermostat.html"><i class="fas fa-thermometer-half"></i><span>Thermostat</span></a>
+<a class="control-button" href="/appliances.html"><i class="fas fa-plug"></i><span>Appliances</span></a>
+<a class="control-button" href="/printer.html"><i class="fas fa-print"></i><span>Printer</span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="background-color: #C4A4847b; width: 100vw; height: 100vh;"></div>
+
+<!-- Scripts -->
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/custom.js"></script>
+</body>
+</html>
