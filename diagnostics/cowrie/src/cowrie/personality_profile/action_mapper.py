@@ -5,8 +5,8 @@
 ACTIONS_TO_COMMANDS = {
     "A1": {"alias", "bash", "busybox", "sh","./script.sh"},
     "A2": {},
-    "A3": {"ls","ll","iptables","ip6tables"},
-    "A4": {"dd", "ethtool"},
+    "A3": {"ls","ll","iptables","ip6tables", "base", "base64"},
+    "A4": {},
     "A5": {"passwd", "chpasswd"},
     "A6": {},
     "A7": {"ifconfig", "ip", "route", "netstat", "ss", "iptables", "ip6tables"},

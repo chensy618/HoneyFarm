@@ -2,7 +2,7 @@
 
 # Mapping from personality trait to associated A# actions
 PERSONALITY_TRAITS = {
-    "Openness to Experience": {"A4", "A7", "A15", "A21", "A22"},
+    "Openness to Experience": {"A7", "A15", "A21", "A22"},
     "Conscientiousness": {"A5", "A10", "A15", "A20"},
     "Low Extraversion": {"A3", "A7", "A15"},
     "Low Agreeableness": {"A11", "A13"},
