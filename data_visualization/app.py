@@ -71,11 +71,11 @@ def display_page(pathname):
             "marginBottom": "40px"
         }),
 
-        # second row with Snare, Miniprint, User Study, and Human Attacker
+        # second row with SNARE, MiniPrint, User Study, and Human Attacker
         html.Div([
             html.Div([
-                create_node_card("Snare", "/snare"),
-                create_node_card("Miniprint", "/miniprint"),
+                create_node_card("SNARE", "/snare"),
+                create_node_card("MiniPrint", "/miniprint"),
                 create_node_card("User Study", "/user_study"),
                 create_node_card("Attacker Analysis", "/human_attacker")
             ], style={

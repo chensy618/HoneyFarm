@@ -28,10 +28,10 @@ def miniprint_layout():
 
     return html.Div([
 
-        node_navigation("Miniprint"),
-        
-        html.H1("Miniprint Node Dashboard"),
-        
+        node_navigation("MiniPrint"),
+
+        html.H1("MiniPrint Node Dashboard"),
+
         html.Div([
             html.Div([
                 html.H3("Event Type Distribution"),
@@ -78,7 +78,7 @@ def miniprint_layout():
         ], style={"padding": "20px 5%"}),
         
         html.Div([
-            html.H1("Miniprint Job Analysis"),
+            html.H1("MiniPrint Job Analysis"),
             # miniprint_job_table(df),
             # miniprint_job_detail_table(df),  # detailed job content
             miniprint_merged_table(df)  # summarized table

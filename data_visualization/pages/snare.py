@@ -55,11 +55,11 @@ def snare_layout():
 
     return html.Div([
         
-        node_navigation("Snare"),
-        
-        html.H1("Snare Node Dashboard"),
+        node_navigation("SNARE"),
 
-        html.H2("Section 1: Snare Log Analysis (snare.log)"),
+        html.H1("SNARE Node Dashboard"),
+
+        html.H2("Section 1: SNARE Log Analysis (snare.log)"),
         # add pie chart for top source IPs
         html.Div([
             html.Div(snare_log_top_ip_pip_chart(df), style={"width": "48%", "display": "inline-block"}),
@@ -82,7 +82,7 @@ def snare_layout():
             html.Div(snare_log_status_table(df), style={"width": "100%", "display": "inline-block"})
         ], style={"padding": "20px 5%"}),
 
-        html.H2("Section 2: Snare Error Analysis (snare.err)"),
+        html.H2("Section 2: SNARE Error Analysis (snare.err)"),
         html.Div([
             html.Div(snare_err_top_ip_table(df_err), style={"width": "48%", "display": "inline-block"}),
             html.Div(snare_err_path_table(df_err), style={"width": "48%", "display": "inline-block", "float": "right"})
@@ -92,7 +92,7 @@ def snare_layout():
             snare_err_attack_frequency(df_err)
         ], style={"padding": "0 5%"}),
         
-        html.H2("📘 Section 3: Tanner Log Analysis"),
+        html.H2("📘 Section 3: TANNER Log Analysis"),
         html.Div([
             tanner_log_table(tanner_log_df)
         ], style={"padding": "20px 5%"}),
@@ -103,7 +103,7 @@ def snare_layout():
         ], style={"padding": "20px 5%"}),
 
 
-        html.H2("📘 Section 4: Tanner Error Analysis"),
+        html.H2("📘 Section 4: TANNER Error Analysis"),
         html.Div([
             tanner_err_type_pie_chart(tanner_err_df)
         ], style={"padding": "20px 5%"}),

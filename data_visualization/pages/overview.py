@@ -61,12 +61,12 @@ def overview_layout():
     miniprint_df = enrich_geo(miniprint_df)
 
     dfs_dict = {
-        "Snare": snare_df,
+        "SNARE": snare_df,
         "Appliance": appliance_df,
         "Lighting": lighting_df,
         "Thermostat": thermostat_df,
         "Diagnostics": diagnostics_df,
-        "Miniprint": miniprint_df,
+        "MiniPrint": miniprint_df,
     }
 
     df_list = list(dfs_dict.values())

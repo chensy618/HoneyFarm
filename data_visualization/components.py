@@ -2457,7 +2457,7 @@ def interaction_bar_chart(node_dfs: dict):
         "Lighting": "#EF553B",      
         "Thermostat": "#00CC96",    
         "Diagnostics": "#AB63FA",   
-        "Snare": "#FFA15A",         
+        "SNARE": "#FFA15A",         
         "Miniprint": "#19D3F3"      
     }
     fig = px.bar(
@@ -2964,8 +2964,8 @@ def node_navigation(current_node: str):
         "Lighting": "/lighting",
         "Thermostat": "/thermostat",
         "Diagnostics": "/diagnostics",
-        "Snare": "/snare",
-        "Miniprint": "/miniprint",
+        "SNARE": "/snare",
+        "MiniPrint": "/miniprint",
         "User Study": "/user_study",
         "Human Attacker Analysis": "/human_attacker"
     }
