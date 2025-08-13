@@ -173,8 +173,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         printer = Printer(logger)
         emptyRequest = False
         # Simulate JetDirect greeting banner
-        banner = b"\x1b%-12345X@PJL\r\nINFO ID\r\nHP LaserJet 4250\r\n\x1b%-12345X"
-        self.request.sendall(banner)
+        banner_text = "\x1b%-12345X@PJL\r\nINFO ID\r\nPrinter ready to receive jobs from the dashboard on 20.123.44.15:80\r\n\x1b%-12345X"
+        self.request.sendall(banner_text.encode("utf-8"))
+
         while emptyRequest == False:
             # Wait a maximum of conn_timeout seconds for another request
             ready = select.select([self.request], [], [], conn_timeout)
