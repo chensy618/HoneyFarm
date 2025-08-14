@@ -99,7 +99,7 @@ A customised data analysis dashboard was developed using Plotly Dash, a Python b
  <img width="541" height="404" alt="lighting_top_commands" src="https://github.com/user-attachments/assets/84940581-2134-44e9-83b8-b629557ea79b" />
 
 
-Top username and IP on the lighting node:
+*Top username and IP on the lighting node:
 
  <img width="1225" height="458" alt="lighting_username+IP_summary" src="https://github.com/user-attachments/assets/3a99bda5-41ae-4084-a726-8b87191df4db" />
 
