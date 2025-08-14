@@ -84,14 +84,3 @@ The project aims to improve IoT security through **cyber psychology deception-ba
   * Time to compromise
 * **Visualization Examples:**
   *Insert plots, dashboards, or screenshots from Grafana/Kibana here.*
-
-
----
-
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-If you’d like, I can make you an **ASCII-style HoneyFarm architecture diagram** that you can drop right into this README as a placeholder before you add the final graphic. That would make the repo look “alive” even before the real diagram is ready. Would you like me to do that?
