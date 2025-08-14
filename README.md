@@ -13,8 +13,8 @@ The project aims to improve IoT security through **cyber psychology deception-ba
 
 * **Components:**
 
-  * Honeypots for various IoT device emulations.
-  * Central management & orchestration system.
+  * Honeypots for various IoT device emulations, such as SSH/Telnet on Cowrie, HTTP on SNARE, PJL on MiniPrint.
+  * Upgraded with psychological enhancements such as tailored responses aimed at exploiting emotional states of an attacker after identifying a personality trait based on the latter's command execution sequence. Furthermore, several cognitive biases are also incorporated throughout the system 
   * Data collection and storage pipeline.
   * Threat intelligence and analytics modules.
 * **Diagram:**
