@@ -86,6 +86,33 @@ A customised data analysis dashboard was developed using Plotly Dash, a Python b
   * Number of unique human attackers
   * Command execution sequence analysis
   * Average time spent on honeypot
+  
 * **Visualization Examples:**
-<img width="729" height="452" alt="interactions" src="https://github.com/user-attachments/assets/b12f9b2c-bd8f-40e9-8793-ed6e49f40748" />
+
+  * Total interactions per honeypot:
+  
+ <img width="729" height="452" alt="interactions" src="https://github.com/user-attachments/assets/b12f9b2c-bd8f-40e9-8793-ed6e49f40748" />
+
+
+ * Top commands used on the lighting node:
+
+ <img width="541" height="404" alt="lighting_top_commands" src="https://github.com/user-attachments/assets/84940581-2134-44e9-83b8-b629557ea79b" />
+
+
+Top username and IP on the lighting node:
+
+ <img width="1225" height="458" alt="lighting_username+IP_summary" src="https://github.com/user-attachments/assets/3a99bda5-41ae-4084-a726-8b87191df4db" />
+
+
+* **Human Attacker Interaction:**
+
+* Interaction data:
+  
+ <img width="658" height="116" alt="Screenshot 2025-08-14 at 15 41 18" src="https://github.com/user-attachments/assets/19223840-c4b9-402a-b9dd-5ba1a628468f" />
+
+* Username and passwords used:
+
+  <img width="3182" height="1419" alt="username+password-human" src="https://github.com/user-attachments/assets/83b2a714-156a-4c8a-ba7b-4ec5f3e468b8" />
+
+
 
