@@ -9,7 +9,8 @@ The project aims to improve IoT security through **cyber psychology deception-ba
 
 ## 🏗 Architecture
 
-> *Placeholder — Insert diagrams and explanations of the HoneyFarm system architecture here.*
+<img width="1163" height="895" alt="Implementation_overview_4" src="https://github.com/user-attachments/assets/56d24d05-a89f-4402-b9d2-85f4263152df" />
+
 
 * **Components:**
 
@@ -18,9 +19,10 @@ The project aims to improve IoT security through **cyber psychology deception-ba
   * Data collection and storage pipeline.
   * Threat intelligence and analytics modules.
 * **Diagram:**
-  *Add a high-level architecture diagram (e.g., using Mermaid, Draw\.io, or Lucidchart) here.*
+<img width="10063" height="6063" alt="decoy farm-design" src="https://github.com/user-attachments/assets/812acf62-3a4b-4cbd-8c90-69d7d12b70e4" />
+
 * **Design Notes:**
-  *Explain the data flow, interaction between honeypots, and network segmentation.*
+  The Cowrie nodes are configured to respond according to an a personality trait based on an attackers command execution sequence. The responses are tailored to evoke emotions such as CONFIDENCE, SURPRISE, CONFUSION, FRUSTRATION, SELF_DOUBT. Moreover, the layout and structure of the SSH and Telnet honeypot is configured to mimic a realistic IoT server with fake third party software toolkit and notes. The website is developed to represent the dashboard of a smart home IoT environment and serves as the control center for the devices. In the source code there are cues and fake scripts communicating with SSH/Telnet, and PJL servers, that aim to enhance the illusion of interconnetivity.
 
 ---
 
