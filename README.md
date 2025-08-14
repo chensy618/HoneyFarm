@@ -67,7 +67,11 @@ The project aims to improve IoT security through **cyber psychology deception-ba
 
 ## 📊 Data Analysis & Threat Intelligence
 
-> *Placeholder — Add your data analysis process, tools, and findings here.*
+A customised data analysis dashboard was developed using Plotly Dash, a Python based web framework for interactive data visualization.
+
+![Dashboard_home_page](https://github.com/user-attachments/assets/af7301bf-b52a-4b32-833b-30767848b073)
+
+
 
 * **Data Collection:**
 
