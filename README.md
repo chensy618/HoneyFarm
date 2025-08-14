@@ -40,7 +40,7 @@ This section explains how to set up and run the HoneyFarm (SNARE + Cowrie varian
   1. Clone the repository:
 
      ```bash
-     git clone https://github.com/chensy618/honeyfarm.git
+     git clone https://github.com/chensy618/HoneyFarm.git
      cd honeyfarm
      ```
   2. Build & run:
