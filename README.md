@@ -28,42 +28,100 @@ The project aims to improve IoT security through **cyber psychology deception-ba
 
 ## 🚀 Deployment
 
-> *Placeholder — Add deployment instructions and environment setup details here.*
+This section explains how to set up and run the HoneyFarm (SNARE + Cowrie variants + Miniprint) using Docker Compose.
 
 * **Prerequisites:**
 
-  * Docker / Kubernetes
-  * Python 3.x
-  * \[List other dependencies here]
+  * Docker (and Docker Compose)
+  * Python 3.9+
+  * Git
 * **Steps:**
 
   1. Clone the repository:
 
      ```bash
-     git clone https://github.com/your-username/honeyfarm-iot.git
-     cd honeyfarm-iot
+     git clone https://github.com/chensy618/honeyfarm.git
+     cd honeyfarm
      ```
-  2. Configure environment variables:
+  2. Build & run:
 
      ```bash
-     cp .env.example .env
-     # Edit with your settings
+     docker-compose build
      ```
-  3. Deploy:
-
      ```bash
      docker-compose up -d
      ```
+  3. To run SNARE, navigate to the /tanner directory and execute the same build and run commands as described above.
+## ⚙️ Configuration Guide
 
-     *or* deploy to Kubernetes with:
-
-     ```bash
-     kubectl apply -f k8s/
-     ```
-* **Configuration Guide:**
-  *Describe how to adjust honeypot settings, network rules, and data sinks.*
+This section explains how to adjust **honeypot settings**, **network rules**, and **data sinks** for the current `docker-compose.yml`.
 
 ---
+
+### 1) Honeypot Settings
+
+#### Cowrie (all variants)
+- **Configuration location**  
+  - `...-etc` volumes → `/cowrie/cowrie-git/etc` (main config: `cowrie.cfg`, banners, honeytokens)  
+  - `...-var` volumes → `/cowrie/cowrie-git/var` (runtime data, logs)
+- **Common changes**  
+  - Change SSH/Telnet ports: adjust the `ports` mapping in `docker-compose.yml`
+  - Modify fake system identity: edit `hostname`, `prompt`, and `banner` in `cowrie.cfg`
+  - Update honeytokens: add/remove files in the honeytoken config to trigger alerts
+
+#### Miniprint
+- **Configuration location**  
+  - Bind mounts:  
+    - `./log/` → `/app/log/` (incoming print job logs)  
+    - `./uploads/` → `/app/uploads/` (uploaded files)
+- **Common changes**  
+  - Adjust exposed port in `docker-compose.yml` (`9100:9100`)
+  - Change log retention or processing by editing application code or log rotation settings
+
+---
+
+### 2) Network Rules
+
+- **Network definition**  
+  - All services are connected to a custom `honeynet` bridge network with a fixed subnet (`192.168.100.0/24`)
+  - Each service has a static IP (`ipv4_address`)
+- **Common changes**  
+  - Change `ipv4_address` for a service (must be unique within subnet)
+  - Update `ports` mapping to expose services on different host ports
+  - Restrict access using firewall rules (e.g., `ufw` or `iptables`) or cloud security groups
+
+---
+
+### 3) Data Sinks
+
+- **Local logging**  
+  - Cowrie logs: in the `...-var` volume under `/cowrie/cowrie-git/var/log/cowrie/`
+  - Miniprint logs: `./log/`
+- **SMTP alerts (for honeytokens)**  
+  - Controlled by the shared `x-environment` variables:
+    ```yaml
+    SMTP_FROM: "sender@example.com"
+    SMTP_TO: "recipient1@example.com,recipient2@example.com"
+    SMTP_USER: "sender@example.com"
+    SMTP_PASS: "app_password_here"
+    SMTP_SERVER: "smtp.example.com"
+    SMTP_PORT: "587"
+    ```
+  - Change `SMTP_TO` to update recipients
+- **External log forwarding**  
+  - Optionally add a logging/forwarding container (e.g., Filebeat, Logstash, Fluentd) and mount log volumes into it
+- **Webhook integration**  
+  - Extend application code or add sidecar containers to send alerts to Slack, Discord, or other endpoints
+
+---
+
+### 4) Testing Your Configuration
+
+- **SSH access**:
+  ```bash
+  ssh -p 2222 david@localhost
+  ssh -p 5900 david@localhost
+  ssh -p 5000 david@localhost
 
 ## 📊 Data Analysis & Threat Intelligence
 
