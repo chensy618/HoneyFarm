@@ -75,18 +75,17 @@ A customised data analysis dashboard was developed using Plotly Dash, a Python b
 
 * **Data Collection:**
 
-  * Packet captures
   * Log files from honeypots
-  * Syscalls and sensor data
+  * Interaction data analysis
+  * User study data analysis
 * **Analysis Tools:**
 
-  * Python (pandas, scikit-learn)
-  * ELK Stack
-  * Jupyter Notebooks
+  * Python (plotly, pandas, numPy)
 * **Metrics & KPIs:**
 
-  * Number of unique attackers
-  * Attack vectors frequency
-  * Time to compromise
+  * Number of unique human attackers
+  * Command execution sequence analysis
+  * Average time spent on honeypot
 * **Visualization Examples:**
-  *Insert plots, dashboards, or screenshots from Grafana/Kibana here.*
+<img width="729" height="452" alt="interactions" src="https://github.com/user-attachments/assets/b12f9b2c-bd8f-40e9-8793-ed6e49f40748" />
+
