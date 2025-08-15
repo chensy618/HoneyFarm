@@ -52,6 +52,7 @@ Before you begin, make sure you have the following installed:
      docker-compose up -d
      ```
   3. Run SNARE
+  
      The SNARE service requires a separate setup.
      Navigate to the /tanner directory and run the same commands:
      ```bash
