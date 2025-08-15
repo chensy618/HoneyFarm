@@ -66,7 +66,7 @@ Before you begin, make sure you have the following installed:
 
 ## ⚙️ Configuration Guide
 
-This section explains how to adjust **honeypot settings**, **network rules**, and **data sinks** for the current `docker-compose.yml`.
+This section explains how to adjust the configurations for **honeypot settings**, **network rules**, and **data sinks**.
 
 ---
 
