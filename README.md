@@ -150,7 +150,9 @@ A customised data analysis dashboard was developed using Plotly Dash, a Python b
 
 ![Dashboard_home_page](https://github.com/user-attachments/assets/af7301bf-b52a-4b32-833b-30767848b073)
 
+* **Launching the Dashboard:**
 
+  Navigate to the data_visualization directory, run app.py, and open http://localhost:8050 in your browser.
 
 * **Data Collection:**
 
