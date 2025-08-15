@@ -52,14 +52,13 @@ Before you begin, make sure you have the following installed:
      docker-compose up -d
      ```
   3. Run SNARE
-  
+
      The SNARE service requires a separate setup.
      Navigate to the /tanner directory and run the same commands:
      ```bash
      cd tanner
      docker-compose build
      docker-compose up -d
-    ```
 * **Notes:**
   * Use `docker-compose logs -f <service_name>` to view logs for a specific service.
   * Use `docker-compose stop` to stop all containers.
