@@ -21,7 +21,7 @@ from components import (
 )
 
 def thermostat_layout():
-    df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_thermostat.json")
+    df = load_and_process_log("./data_visualization/raw_data/merged/thermostat_exclude_filtered_ips.json")
     df = enrich_geo(df)
 
     def two_column_block(left_title, left_component, right_title, right_component):

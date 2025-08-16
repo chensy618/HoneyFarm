@@ -46,8 +46,10 @@ def country_charts_grid(dfs_dict):
 def overview_layout():
 
     appliance_df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_appliances.json")
-    lighting_df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_lighting.json")
-    thermostat_df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_thermostat.json")
+    # lighting_df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_lighting.json")
+    lighting_df = load_and_process_log("./data_visualization/raw_data/merged/lighting_exclude_filtered_ips.json")
+    # thermostat_df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_thermostat.json")
+    thermostat_df = load_and_process_log("./data_visualization/raw_data/merged/thermostat_exclude_filtered_ips.json")
     diagnostics_df = load_and_process_log("./data_visualization/raw_data/merged/filtered+merged_diagnostics.json")
     snare_df = load_snare_log_data("./data_visualization/raw_data/snare/snare.log")
     miniprint_df = load_miniprint_file("./data_visualization/raw_data/miniprint/miniprint_merged.json")
