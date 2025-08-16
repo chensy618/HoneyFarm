@@ -8,7 +8,7 @@ def count_unique_ips_with_honeytokens(log_file_path):
             try:
                 event = json.loads(line)
             except json.JSONDecodeError:
-                continue  # skip bad lines
+                continue 
             
             if event.get("eventid") == "cowrie.honeytoken":
                 src_ip = event.get("src_ip")
@@ -19,7 +19,7 @@ def count_unique_ips_with_honeytokens(log_file_path):
 
 
 if __name__ == "__main__":
-    log_path = "./data_visualization/raw_data/merged/filtered+merged_appliances.json"  # path to your JSON log file
+    log_path = "./data_visualization/raw_data/merged/filtered+merged_appliances.json" 
     count, ips = count_unique_ips_with_honeytokens(log_path)
     
     print(f"Number of unique IPs that accessed honeytokens: {count}")
