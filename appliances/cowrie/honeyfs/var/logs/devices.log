@@ -1,5 +1,5 @@
 -> Appliances node connected
 -> Receiving commands from the Dashboard [20.123.44.15:80]
--> In sync with Lighting node [20.123.44.15:5900]
--> In sync with Diagnostics node [20.123.44.15:23]
--> In sync with Thermostat node [20.123.44.15:5000]
+-> In sync with Lighting node [20.123.44.15:5900]-192.168.100.20
+-> In sync with Diagnostics node [20.123.44.15:23]-192.168.100.100
+-> In sync with Thermostat node [20.123.44.15:5000]-192.168.100.30
