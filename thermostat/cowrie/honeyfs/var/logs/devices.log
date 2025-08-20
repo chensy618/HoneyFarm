@@ -1,5 +1,5 @@
 -> Thermostat node connected [20:123:44:15:5000]
 -> Receiving commands from the Dashboard [20:123:44:15:80]
--> In sync with Appliance node [20:123:44:15:2222]
--> In sync with Diagnostics node [20:123:44:15:23]
--> Cannot establish communication with Lighting node [20:123:44:15:5900]
+-> In sync with Appliance node [20:123:44:15:2222]-192.168.100.10
+-> In sync with Diagnostics node [20:123:44:15:23]-192.168.100.100
+-> Cannot establish communication with Lighting node [20:123:44:15:5900]-192.168.100.20
