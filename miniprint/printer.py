@@ -261,7 +261,7 @@ class Printer:
 
     def command_info_status(self, request):
         self.logger.info("Client requests status", extra={'action': 'request', 'event': 'info_status'})
-        response = '@PJL INFO STATUS\r\nCODE=' + str(self.code) + '\r\nStandby="' + self.ready_msg + '"\r\nONLINE=' + str(self.online)
+        response = '@PJL INFO STATUS\r\nCODE={}\r\nStandby="{}"\r\nONLINE={}\r\nIP=192.168.100.150\r\nPORT=9100'.format(self.code, self.ready_msg, self.online)
         self.logger.info("Status response", extra={'action': 'response', 'event': 'info_status', 'response': str(response.encode('UTF-8'))})
         return response
 
